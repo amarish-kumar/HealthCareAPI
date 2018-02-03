@@ -51,7 +51,7 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Ninject">
-      <HintPath>..\..\..\..\OMCApi\OMC.Modules\bin\Debug\Ninject.dll</HintPath>
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="OMC.DAL.Library, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -211,9 +211,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
@@ -240,6 +238,9 @@
       <Project>{0a52e95c-6b70-4ef1-89fd-8a8ea9719b80}</Project>
       <Name>OMC.Modules</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
