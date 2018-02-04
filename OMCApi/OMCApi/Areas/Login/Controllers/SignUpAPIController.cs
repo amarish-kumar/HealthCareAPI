@@ -44,36 +44,28 @@ namespace OMCApi.Areas.Login.Controllers
         public IHttpActionResult PostUserSignUp([FromBody]UserSignUp userdetails)
         {
 
-            //CSR level validation
-            if (userdetails.UserType == 3)
-            {
-                ModelState["Gender"].Errors.Clear();
-                //ModelState.Remove("Gender");
-            }
-            if (userdetails.UserType == 1)
-            {
-                ModelState.Remove("Address");
-                ModelState.Remove("AlternateNo");
-            }
+            var SignUpResult = false;
+            var SignUpObj = _Kernel.Get<ISignUp>();
 
             if (!ModelState.IsValid)
             {
                 //return (IHttpActionResult)Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 return BadRequest(ModelState);
             }
-
-            var SignUpObj = _Kernel.Get<ISignUp>();
-            //HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, "value");
-            var SignUpValidation = SignUpObj.ValidateSignUpDetails(userdetails);
-
-            var SignUpResult = false;
-
-            if (SignUpValidation.ExceptionType == "Validation Success")
-            {
-                SignUpResult = SignUpObj.InitiateSignUpProcess(userdetails);
-            }
             else
-                return BadRequest(SignUpValidation.Message);
+                SignUpResult = SignUpObj.InitiateSignUpProcess(userdetails);
+
+            //HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, "value");
+            //var SignUpValidation = SignUpObj.ValidateSignUpDetails(userdetails);
+
+            //var SignUpResult = false;
+
+            //if (SignUpValidation.ExceptionType == "Validation Success")
+            //{
+            //    SignUpResult = SignUpObj.InitiateSignUpProcess(userdetails);
+            //}
+            //else
+            //    return BadRequest(SignUpValidation.Message);
 
             return Ok("Patient details saved");
             //return SignUpResult;

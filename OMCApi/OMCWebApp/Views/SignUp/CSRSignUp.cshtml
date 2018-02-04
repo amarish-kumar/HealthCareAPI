@@ -56,11 +56,11 @@ CSR SignUp
     </tr>
     <tr>
         <td> @Html.LabelFor(m => m.CallerUserID)</td>
-        <td> @Html.TextBoxFor(m => m.CallerUserID)</td>
+        <td> @Html.TextBoxFor(m => m.CallerUserID,new {@value = "1" })</td>
     </tr>
     <tr>
         <td> @Html.LabelFor(m => m.Password)</td>
-        <td> @Html.TextBoxFor(m => m.Password)</td>
+        <td> @Html.PasswordFor(m => m.Password)</td>
     </tr>
 
 </table>

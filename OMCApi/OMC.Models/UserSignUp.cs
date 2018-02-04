@@ -26,7 +26,7 @@ namespace OMC.Models
         [Required(ErrorMessage = "PhoneNumber required")]
         [RegularExpression(@"^(\d{10})$", ErrorMessage = "PhoneNumber is of wrong format")]
         public string PhoneNumber { get; set; }
-        [Required(ErrorMessage = "Gender required")]
+        [RequiredIf("UserType","1", ErrorMessage = "Gender required")]
         public string Gender { get; set; }
         [Required(ErrorMessage = "DOB required")]
         public string DOB { get; set; }
