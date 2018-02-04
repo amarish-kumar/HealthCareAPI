@@ -180,8 +180,9 @@ namespace OMC.DAL.Library
                             Body = reader["Body"] != DBNull.Value ? reader["Body"].ToString() : null,
                             Subject = reader["Subject"] != DBNull.Value ? reader["Subject"].ToString() : null,
                             EmailType = reader["EmailType"] != DBNull.Value ? reader["EmailType"].ToString() : null,
-                            SenderEmailAddress = reader["SenderEmailAddress"] != DBNull.Value ? reader["SenderEmailAddress"].ToString() : null,
-                            SenderEmailAddressPassword = reader["SenderEmailAddressPassword"] != DBNull.Value ? reader["SenderEmailAddressPassword"].ToString() : null
+                            SenderAccountId = reader["SenderAccountId"] != DBNull.Value ? reader["SenderAccountId"].ToString() : null,
+                            SenderAddress = reader["SenderAddress"] != DBNull.Value ? reader["SenderAddress"].ToString() : null,
+                            SenderPassword = reader["SenderPassword"] != DBNull.Value ? reader["SenderPassword"].ToString() : null
                         };
                     }
                 }
