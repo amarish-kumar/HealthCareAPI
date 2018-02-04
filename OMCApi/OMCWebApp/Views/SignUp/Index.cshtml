@@ -1,0 +1,52 @@
+﻿@model  OMC.Models.UserSignUp
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+Patient SignUp
+@using (Html.BeginForm("SaveSignUpDetails", "SignUp"))
+{
+    @Html.AntiForgeryToken()
+    <table>
+        <tr>
+            <td> @Html.LabelFor(m => m.EmailAddress)</td>
+            <td> @Html.TextBoxFor(m => m.EmailAddress)</td>
+        </tr>
+        <tr>
+            <td> @Html.LabelFor(m => m.FirstName)</td>
+            <td> @Html.TextBoxFor(m => m.FirstName)</td>
+        </tr>
+        <tr>
+            <td> @Html.LabelFor(m => m.LastName)</td>
+            <td> @Html.TextBoxFor(m => m.LastName)</td>
+        </tr>
+        <tr>
+            <td> @Html.LabelFor(m => m.DOB)</td>
+            <td> @Html.TextBoxFor(m => m.DOB)</td>
+        </tr>
+        <tr>
+            <td> @Html.LabelFor(m => m.Gender)</td>
+            <td> @Html.TextBoxFor(m => m.Gender)</td>
+        </tr>
+        <tr>
+            <td> @Html.LabelFor(m => m.Password)</td>
+            <td> @Html.TextBoxFor(m => m.Password)</td>
+        </tr>
+        <tr>
+            <td> @Html.LabelFor(m => m.PhoneNumber)</td>
+            <td> @Html.TextBoxFor(m => m.PhoneNumber)</td>
+        </tr>
+    </table>
+    @Html.HiddenFor(m => m.AlternateNo)
+    @Html.HiddenFor(m => m.EmergencyContactNo)
+    @Html.HiddenFor(m => m.EmergencyContactPerson)
+    @Html.HiddenFor(m => m.DLNumber)
+    @Html.HiddenFor(m => m.SSN)
+    @Html.HiddenFor(m => m.UserType)
+    @Html.HiddenFor(m=>m.Active)
+    <br />
+    <button type="submit">Save</button>
+}
+

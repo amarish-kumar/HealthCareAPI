@@ -1,0 +1,40 @@
+﻿@model  OMCWebApp.Models.GetAccessCodeModel
+    
+@{
+    ViewBag.Title = "Get Access Code";
+}
+
+<h2>Get Access Code</h2>
+@using (Html.BeginForm("GetAccessCode", "Login"))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.ObjSignInResponse.UserId, Model.ObjSignInResponse.UserId)
+    @Html.HiddenFor(m => m.ObjSignInResponse.UserDeviceId, Model.ObjSignInResponse.UserDeviceId)
+    @Html.HiddenFor(m => m.IPAddress, Model.IPAddress)
+    <b><font color="blue"> User Name: </font></b> @Html.LabelFor(m => m.UserName, Model.UserName)
+    <br />
+    <b><font color="blue">User Id: </font></b> @Html.Label(Model.ObjSignInResponse.UserId.Value.ToString())
+    <br />
+    <b><font color="blue">IP Address: </font></b>@Html.LabelFor(m => m.IPAddress, Model.IPAddress)
+    <br/>
+    <b><font color="blue">User Device Id: </font></b> @Html.Label(Model.ObjSignInResponse.UserDeviceId.Value.ToString())
+    <br />
+
+    <div>
+        <b>
+            <font color="blue">Choose one of the methods to get access code:</font>
+        </b>
+        <label>
+            <label>@Html.RadioButtonFor(i => i.Method, "Email") Email</label> &nbsp;
+        </label>
+        <label>
+            <label>@Html.RadioButtonFor(i => i.Method, "SMS") SMS</label>
+        </label>
+    </div>
+    <br />
+    <button type="submit">Get Access Code</button>
+}
+
+
+

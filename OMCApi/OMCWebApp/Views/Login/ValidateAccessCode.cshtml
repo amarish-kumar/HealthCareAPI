@@ -1,0 +1,48 @@
+﻿@model  OMC.Models.UserAccessCodeResponse
+
+@{
+    ViewBag.Title = "Validate Access Code";
+}
+
+<h2>Validate Access Code</h2>
+
+@using (Html.BeginForm("ValidateAccessCode", "Login"))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.UserId, Model.UserId)
+    @Html.HiddenFor(m => m.UserLoginAuditId, Model.UserLoginAuditId)
+
+
+
+    if (Model.objValidateAccessCodeResponse != null)
+    {
+        if (Model.objValidateAccessCodeResponse.IsValidCodePassed)
+        {
+            <b>
+                <font color="green">@Model.objValidateAccessCodeResponse.Message</font>
+                <a href="/Login">Go to login page</a>
+            </b>
+        }
+        else
+        {
+            <b><font color="red">@Model.objValidateAccessCodeResponse.Message</font></b>
+        }
+    }
+
+    <br/>
+    <b><font color="blue">User Id: </font></b> @Html.Label(Model.UserId.Value.ToString())
+    <br />
+    <b><font color="blue">User Login Audit Id: </font></b> @Html.Label(Model.UserLoginAuditId.Value.ToString())
+    <br />
+
+    <b><font color="blue">Access Code: </font></b> 
+        @Html.TextBoxFor(m=>m.AccessCode, Model.AccessCode)
+    <br />
+
+    <br />
+    <button type="submit">Validate Access Code</button>
+}
+
+
+
