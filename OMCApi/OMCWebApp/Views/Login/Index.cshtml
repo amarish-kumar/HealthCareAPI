@@ -5,17 +5,41 @@
 {
 
     @Html.AntiForgeryToken()
-    
-    @Html.LabelFor(m => m.Username)
-    @Html.TextBoxFor(m => m.Username)
-    <br />
-    @Html.LabelFor(m => m.Password)
-    @Html.PasswordFor(m => m.Password)
-    <br />
-    @Html.LabelFor(m => m.IPAddress)
-    @Html.TextBoxFor(m => m.IPAddress)
-    <br />
-    <button type="submit">Signin</button>
+    <table>
+        <tr>
+            <td>
+                User Name:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.Username, new { style = "width: 300px;" })
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Password:
+            </td>
+            <td>
+                @Html.PasswordFor(m => m.Password, new { style = "width: 300px;" })
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                IP Address:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.IPAddress, new { style = "width: 300px;" })
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Signin</button>
+            </td>
+        </tr>
+
+    </table>
     <br />
     @Html.ActionLink("Patient SignUp", "Index", "SignUp")
     <br/>
