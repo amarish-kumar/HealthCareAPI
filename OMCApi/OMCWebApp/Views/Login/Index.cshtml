@@ -15,9 +15,6 @@
     @Html.LabelFor(m => m.IPAddress)
     @Html.TextBoxFor(m => m.IPAddress)
     <br />
-    @Html.LabelFor(m => m.RoleId)
-    @Html.DropDownListFor(m => m.RoleId, new SelectList(Model.RoleList, "Id", "RoleName"), "--please select--")
-    <br />
     <button type="submit">Signin</button>
     <br />
     @Html.ActionLink("Patient SignUp", "Index", "SignUp")

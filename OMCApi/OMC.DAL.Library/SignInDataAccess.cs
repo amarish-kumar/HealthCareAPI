@@ -2,6 +2,7 @@
 using OMC.DAL.Interface;
 using OMC.Models;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -27,28 +28,45 @@ namespace OMC.DAL.Library
                 Command.Parameters.AddWithValue("@USERNAME", user.Username);
                 Command.Parameters.AddWithValue("@PASSWORD", user.Password);
                 Command.Parameters.AddWithValue("@IP_ADDRESS", user.IPAddress);
-                Command.Parameters.AddWithValue("@ROLE_ID", user.RoleId);
                 Connection.Open();
 
-                SqlDataReader reader = Command.ExecuteReader();
+                SqlDataAdapter dataAdaptereader = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdaptereader.Fill(ds);
                 SignInResponse result=new SignInResponse();
-                if (reader.HasRows)
+                if (ds.Tables.Count > 0)
                 {
-                    while (reader.Read())
+                    if(ds.Tables[0].Rows.Count > 0)
                     {
+                        var resultRow = ds.Tables[0].Rows[0];
                         result = new SignInResponse
                         {
-                            IsPasswordVerified = reader.GetBoolean(reader.GetOrdinal("IS_PASSWORD_VERIFIED")),
-                            RoleId = !string.IsNullOrEmpty(reader["RoleId"].ToString()) ? Convert.ToInt32(reader["RoleId"].ToString()) : (int?)null,
-                            SessionId = reader["SESSION_ID"] != DBNull.Value ? reader["SESSION_ID"].ToString() : null,
-                            TwoFactorAuthDone = Convert.ToBoolean(reader["TWO_FACTOR_AUTH_DONE"]),
-                            IsUserActive = Convert.ToBoolean(reader["IS_USER_ACTIVE"]),
-                            TwoFactorAuthTimestamp = !string.IsNullOrEmpty(reader["TWO_FACTOR_AUTH_TS"].ToString())
-                                                   ? Convert.ToDateTime(reader["TWO_FACTOR_AUTH_TS"].ToString()) 
+                            IsPasswordVerified = Convert.ToBoolean(resultRow["IS_PASSWORD_VERIFIED"]),
+                            SessionId = resultRow["SESSION_ID"] != DBNull.Value ? resultRow["SESSION_ID"].ToString() : null,
+                            TwoFactorAuthDone = Convert.ToBoolean(resultRow["TWO_FACTOR_AUTH_DONE"]),
+                            IsUserActive = Convert.ToBoolean(resultRow["IS_USER_ACTIVE"]),
+                            TwoFactorAuthTimestamp = !string.IsNullOrEmpty(resultRow["TWO_FACTOR_AUTH_TS"].ToString())
+                                                   ? Convert.ToDateTime(resultRow["TWO_FACTOR_AUTH_TS"].ToString()) 
                                                    : (DateTime?)null,
-                            UserDeviceId = !string.IsNullOrEmpty(reader["USER_DEVICE_ID"].ToString()) ? Convert.ToInt32(reader["USER_DEVICE_ID"].ToString()) : (int?)null,
-                            UserId = !string.IsNullOrEmpty(reader["USER_ID"].ToString()) ? Convert.ToInt32(reader["USER_ID"].ToString()) : (int?)null
+                            UserDeviceId = !string.IsNullOrEmpty(resultRow["USER_DEVICE_ID"].ToString()) ? Convert.ToInt32(resultRow["USER_DEVICE_ID"].ToString()) : (int?)null,
+                            UserId = !string.IsNullOrEmpty(resultRow["USER_ID"].ToString()) ? Convert.ToInt32(resultRow["USER_ID"].ToString()) : (int?)null
                         };
+
+                        if (ds.Tables.Count > 1
+                            && ds.Tables[1].Rows.Count > 0)
+                        {
+                            result.UserRoles = new List<UserRole>();
+                            foreach (DataRow drRole in ds.Tables[1].Rows)
+                            {
+                                result.UserRoles.Add(new UserRole
+                                {
+                                    UserId = result.UserId.Value,
+                                    RoleId = Convert.ToInt32(drRole["RoleId"].ToString()),
+                                    RoleName = drRole["RoleName"].ToString(),
+                                    IsDefault = Convert.ToBoolean(drRole["IsDefault"])
+                                });
+                            }
+                        }
                     }
                 }
                 

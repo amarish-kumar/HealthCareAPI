@@ -1,11 +1,11 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_LOGIN_MANAGER]    Script Date: 2/3/2018 1:01:18 PM ******/
+/****** Object:  StoredProcedure [dbo].[SP_LOGIN_MANAGER]    Script Date: 2/4/2018 1:48:36 PM ******/
 DROP PROCEDURE [dbo].[SP_LOGIN_MANAGER]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_LOGIN_MANAGER]    Script Date: 2/3/2018 1:01:18 PM ******/
+/****** Object:  StoredProcedure [dbo].[SP_LOGIN_MANAGER]    Script Date: 2/4/2018 1:48:36 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -14,20 +14,20 @@ GO
 
 
 
+
 CREATE PROCEDURE [dbo].[SP_LOGIN_MANAGER]
 (
 	@USERNAME NVARCHAR(100),
 	@PASSWORD NVARCHAR(100),
-	@IP_ADDRESS NVARCHAR(200),
-	@ROLE_ID BIGINT = NULL
+	@IP_ADDRESS NVARCHAR(200)
 )
 AS
 
 BEGIN
 
---EXEC [dbo].[SP_LOGIN_MANAGER] '+919619645344','10dulkaree', '101.120.222.558',2
---EXEC [dbo].[SP_LOGIN_MANAGER] 'kunalsmehtajobs@gmail.com','10dulkar', '101.120.222.558',5
---EXEC [dbo].[SP_LOGIN_MANAGER] 'kunalsmehtajobs@gmail.com','10dulkar', '101.120.222.558',NULL
+--EXEC [dbo].[SP_LOGIN_MANAGER] '+919619645344','10dulkaree', '101.120.222.558'
+--EXEC [dbo].[SP_LOGIN_MANAGER] 'kunalsmehtajobs@gmail.com','10dulkar', '101.120.222.558'
+--EXEC [dbo].[SP_LOGIN_MANAGER] 'kunalsmehtajobs@gmail.com','10dulkar', '101.120.222.558'
 DECLARE @USER_ID AS BIGINT, @USER_ROLE_ID AS BIGINT, @USER_DEVICE_ID AS BIGINT
 ,@TWO_WAY_AUTH_TIMEOUT_DAYS AS BIGINT, @LOGIN_AUDIT_ID AS BIGINT
 DECLARE @TWO_FACTOR_AUTH_TS AS DATETIME
@@ -36,9 +36,8 @@ DECLARE @TWO_FACTOR_AUTH_DONE AS BIT, @IS_PASSWORD_VERIFIED AS BIT, @IS_USER_ACT
 SET @IS_PASSWORD_VERIFIED = 0
 SET @IS_USER_ACTIVE = 0
 
-	SELECT @USER_ID = UD.Id, @USER_ROLE_ID = URM.RoleId, @IS_USER_ACTIVE = UD.[Active]
+	SELECT @USER_ID = UD.Id, @IS_USER_ACTIVE = UD.[Active]
 	FROM UserDetail UD
-	LEFT OUTER JOIN UserRoleMapping URM on URM.UserId = UD.Id AND ((@ROLE_ID IS NULL AND URM.IsDefault = 1) OR @ROLE_ID = URM.RoleId)
 		WHERE (EmailAddress = @USERNAME OR Phonenumber = @USERNAME)
 		AND [Password] = @PASSWORD
 		
@@ -52,7 +51,7 @@ IF @USER_ID IS NOT NULL
 		SET @IS_PASSWORD_VERIFIED = 1
 
 		/*IF THE USER ACCOUNT IS LOCKED WE NEED NOT DO THE FURTHER PROCESS*/
-		IF  @IS_USER_ACTIVE = 1 AND @USER_ROLE_ID IS NOT NULL
+		IF  @IS_USER_ACTIVE = 1
 		BEGIN
 		/*CHECK IF DEVICE IS THERE FOR THE USER OR NOT
 		IF NOT MAKE AN ENTRY IN USER DEVICE DETAIL TABLE
@@ -114,8 +113,7 @@ IF @USER_ID IS NOT NULL
 				   ,[AccessCode]
 				   ,[IsTwoWayAuthPassed]
 				   ,[TwoFactorAuthTimestamp]
-				   ,[SessionId]
-				   ,[RoleId]
+				   ,[SessionId]				   
 				   ,[Active]
 				   ,[AddedBy]
 				   ,[AddedDate])
@@ -127,7 +125,6 @@ IF @USER_ID IS NOT NULL
 				   , @TWO_FACTOR_AUTH_DONE
 				   , @TWO_FACTOR_AUTH_TS
 				   , NEWID()
-				   , @USER_ROLE_ID
 				   , 1
 				   , @USER_ID
 				   , GETDATE())
@@ -147,8 +144,7 @@ IF @USER_ID IS NOT NULL
 	END
 
 SELECT @IS_PASSWORD_VERIFIED AS IS_PASSWORD_VERIFIED,
-	   @USER_ID AS [USER_ID], 
-	   @USER_ROLE_ID AS RoleId, 
+	   @USER_ID AS [USER_ID],  
 	   ISNULL(@TWO_FACTOR_AUTH_DONE,0) AS TWO_FACTOR_AUTH_DONE,
 	   @USER_DEVICE_ID AS USER_DEVICE_ID, 
 	   @TWO_FACTOR_AUTH_TS AS TWO_FACTOR_AUTH_TS,
@@ -156,6 +152,7 @@ SELECT @IS_PASSWORD_VERIFIED AS IS_PASSWORD_VERIFIED,
 	   @IS_USER_ACTIVE AS IS_USER_ACTIVE 
 
 END
+
 
 
 
