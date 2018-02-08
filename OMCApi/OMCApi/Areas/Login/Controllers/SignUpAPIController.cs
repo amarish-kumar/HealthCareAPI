@@ -41,6 +41,7 @@ namespace OMCApi.Areas.Login.Controllers
 
         [HttpPost]
         [Route("PostUserSignUp")]
+        //[Authorize]
         public IHttpActionResult PostUserSignUp([FromBody]UserSignUp userdetails)
         {
 
@@ -55,20 +56,21 @@ namespace OMCApi.Areas.Login.Controllers
             else
                 SignUpResult = SignUpObj.InitiateSignUpProcess(userdetails);
 
-            //HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, "value");
-            //var SignUpValidation = SignUpObj.ValidateSignUpDetails(userdetails);
-
-            //var SignUpResult = false;
-
-            //if (SignUpValidation.ExceptionType == "Validation Success")
-            //{
-            //    SignUpResult = SignUpObj.InitiateSignUpProcess(userdetails);
-            //}
-            //else
-            //    return BadRequest(SignUpValidation.Message);
-
-            return Ok("Patient details saved");
-            //return SignUpResult;
+            if (SignUpResult)
+            {
+                if (userdetails.UserType == 4)
+                    return Ok("Patient details saved");
+                else if (userdetails.UserType == 3)
+                    return Ok("CSRAdmin details saved");
+                else if (userdetails.UserType == 2)
+                    return Ok("CSR details saved");
+                else if (userdetails.UserType == 5)
+                    return Ok("Doctor details saved");
+                else
+                    return Ok("SuperAdmin details saved");
+            }
+            else
+                return BadRequest("SignUp Error!");
         }
 
         // PUT: api/SignUpAPI/5

@@ -40,7 +40,7 @@ namespace OMC.DAL.Library
                 da.SelectCommand.Parameters.Add(new SqlParameter("@USER_DETAIL_XML", SqlDbType.NVarChar, 10000));
                 da.SelectCommand.Parameters["@USER_DETAIL_XML"].Value = GetXMLFromObject(signupdetails);
                 da.SelectCommand.Parameters.Add(new SqlParameter("@OPERATION", SqlDbType.NVarChar, 100));
-                da.SelectCommand.Parameters["@OPERATION"].Value = !string.IsNullOrEmpty(signupdetails.UserAction) ? signupdetails.UserAction : string.Empty;
+                da.SelectCommand.Parameters["@OPERATION"].Value = !string.IsNullOrEmpty(signupdetails.UserAction) ? signupdetails.UserAction : (object)DBNull.Value;
                 da.SelectCommand.Parameters.Add(new SqlParameter("@USER_ID", SqlDbType.BigInt, 100));
                 da.SelectCommand.Parameters["@USER_ID"].Value = !string.IsNullOrEmpty(signupdetails.LoggedInUserID) ? Convert.ToInt32(signupdetails.LoggedInUserID) : 1;
                 Connection.Open();

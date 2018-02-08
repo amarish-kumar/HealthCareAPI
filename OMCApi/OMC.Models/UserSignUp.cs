@@ -30,7 +30,7 @@ namespace OMC.Models
         public string Gender { get; set; }
         [Required(ErrorMessage = "DOB required")]
         public string DOB { get; set; }
-        [Required(ErrorMessage = "Password required")]
+        [RequiredIf("UserType", "1", ErrorMessage = "Password required")]
         public string Password { get; set; }
         [Required(ErrorMessage = "AlternateNo required")]
         [RegularExpression(@"^(\d{10})$", ErrorMessage = "AlternateNo is of wrong format")]
@@ -39,11 +39,14 @@ namespace OMC.Models
         public string EmergencyContactNo { get; set; }
         public string EmergencyContactPerson { get; set; }
         public string DLNumber { get; set; }
+        public string DLCopy { get; set; }
         public string SSN { get; set; }
         public int UserType { get; set; }
         public int Active { get; set; }
         public string LoggedInUserID { get; set; }
         public string UserAction { get; set; }
+        public string isEmailVerified { get; set; }
+        public string isPhoneVerified { get; set; }
         #endregion
 
         #region Serialization

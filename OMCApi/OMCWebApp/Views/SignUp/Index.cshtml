@@ -44,8 +44,10 @@ Patient SignUp
     @Html.HiddenFor(m => m.EmergencyContactPerson)
     @Html.HiddenFor(m => m.DLNumber)
     @Html.HiddenFor(m => m.SSN)
-    @Html.HiddenFor(m => m.UserType)
-    @Html.HiddenFor(m=>m.Active)
+    @Html.HiddenFor(m => m.UserType, new { @Value = "4" })
+    @Html.HiddenFor(m => m.Active, new { @Value = "1" })
+    @Html.HiddenFor(m => m.isEmailVerified, new { @Value = "0" })
+    @Html.HiddenFor(m => m.isPhoneVerified, new { @Value = "0" })
     <br />
     <button type="submit">Save</button>
 }

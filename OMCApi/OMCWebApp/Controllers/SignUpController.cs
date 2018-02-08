@@ -55,9 +55,9 @@ namespace OMCWebApp.Controllers
             //Patient
             //userdetails.UserType = 1;
             //CSR
-            userdetails.UserType = 3;
+            //userdetails.UserType = 3;
 
-            userdetails.Active = 1;
+            //userdetails.Active = 1;
 
           
 
