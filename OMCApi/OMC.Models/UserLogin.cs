@@ -14,11 +14,18 @@ namespace OMC.Models
         public List<Role> RoleList { get; set; }
     }
 
+    public class UserRole
+    {
+        public int UserId { get; set; }
+        public int RoleId { get; set; }
+        public string RoleName { get; set; }
+        public bool IsDefault { get; set; }
+    }
     public class SignInResponse
     {
         public int? UserId { get; set; }
         public bool IsPasswordVerified { get; set; }
-        public int? RoleId { get; set; }
+        public List<UserRole> UserRoles { get; set; }
         public int? UserDeviceId { get; set; }
         public bool TwoFactorAuthDone { get; set; }
         public DateTime? TwoFactorAuthTimestamp { get; set; }

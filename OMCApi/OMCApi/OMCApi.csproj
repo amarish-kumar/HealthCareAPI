@@ -252,6 +252,7 @@
     <Content Include="Areas\Login\Views\web.config" />
     <Content Include="Areas\Login\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Login\Views\Shared\_Layout.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

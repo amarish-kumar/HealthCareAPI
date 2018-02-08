@@ -9,7 +9,7 @@ namespace OMC.BL.Library.Helpers
         {
             MailMessage mail = new MailMessage();
             mail.To.Add(to);
-            mail.From = new MailAddress(objEmail.SenderEmailAddress);
+            mail.From = new MailAddress(objEmail.SenderAddress);
             mail.Subject = objEmail.Subject;
             mail.Body = objEmail.Body;
             mail.IsBodyHtml = false;
@@ -17,7 +17,7 @@ namespace OMC.BL.Library.Helpers
             smtp.Host = "smtp.gmail.com";
             smtp.Port = 587;
             smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new System.Net.NetworkCredential(objEmail.SenderEmailAddress, objEmail.SenderEmailAddressPassword);
+            smtp.Credentials = new System.Net.NetworkCredential(objEmail.SenderAddress, objEmail.SenderPassword);
             smtp.EnableSsl = true;
             smtp.Send(mail);
         }

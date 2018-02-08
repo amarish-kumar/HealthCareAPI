@@ -35,25 +35,9 @@ namespace OMCApi.Areas.Login.Controllers
         #region Methods
 
         // GET: Login/Login
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            var model = new UserLogin();
-
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var json = JsonConvert.SerializeObject(new { isActive = true, roleDescription = string.Empty });
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage Res = await client.GetAsync("api/LoginAPI/GetRoles?isActive=true&roleDescription");
-                if (Res.IsSuccessStatusCode)
-                {
-                    model.RoleList = JsonConvert.DeserializeObject<List<Role>>(Res.Content.ReadAsStringAsync().Result);
-                }
-            }
-
-            return View(model);
+            return View();
         }
 
         [HttpPost]
@@ -73,7 +57,6 @@ namespace OMCApi.Areas.Login.Controllers
                 {
                     var objSignInResponse = JsonConvert.DeserializeObject<SignInResponse>( Res.Content.ReadAsStringAsync().Result);
                     if (objSignInResponse.IsPasswordVerified 
-                        && objSignInResponse.RoleId.HasValue
                         && objSignInResponse.IsUserActive)
                     {
                         if (objSignInResponse.TwoFactorAuthDone)

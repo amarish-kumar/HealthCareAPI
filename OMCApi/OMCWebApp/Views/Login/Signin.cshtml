@@ -1,8 +1,16 @@
-﻿@model OMC.Models.SignInResponse
+﻿@using OMC.Models;
+
+@model SignInResponse
 
 @{
     ViewBag.Title = "Login Success";
 }
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
 
 <h2>Login successful</h2>
 
@@ -10,5 +18,24 @@
 <br />
 <b><font color="blue">User Id: </font></b> @Model.UserId
 <br />
-<b><font color="blue">Role Id: </font></b> @Model.RoleId
-<br />
+@{
+    if (Model.UserRoles != null)
+    {
+        <table style="">
+            <thead>
+                <th>Role Id</th>
+                <th>Role Name</th>
+                <th>Is Default</th>
+            </thead>
+
+            @foreach (var userRole in Model.UserRoles)
+            {
+            <tr>
+                <td>@userRole.RoleId</td>
+                <td>@userRole.RoleName</td>
+                <td>@userRole.IsDefault</td>
+            </tr>
+            }
+        </table>
+    }
+}

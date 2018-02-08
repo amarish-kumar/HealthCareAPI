@@ -21,7 +21,6 @@ namespace OMC.BL.Library
         {
             try
             {
-                SMSHelper.SendSMS(null, "+919619645344");
                 SignInResponse isSignin = this._signInDA.InitiateSignInProcess(user);
                 return isSignin;
             }
@@ -48,7 +47,9 @@ namespace OMC.BL.Library
                 }
                 else
                 {
-                    //write code to send sms
+                    var objEmail = this._signInDA.GetEmailData("GET_ACCESS_CODE_SMS");
+                    objEmail.Body = string.Format(objEmail.Body, userAccessCodeResponse.AccessCode);
+                    SMSHelper.SendSMS(objEmail, userAccessCodeResponse.PhoneNumber);
                 }
                 return userAccessCodeResponse;
             }

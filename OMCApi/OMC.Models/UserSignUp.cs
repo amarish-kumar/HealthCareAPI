@@ -42,8 +42,8 @@ namespace OMC.Models
         public string SSN { get; set; }
         public int UserType { get; set; }
         public int Active { get; set; }
-        public string CallerUserID { get; set; }
-        
+        public string LoggedInUserID { get; set; }
+        public string UserAction { get; set; }
         #endregion
 
         #region Serialization

@@ -8,7 +8,7 @@
 {
     <b><font color="red">User Account locked. Please contact system administrator. </font></b>
 }
-else if (Model.IsPasswordVerified && Model.IsUserActive && !Model.RoleId.HasValue)
+else if (Model.IsPasswordVerified && Model.IsUserActive && Model.UserRoles == null && Model.UserRoles.Count == 0)
 {
     <b><font color="red">User doesn't have requested role.</font></b>
 }

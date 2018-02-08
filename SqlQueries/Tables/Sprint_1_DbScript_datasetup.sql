@@ -16,6 +16,9 @@ INSERT [dbo].[SystemSettings] ([Id], [SettingName], [SettingValue], [Active], [A
 INSERT [dbo].[SystemSettings] ([Id], [SettingName], [SettingValue], [Active], [AddedBy], [AddedDate], [ModifiedBy], [ModifiedDate], [DeletedBy], [DeletedDate]) VALUES (2, N'UnsuccessfulAttemptCount', N'5', 1, 1, CAST(0x07C0C92EC9B4C53D0B0000 AS DateTimeOffset), NULL, NULL, NULL, NULL)
 INSERT [dbo].[SystemSettings] ([Id], [SettingName], [SettingValue], [Active], [AddedBy], [AddedDate]) VALUES (3, N'SenderEmailAddress', N'healthcareappmailer@gmail.com', 1, 1, CAST(0x07C0C92EC9B4C53D0B0000 AS DateTimeOffset))
 INSERT [dbo].[SystemSettings] ([Id], [SettingName], [SettingValue], [Active], [AddedBy], [AddedDate]) VALUES (4, N'SenderEmailAddressPassword', N'healthcareappmailer@777', 1, 1, CAST(0x07C0C92EC9B4C53D0B0000 AS DateTimeOffset))
+INSERT [dbo].[SystemSettings] ([Id], [SettingName], [SettingValue], [Active], [AddedBy], [AddedDate]) VALUES (5, N'SMSSenderAccountId', N'AC50b93c726f0e0e8a034a687c33ba5243', 1, 1, CAST(0x07C0C92EC9B4C53D0B0000 AS DateTimeOffset))
+INSERT [dbo].[SystemSettings] ([Id], [SettingName], [SettingValue], [Active], [AddedBy], [AddedDate]) VALUES (6, N'SMSSenderAccountToken', N'020c1d6b8296445779167f5dce1b11b1', 1, 1, CAST(0x07C0C92EC9B4C53D0B0000 AS DateTimeOffset))
+INSERT [dbo].[SystemSettings] ([Id], [SettingName], [SettingValue], [Active], [AddedBy], [AddedDate]) VALUES (7, N'SMSSenderPhoneNumber', N'+15612204349', 1, 1, CAST(0x07C0C92EC9B4C53D0B0000 AS DateTimeOffset))
 SET IDENTITY_INSERT [dbo].[SystemSettings] OFF
 
 
@@ -43,3 +46,5 @@ SET IDENTITY_INSERT [dbo].[TAndCMaster] OFF
 
 INSERT INTO [dbo].[EmailMaster]
            ([Body],[Subject],[EmailType],[AddedBy],[AddedDate]) VALUES ('Your access code is {0} .','Access Code', 'GET_ACCESS_CODE', 1, GETDATE())
+INSERT INTO [dbo].[EmailMaster]
+           ([Body],[Subject],[EmailType],[AddedBy],[AddedDate]) VALUES ('Your access code is {0} .','Access Code', 'GET_ACCESS_CODE_SMS', 1, GETDATE())
