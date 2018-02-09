@@ -75,6 +75,10 @@
       <Project>{545c2273-3a99-49d8-89a2-41192368bafb}</Project>
       <Name>OMC.BL.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OMC.DAL.Library\OMC.DAL.Library.csproj">
+      <Project>{57C2F5B5-FB8F-436F-BA65-F71335811FD4}</Project>
+      <Name>OMC.DAL.Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
