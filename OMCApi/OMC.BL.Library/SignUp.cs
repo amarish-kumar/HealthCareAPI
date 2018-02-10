@@ -5,7 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OMC.BL.Interface;
+using OMC.BL.Library.Helpers;
 using OMC.DAL.Interface;
+using OMC.DAL.Library;
 using OMC.Models;
 
 
@@ -15,11 +17,13 @@ namespace OMC.BL.Library
     {
         #region Declarations
         ISignUpDataAccess _signUpDA;
+        ISignInDataAccess _signInDA;
         #endregion
 
         public SignUp(ISignUpDataAccess SignUpDA)
         {
             this._signUpDA = SignUpDA;
+            
         }
 
         public bool InitiateSignUpProcess(UserSignUp signupdetails)
@@ -27,6 +31,17 @@ namespace OMC.BL.Library
             try
             {
                 bool isSignin = this._signUpDA.InitiateSignUpProcess(signupdetails);
+                if(isSignin)
+                {
+                    this._signInDA = new SignInDataAccess();
+                    var objEmail = this._signInDA.GetEmailData("GET_PWD_CSR");
+                    objEmail.Body = string.Format(objEmail.Body, signupdetails.FirstName);
+                    EmailHelper.SendEmail(objEmail, signupdetails.EmailAddress);
+
+                    objEmail = this._signInDA.GetEmailData("GET_PWD_CSR_SMS");
+                    objEmail.Body = string.Format(objEmail.Body, signupdetails.FirstName);
+                    SMSHelper.SendSMS(objEmail, signupdetails.PhoneNumber);
+                }
                 return isSignin;
             }
             catch (Exception ex)
