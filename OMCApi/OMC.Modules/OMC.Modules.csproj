@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignInModule.cs" />
+    <Compile Include="ConsultationModule.cs" />
     <Compile Include="SignUpModule.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,9 @@ using System.Data.SqlClient;
 using OMC.Models;
 using System;
 using log4net;
+using System.Xml;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace OMC.DAL.Library
 {
@@ -52,6 +55,35 @@ namespace OMC.DAL.Library
             }
         }
 
+        public static string GetXMLFromObject(object o)
+        {
+            // removes version
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.OmitXmlDeclaration = true;
+
+            XmlSerializer xsSubmit = new XmlSerializer(o.GetType());
+            try
+            {
+                using (StringWriter sw = new StringWriter())
+                using (XmlWriter writer = XmlWriter.Create(sw, settings))
+                {
+                    // removes namespace
+                    var xmlns = new XmlSerializerNamespaces();
+                    xmlns.Add(string.Empty, string.Empty);
+
+                    xsSubmit.Serialize(writer, o, xmlns);
+                    return sw.ToString(); // Your XML
+                }
+            }
+            catch (Exception ex)
+            {
+                //Handle Exception Code
+                return null;
+            }
+            finally
+            {
+            }
+        }
         #endregion
     }
 }

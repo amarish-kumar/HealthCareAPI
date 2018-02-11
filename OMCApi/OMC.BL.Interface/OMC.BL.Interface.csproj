@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IConsultationBL.cs" />
     <Compile Include="IMaster.cs" />
     <Compile Include="ISignUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
