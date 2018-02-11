@@ -1,7 +1,7 @@
 insert into healthcare.dbo.SpecialityMaster
 (Speciality,SearchKeyWords,Active,AddedBy,AddedDate)
 values
-('Orthopaedic','Orthopaedic',1,1,getdate())
+('Orthopaedic','Orthopaedic,fracture,bone,broken',1,1,getdate())
 
 insert into healthcare.dbo.SpecialityMaster
 (Speciality,SearchKeyWords,Active,AddedBy,AddedDate)

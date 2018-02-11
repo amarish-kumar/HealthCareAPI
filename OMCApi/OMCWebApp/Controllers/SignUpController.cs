@@ -95,7 +95,7 @@ namespace OMCWebApp.Controllers
                     //Deserializing the response recieved from web api and storing into the Employee list  
                     //UserInfo = JsonConvert.DeserializeObject<List<User>>(SignInResponse);
                     //if (Convert.ToBoolean(SignInResponse))
-                        return View("Index");
+                        return View("SignUpSuccessfull");
                     //else
                       //  return View("LoginFailure");
                 }
