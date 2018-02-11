@@ -48,11 +48,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="Consultation.cs" />
+    <Compile Include="ConsultationStatus.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="ErrorLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequiredIfAttribute.cs" />
     <Compile Include="Role.cs" />
+    <Compile Include="UserDetail.cs" />
     <Compile Include="UserLogin.cs" />
     <Compile Include="UserSignUp.cs" />
   </ItemGroup>

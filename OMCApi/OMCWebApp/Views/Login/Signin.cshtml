@@ -26,6 +26,7 @@
                 <th>Role Id</th>
                 <th>Role Name</th>
                 <th>Is Default</th>
+                <th>Create Consultation</th>
             </thead>
 
             @foreach (var userRole in Model.UserRoles)
@@ -34,6 +35,12 @@
                 <td>@userRole.RoleId</td>
                 <td>@userRole.RoleName</td>
                 <td>@userRole.IsDefault</td>
+                <td>
+                    @if(userRole.RoleName.ToLower() == "patient")
+                    {
+                        @Html.ActionLink("Create", "Index", "Consultation", new { patientId = userRole.UserId }, null)
+                    }
+                </td>
             </tr>
             }
         </table>
