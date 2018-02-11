@@ -7,5 +7,7 @@ namespace OMC.BL.Interface
     public interface IMaster : IDisposable
     {
         List<Role> GetRoles(bool? isActive, string roleDescription);
+        List<ConsultationStatus> GetConsultationStatuses(bool? isActive, string description);
+        List<UserDetail> GetUserList(bool? isActive, string userRole);
     }
 }

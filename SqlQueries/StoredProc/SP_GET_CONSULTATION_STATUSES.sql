@@ -1,0 +1,46 @@
+USE [HealthCare]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_GET_ROLES]    Script Date: 2/10/2018 10:37:09 PM ******/
+DROP PROCEDURE [dbo].[SP_GET_CONSULTATION_STATUSES]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_GET_ROLES]    Script Date: 2/10/2018 10:37:09 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE PROCEDURE [dbo].[SP_GET_CONSULTATION_STATUSES]
+(	
+	@DESCRIPTION NVARCHAR(200) = NULL,
+	@ACTIVE BIT = NULL
+)
+AS
+
+BEGIN
+
+--EXEC [SP_GET_CONSULTATION_STATUSES]
+--EXEC [SP_GET_CONSULTATION_STATUSES] 'Initiated'
+	SELECT *
+	FROM [ConsultationStatus]
+	WHERE (@DESCRIPTION IS NULL OR [Description] = @DESCRIPTION)
+	AND (@ACTIVE IS NULL OR [Active] = @ACTIVE) 
+	ORDER BY SortOrder 
+END
+
+
+
+
+
+
+
+
+
+
+GO
+
+

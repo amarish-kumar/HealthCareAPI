@@ -153,12 +153,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ConsultationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ConsultationModel.cs" />
     <Compile Include="Models\GetAccessCodeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -208,6 +210,8 @@
     <Content Include="Views\SignUp\CSRSignUp.cshtml" />
     <Content Include="Views\Login\GetAccessCode.cshtml" />
     <Content Include="Views\Login\ValidateAccessCode.cshtml" />
+    <Content Include="Views\Consultation\Index.cshtml" />
+    <Content Include="Views\Consultation\ConsResponse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
