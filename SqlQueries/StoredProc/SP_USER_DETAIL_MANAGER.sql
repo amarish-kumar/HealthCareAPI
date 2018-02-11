@@ -28,7 +28,8 @@ BEGIN
 DECLARE @Id AS BIGINT, @Gender AS BIGINT, @UserType AS BIGINT
 DECLARE @FirstName AS NVARCHAR(MAX), @LastName AS NVARCHAR(MAX), @EmailAddress AS NVARCHAR(MAX), @Address AS NVARCHAR(MAX)
 , @PhoneNumber AS NVARCHAR(MAX), @DOB AS NVARCHAR(MAX), @Password AS NVARCHAR(MAX), @AlternateNo AS NVARCHAR(MAX)
-, @EmergencyContactNo AS NVARCHAR(MAX), @EmergencyContactPerson AS NVARCHAR(MAX), @DLNumber AS NVARCHAR(MAX), @SSN AS NVARCHAR(MAX)
+, @EmergencyContactNo AS NVARCHAR(MAX), @EmergencyContactPerson AS NVARCHAR(MAX), @DLNumber AS NVARCHAR(MAX), @DLCopy AS NVARCHAR(MAX), @SSN AS NVARCHAR(MAX)
+, @IsEmailVerified AS BIGINT, @IsPhoneVerified AS BIGINT
 DECLARE @Active AS BIT
 
 SELECT @Id = UserDetailList.Columns.value('Id[1]', 'BIGINT')
@@ -44,9 +45,12 @@ SELECT @Id = UserDetailList.Columns.value('Id[1]', 'BIGINT')
 	   , @EmergencyContactNo = UserDetailList.Columns.value('EmergencyContactNo[1]', 'nvarchar(max)')
 	   , @EmergencyContactPerson = UserDetailList.Columns.value('EmergencyContactPerson[1]', 'nvarchar(max)')
 	   , @DLNumber = UserDetailList.Columns.value('DLNumber[1]', 'nvarchar(max)')
+	   , @DLCopy= UserDetailList.Columns.value('DLCopy[1]', 'nvarchar(max)')
 	   , @SSN = UserDetailList.Columns.value('SSN[1]', 'nvarchar(max)')
 	   , @Active = UserDetailList.Columns.value('Active[1]', 'bit')
 	   , @UserType = UserDetailList.Columns.value('UserType[1]', 'BIGINT')
+	   , @IsEmailVerified = UserDetailList.Columns.value('isEmailVerified[1]', 'BIGINT')
+	   , @IsPhoneVerified = UserDetailList.Columns.value('isPhoneVerified[1]', 'BIGINT')
 FROM   @USER_DETAIL_XML.nodes('UserSignUp') AS UserDetailList(Columns)
 
 /*BLOCK TO READ THE VARIABLES ENDS HERE*/
@@ -71,6 +75,7 @@ BEGIN
 					,[EmergencyContactNo] = ISNULL(@EmergencyContactNo, EmergencyContactNo)
 					,[EmergencyContactPerson] = ISNULL(@EmergencyContactPerson, EmergencyContactPerson)
 					,[DLNumber] = ISNULL(@DLNumber, DLNumber)
+					,[DLCopy]= ISNULL(@DLCopy, DLCopy)
 					,[SSN] = ISNULL(@SSN, SSN)
 					,[Active] = ISNULL(@Active, Active)
 					,[ModifiedBy] = @USER_ID
@@ -93,10 +98,13 @@ BEGIN
 			   ,[EmergencyContactNo]
 			   ,[EmergencyContactPerson]
 			   ,[DLNumber]
+			   ,[DLCopy]
 			   ,[SSN]
 			   ,[Active]
 			   ,[AddedBy]
-			   ,[AddedDate])
+			   ,[AddedDate]
+			   ,[IsEmailVerified]
+			   ,[IsPhoneVerified])
 			VALUES
 			   (@FirstName
 			   ,@LastName
@@ -110,10 +118,13 @@ BEGIN
 			   ,@EmergencyContactNo
 			   ,@EmergencyContactPerson
 			   ,@DLNumber
+			   ,@DLCopy
 			   ,@SSN
 			   ,@Active
 			   ,@USER_ID
-			   ,GETDATE())
+			   ,GETDATE()
+			   ,@IsEmailVerified
+			   ,@IsPhoneVerified)
 			/*INSERT USER DETAIL BLOCK ENDS HERE*/
 
 			/*THIS BLOCK IS FOR INSERT USER ROLE */

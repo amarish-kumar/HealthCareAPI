@@ -3,10 +3,10 @@ use [HealthCare]
 SET IDENTITY_INSERT [dbo].[UserDetail] ON
 INSERT [dbo].[UserDetail] ([Id], [FirstName], [LastName], [EmailAddress], [PhoneNumber], 
 [Gender], [DOB], [Password], [Active], [AddedBy], [AddedDate], [ModifiedBy], [ModifiedDate], 
-[DeletedBy], [DeletedDate]) 
+[DeletedBy], [DeletedDate],[IsEmailVerified],[IsPhoneVerified]) 
 VALUES (1, N'Admin', N'Admin', N'Admin', N'1234567890', 1, N'1/14/2000', N'admin@123', 1, 
 1, CAST(0x070084B1109BC23D0B4A01 AS DateTimeOffset), 1, 
-CAST(0x070084B1109BC23D0B4A01 AS DateTimeOffset), NULL, NULL)
+CAST(0x070084B1109BC23D0B4A01 AS DateTimeOffset), NULL, NULL,1,1)
 SET IDENTITY_INSERT [dbo].[UserDetail] OFF
 
 
