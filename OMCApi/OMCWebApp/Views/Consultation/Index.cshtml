@@ -1,0 +1,58 @@
+﻿@model  OMCWebApp.Models.ConsultationModel
+
+<h2>Consultation Entry</h2>
+
+@using (Html.BeginForm("Create", "Consultation"))
+{
+
+    @Html.AntiForgeryToken()
+    <table>
+        <tr>
+            <td>
+                Describe the problem:
+            </td>
+            <td>
+                @Html.TextAreaFor(m => m.ConsultationObject.Description, new { style = "width: 1000px; height:100px;" })
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Select Status: 
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.ConsultationObject.ConsultationStatusId
+                    , new SelectList(Model.ConsultationStatuses, "Id", "Description"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Select Doctor: 
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.ConsultationObject.DoctorId
+                , new SelectList(Model.Doctors, "Id", "FirstName"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Patient Id:
+            </td>
+            <td>
+                @Html.HiddenFor(m=>m.ConsultationObject.PatientId, Model.ConsultationObject.PatientId)
+                @Model.ConsultationObject.PatientId
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Create</button>
+            </td>
+        </tr>
+
+    </table>
+}
+
+

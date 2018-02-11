@@ -37,6 +37,38 @@ namespace OMC.BL.Library
                 //Log
             }
         }
+
+        public List<ConsultationStatus> GetConsultationStatuses(bool? isActive, string description)
+        {
+            try
+            {
+                return this._masterDA.GetConsultationStatuses(isActive, description);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public List<UserDetail> GetUserList(bool? isActive, string userRole)
+        {
+            try
+            {
+                return this._masterDA.GetUserList(isActive, userRole);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
         #endregion
 
         #region IDisposable
