@@ -30,9 +30,9 @@ namespace OMC.DAL.Library
                 Command.Parameters.AddWithValue("@IP_ADDRESS", user.IPAddress);
                 Connection.Open();
 
-                SqlDataAdapter dataAdaptereader = new SqlDataAdapter(Command);
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
                 DataSet ds = new DataSet();
-                dataAdaptereader.Fill(ds);
+                dataAdapter.Fill(ds);
                 SignInResponse result=new SignInResponse();
                 if (ds.Tables.Count > 0)
                 {

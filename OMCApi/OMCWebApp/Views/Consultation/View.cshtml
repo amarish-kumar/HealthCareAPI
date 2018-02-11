@@ -1,0 +1,64 @@
+﻿@model  OMCWebApp.Models.ConsultationViewModel
+
+<style>
+    table.conversations td,
+    table.conversations th {
+        border: 1px solid black;
+    }
+
+    table.createConv {
+        border: 1px solid black;
+    }
+</style>
+
+<h2>Consultation View</h2>
+<b><font color="blue"> Consultation Id: </font></b> @Model.ConversationResponseObject.ConsultationObject.ConsultationId
+<br />
+<b><font color="blue">Description: </font></b> @Model.ConversationResponseObject.ConsultationObject.ConsultationDescription
+<br />
+<b><font color="blue">Consultation Status: </font></b>@Model.ConversationResponseObject.ConsultationObject.ConsultationStatus
+<br />
+<b><font color="blue">Doctor: </font></b> @Model.ConversationResponseObject.ConsultationObject.DoctorName
+<br />
+<b><font color="blue">Patient: </font></b> @Model.ConversationResponseObject.ConsultationObject.PatientName
+<br />
+
+<h2>Conversations</h2>
+@if (Model.ConversationResponseObject != null
+    && Model.ConversationResponseObject.Conversations != null
+    && Model.ConversationResponseObject.Conversations.Count() != 0)
+{
+    <table class="conversations">
+        <thead>
+            <th>Id</th>
+            <th>Description</th>
+            <th>From</th>
+            <th>Timestamp</th>
+        </thead>
+
+        @foreach (var conversation in Model.ConversationResponseObject.Conversations)
+        {
+            <tr>
+                <td>@conversation.ConversationId</td>
+                <td>@conversation.ConversationDescription</td>
+                <td>@(conversation.PatientId.HasValue
+        ? conversation.PatientName
+        : (conversation.DoctorId.HasValue
+            ? conversation.DoctorName : string.Empty))</td>
+                <td>
+                    @(conversation.ConversationCreateDate.HasValue
+        ? conversation.ConversationCreateDate.Value.ToString("dd-MMM-yyyy hh:mm")
+        : string.Empty)
+                </td>
+        </tr>
+        }
+    </table>
+}
+else
+{
+    <p>No conversations recorded</p>
+}
+
+
+<br/>
+@Html.Partial("CreateConv", Model.ConversationModelObject)

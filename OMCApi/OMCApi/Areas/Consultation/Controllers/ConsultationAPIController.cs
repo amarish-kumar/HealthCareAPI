@@ -55,6 +55,24 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         }
 
+        // Get: api/ConsultationAPI/GetConsultationList
+        [HttpGet]
+        [Route("GetConsultationList")]
+        public List<ConsultationDisplay> GetConsultationList(int userId, string userRole)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConsultationList(userId, userRole);
+        }
+
+        // Get: api/ConsultationAPI/GetConsultationList
+        [HttpGet]
+        [Route("GetConversationList")]
+        public ConversationResponse GetConversationList(int consultationId, int userId, string userRole)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConversationList(consultationId, userId, userRole);
+        }
+
         // POST: api/ConsultationAPI/CreateConsultation
         [HttpPost]
         [Route("CreateConsultation")]
@@ -68,6 +86,21 @@ namespace OMCApi.Areas.Consultation.Controllers
             consultation.Active = true;
             var ConsultationResult = ConsultationBLObj.InitiateConsultation(consultation);
             return Ok(ConsultationResult.Message); 
+        }
+
+        // POST: api/ConsultationAPI/CreateConsultation
+        [HttpPost]
+        [Route("CreateConversation")]
+        public IHttpActionResult CreateConversation([FromBody]Conversation conversation)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            conversation.Active = true;
+            var ConversationResult = ConsultationBLObj.RecordConversation(conversation);
+            return Ok(ConversationResult.Message);
         }
         #endregion
     }

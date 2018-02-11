@@ -50,6 +50,7 @@
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Consultation.cs" />
     <Compile Include="ConsultationStatus.cs" />
+    <Compile Include="Conversation.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="ErrorLog.cs" />
     <Compile Include="PatientEnquiry.cs" />

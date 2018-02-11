@@ -1,4 +1,5 @@
 ﻿using OMC.Models;
+using System.Collections.Generic;
 
 namespace OMC.DAL.Interface
 {
@@ -6,5 +7,8 @@ namespace OMC.DAL.Interface
     {
         ConsultationResponse InitiateConsultation(Consultation consultationDetails);
         PatientEnquiryResponse UnregisteredPatientEnquiry(PatientEnquiry enquiry);
+        List<ConsultationDisplay> GetConsultationList(int userId, string userRole);
+        ConversationResponse GetConversationList(int consultationId, int userId, string userRole);
+        ConversationResponse RecordConversation(Conversation conversationDetails);
     }
 }

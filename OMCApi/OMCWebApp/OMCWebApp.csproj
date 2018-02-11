@@ -160,7 +160,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ConsultationListModel.cs" />
     <Compile Include="Models\ConsultationModel.cs" />
+    <Compile Include="Models\ConsultationViewModel.cs" />
+    <Compile Include="Models\ConversationModel.cs" />
     <Compile Include="Models\GetAccessCodeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -212,9 +215,13 @@
     <Content Include="Views\Login\ValidateAccessCode.cshtml" />
     <Content Include="Views\Consultation\Index.cshtml" />
     <Content Include="Views\Consultation\ConsResponse.cshtml" />
+    <Content Include="Views\Consultation\List.cshtml" />
     <Content Include="Views\SignUp\DoctorSignUp.cshtml" />
     <Content Include="Views\Login\PatientEnquiry.cshtml" />
     <Content Include="Views\Login\PatientEnquiryResponse.cshtml" />
+    <Content Include="Views\Consultation\View.cshtml" />
+    <Content Include="Views\Consultation\ConvResponse.cshtml" />
+    <Content Include="Views\Consultation\CreateConv.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
