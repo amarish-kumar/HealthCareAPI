@@ -6,5 +6,6 @@ namespace OMC.BL.Interface
     public interface IConsultationBL : IDisposable
     {
         ConsultationResponse InitiateConsultation(Consultation consultationDetails);
+        PatientEnquiryResponse UnregisteredPatientEnquiry(PatientEnquiry enquiry);
     }
 }

@@ -52,6 +52,7 @@
     <Compile Include="ConsultationStatus.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="ErrorLog.cs" />
+    <Compile Include="PatientEnquiry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequiredIfAttribute.cs" />
     <Compile Include="Role.cs" />

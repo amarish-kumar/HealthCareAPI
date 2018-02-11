@@ -1,0 +1,22 @@
+﻿@model  OMC.Models.PatientEnquiryResponse
+@{
+    ViewBag.Title = "PatientEnquiry";
+}
+
+<h2>Patient's enquiry response</h2>
+
+
+<table style="">
+    <thead>
+    <th>Speciality</th>
+    <th>Doctor Name</th>
+    </thead>
+
+    @foreach (var enquiry in Model.Enquiries)
+    {
+        <tr>
+            <td>@enquiry.SpecialityDesc</td>
+            <td>@enquiry.DoctorName</td>
+        </tr>
+    }
+</table>

@@ -45,6 +45,16 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetUserList(isActive, userRole);
         }
 
+        // Get: api/ConsultationAPI/GetUnregisteredPatientEnquiry
+        [HttpPost]
+        [Route("GetUnregisteredPatientEnquiry")]
+        public PatientEnquiryResponse GetUnregisteredPatientEnquiry([FromBody]OMC.Models.PatientEnquiry enquiry)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.UnregisteredPatientEnquiry(enquiry);
+
+        }
+
         // POST: api/ConsultationAPI/CreateConsultation
         [HttpPost]
         [Route("CreateConsultation")]

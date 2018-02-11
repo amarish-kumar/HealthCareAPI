@@ -213,6 +213,8 @@
     <Content Include="Views\Consultation\Index.cshtml" />
     <Content Include="Views\Consultation\ConsResponse.cshtml" />
     <Content Include="Views\SignUp\DoctorSignUp.cshtml" />
+    <Content Include="Views\Login\PatientEnquiry.cshtml" />
+    <Content Include="Views\Login\PatientEnquiryResponse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

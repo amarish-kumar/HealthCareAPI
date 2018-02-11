@@ -37,7 +37,25 @@ namespace OMC.BL.Library
                 //Log
             }
         }
-        
+
+
+        public PatientEnquiryResponse UnregisteredPatientEnquiry(PatientEnquiry enquiry)
+        {
+            try
+            {
+                return this._consultationDA.UnregisteredPatientEnquiry(enquiry);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+
         #endregion
 
         #region IDisposable
