@@ -5,16 +5,16 @@ namespace OMC.Models
 {
     public class Consultation : BaseEntity
     {
-        [Required(ErrorMessage = "Description is required")]
+        [Required(ErrorMessage = "Description is required.")]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "Patient Id is required")]
+        [Required(ErrorMessage = "Patient Id is required.")]
         public int PatientId { get; set; }
 
-        [Required(ErrorMessage = "Doctor Id is required")]
+        [Required(ErrorMessage = "Doctor Id is required.")]
         public int DoctorId { get; set; }
 
-        [Required(ErrorMessage = "Consultation Status Id is required")]
+        [Required(ErrorMessage = "Consultation Status Id is required.")]
         public int ConsultationStatusId { get; set; }
     }
 
