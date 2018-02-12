@@ -3,16 +3,6 @@ using OMC.BL.Interface;
 using OMC.Models;
 using System.Collections.Generic;
 using System.Web.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using OMC.Models;
-using Ninject;
-using OMC.BL.Interface;
-using System.Data;
 
 namespace OMCApi.Areas.Consultation.Controllers
 {
