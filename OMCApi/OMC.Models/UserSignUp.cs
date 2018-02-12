@@ -21,18 +21,18 @@ namespace OMC.Models
         [Required]
         [EmailAddress(ErrorMessage = "Email address not of valid format")]
         public string EmailAddress { get; set; }
-        [Required(ErrorMessage = "Address required")]
+        [RequiredIf("UserType", "2", ErrorMessage = "Address required")]
         public string Address { get; set; }
         [Required(ErrorMessage = "PhoneNumber required")]
         [RegularExpression(@"^(\d{10})$", ErrorMessage = "PhoneNumber is of wrong format")]
         public string PhoneNumber { get; set; }
-        [RequiredIf("UserType","1", ErrorMessage = "Gender required")]
+        [RequiredIf("UserType","2", ErrorMessage = "Gender required")]
         public string Gender { get; set; }
         [Required(ErrorMessage = "DOB required")]
         public string DOB { get; set; }
-        [RequiredIf("UserType", "1", ErrorMessage = "Password required")]
+        [RequiredIf("UserType", "4", ErrorMessage = "Password required")]
         public string Password { get; set; }
-        [Required(ErrorMessage = "AlternateNo required")]
+        [RequiredIf("UserType", "2", ErrorMessage = "AlternateNo required")]
         [RegularExpression(@"^(\d{10})$", ErrorMessage = "AlternateNo is of wrong format")]
         public string AlternateNo { get; set; }
         [RegularExpression(@"^(\d{10})$", ErrorMessage = "EmergencyContactNo is of wrong format")]
@@ -47,6 +47,10 @@ namespace OMC.Models
         public string UserAction { get; set; }
         public string isEmailVerified { get; set; }
         public string isPhoneVerified { get; set; }
+        [RequiredIf("UserType", "4", ErrorMessage = "Terms and Condition not accepted")]
+        public bool isTnCAccepted { get; set; }
+        public string TnC { get; set; }
+        public string TnCID { get; set; }
         #endregion
 
         #region Serialization

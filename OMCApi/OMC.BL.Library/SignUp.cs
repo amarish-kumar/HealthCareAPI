@@ -31,7 +31,8 @@ namespace OMC.BL.Library
             try
             {
                 bool isSignin = this._signUpDA.InitiateSignUpProcess(signupdetails);
-                if(isSignin)
+
+                if (isSignin && signupdetails.UserType == 2)
                 {
                     this._signInDA = new SignInDataAccess();
                     var objEmail = this._signInDA.GetEmailData("GET_PWD_CSR");
@@ -47,7 +48,7 @@ namespace OMC.BL.Library
             catch (Exception ex)
             {
                 //Log
-                return false;
+                throw ex;
             }
             finally
             {
