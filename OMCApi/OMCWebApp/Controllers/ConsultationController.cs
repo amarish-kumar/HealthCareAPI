@@ -82,7 +82,21 @@ namespace OMCWebApp.Controllers
 
             }
         }
-        
-        #endregion
+
+        [HttpGet]
+        public async Task<ActionResult> List(int userId, string userRole)
+        {
+            ConsultationListModel result = new ConsultationListModel();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConsultationList?userId=" + userId.ToString()+ "&userRole=" + userRole);
+                result.ConsultationList = JsonConvert.DeserializeObject<List<ConsultationDisplay>>(Res.Content.ReadAsStringAsync().Result);
+            }
+            return View(result);
         }
+        #endregion
+    }
 }

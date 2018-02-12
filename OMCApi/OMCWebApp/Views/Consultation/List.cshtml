@@ -1,0 +1,33 @@
+﻿@model  OMCWebApp.Models.ConsultationListModel
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+
+<h2>Consultation List</h2>
+
+<table style="">
+    <thead>
+        <th>Patient Name</th>
+        <th>Doctor Name</th>
+        <th>Description</th>
+        <th>Status</th>
+    </thead>
+
+    @foreach (var consultation in Model.ConsultationList)
+            {
+        <tr>
+            <td>@consultation.PatientName</td>
+            <td>@consultation.DoctorName</td>
+            <td>@consultation.ConsultationDescription</td>
+            <td>@consultation.ConsultationStatus</td>           
+        </tr>
+    }
+</table>
+
+
+
+
+

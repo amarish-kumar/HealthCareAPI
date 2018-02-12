@@ -2,6 +2,7 @@
 using OMC.DAL.Interface;
 using OMC.Models;
 using System;
+using System.Collections.Generic;
 
 namespace OMC.BL.Library
 {
@@ -21,7 +22,22 @@ namespace OMC.BL.Library
         #endregion
 
         #region Methods
-        
+        public List<ConsultationDisplay> GetConsultationList(int userId, string userRole)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationList(userId, userRole);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
         public ConsultationResponse InitiateConsultation(Consultation consultationDetails)
         {
             try
