@@ -44,6 +44,7 @@ namespace OMC.DAL.Library
                             PatientId = Convert.ToInt32(reader["PatientId"].ToString()),
                             ConsultationStatus = reader["ConsultationStatus"] != DBNull.Value ? reader["ConsultationStatus"].ToString() : null,
                             ConsultationStatusId = Convert.ToInt32(reader["ConsultationStatusId"].ToString()),
+                            ConsultationCreateDate = reader["ConsultationCreateDate"] != DBNull.Value ? DateTime.Parse(reader["ConsultationCreateDate"].ToString()) : (DateTime?)null,
                         });
                     }
                 }

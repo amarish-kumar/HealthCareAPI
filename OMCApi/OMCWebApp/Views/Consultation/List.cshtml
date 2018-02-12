@@ -14,6 +14,7 @@
         <th>Doctor Name</th>
         <th>Description</th>
         <th>Status</th>
+        <th>Timestamp</th>
     </thead>
 
     @foreach (var consultation in Model.ConsultationList)
@@ -22,7 +23,8 @@
             <td>@consultation.PatientName</td>
             <td>@consultation.DoctorName</td>
             <td>@consultation.ConsultationDescription</td>
-            <td>@consultation.ConsultationStatus</td>           
+            <td>@consultation.ConsultationStatus</td>    
+            <td>@(consultation.ConsultationCreateDate.HasValue ? consultation.ConsultationCreateDate.Value.ToString("dd-MMM-yyyy hh:mm") : string.Empty)</td>     
         </tr>
     }
 </table>

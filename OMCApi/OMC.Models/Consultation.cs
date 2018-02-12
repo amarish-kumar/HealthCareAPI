@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OMC.Models
@@ -34,5 +35,6 @@ namespace OMC.Models
         public string DoctorName { get; set; }
         public int ConsultationStatusId { get; set; }
         public string ConsultationStatus { get; set; }
+        public DateTime? ConsultationCreateDate { get; set; }
     }
 }
