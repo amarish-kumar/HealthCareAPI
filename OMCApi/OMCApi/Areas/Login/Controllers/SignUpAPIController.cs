@@ -45,32 +45,47 @@ namespace OMCApi.Areas.Login.Controllers
         public IHttpActionResult PostUserSignUp([FromBody]UserSignUp userdetails)
         {
 
-            var SignUpResult = false;
-            var SignUpObj = _Kernel.Get<ISignUp>();
-
-            if (!ModelState.IsValid)
+            try
             {
-                //return (IHttpActionResult)Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-                return BadRequest(ModelState);
-            }
-            else
-                SignUpResult = SignUpObj.InitiateSignUpProcess(userdetails);
+                var SignUpResult = false;
+                var SignUpObj = _Kernel.Get<ISignUp>();
 
-            if (SignUpResult)
-            {
-                if (userdetails.UserType == 4)
-                    return Ok("Patient details saved");
-                else if (userdetails.UserType == 3)
-                    return Ok("CSRAdmin details saved");
-                else if (userdetails.UserType == 2)
-                    return Ok("CSR details saved");
-                else if (userdetails.UserType == 5)
-                    return Ok("Doctor details saved");
+                if (!ModelState.IsValid)
+                {
+                    //return (IHttpActionResult)Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                    return BadRequest(ModelState);
+                }
                 else
-                    return Ok("SuperAdmin details saved");
+                {
+                    if (userdetails.UserType == 4 && !userdetails.isTnCAccepted)
+                        return BadRequest("Patient Terms and Conditions not accepted");
+                    else
+                        SignUpResult = SignUpObj.InitiateSignUpProcess(userdetails);
+                }
+
+                if (SignUpResult)
+                {
+                    if (userdetails.UserType == 4)
+                        return Ok("Patient details saved");
+                    else if (userdetails.UserType == 3)
+                        return Ok("CSRAdmin details saved");
+                    else if (userdetails.UserType == 2)
+                        return Ok("CSR details saved");
+                    else if (userdetails.UserType == 5)
+                        return Ok("Doctor details saved");
+                    else
+                        return Ok("SuperAdmin details saved");
+                }
+                else
+                    return BadRequest("SignUp Error!");
             }
-            else
-                return BadRequest("SignUp Error!");
+            catch(Exception ex)
+            {
+                if (ex.ToString().Contains("Violation of UNIQUE KEY constraint 'UC_UserDetail_PhoneNumber'") || ex.ToString().Contains("Violation of UNIQUE KEY constraint 'UC_UserDetail_EmailAddress'"))
+                    return BadRequest("User is already registered!");
+                else
+                    return BadRequest(ex.ToString());
+            }
         }
 
         // PUT: api/SignUpAPI/5

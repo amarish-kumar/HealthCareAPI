@@ -29,7 +29,7 @@ DECLARE @Id AS BIGINT, @Gender AS BIGINT, @UserType AS BIGINT
 DECLARE @FirstName AS NVARCHAR(MAX), @LastName AS NVARCHAR(MAX), @EmailAddress AS NVARCHAR(MAX), @Address AS NVARCHAR(MAX)
 , @PhoneNumber AS NVARCHAR(MAX), @DOB AS NVARCHAR(MAX), @Password AS NVARCHAR(MAX), @AlternateNo AS NVARCHAR(MAX)
 , @EmergencyContactNo AS NVARCHAR(MAX), @EmergencyContactPerson AS NVARCHAR(MAX), @DLNumber AS NVARCHAR(MAX), @DLCopy AS NVARCHAR(MAX), @SSN AS NVARCHAR(MAX)
-, @IsEmailVerified AS BIGINT, @IsPhoneVerified AS BIGINT
+, @IsEmailVerified AS BIGINT, @IsPhoneVerified AS BIGINT, @TnCID AS BIGINT
 DECLARE @Active AS BIT
 
 SELECT @Id = UserDetailList.Columns.value('Id[1]', 'BIGINT')
@@ -51,6 +51,7 @@ SELECT @Id = UserDetailList.Columns.value('Id[1]', 'BIGINT')
 	   , @UserType = UserDetailList.Columns.value('UserType[1]', 'BIGINT')
 	   , @IsEmailVerified = UserDetailList.Columns.value('isEmailVerified[1]', 'BIGINT')
 	   , @IsPhoneVerified = UserDetailList.Columns.value('isPhoneVerified[1]', 'BIGINT')
+	   , @TnCID= UserDetailList.Columns.value('TnCID[1]', 'BIGINT')
 FROM   @USER_DETAIL_XML.nodes('UserSignUp') AS UserDetailList(Columns)
 
 /*BLOCK TO READ THE VARIABLES ENDS HERE*/
@@ -81,6 +82,10 @@ BEGIN
 					,[ModifiedBy] = @USER_ID
 					,[ModifiedDate] = GETDATE()
 			WHERE ID = @Id
+			
+			UPDATE [dbo].[UserRoleMapping]
+				SET [TandCId] = ISNULL(@TnCID, TandCId)
+				WHERE ID = @Id
 		END
 	ELSE
 		BEGIN
@@ -131,6 +136,7 @@ BEGIN
 			INSERT INTO [dbo].[UserRoleMapping]
 			   ([UserId]
 			   ,[RoleId]
+			   ,[TandCId]
 			   ,[IsDefault]
 			   ,[Active]
 			   ,[AddedBy]
@@ -138,6 +144,7 @@ BEGIN
 				VALUES
 			   (@@IDENTITY
 			   , @UserType
+			   , @TnCID
 			   , 1
 			   , 1
 			   ,@USER_ID

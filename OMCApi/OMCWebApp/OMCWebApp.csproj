@@ -214,6 +214,7 @@
     <Content Include="Views\Consultation\Index.cshtml" />
     <Content Include="Views\Consultation\ConsResponse.cshtml" />
     <Content Include="Views\Consultation\List.cshtml" />
+    <Content Include="Views\SignUp\DoctorSignUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
