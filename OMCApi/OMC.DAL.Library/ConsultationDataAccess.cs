@@ -62,6 +62,80 @@ namespace OMC.DAL.Library
             }
         }
 
+        public ConversationResponse GetConversationList(int consultationId, int userId, string userRole = "Doctor")
+        {
+            try
+            {
+                Log.Info("Started call to GetConversationList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { consultationId = consultationId, userId = userId, userRole = userRole }));
+                Command.CommandText = "SP_GET_CONVERSATION_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_ID", consultationId);
+                Command.Parameters.AddWithValue("@USER_ID", userId);
+                Command.Parameters.AddWithValue("@USER_ROLE", userRole);
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                ConversationResponse result = new ConversationResponse();
+
+                if (ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        var resultRow = ds.Tables[0].Rows[0];
+                        result.ConsultationObject = new ConsultationDisplay
+                        {
+                            ConsultationDescription = resultRow["ConsultationDescription"] != DBNull.Value ? resultRow["ConsultationDescription"].ToString() : null,
+                            ConsultationId = Convert.ToInt32(resultRow["ConsultationId"].ToString()),
+                            DoctorName = resultRow["DoctorName"] != DBNull.Value ? resultRow["DoctorName"].ToString() : null,
+                            DoctorId = Convert.ToInt32(resultRow["DoctorId"].ToString()),
+                            PatientName = resultRow["PatientName"] != DBNull.Value ? resultRow["PatientName"].ToString() : null,
+                            PatientId = Convert.ToInt32(resultRow["PatientId"].ToString()),
+                            ConsultationStatus = resultRow["ConsultationStatus"] != DBNull.Value ? resultRow["ConsultationStatus"].ToString() : null,
+                            ConsultationStatusId = Convert.ToInt32(resultRow["ConsultationStatusId"].ToString()),
+                            ConsultationCreateDate = resultRow["ConsultationCreateDate"] != DBNull.Value ? DateTime.Parse(resultRow["ConsultationCreateDate"].ToString()) : (DateTime?)null,
+                        };
+
+                        if (ds.Tables.Count > 1
+                            && ds.Tables[1].Rows.Count > 0)
+                        {
+                            result.Conversations = new List<ConversationDisplay>();
+                            foreach (DataRow drConversation in ds.Tables[1].Rows)
+                            {
+                                result.Conversations.Add(new ConversationDisplay
+                                {
+                                    ConversationId = Convert.ToInt32(drConversation["ConversationId"].ToString()),
+                                    ConversationDescription = drConversation["ConversationDescription"] != DBNull.Value ? drConversation["ConversationDescription"].ToString() : null,
+                                    ConsultationId = Convert.ToInt32(drConversation["ConsultationId"].ToString()),
+                                    DoctorName = drConversation["DoctorName"] != DBNull.Value ? drConversation["DoctorName"].ToString() : null,
+                                    DoctorId = drConversation["DoctorId"] != DBNull.Value ? int.Parse(drConversation["DoctorId"].ToString()) : (int?)null,
+                                    PatientName = drConversation["PatientName"] != DBNull.Value ? drConversation["PatientName"].ToString() : null,
+                                    PatientId = drConversation["PatientId"] != DBNull.Value ? int.Parse(drConversation["PatientId"].ToString()) : (int?)null,
+                                    IsLocked = Convert.ToBoolean(drConversation["IsLocked"].ToString()),
+                                    ConversationCreateDate = drConversation["ConversationCreateDate"] != DBNull.Value ? DateTime.Parse(drConversation["ConversationCreateDate"].ToString()) : (DateTime?)null
+                                });
+                            }
+                        }
+                    }
+                }
+                Log.Info("End call to GetConversationList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
         public ConsultationResponse InitiateConsultation(Consultation consultationDetails)
         {
             try

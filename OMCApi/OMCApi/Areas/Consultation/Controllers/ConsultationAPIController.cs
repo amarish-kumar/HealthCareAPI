@@ -54,6 +54,15 @@ namespace OMCApi.Areas.Consultation.Controllers
             return ConsultationBLObj.GetConsultationList(userId, userRole);
         }
 
+        // Get: api/ConsultationAPI/GetConsultationList
+        [HttpGet]
+        [Route("GetConversationList")]
+        public ConversationResponse GetConversationList(int consultationId, int userId, string userRole)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConversationList(consultationId, userId, userRole);
+        }
+
         // POST: api/ConsultationAPI/CreateConsultation
         [HttpPost]
         [Route("CreateConsultation")]
