@@ -1,7 +1,12 @@
 ﻿@model  OMCWebApp.Models.ConsultationViewModel
 
 <style>
-    table, th, td {
+    table.conversations td,
+    table.conversations th {
+        border: 1px solid black;
+    }
+
+    table.createConv {
         border: 1px solid black;
     }
 </style>
@@ -23,7 +28,7 @@
     && Model.ConversationResponseObject.Conversations != null
     && Model.ConversationResponseObject.Conversations.Count() != 0)
 {
-    <table style="">
+    <table class="conversations">
         <thead>
             <th>Id</th>
             <th>Description</th>
@@ -55,4 +60,5 @@ else
 }
 
 
-
+<br/>
+@Html.Partial("CreateConv", Model.ConversationModelObject)

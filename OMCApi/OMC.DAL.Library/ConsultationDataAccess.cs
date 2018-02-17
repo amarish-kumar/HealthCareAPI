@@ -177,6 +177,53 @@ namespace OMC.DAL.Library
                 Connection.Close();
             }
         }
+
+        public ConversationResponse RecordConversation(Conversation conversationDetails)
+        {
+            try
+            {
+                Log.Info("Started call to RecordConversation");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(conversationDetails));
+                Command.CommandText = "SP_CONVERSATION_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONVERSATION_XML", GetXMLFromObject(conversationDetails));
+                Command.Parameters.AddWithValue("@OPERATION", "CONVERSATION");
+                if (conversationDetails.PatientId.HasValue || conversationDetails.DoctorId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", conversationDetails.PatientId.HasValue 
+                                                    ? conversationDetails.PatientId.Value 
+                                                    : conversationDetails.DoctorId.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                ConversationResponse result = new ConversationResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new ConversationResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())                            
+                        };
+                    }
+                }
+                Log.Info("End call to RecordConversation");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
         #endregion        
     }
 }

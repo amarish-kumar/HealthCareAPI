@@ -77,6 +77,21 @@ namespace OMCApi.Areas.Consultation.Controllers
             var ConsultationResult = ConsultationBLObj.InitiateConsultation(consultation);
             return Ok(ConsultationResult.Message); 
         }
+
+        // POST: api/ConsultationAPI/CreateConsultation
+        [HttpPost]
+        [Route("CreateConversation")]
+        public IHttpActionResult CreateConversation([FromBody]Conversation conversation)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            conversation.Active = true;
+            var ConversationResult = ConsultationBLObj.RecordConversation(conversation);
+            return Ok(ConversationResult.Message);
+        }
         #endregion
     }
 }

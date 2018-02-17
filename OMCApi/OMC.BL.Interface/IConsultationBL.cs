@@ -9,5 +9,6 @@ namespace OMC.BL.Interface
         ConsultationResponse InitiateConsultation(Consultation consultationDetails);
         List<ConsultationDisplay> GetConsultationList(int userId, string userRole);
         ConversationResponse GetConversationList(int consultationId, int userId, string userRole);
+        ConversationResponse RecordConversation(Conversation conversationDetails);
     }
 }

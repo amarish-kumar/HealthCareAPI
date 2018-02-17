@@ -1,0 +1,45 @@
+﻿@model  OMCWebApp.Models.ConversationModel
+
+@using (Html.BeginForm("CreateConversation", "Consultation"))
+{
+    <h2>Create Conversation</h2>
+
+    @Html.AntiForgeryToken()
+    <table class="createConv">
+        <tr>
+            <td>
+                Description:
+            </td>
+            <td>
+                @Html.HiddenFor(m => m.ConversationObject.ConsultationId, Model.ConversationObject.ConsultationId)
+                @Html.TextAreaFor(m => m.ConversationObject.Description, new { style = "width: 1000px; height:100px;" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Patient Id:
+            </td>
+            <td>
+                @Html.HiddenFor(m => m.ConversationObject.PatientId, Model.ConversationObject.PatientId)
+                @Model.ConversationObject.PatientId
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Doctor Id:
+            </td>
+            <td>
+                @Html.HiddenFor(m => m.ConversationObject.DoctorId, Model.ConversationObject.DoctorId)
+                @Model.ConversationObject.DoctorId
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Create Conversation</button>
+            </td>
+        </tr>
+
+    </table>
+}
+
+
