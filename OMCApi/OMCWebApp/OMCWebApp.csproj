@@ -217,6 +217,8 @@
     <Content Include="Views\Consultation\ConsResponse.cshtml" />
     <Content Include="Views\Consultation\List.cshtml" />
     <Content Include="Views\SignUp\DoctorSignUp.cshtml" />
+    <Content Include="Views\Login\PatientEnquiry.cshtml" />
+    <Content Include="Views\Login\PatientEnquiryResponse.cshtml" />
     <Content Include="Views\Consultation\View.cshtml" />
     <Content Include="Views\Consultation\ConvResponse.cshtml" />
     <Content Include="Views\Consultation\CreateConv.cshtml" />

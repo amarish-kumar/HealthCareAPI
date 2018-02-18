@@ -1,0 +1,49 @@
+﻿@model  OMC.Models.PatientEnquiry
+@{
+    ViewBag.Title = "PatientEnquiry";
+}
+
+<h2>Patient's enquiry for Doctor</h2>
+
+@using (Html.BeginForm("UnRegPatientEnquiry", "Login"))
+{
+    @Html.AntiForgeryToken()
+
+
+    <table>
+        <tr>
+            <td>Search for Doctors</td>
+        </tr>
+        <tr>
+            <td>@Html.TextBoxFor(m => m.Description)</td>
+        </tr>
+        <tr>
+            <td><button type="submit">Search</button></td>
+        </tr>
+    </table>
+    <br />
+  
+        @*if (Model.SpecialityId != null)
+        {
+            <table style="">
+                <thead>
+                <th>Speciality</th>
+                <th>Doctor Name</th>
+                </thead>
+
+                @foreach (var userRole in Model.UserRoles)
+                {
+                    <tr>
+                        <td>@userRole.RoleId</td>
+                        <td>@userRole.RoleName</td>
+                        <td>@userRole.IsDefault</td>
+
+                    </tr>
+                }
+            </table>
+        }*@
+  
+
+
+}
+

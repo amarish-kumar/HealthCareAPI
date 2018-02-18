@@ -52,6 +52,11 @@ namespace OMCWebApp.Controllers
             return View();
         }
 
+        public ActionResult PatientEnquiry()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SaveSignUpDetails(UserSignUp userdetails)

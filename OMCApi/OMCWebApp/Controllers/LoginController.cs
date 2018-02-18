@@ -40,6 +40,34 @@ namespace OMCApi.Areas.Login.Controllers
             return View();
         }
 
+
+        public ActionResult PatientEnquiry()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> UnRegPatientEnquiry(PatientEnquiry enquiry)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var json = JsonConvert.SerializeObject(enquiry);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/ConsultationAPI/GetUnregisteredPatientEnquiry", content);
+
+                if (Res.IsSuccessStatusCode)
+                {
+                    var objPatientEnquiryResponse = JsonConvert.DeserializeObject<PatientEnquiryResponse>(Res.Content.ReadAsStringAsync().Result);
+                    return View("PatientEnquiryResponse", objPatientEnquiryResponse);
+                }
+            }
+            return View("PatientEnquiryResponse");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Signin(UserLogin user)
