@@ -8,5 +8,9 @@ namespace OMCWebApp.Models
         public int UserId { get; set; }
         public int ConsultationId { get; set; }
         public string UserRole { get; set; }
+        /// <summary>
+        /// this is used to create the record
+        /// </summary>
+        public ConversationModel ConversationModelObject { get; set; }
     }
 }

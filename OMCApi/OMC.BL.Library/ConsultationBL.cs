@@ -69,7 +69,22 @@ namespace OMC.BL.Library
                 //Log
             }
         }
-        
+
+        public ConversationResponse RecordConversation(Conversation conversationDetails)
+        {
+            try
+            {
+                return this._consultationDA.RecordConversation(conversationDetails);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
         #endregion
 
         #region IDisposable

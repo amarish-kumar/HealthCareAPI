@@ -163,6 +163,7 @@
     <Compile Include="Models\ConsultationListModel.cs" />
     <Compile Include="Models\ConsultationModel.cs" />
     <Compile Include="Models\ConsultationViewModel.cs" />
+    <Compile Include="Models\ConversationModel.cs" />
     <Compile Include="Models\GetAccessCodeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -217,6 +218,8 @@
     <Content Include="Views\Consultation\List.cshtml" />
     <Content Include="Views\SignUp\DoctorSignUp.cshtml" />
     <Content Include="Views\Consultation\View.cshtml" />
+    <Content Include="Views\Consultation\ConvResponse.cshtml" />
+    <Content Include="Views\Consultation\CreateConv.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
