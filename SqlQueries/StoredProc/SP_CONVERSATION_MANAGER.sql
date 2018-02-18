@@ -1,16 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONVERSATION_MANAGER]    Script Date: 2/17/2018 8:00:28 PM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONVERSATION_MANAGER]    Script Date: 2/17/2018 9:43:37 PM ******/
 DROP PROCEDURE [dbo].[SP_CONVERSATION_MANAGER]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONVERSATION_MANAGER]    Script Date: 2/17/2018 8:00:28 PM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONVERSATION_MANAGER]    Script Date: 2/17/2018 9:43:37 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 CREATE PROCEDURE [dbo].[SP_CONVERSATION_MANAGER]
@@ -97,6 +98,7 @@ END
 
 SELECT @Result AS Result, @ReturnMessage AS ReturnMessage
 END
+
 
 
 
