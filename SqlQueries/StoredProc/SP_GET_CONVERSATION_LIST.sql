@@ -1,16 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_CONVERSATION_LIST]    Script Date: 2/17/2018 11:38:28 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONVERSATION_LIST]    Script Date: 2/17/2018 5:53:09 PM ******/
 DROP PROCEDURE [dbo].[SP_GET_CONVERSATION_LIST]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_CONVERSATION_LIST]    Script Date: 2/17/2018 11:38:28 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONVERSATION_LIST]    Script Date: 2/17/2018 5:53:09 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 
@@ -56,6 +57,7 @@ BEGIN
 	WHERE C.Id = @CONSULTATION_ID
 	ORDER BY CONV.AddedDate
 END
+
 
 GO
 
