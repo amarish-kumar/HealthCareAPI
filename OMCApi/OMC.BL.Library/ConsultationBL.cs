@@ -38,6 +38,22 @@ namespace OMC.BL.Library
             }
         }
 
+        public ConversationResponse GetConversationList(int consultationId, int userId, string userRole)
+        {
+            try
+            {
+                return this._consultationDA.GetConversationList(consultationId, userId, userRole);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
         public ConsultationResponse InitiateConsultation(Consultation consultationDetails)
         {
             try

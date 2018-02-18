@@ -15,6 +15,7 @@
         <th>Description</th>
         <th>Status</th>
         <th>Timestamp</th>
+        <th>Action</th>
     </thead>
 
     @foreach (var consultation in Model.ConsultationList)
@@ -24,7 +25,14 @@
             <td>@consultation.DoctorName</td>
             <td>@consultation.ConsultationDescription</td>
             <td>@consultation.ConsultationStatus</td>    
-            <td>@(consultation.ConsultationCreateDate.HasValue ? consultation.ConsultationCreateDate.Value.ToString("dd-MMM-yyyy hh:mm") : string.Empty)</td>     
+            <td>@(consultation.ConsultationCreateDate.HasValue 
+                ? consultation.ConsultationCreateDate.Value.ToString("dd-MMM-yyyy hh:mm") 
+                : string.Empty)
+            </td>     
+            <td>
+                @Html.ActionLink("View Consultation", "View", "Consultation"
+                    , new { userId = Model.UserId, consultationId = consultation.ConsultationId, userRole = Model.UserRole }, null)
+            </td>
         </tr>
     }
 </table>

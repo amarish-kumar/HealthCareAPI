@@ -87,6 +87,8 @@ namespace OMCWebApp.Controllers
         public async Task<ActionResult> List(int userId, string userRole)
         {
             ConsultationListModel result = new ConsultationListModel();
+            result.UserId = userId;
+            result.UserRole = userRole;
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
@@ -94,6 +96,24 @@ namespace OMCWebApp.Controllers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConsultationList?userId=" + userId.ToString()+ "&userRole=" + userRole);
                 result.ConsultationList = JsonConvert.DeserializeObject<List<ConsultationDisplay>>(Res.Content.ReadAsStringAsync().Result);
+            }
+            return View(result);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> View(int userId, int consultationId, string userRole)
+        {
+            ConsultationViewModel result = new ConsultationViewModel();
+            result.UserId = userId;
+            result.ConsultationId = consultationId;
+            result.UserRole = userRole;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConversationList?userId=" + userId.ToString() + "&consultationId=" + consultationId + "&userRole=" + userRole);
+                result.ConversationResponseObject = JsonConvert.DeserializeObject<ConversationResponse>(Res.Content.ReadAsStringAsync().Result);
             }
             return View(result);
         }
