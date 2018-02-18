@@ -222,6 +222,7 @@
     <Content Include="Views\Consultation\View.cshtml" />
     <Content Include="Views\Consultation\ConvResponse.cshtml" />
     <Content Include="Views\Consultation\CreateConv.cshtml" />
+    <Content Include="Views\SignUp\SignUpSuccessfull.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
