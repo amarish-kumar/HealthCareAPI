@@ -37,7 +37,7 @@ BEGIN
 		   , @EXCEPTION_TYPE
 		   , @SOURCE
 		   , @USER_ID
-		   , GETDATE())
+		   , GETUTCDATE())
 
 END
 

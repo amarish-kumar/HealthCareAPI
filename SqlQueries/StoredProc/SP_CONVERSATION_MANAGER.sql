@@ -63,7 +63,7 @@ BEGIN
 			,0
 			,@Active
 			,@USER_ID
-			,GETDATE())
+			,GETUTCDATE())
 
 			SET @Result = 1;
 			SET @ReturnMessage = 'Record created successfully.'
@@ -81,7 +81,7 @@ BEGIN
 				[Description] = @Description,
 				[IsLocked] = @IsLocked,
 				[ModifiedBy] = @USER_ID,
-				[ModifiedDate] = GETDATE()
+				[ModifiedDate] = GETUTCDATE()
 			WHERE Id = @Id
 			SET @Result = 1;
 			SET @ReturnMessage = 'Record updated successfully.'

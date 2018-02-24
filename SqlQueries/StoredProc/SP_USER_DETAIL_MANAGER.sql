@@ -80,7 +80,7 @@ BEGIN
 					,[SSN] = ISNULL(@SSN, SSN)
 					,[Active] = ISNULL(@Active, Active)
 					,[ModifiedBy] = @USER_ID
-					,[ModifiedDate] = GETDATE()
+					,[ModifiedDate] = GETUTCDATE()
 			WHERE ID = @Id
 			
 			UPDATE [dbo].[UserRoleMapping]
@@ -127,7 +127,7 @@ BEGIN
 			   ,@SSN
 			   ,@Active
 			   ,@USER_ID
-			   ,GETDATE()
+			   ,GETUTCDATE()
 			   ,@IsEmailVerified
 			   ,@IsPhoneVerified)
 			/*INSERT USER DETAIL BLOCK ENDS HERE*/
@@ -148,7 +148,7 @@ BEGIN
 			   , 1
 			   , 1
 			   ,@USER_ID
-			   ,GETDATE())
+			   ,GETUTCDATE())
 
 
 			/*USER ROLE BLOCK ENDS HERE*/
@@ -172,7 +172,7 @@ BEGIN
 	UPDATE [dbo].[UserDetail]
 		SET [ACTIVE] = 0
 			,[DeletedBy] = @USER_ID
-			,[DeletedDate] = GETDATE()
+			,[DeletedDate] = GETUTCDATE()
 		WHERE Id = @USER_ID
 END
 

@@ -29,9 +29,9 @@ IF @PATIENT_T_ANC_MAPPING_ID IS NOT NULL AND @PATIENT_T_ANC_MAPPING_ID > 0
 			
 			UPDATE [dbo].[PatientTAndCMapping]
 			   SET [TAndCId] = ISNULL(@T_AND_C_ID, TAndCId)
-				  ,[SignnedDate] = GETDATE()
+				  ,[SignnedDate] = GETUTCDATE()
 				  ,[ModifiedBy] = @USER_ID
-				  ,[ModifiedDate] = GETDATE()
+				  ,[ModifiedDate] = GETUTCDATE()
 			WHERE ID = @PATIENT_T_ANC_MAPPING_ID
 
 		END
@@ -49,10 +49,10 @@ IF @PATIENT_T_ANC_MAPPING_ID IS NOT NULL AND @PATIENT_T_ANC_MAPPING_ID > 0
 			VALUES
 			   (@PATIENT_ID
 			   ,@T_AND_C_ID
-			   ,GETDATE()
+			   ,GETUTCDATE()
 			   ,1
 			   ,@USER_ID
-			   ,GETDATE())
+			   ,GETUTCDATE())
 			   
 		END
 END

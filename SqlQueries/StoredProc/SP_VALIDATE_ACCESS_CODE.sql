@@ -78,16 +78,16 @@ IF @ACCESS_CODE_EXIST = 1
 
 			UPDATE UserLoginAudit
 				SET IsTwoWayAuthPassed = 1
-					, TwoFactorAuthTimestamp = GETDATE()
+					, TwoFactorAuthTimestamp = GETUTCDATE()
 					, ModifiedBy = @USER_ID
-					, ModifiedDate = GETDATE()
+					, ModifiedDate = GETUTCDATE()
 				WHERE Id = @USER_LOGIN_AUDIT_ID
 
 			UPDATE UDD
 			SET TwoFactorAuthDone = 1
-				, TwoFactorAuthTimestamp = GETDATE()
+				, TwoFactorAuthTimestamp = GETUTCDATE()
 				, ModifiedBy = @USER_ID
-				, ModifiedDate = GETDATE()
+				, ModifiedDate = GETUTCDATE()
 			 FROM UserDeviceDetail UDD
 			INNER JOIN UserLoginAudit ULA ON ULA.UserDeviceId = UDD.Id
 			WHERE ULA.Id = @USER_LOGIN_AUDIT_ID

@@ -78,7 +78,7 @@ IF @USER_ID IS NOT NULL
 			   , 0
 			   , 1
 			   , @USER_ID
-			   , GETDATE())
+			   , GETUTCDATE())
 
 			SET @USER_DEVICE_ID = @@IDENTITY
 			SET @TWO_FACTOR_AUTH_DONE = 0
@@ -101,7 +101,7 @@ IF @USER_ID IS NOT NULL
 		UPDATE [dbo].[UserLoginAudit]
 		SET [Active] = 0,
 			[ModifiedBy] = @USER_ID,
-			[ModifiedDate] = GETDATE()
+			[ModifiedDate] = GETUTCDATE()
 		WHERE UserId = @USER_ID
 		AND [UserDeviceId] = @USER_DEVICE_ID
 		AND [Active] = 1
@@ -127,7 +127,7 @@ IF @USER_ID IS NOT NULL
 				   , NEWID()
 				   , 1
 				   , @USER_ID
-				   , GETDATE())
+				   , GETUTCDATE())
 
 		SET @LOGIN_AUDIT_ID = @@IDENTITY
 
