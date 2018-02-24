@@ -55,7 +55,10 @@ namespace OMC.BL.Library
             }
             catch (Exception ex)
             {
-                throw;
+                return new UserAccessCodeResponse
+                {
+                    ErrorMessage= ex.Message
+                };
             }
             finally
             {

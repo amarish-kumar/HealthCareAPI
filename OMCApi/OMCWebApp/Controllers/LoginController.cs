@@ -139,6 +139,10 @@ namespace OMCApi.Areas.Login.Controllers
                         UserAccessCodeResponse.AccessCode = string.Empty;
                         return View("ValidateAccessCode", UserAccessCodeResponse);
                     }
+                    else if (!string.IsNullOrEmpty(UserAccessCodeResponse.ErrorMessage))
+                    {
+                        return View("GetAccessCodeError", UserAccessCodeResponse);
+                    }
                 }
                 return View("LoginFailure");
             }

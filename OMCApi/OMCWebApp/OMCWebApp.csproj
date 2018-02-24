@@ -225,6 +225,7 @@
     <Content Include="Views\Consultation\ConvResponse.cshtml" />
     <Content Include="Views\Consultation\CreateConv.cshtml" />
     <Content Include="Views\SignUp\SignUpSuccessfull.cshtml" />
+    <Content Include="Views\Login\GetAccessCodeError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

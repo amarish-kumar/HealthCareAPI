@@ -40,6 +40,7 @@ namespace OMC.Models
         public int? UserLoginAuditId { get; set; }
         public string EmailAddress { get; set; }
         public string PhoneNumber { get; set; }
+        public string ErrorMessage { get; set; }
         public ValidateAccessCodeResponse objValidateAccessCodeResponse { get; set; }
     }
 
