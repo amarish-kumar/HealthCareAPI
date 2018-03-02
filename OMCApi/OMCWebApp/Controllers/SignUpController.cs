@@ -41,9 +41,27 @@ namespace OMCWebApp.Controllers
             return View();
         }
 
-        public ActionResult CSRSignUp()
+        public async Task<ActionResult> CSRSignUp()
         {
-            return View();
+            var model = new UserSignUp();
+            
+            using (var client = new HttpClient())
+            {
+
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/SignUpAPI/GetAddressTypes?isActive=true");
+                model.AddressTypes = JsonConvert.DeserializeObject<List<Address>>(Res.Content.ReadAsStringAsync().Result);
+
+                //client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                Res = await client.GetAsync("api/SignUpAPI/GetCountries?isActive=true");
+                model.Countries = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
+
+            }
+            return View(model);
         }
 
 

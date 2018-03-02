@@ -22,6 +22,38 @@ namespace OMC.BL.Library
         #endregion
 
         #region Methods
+        public List<Country> GetCountries(bool? isActive)
+        {
+            try
+            {
+                return this._masterDA.GetCountries(isActive);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public List<Address> GetAddressTypes(bool? isActive)
+        {
+            try
+            {
+                return this._masterDA.GetAddressTypes(isActive);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
         public List<Role> GetRoles(bool? isActive, string roleDescription)
         {
             try

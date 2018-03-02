@@ -37,7 +37,23 @@ namespace OMCApi.Areas.Login.Controllers
             return new string[] { "value1", "value2" };
         }
 
+        // Get: api/SignUpAPI/GetCountries
+        [HttpGet]
+        [Route("GetCountries")]
+        public List<Country> GetCountries(bool? isActive)
+        {
+            var masterObj = _Kernel.Get<IMaster>();
+            return masterObj.GetCountries(isActive);
+        }
 
+        // Get: api/SignUpAPI/GetAddressTypes
+        [HttpGet]
+        [Route("GetAddressTypes")]
+        public List<Address> GetAddressTypes(bool? isActive)
+        {
+            var masterObj = _Kernel.Get<IMaster>();
+            return masterObj.GetAddressTypes(isActive);
+        }
 
         [HttpPost]
         [Route("PostUserSignUp")]

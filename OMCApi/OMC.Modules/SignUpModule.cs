@@ -14,6 +14,8 @@ namespace OMC.Modules
             {
                 Bind<ISignUp>().To<SignUp>();
                 Bind<ISignUpDataAccess>().To<SignUpDataAccess>();
+                Bind<IMaster>().To<Master>();
+                Bind<IMasterDataAccess>().To<MasterDataAccess>();
             }
             catch
             {
