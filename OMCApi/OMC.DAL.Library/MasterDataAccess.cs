@@ -14,6 +14,84 @@ namespace OMC.DAL.Library
         #endregion
 
         #region Methods
+        public List<Country> GetCountries(bool? isActive)
+        {
+            try
+            {
+                Log.Info("Started call to GetCountries");
+                Log.Info("parameter values isActive=" + JsonConvert.SerializeObject(new { isActive = isActive }));
+                Command.CommandText = "SP_GET_COUNTRIES";
+                Command.CommandType = CommandType.StoredProcedure;
+
+                Command.Parameters.Clear();
+                Command.Parameters.AddWithValue("@ACTIVE", isActive);
+                Connection.Open();
+
+                SqlDataReader reader = Command.ExecuteReader();
+                List<Country> result = new List<Country>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new Country
+                        {
+                            CountryDesc = reader["Country"] != DBNull.Value ? reader["Country"].ToString() : null,
+                            ID = Convert.ToInt32(reader["ID"].ToString())
+                        });
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public List<Address> GetAddressTypes(bool? isActive)
+        {
+            try
+            {
+                Log.Info("Started call to GetAddressTypes");
+                Log.Info("parameter values isActive=" + JsonConvert.SerializeObject(new { isActive = isActive }));
+                Command.CommandText = "SP_GET_ADDRESSTYPE";
+                Command.CommandType = CommandType.StoredProcedure;
+
+                Command.Parameters.Clear();
+                Command.Parameters.AddWithValue("@ACTIVE", isActive);
+                Connection.Open();
+
+                SqlDataReader reader = Command.ExecuteReader();
+                List<Address> result = new List<Address>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new Address
+                        {
+                            AddressDesc = reader["AddressType"] != DBNull.Value ? reader["AddressType"].ToString() : null,
+                            ID = Convert.ToInt32(reader["ID"].ToString())
+                        });
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
         public List<Role> GetRoles(bool? isActive, string roleName)
         {
             try

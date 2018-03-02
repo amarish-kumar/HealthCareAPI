@@ -9,61 +9,141 @@ CSR SignUp
 @using (Html.BeginForm("SaveSignUpDetails", "SignUp"))
 {
     @Html.AntiForgeryToken()
-    <table>
-        <tr>
-            <td> @Html.LabelFor(m => m.FirstName)</td>
-            <td> @Html.TextBoxFor(m => m.FirstName)</td>
-        </tr>
-        <tr>
-            <td> @Html.LabelFor(m => m.LastName)</td>
-            <td> @Html.TextBoxFor(m => m.LastName)</td>
-        </tr>
-        <tr>
-            <td> @Html.LabelFor(m => m.EmailAddress)</td>
-            <td> @Html.TextBoxFor(m => m.EmailAddress)</td>
-        </tr>
-        <tr>
-            <td> @Html.LabelFor(m => m.Address)</td>
-            <td> @Html.TextBoxFor(m => m.Address)</td>
-        </tr>
-        <tr>
-            <td> @Html.LabelFor(m => m.PhoneNumber)</td>
-            <td> @Html.TextBoxFor(m => m.PhoneNumber)</td>
-        </tr>
-        <tr>
-            <td> @Html.LabelFor(m => m.DOB)</td>
-            <td> @Html.TextBoxFor(m => m.DOB)</td>
-        </tr>
-        <tr>
-            <td> @Html.LabelFor(m => m.AlternateNo)</td>
-            <td> @Html.TextBoxFor(m => m.AlternateNo)</td>
-        </tr>
-        <tr>
-            <td> @Html.LabelFor(m => m.EmergencyContactNo)</td>
-            <td> @Html.TextBoxFor(m => m.EmergencyContactNo)</td>
-        </tr>
-        <tr>
-            <td> @Html.LabelFor(m => m.EmergencyContactPerson)</td>
-            <td> @Html.TextBoxFor(m => m.EmergencyContactPerson)</td>
-        </tr>
-        <tr>
-            <td> @Html.LabelFor(m => m.DLCopy)</td>
-            <td> @Html.TextBoxFor(m => m.DLCopy, new { @Value = "D:\\OMCAppDocs\\DL\\Dhaval_license_copy.jpeg" })</td>
-        </tr>
-        <tr>
-            <td> @Html.LabelFor(m => m.SSN)</td>
-            <td> @Html.TextBoxFor(m => m.SSN)</td>
-        </tr>
-        <tr>
-            <td> @Html.LabelFor(m => m.LoggedInUserID)</td>
-            <td> @Html.TextBoxFor(m => m.LoggedInUserID, new { @Value = "1" })</td>
-        </tr>
-        @*<tr>
-                <td> @Html.LabelFor(m => m.Password)</td>
-                <td> @Html.PasswordFor(m => m.Password)</td>
-            </tr>*@
+<table>
+    <tr>
+        <td> @Html.LabelFor(m => m.FirstName)</td>
+        <td> @Html.TextBoxFor(m => m.FirstName)</td>
+    </tr>
+    <tr>
+        <td> @Html.LabelFor(m => m.LastName)</td>
+        <td> @Html.TextBoxFor(m => m.LastName)</td>
+    </tr>
+    <tr>
+        <td> @Html.LabelFor(m => m.EmailAddress)</td>
+        <td> @Html.TextBoxFor(m => m.EmailAddress)</td>
+    </tr>
+    <tr>
+        <td> @Html.LabelFor(m => m.AddressType)</td>
+        <td> @Html.DropDownListFor(m => Model.AddressType, new SelectList(Model.AddressTypes, "ID", "AddressDesc"))</td>
+        @*<td> @Html.TextBoxFor(m => m.AddressType)</td>*@
+    </tr >
 
-    </table>
+<tr>
+
+    <td> @Html.LabelFor(m => m.Address1) </td>
+
+    <td> @Html.TextBoxFor(m => m.Address1) </td>
+
+</tr>
+
+<tr>
+
+    <td> @Html.LabelFor(m => m.Address2) </td>
+
+    <td> @Html.TextBoxFor(m => m.Address2) </td>
+
+</tr>
+
+<tr>
+
+    <td> @Html.LabelFor(m => m.City) </td>
+
+    <td> @Html.TextBoxFor(m => m.City) </td>
+
+</tr>
+
+<tr>
+
+    <td> @Html.LabelFor(m => m.State) </td>
+
+    <td> @Html.TextBoxFor(m => m.State) </td>
+
+</tr>
+
+<tr>
+
+    <td> @Html.LabelFor(m => m.ZipCode) </td>
+
+    <td> @Html.TextBoxFor(m => m.ZipCode) </td>
+
+</tr>
+
+<tr>
+
+    <td> @Html.LabelFor(m => m.Country) </td>
+    <td> @Html.DropDownListFor(m => m.Country, new SelectList(Model.Countries, "ID", "CountryDesc")) </td>
+    @*<td> @Html.TextBoxFor(m => m.Country)</td>*@
+</tr>
+
+<tr>
+
+    <td> @Html.LabelFor(m => m.PhoneNumber) </td>
+
+    <td> @Html.TextBoxFor(m => m.PhoneNumber) </td>
+
+</tr>
+
+<tr>
+
+    <td> @Html.LabelFor(m => m.DOB) </td>
+
+    <td> @Html.TextBoxFor(m => m.DOB) </td>
+
+</tr>
+
+<tr>
+
+    <td> @Html.LabelFor(m => m.AlternateNo) </td>
+
+    <td> @Html.TextBoxFor(m => m.AlternateNo) </td>
+
+</tr>
+
+<tr>
+
+    <td> @Html.LabelFor(m => m.EmergencyContactNo) </td>
+
+    <td> @Html.TextBoxFor(m => m.EmergencyContactNo) </td>
+
+</tr>
+
+<tr>
+
+    <td> @Html.LabelFor(m => m.EmergencyContactPerson) </td>
+
+    <td> @Html.TextBoxFor(m => m.EmergencyContactPerson) </td>
+
+</tr>
+
+<tr>
+
+    <td> @Html.LabelFor(m => m.DLCopy) </td>
+
+    <td> @Html.TextBoxFor(m => m.DLCopy, new { @Value = "D:\\OMCAppDocs\\DL\\Dhaval_license_copy.jpeg" }) </td>
+
+</tr>
+
+<tr>
+
+    <td> @Html.LabelFor(m => m.SSN) </td>
+
+    <td> @Html.TextBoxFor(m => m.SSN) </td>
+
+</tr>
+
+<tr>
+
+    <td> @Html.LabelFor(m => m.LoggedInUserID) </td>
+
+    <td> @Html.TextBoxFor(m => m.LoggedInUserID, new { @Value = "1" }) </td>
+
+</tr > @*<tr>
+        <td> @Html.LabelFor(m => m.Password)</td>
+        <td> @Html.PasswordFor(m => m.Password)</td>
+    </tr>*@
+         /**/
+
+</table>
     @Html.HiddenFor(m => m.UserType, new { @Value = "2" })
     @Html.HiddenFor(m => m.Active, new { @Value = "1" })
     @Html.HiddenFor(m => m.isEmailVerified, new { @Value = "0" })

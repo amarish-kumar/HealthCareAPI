@@ -4,12 +4,24 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Web.Mvc;
 using System.Xml;
 using System.Xml.Serialization;
 
 namespace OMC.Models
 {
-    //[Serializable]
+    public class Country
+    {
+        public int ID;
+        public string CountryDesc;
+    }
+
+    public class Address
+    {
+        public int ID;
+        public string AddressDesc;
+    }
+
     public class UserSignUp
     {
         #region Properties
@@ -21,8 +33,22 @@ namespace OMC.Models
         [Required]
         [EmailAddress(ErrorMessage = "Email address not of valid format")]
         public string EmailAddress { get; set; }
-        [RequiredIf("UserType", "2", ErrorMessage = "Address required")]
-        public string Address { get; set; }
+        [RequiredIf("UserType", "2", ErrorMessage = "Address1 required")]
+        public string Address1 { get; set; }
+        [RequiredIf("UserType", "2", ErrorMessage = "Address2 required")]
+        public string Address2 { get; set; }
+        [RequiredIf("UserType", "2", ErrorMessage = "City required")]
+        public string City { get; set; }
+        [RequiredIf("UserType", "2", ErrorMessage = "State required")]
+        public string State { get; set; }
+        [RequiredIf("UserType", "2", ErrorMessage = "ZipCode required")]
+        public string ZipCode { get; set; }
+        [RequiredIf("UserType", "2", ErrorMessage = "AddressType required")]
+        public string AddressType { get; set; }
+        public List<Address> AddressTypes { get; set; }
+        [RequiredIf("UserType", "2", ErrorMessage = "Country required")]
+        public string Country { get; set; }
+        public List<Country> Countries { get; set; }
         [Required(ErrorMessage = "PhoneNumber required")]
         [RegularExpression(@"^\+(?:[0-9] ?){6,14}[0-9]$", ErrorMessage = "PhoneNumber is of wrong format")]
         public string PhoneNumber { get; set; }
@@ -66,7 +92,10 @@ namespace OMC.Models
         #endregion
     }
 
-    public static class Helper
+
+   
+
+        public static class Helper
     {
         public static string Serialize<T>(this T toSerialize)
         {
