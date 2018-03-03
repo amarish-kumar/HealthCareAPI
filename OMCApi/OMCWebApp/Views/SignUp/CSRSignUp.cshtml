@@ -5,7 +5,6 @@
 }
 
 <h2>CSRSignUp</h2>
-CSR SignUp
 @using (Html.BeginForm("SaveSignUpDetails", "SignUp"))
 {
     @Html.AntiForgeryToken()
@@ -23,8 +22,8 @@ CSR SignUp
         <td> @Html.TextBoxFor(m => m.EmailAddress)</td>
     </tr>
     <tr>
-        <td> @Html.LabelFor(m => m.AddressType)</td>
-        <td> @Html.DropDownListFor(m => Model.AddressType, new SelectList(Model.AddressTypes, "ID", "AddressDesc"))</td>
+        <td> @Html.LabelFor(m => m.AddressTypeID)</td>
+        <td> @Html.DropDownListFor(m => m.AddressTypeID, new SelectList(Model.AddressTypes, "Id", "AddressDesc"))</td>
         @*<td> @Html.TextBoxFor(m => m.AddressType)</td>*@
     </tr >
 
@@ -70,8 +69,8 @@ CSR SignUp
 
 <tr>
 
-    <td> @Html.LabelFor(m => m.Country) </td>
-    <td> @Html.DropDownListFor(m => m.Country, new SelectList(Model.Countries, "ID", "CountryDesc")) </td>
+    <td> @Html.LabelFor(m => m.CountryID) </td>
+    <td> @Html.DropDownListFor(m => m.CountryID, new SelectList(Model.Countries, "Id", "CountryDesc")) </td>
     @*<td> @Html.TextBoxFor(m => m.Country)</td>*@
 </tr>
 
@@ -141,7 +140,7 @@ CSR SignUp
         <td> @Html.LabelFor(m => m.Password)</td>
         <td> @Html.PasswordFor(m => m.Password)</td>
     </tr>*@
-         /**/
+         
 
 </table>
     @Html.HiddenFor(m => m.UserType, new { @Value = "2" })

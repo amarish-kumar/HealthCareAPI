@@ -49,7 +49,7 @@ namespace OMCApi.Areas.Login.Controllers
         // Get: api/SignUpAPI/GetAddressTypes
         [HttpGet]
         [Route("GetAddressTypes")]
-        public List<Address> GetAddressTypes(bool? isActive)
+        public List<AddressType> GetAddressTypes(bool? isActive)
         {
             var masterObj = _Kernel.Get<IMaster>();
             return masterObj.GetAddressTypes(isActive);

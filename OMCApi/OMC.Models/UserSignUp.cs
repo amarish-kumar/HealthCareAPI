@@ -10,16 +10,14 @@ using System.Xml.Serialization;
 
 namespace OMC.Models
 {
-    public class Country
+    public class Country:BaseEntity
     {
-        public int ID;
-        public string CountryDesc;
+        public string CountryDesc { get; set; }
     }
 
-    public class Address
+    public class AddressType:BaseEntity
     {
-        public int ID;
-        public string AddressDesc;
+        public string AddressDesc { get; set; }
     }
 
     public class UserSignUp
@@ -44,10 +42,10 @@ namespace OMC.Models
         [RequiredIf("UserType", "2", ErrorMessage = "ZipCode required")]
         public string ZipCode { get; set; }
         [RequiredIf("UserType", "2", ErrorMessage = "AddressType required")]
-        public string AddressType { get; set; }
-        public List<Address> AddressTypes { get; set; }
+        public int AddressTypeID { get; set; }
+        public List<AddressType> AddressTypes { get; set; }
         [RequiredIf("UserType", "2", ErrorMessage = "Country required")]
-        public string Country { get; set; }
+        public int CountryID { get; set; }
         public List<Country> Countries { get; set; }
         [Required(ErrorMessage = "PhoneNumber required")]
         [RegularExpression(@"^\+(?:[0-9] ?){6,14}[0-9]$", ErrorMessage = "PhoneNumber is of wrong format")]

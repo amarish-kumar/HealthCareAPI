@@ -30,7 +30,11 @@ DECLARE @FirstName AS NVARCHAR(MAX), @LastName AS NVARCHAR(MAX), @EmailAddress A
 , @PhoneNumber AS NVARCHAR(MAX), @DOB AS NVARCHAR(MAX), @Password AS NVARCHAR(MAX), @AlternateNo AS NVARCHAR(MAX)
 , @EmergencyContactNo AS NVARCHAR(MAX), @EmergencyContactPerson AS NVARCHAR(MAX), @DLNumber AS NVARCHAR(MAX), @DLCopy AS NVARCHAR(MAX), @SSN AS NVARCHAR(MAX)
 , @IsEmailVerified AS BIGINT, @IsPhoneVerified AS BIGINT, @TnCID AS BIGINT
+,@AddressTypeID as BIGINT,@Address1 AS NVARCHAR(MAX),@Address2 AS NVARCHAR(MAX),@City AS NVARCHAR(MAX)
+,@State AS NVARCHAR(MAX),@ZipCode AS NVARCHAR(MAX),@CountryID as BIGINT  
+
 DECLARE @Active AS BIT
+DECLARE @IdentityVal AS BIGINT
 
 SELECT @Id = UserDetailList.Columns.value('Id[1]', 'BIGINT')
 	   , @FirstName = UserDetailList.Columns.value('FirstName[1]', 'nvarchar(max)')
@@ -52,6 +56,13 @@ SELECT @Id = UserDetailList.Columns.value('Id[1]', 'BIGINT')
 	   , @IsEmailVerified = UserDetailList.Columns.value('isEmailVerified[1]', 'BIGINT')
 	   , @IsPhoneVerified = UserDetailList.Columns.value('isPhoneVerified[1]', 'BIGINT')
 	   , @TnCID= UserDetailList.Columns.value('TnCID[1]', 'BIGINT')
+	   , @AddressTypeID = UserDetailList.Columns.value('AddressTypeID[1]', 'BIGINT')
+	   , @Address1 = UserDetailList.Columns.value('Address1[1]', 'nvarchar(max)')
+	   , @Address2 = UserDetailList.Columns.value('Address2[1]', 'nvarchar(max)')
+	   , @City = UserDetailList.Columns.value('City[1]', 'nvarchar(max)')
+	   , @State = UserDetailList.Columns.value('State[1]', 'nvarchar(max)')
+	   , @ZipCode = UserDetailList.Columns.value('ZipCode[1]', 'nvarchar(max)')
+	   , @CountryID = UserDetailList.Columns.value('CountryID[1]', 'BIGINT')
 FROM   @USER_DETAIL_XML.nodes('UserSignUp') AS UserDetailList(Columns)
 
 /*BLOCK TO READ THE VARIABLES ENDS HERE*/
@@ -67,7 +78,6 @@ BEGIN
 				SET [FirstName] = ISNULL(@FirstName, FirstName)
 					,[LastName] = ISNULL(@LastName, LastName)
 					,[EmailAddress] = ISNULL(@EmailAddress, EmailAddress)
-					,[Address] = ISNULL(@Address, [Address])
 					,[PhoneNumber] = ISNULL(@PhoneNumber, PhoneNumber)
 					,[Gender] = ISNULL(@Gender, Gender)
 					,[DOB] = ISNULL(@DOB, DOB)
@@ -86,6 +96,19 @@ BEGIN
 			UPDATE [dbo].[UserRoleMapping]
 				SET [TandCId] = ISNULL(@TnCID, TandCId)
 				WHERE ID = @Id
+
+			UPDATE [DBO].[USERADDRESSMAPPING]
+			SET Address1 = @Address1,
+			Address2 = @Address2,
+			City = @City,
+			State = @State,
+			ZipCode = @ZipCode,
+			CountryID = @CountryID,
+			Active = @Active,
+			[ModifiedBy] = @USER_ID,
+			[ModifiedDate] = GETUTCDATE()
+			WHERE USERID = @Id AND ADDRESSTYPEID = @AddressTypeID
+
 		END
 	ELSE
 		BEGIN
@@ -94,7 +117,6 @@ BEGIN
 			   ([FirstName]
 			   ,[LastName]
 			   ,[EmailAddress]
-			   ,[Address]
 			   ,[PhoneNumber]
 			   ,[Gender]
 			   ,[DOB]
@@ -114,7 +136,6 @@ BEGIN
 			   (@FirstName
 			   ,@LastName
 			   ,@EmailAddress
-			   ,@Address
 			   ,@PhoneNumber
 			   ,@Gender
 			   ,@DOB
@@ -132,6 +153,8 @@ BEGIN
 			   ,@IsPhoneVerified)
 			/*INSERT USER DETAIL BLOCK ENDS HERE*/
 
+			set @IdentityVal = @@IDENTITY
+
 			/*THIS BLOCK IS FOR INSERT USER ROLE */
 			INSERT INTO [dbo].[UserRoleMapping]
 			   ([UserId]
@@ -142,16 +165,41 @@ BEGIN
 			   ,[AddedBy]
 			   ,[AddedDate])
 				VALUES
-			   (@@IDENTITY
+			   (@IdentityVal
 			   , @UserType
 			   , @TnCID
 			   , 1
 			   , 1
 			   ,@USER_ID
 			   ,GETUTCDATE())
-
-
-			/*USER ROLE BLOCK ENDS HERE*/
+			
+			/*THIS BLOCK IS FOR INSERT USERADDRESS MAPPING */
+			INSERT INTO [dbo].[UserAddressMapping]
+			([UserID],
+			[AddressTypeID],
+			[Address1],
+			[Address2],
+			[City],
+			[State],
+			[ZipCode],
+			[CountryID],
+			[Active],
+			[AddedBy],
+			[AddedDate])
+			VALUES
+			(@IdentityVal,
+			@AddressTypeID,
+			@Address1,
+			@Address2,
+			@City,
+			@State,
+			@ZipCode,
+			@CountryID,
+			1,
+			@USER_ID,
+			GETUTCDATE()
+			)
+			/*USERADDRESS MAPPING BLOCK ENDS HERE*/
 		END
 
 END
@@ -179,5 +227,3 @@ END
 END
 
 GO
-
-

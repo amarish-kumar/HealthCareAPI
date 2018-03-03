@@ -38,7 +38,7 @@ namespace OMC.BL.Library
             }
         }
 
-        public List<Address> GetAddressTypes(bool? isActive)
+        public List<AddressType> GetAddressTypes(bool? isActive)
         {
             try
             {
