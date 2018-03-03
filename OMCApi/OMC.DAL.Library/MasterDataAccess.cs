@@ -36,7 +36,7 @@ namespace OMC.DAL.Library
                         result.Add(new Country
                         {
                             CountryDesc = reader["Country"] != DBNull.Value ? reader["Country"].ToString() : null,
-                            ID = Convert.ToInt32(reader["ID"].ToString())
+                            Id = Convert.ToInt32(reader["ID"].ToString())
                         });
                     }
                 }
@@ -53,7 +53,7 @@ namespace OMC.DAL.Library
             }
         }
 
-        public List<Address> GetAddressTypes(bool? isActive)
+        public List<AddressType> GetAddressTypes(bool? isActive)
         {
             try
             {
@@ -67,15 +67,15 @@ namespace OMC.DAL.Library
                 Connection.Open();
 
                 SqlDataReader reader = Command.ExecuteReader();
-                List<Address> result = new List<Address>();
+                List<AddressType> result = new List<AddressType>();
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
-                        result.Add(new Address
+                        result.Add(new AddressType
                         {
                             AddressDesc = reader["AddressType"] != DBNull.Value ? reader["AddressType"].ToString() : null,
-                            ID = Convert.ToInt32(reader["ID"].ToString())
+                            Id = Convert.ToInt32(reader["ID"].ToString())
                         });
                     }
                 }

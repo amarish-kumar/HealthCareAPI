@@ -9,6 +9,6 @@ namespace OMC.DAL.Interface
         List<ConsultationStatus> GetConsultationStatuses(bool? isActive, string description);
         List<UserDetail> GetUserList(bool? isActive, string userRole);
         List<Country> GetCountries(bool? isActive);
-        List<Address> GetAddressTypes(bool? isActive);
+        List<AddressType> GetAddressTypes(bool? isActive);
     }
 }

@@ -52,7 +52,7 @@ namespace OMCWebApp.Controllers
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage Res = await client.GetAsync("api/SignUpAPI/GetAddressTypes?isActive=true");
-                model.AddressTypes = JsonConvert.DeserializeObject<List<Address>>(Res.Content.ReadAsStringAsync().Result);
+                model.AddressTypes = JsonConvert.DeserializeObject<List<AddressType>>(Res.Content.ReadAsStringAsync().Result);
 
                 //client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
                 client.DefaultRequestHeaders.Clear();
