@@ -1,16 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_EMAIL_TEXT]    Script Date: 2/3/2018 7:39:22 PM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_EMAIL_TEXT]    Script Date: 3/4/2018 11:08:29 AM ******/
 DROP PROCEDURE [dbo].[SP_GET_EMAIL_TEXT]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_EMAIL_TEXT]    Script Date: 2/3/2018 7:39:22 PM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_EMAIL_TEXT]    Script Date: 3/4/2018 11:08:29 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 
@@ -25,7 +26,7 @@ BEGIN
 --EXEC [SP_GET_EMAIL_TEXT] 'GET_ACCESS_CODE'
 --EXEC [SP_GET_EMAIL_TEXT] 'GET_ACCESS_CODE_SMS'
 
-	IF @EMAIL_TYPE = 'GET_ACCESS_CODE_SMS'
+	IF CHARINDEX('SMS', @EMAIL_TYPE) > 0
 	BEGIN
 
 		SELECT *,
@@ -48,6 +49,7 @@ BEGIN
 
 	END
 END
+
 
 
 
