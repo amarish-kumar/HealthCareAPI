@@ -1,0 +1,21 @@
+USE [HealthCare]
+GO
+
+INSERT INTO [dbo].[RelationshipMaster] ([Description],[Active],[AddedBy],[AddedDate])
+     VALUES ('Self',1,1,GETDATE())
+INSERT INTO [dbo].[RelationshipMaster] ([Description],[Active],[AddedBy],[AddedDate])
+     VALUES ('Wife',1,1,GETDATE())
+INSERT INTO [dbo].[RelationshipMaster] ([Description],[Active],[AddedBy],[AddedDate])
+     VALUES ('Husband',1,1,GETDATE())
+INSERT INTO [dbo].[RelationshipMaster] ([Description],[Active],[AddedBy],[AddedDate])
+     VALUES ('Father',1,1,GETDATE())
+INSERT INTO [dbo].[RelationshipMaster] ([Description],[Active],[AddedBy],[AddedDate])
+     VALUES ('Mother',1,1,GETDATE())
+INSERT INTO [dbo].[RelationshipMaster] ([Description],[Active],[AddedBy],[AddedDate])
+     VALUES ('Son',1,1,GETDATE())
+INSERT INTO [dbo].[RelationshipMaster] ([Description],[Active],[AddedBy],[AddedDate])
+     VALUES ('Daughter',1,1,GETDATE())
+INSERT INTO [dbo].[RelationshipMaster] ([Description],[Active],[AddedBy],[AddedDate])
+     VALUES ('Brother',1,1,GETDATE())
+INSERT INTO [dbo].[RelationshipMaster] ([Description],[Active],[AddedBy],[AddedDate])
+     VALUES ('Sister',1,1,GETDATE())
