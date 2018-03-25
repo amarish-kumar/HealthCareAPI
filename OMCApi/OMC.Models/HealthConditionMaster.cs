@@ -1,6 +1,6 @@
 ﻿namespace OMC.Models
 {
-    public class RelationshipMaster : BaseEntity
+    public class HealthConditionMaster : BaseEntity
     {
         public string Description { get; set; }
     }
