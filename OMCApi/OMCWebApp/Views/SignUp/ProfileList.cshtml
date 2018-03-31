@@ -15,6 +15,7 @@
 @{
     if (Model.Profiles != null)
     {
+        @Html.HiddenFor(m => m.UserId, Model.UserId)
         <table style="">
             <thead>
                 <th>First Name</th>
@@ -29,14 +30,24 @@
             @foreach (var profile in Model.Profiles)
             {
                 <tr>
-                    <td>@profile.FirstName</td>
+                    <td>
+                        @Html.HiddenFor(m => profile.Id, profile.Id)
+                        @profile.FirstName
+                    </td>
                     <td>@profile.LastName</td>
                     <td>@profile.DOB</td>
-                    <td>@Html.DropDownListFor(m => profile.RelationshipId, new SelectList(Model.Relationships, "Id", "Description"))</td>
-                    <td>@Html.DropDownListFor(m => profile.GenderId, new SelectList(Model.Genders, "Id", "GenderName"))</td>
-                    <td>@Html.CheckBoxFor(m => profile.IsDefault)</td>
+                    <td>@profile.Relationship</td>
+                    <td>@profile.GenderName</td>
+                    @if (profile.IsDefault)
+                    {
+                        <td>Yes</td>
+                    }
+                    else
+                    {
+                        <td>No</td>
+                    }                        
                     <td>
-                        @Html.ActionLink("Update Profile", "UpdateProfile", "SignUp", new { userId = Model.UserId }, null)
+                        @Html.ActionLink("Update Profile", "UpdateProfile", "SignUp", new { userId = Model.UserId, profileId = profile.Id }, null)
                     </td>
                 </tr>
             }

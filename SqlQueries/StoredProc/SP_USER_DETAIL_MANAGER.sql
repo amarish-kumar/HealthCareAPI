@@ -173,32 +173,42 @@ BEGIN
 			   ,@USER_ID
 			   ,GETUTCDATE())
 			
+			/*THIS BLOCK IS TO ADD THE DEFAULT PROFILE IN CASE OF PATIENT*/			
+			--IF @UserType = 4
+			BEGIN
+				DECLARE @PROFILE_XML AS XML
+				SET @PROFILE_XML = '<Profile><Active>true</Active><UserId>' + CONVERT(NVARCHAR(25), @IdentityVal) + '</UserId><RelationshipId>1</RelationshipId><FirstName>' + CONVERT(NVARCHAR(255), @FirstName) + '</FirstName><LastName>' + CONVERT(NVARCHAR(255), @LastName) + '</LastName><GenderId>' + CONVERT(NVARCHAR(25), @Gender) + '</GenderId><DOB>' + CONVERT(NVARCHAR(25), @DOB) + '</DOB><IsDefault>true</IsDefault></Profile>'
+				EXEC SP_PROFILE_MANAGER @PROFILE_XML, NULL, @IdentityVal
+			END
+
 			/*THIS BLOCK IS FOR INSERT USERADDRESS MAPPING */
-			INSERT INTO [dbo].[UserAddressMapping]
-			([UserID],
-			[AddressTypeID],
-			[Address1],
-			[Address2],
-			[City],
-			[State],
-			[ZipCode],
-			[CountryID],
-			[Active],
-			[AddedBy],
-			[AddedDate])
-			VALUES
-			(@IdentityVal,
-			@AddressTypeID,
-			@Address1,
-			@Address2,
-			@City,
-			@State,
-			@ZipCode,
-			@CountryID,
-			1,
-			@USER_ID,
-			GETUTCDATE()
-			)
+
+			if @UserType = 2 or  @UserType = 3
+				INSERT INTO [dbo].[UserAddressMapping]
+				([UserID],
+				[AddressTypeID],
+				[Address1],
+				[Address2],
+				[City],
+				[State],
+				[ZipCode],
+				[CountryID],
+				[Active],
+				[AddedBy],
+				[AddedDate])
+				VALUES
+				(@IdentityVal,
+				@AddressTypeID,
+				@Address1,
+				@Address2,
+				@City,
+				@State,
+				@ZipCode,
+				@CountryID,
+				1,
+				@USER_ID,
+				GETUTCDATE()
+				)
 			/*USERADDRESS MAPPING BLOCK ENDS HERE*/
 		END
 

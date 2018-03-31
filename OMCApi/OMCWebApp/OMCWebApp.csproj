@@ -231,6 +231,8 @@
     <Content Include="Views\SignUp\AddProfile.cshtml" />
     <Content Include="Views\Login\ProfileList.cshtml" />
     <Content Include="Views\SignUp\ProfileList.cshtml" />
+    <Content Include="Views\SignUp\AddUpdateProfileSuccess.cshtml" />
+    <Content Include="Views\SignUp\UpdateProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

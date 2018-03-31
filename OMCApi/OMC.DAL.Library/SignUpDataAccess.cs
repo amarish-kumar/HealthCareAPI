@@ -126,6 +126,7 @@ namespace OMC.DAL.Library
                             GenderName = reader["GenderName"] != DBNull.Value ? reader["GenderName"].ToString() : null,
                             RelationshipId = Convert.ToInt32(reader["RelationshipId"].ToString()),
                             Relationship = reader["Relationship"] != DBNull.Value ? reader["Relationship"].ToString() : null,
+                            IsDefault = Convert.ToBoolean(reader["IsDefault"].ToString())
                         });
                     }
                 }
