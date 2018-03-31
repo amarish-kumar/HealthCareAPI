@@ -1,15 +1,12 @@
-﻿using System;
+﻿using OMC.Models;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OMC.Models;
 
 namespace OMC.DAL.Interface
 {
     public interface ISignUpDataAccess
     {
         bool InitiateSignUpProcess(UserSignUp signupdetails);
+        bool InsertUpdateProfile(Profile profile);
+        List<Profile> GetProfileList(int userId, int? profileId);
     }
 }

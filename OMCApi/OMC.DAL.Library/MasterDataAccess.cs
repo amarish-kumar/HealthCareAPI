@@ -228,6 +228,96 @@ namespace OMC.DAL.Library
                 Connection.Close();
             }
         }
+
+        public List<RelationshipMaster> GetRelationships(bool? isActive, string relationship)
+        {
+            try
+            {
+                Log.Info("Started call to GetRelationships");
+                Log.Info("parameter values =" + JsonConvert.SerializeObject(new { isActive = isActive, relationship = relationship }));
+                Command.CommandText = "SP_GET_RELATIONSHIPS";
+                Command.CommandType = CommandType.StoredProcedure;
+
+                Command.Parameters.Clear();
+                if (!string.IsNullOrEmpty(relationship))
+                {
+                    Command.Parameters.AddWithValue("@RELATIONSHIP_NAME", relationship);
+                }
+                Command.Parameters.AddWithValue("@ACTIVE", isActive);
+
+                Connection.Open();
+
+                SqlDataReader reader = Command.ExecuteReader();
+                List<RelationshipMaster> result = new List<RelationshipMaster>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new RelationshipMaster
+                        {
+                            Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : null,
+                            Id = Convert.ToInt32(reader["Id"].ToString())
+                        });
+                    }
+                }
+                Log.Info("End call to GetRelationships result " + JsonConvert.SerializeObject(result));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public List<Gender> GetGenders(bool? isActive, string genderName)
+        {
+            try
+            {
+                Log.Info("Started call to GetGenders");
+                Log.Info("parameter values =" + JsonConvert.SerializeObject(new { isActive = isActive, genderName = genderName }));
+                Command.CommandText = "SP_GET_GENDERS";
+                Command.CommandType = CommandType.StoredProcedure;
+
+                Command.Parameters.Clear();
+                if (!string.IsNullOrEmpty(genderName))
+                {
+                    Command.Parameters.AddWithValue("@GENDER_NAME", genderName );
+                }
+                Command.Parameters.AddWithValue("@ACTIVE", isActive);
+
+                Connection.Open();
+
+                SqlDataReader reader = Command.ExecuteReader();
+                List<Gender> result = new List<Gender>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new Gender
+                        {
+                            GenderName = reader["GenderName"] != DBNull.Value ? reader["GenderName"].ToString() : null,
+                            Id = Convert.ToInt32(reader["Id"].ToString())
+                        });
+                    }
+                }
+                Log.Info("End call to GetGenders result " + JsonConvert.SerializeObject(result));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            finally
+            {
+                Connection.Close();
+            }
+        }
         #endregion
     }
 }

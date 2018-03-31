@@ -90,8 +90,6 @@ IF @Id IS NOT NULL
 		END
 	END
 
-SELECT @Id AS Id
-
 
 GO
 

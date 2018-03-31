@@ -104,11 +104,46 @@ namespace OMCApi.Areas.Login.Controllers
             }
         }
 
-        // PUT: api/SignUpAPI/5
-        public void Put(int id, [FromBody]string value)
+        // POST: api/SignUpAPI/InsertUpdateProfile
+        [HttpPost]
+        [Route("InsertUpdateProfile")]
+        public IHttpActionResult InsertUpdateProfile([FromBody]Profile profile)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var SignUpObj = _Kernel.Get<ISignUp>();
+            profile.Active = true;
+            var InsertUpdateProfileResult = SignUpObj.InsertUpdateProfile(profile);
+            return Ok(InsertUpdateProfileResult);
         }
 
-       
+        // Get: api/SignUpAPI/GetProfiles
+        [HttpGet]
+        [Route("GetProfiles")]
+        public List<Profile> GetProfiles(int userId, int? profileId)
+        {
+            var signupObj = _Kernel.Get<ISignUp>();
+            return signupObj.GetProfileList(userId, profileId);
+        }
+
+        // Get: api/SignUpAPI/GetRelationships
+        [HttpGet]
+        [Route("GetRelationships")]
+        public List<RelationshipMaster> GetRelationships(bool? isActive, string relationship)
+        {
+            var masterObj = _Kernel.Get<IMaster>();
+            return masterObj.GetRelationships(isActive, relationship);
+        }
+
+        // Get: api/SignUpAPI/GetGenders
+        [HttpGet]
+        [Route("GetGenders")]
+        public List<Gender> GetGenders(bool? isActive, string genderName)
+        {
+            var masterObj = _Kernel.Get<IMaster>();
+            return masterObj.GetGenders(isActive, genderName);
+        }
     }
 }

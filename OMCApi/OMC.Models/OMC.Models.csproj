@@ -61,6 +61,7 @@
     <Compile Include="Conversation.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="ErrorLog.cs" />
+    <Compile Include="Gender.cs" />
     <Compile Include="SurgeryMaster.cs" />
     <Compile Include="PatientEnquiry.cs" />
     <Compile Include="Profile.cs" />

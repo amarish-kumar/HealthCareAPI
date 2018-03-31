@@ -12,13 +12,12 @@ using System.Configuration;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Text;
+using OMCWebApp.Models;
 
 namespace OMCWebApp.Controllers
 {
     public class SignUpController : Controller
     {
-
-
         #region Declarations
 
         private readonly IKernel _Kernel;
@@ -34,6 +33,8 @@ namespace OMCWebApp.Controllers
         }
 
         #endregion
+
+        #region Actions
 
         // GET: SignUp
         public ActionResult Index()
@@ -63,8 +64,7 @@ namespace OMCWebApp.Controllers
             }
             return View(model);
         }
-
-
+        
         public ActionResult DoctorSignUp()
         {
             return View();
@@ -129,5 +129,82 @@ namespace OMCWebApp.Controllers
 
             }
         }
+        
+        [HttpGet]
+        public async Task<ActionResult> AddProfile(int userId)
+        {
+            var model = new ProfileModel();
+            model.ProfileObject.UserId = userId;
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/SignUpAPI/GetRelationships?isActive=true&relationship=");
+                model.Relationships = JsonConvert.DeserializeObject<List<RelationshipMaster>>(Res.Content.ReadAsStringAsync().Result);
+
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                Res = await client.GetAsync("api/SignUpAPI/GetGenders?isActive=true&genderName=");
+                model.Genders = JsonConvert.DeserializeObject<List<Gender>>(Res.Content.ReadAsStringAsync().Result);
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> InsertUpdateProfile(ProfileModel profile)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var json = JsonConvert.SerializeObject(profile.ProfileObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/SignUpAPI/InsertUpdateProfile", content);
+
+                if (Res.IsSuccessStatusCode)
+                {
+                    var UserAccessCodeResponse = JsonConvert.DeserializeObject<UserAccessCodeResponse>(Res.Content.ReadAsStringAsync().Result);
+                    if (!string.IsNullOrEmpty(UserAccessCodeResponse.AccessCode))
+                    {
+                        UserAccessCodeResponse.AccessCode = string.Empty;
+                        return View("ValidateAccessCode", UserAccessCodeResponse);
+                    }
+                    else if (!string.IsNullOrEmpty(UserAccessCodeResponse.ErrorMessage))
+                    {
+                        return View("GetAccessCodeError", UserAccessCodeResponse);
+                    }
+                }
+                return View("LoginFailure");
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> ProfileList(int userId)
+        {
+            var model = new ProfileListModel();
+            model.UserId = userId;
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/SignUpAPI/GetRelationships?isActive=true&relationship=");
+                model.Relationships = JsonConvert.DeserializeObject<List<RelationshipMaster>>(Res.Content.ReadAsStringAsync().Result);
+                
+                Res = await client.GetAsync("api/SignUpAPI/GetGenders?isActive=true&genderName=");
+                model.Genders = JsonConvert.DeserializeObject<List<Gender>>(Res.Content.ReadAsStringAsync().Result);
+                
+                Res = await client.GetAsync("api/SignUpAPI/GetProfiles?userId=" + userId.ToString() + "&profileId=");
+                model.Profiles = JsonConvert.DeserializeObject<List<Profile>>(Res.Content.ReadAsStringAsync().Result);
+            }
+
+            return View(model);
+        }
+        #endregion
     }
 }

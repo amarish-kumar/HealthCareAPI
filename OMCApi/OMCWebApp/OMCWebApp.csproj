@@ -167,6 +167,8 @@
     <Compile Include="Models\ConsultationViewModel.cs" />
     <Compile Include="Models\ConversationModel.cs" />
     <Compile Include="Models\GetAccessCodeModel.cs" />
+    <Compile Include="Models\ProfileListModel.cs" />
+    <Compile Include="Models\ProfileModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -226,6 +228,9 @@
     <Content Include="Views\Consultation\CreateConv.cshtml" />
     <Content Include="Views\SignUp\SignUpSuccessfull.cshtml" />
     <Content Include="Views\Login\GetAccessCodeError.cshtml" />
+    <Content Include="Views\SignUp\AddProfile.cshtml" />
+    <Content Include="Views\Login\ProfileList.cshtml" />
+    <Content Include="Views\SignUp\ProfileList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

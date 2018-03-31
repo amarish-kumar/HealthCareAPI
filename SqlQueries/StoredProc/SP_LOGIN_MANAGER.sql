@@ -1,16 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_LOGIN_MANAGER]    Script Date: 2/4/2018 1:48:36 PM ******/
+/****** Object:  StoredProcedure [dbo].[SP_LOGIN_MANAGER]    Script Date: 3/25/2018 5:28:05 PM ******/
 DROP PROCEDURE [dbo].[SP_LOGIN_MANAGER]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_LOGIN_MANAGER]    Script Date: 2/4/2018 1:48:36 PM ******/
+/****** Object:  StoredProcedure [dbo].[SP_LOGIN_MANAGER]    Script Date: 3/25/2018 5:28:05 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 
@@ -151,7 +152,17 @@ SELECT @IS_PASSWORD_VERIFIED AS IS_PASSWORD_VERIFIED,
 	   @SESSION_ID AS SESSION_ID,
 	   @IS_USER_ACTIVE AS IS_USER_ACTIVE 
 
+IF @IS_PASSWORD_VERIFIED = 1 AND @TWO_FACTOR_AUTH_DONE = 1
+BEGIN 
+	SELECT UD.Id AS UserId, R.Id AS RoleId, R.RoleName AS RoleName, URM.IsDefault  AS IsDefault
+		FROM UserRoleMapping URM
+		INNER JOIN UserDetail UD ON URM.UserId = UD.Id
+		INNER JOIN RoleMaster R ON R.Id = URM.RoleId
+		WHERE UD.Id = @USER_ID AND URM.Active = 1
 END
+
+END
+
 
 
 
