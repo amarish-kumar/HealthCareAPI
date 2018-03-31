@@ -174,31 +174,32 @@ BEGIN
 			   ,GETUTCDATE())
 			
 			/*THIS BLOCK IS FOR INSERT USERADDRESS MAPPING */
-			INSERT INTO [dbo].[UserAddressMapping]
-			([UserID],
-			[AddressTypeID],
-			[Address1],
-			[Address2],
-			[City],
-			[State],
-			[ZipCode],
-			[CountryID],
-			[Active],
-			[AddedBy],
-			[AddedDate])
-			VALUES
-			(@IdentityVal,
-			@AddressTypeID,
-			@Address1,
-			@Address2,
-			@City,
-			@State,
-			@ZipCode,
-			@CountryID,
-			1,
-			@USER_ID,
-			GETUTCDATE()
-			)
+			if @UserType = 2 or  @UserType = 3
+				INSERT INTO [dbo].[UserAddressMapping]
+				([UserID],
+				[AddressTypeID],
+				[Address1],
+				[Address2],
+				[City],
+				[State],
+				[ZipCode],
+				[CountryID],
+				[Active],
+				[AddedBy],
+				[AddedDate])
+				VALUES
+				(@IdentityVal,
+				@AddressTypeID,
+				@Address1,
+				@Address2,
+				@City,
+				@State,
+				@ZipCode,
+				@CountryID,
+				1,
+				@USER_ID,
+				GETUTCDATE()
+				)
 			/*USERADDRESS MAPPING BLOCK ENDS HERE*/
 		END
 
