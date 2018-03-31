@@ -20,6 +20,7 @@ namespace OMC.BL.Library
         ISignInDataAccess _signInDA;
         #endregion
 
+        #region Methods
         public SignUp(ISignUpDataAccess SignUpDA)
         {
             this._signUpDA = SignUpDA;
@@ -92,6 +93,40 @@ namespace OMC.BL.Library
                 //Log
             }
         }
+
+        public bool InsertUpdateProfile(Profile profile)
+        {
+            try
+            {
+                return this._signUpDA.InsertUpdateProfile(profile);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public List<Profile> GetProfileList(int userId, int? profileId)
+        {
+            try
+            {
+                return this._signUpDA.GetProfileList(userId, profileId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        #endregion
 
         #region IDisposable
         protected virtual void Dispose(bool disposing)

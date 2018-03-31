@@ -41,6 +41,10 @@
                         @Html.ActionLink("Create Consultation", "Index", "Consultation", new { patientId = userRole.UserId }, null)
                         <br/>
                         @Html.ActionLink("View Consultations", "List", "Consultation", new { userId = userRole.UserId, userRole = "patient" }, null)
+                        <br />
+                        @Html.ActionLink("Add Profile", "AddProfile", "SignUp", new { userId = userRole.UserId}, null)
+                        <br />
+                        @Html.ActionLink("View Profiles", "ProfileList", "SignUp", new { userId = userRole.UserId }, null)
                     }
                     else if (userRole.RoleName.ToLower() == "doctor")
                     {

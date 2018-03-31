@@ -40,7 +40,6 @@ namespace OMCApi.Areas.Login.Controllers
             return View();
         }
 
-
         public ActionResult PatientEnquiry()
         {
             return View();

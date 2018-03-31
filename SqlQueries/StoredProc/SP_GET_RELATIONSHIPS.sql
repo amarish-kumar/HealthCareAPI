@@ -1,0 +1,49 @@
+USE [HealthCare]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_GET_RELATIONSHIPS]    Script Date: 3/25/2018 11:38:51 AM ******/
+DROP PROCEDURE [dbo].[SP_GET_RELATIONSHIPS]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_GET_RELATIONSHIPS]    Script Date: 3/25/2018 11:38:51 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+
+CREATE PROCEDURE [dbo].[SP_GET_RELATIONSHIPS]
+(	
+	@RELATIONSHIP_NAME NVARCHAR(200) = NULL,
+	@ACTIVE BIT = NULL
+)
+AS
+
+BEGIN
+
+--EXEC [SP_GET_RELATIONSHIPS] 
+--EXEC [SP_GET_RELATIONSHIPS] 'Owner'
+	SELECT *
+	FROM [RelationshipMaster]
+	WHERE (@RELATIONSHIP_NAME IS NULL OR [Description] = @RELATIONSHIP_NAME)
+	AND (@ACTIVE IS NULL OR [Active] = @ACTIVE) 
+END
+
+
+
+
+
+
+
+
+
+
+
+
+GO
+
+

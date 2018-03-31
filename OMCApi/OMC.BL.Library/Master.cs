@@ -101,6 +101,38 @@ namespace OMC.BL.Library
                 //Log
             }
         }
+
+        public List<RelationshipMaster> GetRelationships(bool? isActive, string relationship)
+        {
+            try
+            {
+                return this._masterDA.GetRelationships(isActive, relationship);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public List<Gender> GetGenders(bool? isActive, string genderName)
+        {
+            try
+            {
+                return this._masterDA.GetGenders(isActive, genderName);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
         #endregion
 
         #region IDisposable
