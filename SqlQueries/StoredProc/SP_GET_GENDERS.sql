@@ -1,0 +1,34 @@
+USE [HealthCare]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_GET_GENDERS]    Script Date: 3/31/2018 12:02:57 PM ******/
+DROP PROCEDURE [dbo].[SP_GET_GENDERS]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_GET_GENDERS]    Script Date: 3/31/2018 12:02:57 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[SP_GET_GENDERS]
+(	
+	@GENDER_NAME NVARCHAR(200) = NULL,
+	@ACTIVE BIT = NULL
+)
+AS
+
+BEGIN
+
+--EXEC [SP_GET_GENDERS]
+--EXEC [SP_GET_GENDERS] 'Others'
+
+	SELECT *
+	FROM [GenderMaster]
+	WHERE (@GENDER_NAME IS NULL OR [GenderName] = @GENDER_NAME)
+	AND (@ACTIVE IS NULL OR [Active] = @ACTIVE) 
+END
+GO
+
+

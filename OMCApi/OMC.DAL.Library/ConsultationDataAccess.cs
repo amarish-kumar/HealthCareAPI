@@ -177,8 +177,7 @@ namespace OMC.DAL.Library
                 Connection.Close();
             }
         }
-
-        
+                
         public PatientEnquiryResponse UnregisteredPatientEnquiry(PatientEnquiry enquiry)
         {
             try
@@ -232,8 +231,7 @@ namespace OMC.DAL.Library
                 Connection.Close();
             }
         }
-
-
+        
         public ConversationResponse RecordConversation(Conversation conversationDetails)
         {
             try
