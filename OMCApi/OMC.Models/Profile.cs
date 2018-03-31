@@ -1,4 +1,6 @@
-﻿namespace OMC.Models
+﻿using System.Text;
+
+namespace OMC.Models
 {
     public class Profile : BaseEntity
     {
@@ -13,6 +15,23 @@
         #region Display Properties
         public string UserFirstName { get; set; }
         public string UserLastName { get; set; }
+        public string FullName
+        {
+            get
+            {
+                var result = new StringBuilder();
+                if (!string.IsNullOrEmpty(LastName))
+                {
+                    result.Append(LastName);
+                    result.Append(", ");
+                }
+                if (!string.IsNullOrEmpty(FirstName))
+                {
+                    result.Append(FirstName);
+                }
+                return result.ToString();
+            }
+        }
         public string GenderName { get; set; }
         public string Relationship { get; set; }
         #endregion

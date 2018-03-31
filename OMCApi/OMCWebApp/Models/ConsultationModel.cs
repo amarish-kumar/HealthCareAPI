@@ -8,6 +8,7 @@ namespace OMCWebApp.Models
         public Consultation ConsultationObject { get; set; }
         public List<ConsultationStatus> ConsultationStatuses { get; set; }
         public List<UserDetail> Doctors { get; set; }
+        public List<Profile> Profiles { get; set; }
 
         public ConsultationModel()
         {

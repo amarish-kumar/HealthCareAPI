@@ -28,6 +28,7 @@ BEGIN
 --EXEC [SP_GET_CONVERSATION_LIST] 8, 4, 'Patient' 
 --EXEC [SP_GET_CONVERSATION_LIST] 8, 3, 'Doctor' 
 	SELECT C.Id AS 'ConsultationId' , C.[Description] AS 'ConsultationDescription'
+	, P.Id as ProfileId, P.FirstName + ' ' + P.LastName AS 'ProfileName'
 	, C.PatientId, UP.FirstName + ' ' + UP.LastName AS 'PatientName'
 	, C.DoctorId, UD.FirstName + ' ' + UD.LastName AS 'DoctorName'
 	, C.ConsultationStatusId, CS.[Description] AS 'ConsultationStatus'
@@ -36,6 +37,7 @@ BEGIN
 	INNER JOIN UserDetail UP ON UP.Id = C.PatientId
 	INNER JOIN UserDetail UD ON UD.Id = C.DoctorId
 	INNER JOIN ConsultationStatus CS ON CS.Id = C.ConsultationStatusId
+	INNER JOIN [Profile] P ON P.Id = C.ProfileId
 	WHERE (
 		(@USER_ROLE = 'Doctor' AND C.DoctorId = @USER_ID)
 		OR	

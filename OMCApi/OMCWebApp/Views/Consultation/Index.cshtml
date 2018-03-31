@@ -9,6 +9,16 @@
     <table>
         <tr>
             <td>
+                Select Profile:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.ConsultationObject.ProfileId
+                    , new SelectList(Model.Profiles, "Id", "FullName"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
                 Describe the problem:
             </td>
             <td>
