@@ -41,7 +41,7 @@ FROM   @PROFILE_XML.nodes('Profile') AS ProfileList(Columns)
 
 /*BLOCK TO READ THE VARIABLES ENDS HERE*/
 
-IF @Id IS NOT NULL
+IF @Id IS NULL OR @ID=0
 	
 	BEGIN		
 
@@ -85,7 +85,6 @@ IF @Id IS NOT NULL
 				  ,[ModifiedDate] = GETUTCDATE()
 				  ,[IsDefault] = @IsDefault
 			 WHERE Id = @Id
-
 
 		END
 	END

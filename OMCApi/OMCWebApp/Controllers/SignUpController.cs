@@ -153,6 +153,36 @@ namespace OMCWebApp.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> UpdateProfile(int userId, int profileId)
+        {
+            var model = new ProfileModel();
+            model.ProfileObject.UserId = userId;
+            model.ProfileObject.Id = profileId;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/SignUpAPI/GetRelationships?isActive=true&relationship=");
+                model.Relationships = JsonConvert.DeserializeObject<List<RelationshipMaster>>(Res.Content.ReadAsStringAsync().Result);
+
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                Res = await client.GetAsync("api/SignUpAPI/GetGenders?isActive=true&genderName=");
+                model.Genders = JsonConvert.DeserializeObject<List<Gender>>(Res.Content.ReadAsStringAsync().Result);
+
+                Res = await client.GetAsync("api/SignUpAPI/GetProfiles?userId=" + userId.ToString() + "&profileId=" + profileId.ToString());
+                var profiles = JsonConvert.DeserializeObject<List<Profile>>(Res.Content.ReadAsStringAsync().Result);
+                if(profiles!=null && profiles.Count() != 0)
+                {
+                    model.ProfileObject = profiles.First();
+                }
+            }
+
+            return View(model);
+        }
+
         [HttpPost]
         public async Task<ActionResult> InsertUpdateProfile(ProfileModel profile)
         {
@@ -167,15 +197,10 @@ namespace OMCWebApp.Controllers
 
                 if (Res.IsSuccessStatusCode)
                 {
-                    var UserAccessCodeResponse = JsonConvert.DeserializeObject<UserAccessCodeResponse>(Res.Content.ReadAsStringAsync().Result);
-                    if (!string.IsNullOrEmpty(UserAccessCodeResponse.AccessCode))
+                    var isSuccess = JsonConvert.DeserializeObject<bool>(Res.Content.ReadAsStringAsync().Result);
+                    if (isSuccess)
                     {
-                        UserAccessCodeResponse.AccessCode = string.Empty;
-                        return View("ValidateAccessCode", UserAccessCodeResponse);
-                    }
-                    else if (!string.IsNullOrEmpty(UserAccessCodeResponse.ErrorMessage))
-                    {
-                        return View("GetAccessCodeError", UserAccessCodeResponse);
+                        return View("AddUpdateProfileSuccess", profile);
                     }
                 }
                 return View("LoginFailure");

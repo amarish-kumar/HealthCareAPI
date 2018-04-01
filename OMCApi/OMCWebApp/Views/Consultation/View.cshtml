@@ -9,6 +9,42 @@
     table.createConv {
         border: 1px solid black;
     }
+
+    .collapsible {
+        background-color: #777;
+        color: white;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+    }
+
+    .active, .collapsible:hover {
+        background-color: #555;
+    }
+
+    .collapsible:after {
+        content: '\002B';
+        color: white;
+        font-weight: bold;
+        float: right;
+        margin-left: 5px;
+    }
+
+    .active:after {
+        content: "\2212";
+    }
+
+    .content {
+        padding: 0 18px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        background-color: #f1f1f1;
+    }
 </style>
 
 <h2>Consultation View</h2>
@@ -20,45 +56,79 @@
 <br />
 <b><font color="blue">Doctor: </font></b> @Model.ConversationResponseObject.ConsultationObject.DoctorName
 <br />
-<b><font color="blue">Patient: </font></b> @Model.ConversationResponseObject.ConsultationObject.PatientName
+<b><font color="blue">Profile: </font></b> @Model.ConversationResponseObject.ConsultationObject.ProfileName
+<br />
+<b><font color="blue">User: </font></b> @Model.ConversationResponseObject.ConsultationObject.PatientName
 <br />
 
-<h2>Conversations</h2>
-@if (Model.ConversationResponseObject != null
-    && Model.ConversationResponseObject.Conversations != null
-    && Model.ConversationResponseObject.Conversations.Count() != 0)
-{
-    <table class="conversations">
-        <thead>
+<button class="collapsible">Conversations</button>
+
+<div class="content">
+    @if (Model.ConversationResponseObject != null
+                    && Model.ConversationResponseObject.Conversations != null
+                    && Model.ConversationResponseObject.Conversations.Count() != 0)
+    {
+        <table class="conversations">
+            <thead>
             <th>Id</th>
             <th>Description</th>
             <th>From</th>
             <th>Timestamp</th>
-        </thead>
+            </thead>
 
-        @foreach (var conversation in Model.ConversationResponseObject.Conversations)
+            @foreach (var conversation in Model.ConversationResponseObject.Conversations)
         {
             <tr>
                 <td>@conversation.ConversationId</td>
                 <td>@conversation.ConversationDescription</td>
-                <td>@(conversation.PatientId.HasValue
+                <td>
+                    @(conversation.PatientId.HasValue
         ? conversation.PatientName
         : (conversation.DoctorId.HasValue
-            ? conversation.DoctorName : string.Empty))</td>
+            ? conversation.DoctorName : string.Empty))
+                </td>
                 <td>
                     @(conversation.ConversationCreateDate.HasValue
         ? conversation.ConversationCreateDate.Value.ToString("dd-MMM-yyyy hh:mm")
         : string.Empty)
                 </td>
-        </tr>
+            </tr>
         }
-    </table>
-}
-else
-{
-    <p>No conversations recorded</p>
-}
+        </table>
+    }
+    else
+    {
+        <p>No conversations recorded</p>
+    }
 
+    @Html.Partial("CreateConv", Model.ConversationModelObject)  
+</div>
 
-<br/>
-@Html.Partial("CreateConv", Model.ConversationModelObject)
+<button class="collapsible">Reports</button>
+<div class="content">
+    <p>No Reports recorded</p>
+    @Html.Partial("CreateReport", Model.ReportModelObject)    
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var coll = document.getElementsByClassName("collapsible");
+            var i;
+
+            for (i = 0; i < coll.length; i++) {
+                coll[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var content = this.nextElementSibling;
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            }
+        });
+    </script>
+
+}

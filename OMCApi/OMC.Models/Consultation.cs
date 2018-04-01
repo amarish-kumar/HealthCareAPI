@@ -12,6 +12,9 @@ namespace OMC.Models
         [Required(ErrorMessage = "Patient Id is required.")]
         public int PatientId { get; set; }
 
+        [Required(ErrorMessage = "Profile Id is required.")]
+        public int ProfileId { get; set; }
+
         [Required(ErrorMessage = "Doctor Id is required.")]
         public int DoctorId { get; set; }
 
@@ -29,6 +32,8 @@ namespace OMC.Models
     {
         public int ConsultationId { get; set; }
         public string ConsultationDescription { get; set; }
+        public int ProfileId { get; set; }
+        public string ProfileName { get; set; }
         public int PatientId { get; set; }
         public string PatientName { get; set; }
         public int DoctorId { get; set; }

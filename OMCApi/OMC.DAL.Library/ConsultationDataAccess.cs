@@ -40,6 +40,8 @@ namespace OMC.DAL.Library
                             ConsultationId = Convert.ToInt32(reader["ConsultationId"].ToString()),
                             DoctorName = reader["DoctorName"] != DBNull.Value ? reader["DoctorName"].ToString() : null,
                             DoctorId = Convert.ToInt32(reader["DoctorId"].ToString()),
+                            ProfileName = reader["ProfileName"] != DBNull.Value ? reader["ProfileName"].ToString() : null,
+                            ProfileId = Convert.ToInt32(reader["ProfileId"].ToString()),
                             PatientName = reader["PatientName"] != DBNull.Value ? reader["PatientName"].ToString() : null,
                             PatientId = Convert.ToInt32(reader["PatientId"].ToString()),
                             ConsultationStatus = reader["ConsultationStatus"] != DBNull.Value ? reader["ConsultationStatus"].ToString() : null,
@@ -93,6 +95,8 @@ namespace OMC.DAL.Library
                             ConsultationId = Convert.ToInt32(resultRow["ConsultationId"].ToString()),
                             DoctorName = resultRow["DoctorName"] != DBNull.Value ? resultRow["DoctorName"].ToString() : null,
                             DoctorId = Convert.ToInt32(resultRow["DoctorId"].ToString()),
+                            ProfileName = resultRow["ProfileName"] != DBNull.Value ? resultRow["ProfileName"].ToString() : null,
+                            ProfileId = Convert.ToInt32(resultRow["ProfileId"].ToString()),
                             PatientName = resultRow["PatientName"] != DBNull.Value ? resultRow["PatientName"].ToString() : null,
                             PatientId = Convert.ToInt32(resultRow["PatientId"].ToString()),
                             ConsultationStatus = resultRow["ConsultationStatus"] != DBNull.Value ? resultRow["ConsultationStatus"].ToString() : null,
@@ -148,7 +152,10 @@ namespace OMC.DAL.Library
 
                 Command.Parameters.AddWithValue("@CONSULTATION_XML", GetXMLFromObject(consultationDetails));
                 Command.Parameters.AddWithValue("@OPERATION", "CONSULTATION");
-                //Command.Parameters.AddWithValue("@USER_ID", GetXMLFromObject(consultationDetails));
+                if (consultationDetails.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationDetails.AddedBy.Value);
+                }
                 Connection.Open();
                 SqlDataReader reader = Command.ExecuteReader();
 
@@ -266,6 +273,51 @@ namespace OMC.DAL.Library
                     }
                 }
                 Log.Info("End call to RecordConversation");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationReportResponse InsertUpdateConsultationReport(ConsultationReports consultationReport)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateConsultationReport");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(consultationReport));
+                Command.CommandText = "SP_CONSULTATION_REPORT_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_REPORT_XML", GetXMLFromObject(consultationReport));
+                Command.Parameters.AddWithValue("@OPERATION", "ConsultationReport");
+                if (consultationReport.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationReport.AddedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                ConsultationReportResponse result = new ConsultationReportResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new ConsultationReportResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateConsultationReport");
 
                 return result;
             }
