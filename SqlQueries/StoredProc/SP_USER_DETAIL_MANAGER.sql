@@ -182,7 +182,6 @@ BEGIN
 			END
 
 			/*THIS BLOCK IS FOR INSERT USERADDRESS MAPPING */
-
 			if @UserType = 2 or  @UserType = 3
 				INSERT INTO [dbo].[UserAddressMapping]
 				([UserID],
