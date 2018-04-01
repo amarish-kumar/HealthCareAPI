@@ -1,0 +1,81 @@
+﻿@model  OMCWebApp.Models.ReportModel
+
+@using (Html.BeginForm("CreateConsultationReport", "Consultation"))
+{
+    <h2>Create Consultation Report</h2>
+
+    @Html.AntiForgeryToken()
+    <table class="createConSReport">
+        <tr>
+            <td>
+                Description:
+            </td>
+            <td>
+                @Html.HiddenFor(m => m.ConsultationReportObject.ConsultationId, Model.ConsultationReportObject.ConsultationId)
+                @Html.TextAreaFor(m => m.ConsultationReportObject.Description, new { style = "width: 1000px; height:100px;" })
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Select File:
+            </td>
+            <td>
+               
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Doctor Name:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationReportObject.DoctorName, Model.ConsultationReportObject.DoctorName)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Doctor Ph Number:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationReportObject.DoctorPhoneNumber, Model.ConsultationReportObject.DoctorPhoneNumber)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Country:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.ConsultationReportObject.CountryId, new SelectList(Model.Countries, "Id", "CountryDesc"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Lab Name:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationReportObject.LabName, Model.ConsultationReportObject.LabName)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Report Date:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationReportObject.ReportDate, Model.ConsultationReportObject.ReportDate)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Create Consultation Report</button>
+            </td>
+        </tr>
+
+    </table>
+}
+

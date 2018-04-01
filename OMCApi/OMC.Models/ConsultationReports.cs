@@ -14,4 +14,10 @@ namespace OMC.Models
         public DateTime ReportDate { get; set; }
         public string LabName { get; set; }
     }
+
+    public class ConsultationReportResponse
+    {
+        public string Message { get; set; }
+        public bool IsSuccess { get; set; }
+    }
 }

@@ -165,6 +165,7 @@
     <Compile Include="Models\ConsultationListModel.cs" />
     <Compile Include="Models\ConsultationModel.cs" />
     <Compile Include="Models\ConsultationViewModel.cs" />
+    <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Models\ConversationModel.cs" />
     <Compile Include="Models\GetAccessCodeModel.cs" />
     <Compile Include="Models\ProfileListModel.cs" />
@@ -233,6 +234,8 @@
     <Content Include="Views\SignUp\ProfileList.cshtml" />
     <Content Include="Views\SignUp\AddUpdateProfileSuccess.cshtml" />
     <Content Include="Views\SignUp\UpdateProfile.cshtml" />
+    <Content Include="Views\Consultation\CreateReport.cshtml" />
+    <Content Include="Views\Consultation\ReportResponse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

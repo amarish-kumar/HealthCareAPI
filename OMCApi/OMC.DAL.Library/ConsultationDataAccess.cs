@@ -285,6 +285,51 @@ namespace OMC.DAL.Library
                 Connection.Close();
             }
         }
+
+        public ConsultationReportResponse InsertUpdateConsultationReport(ConsultationReports consultationReport)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateConsultationReport");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(consultationReport));
+                Command.CommandText = "SP_CONSULTATION_REPORT_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_REPORT_XML", GetXMLFromObject(consultationReport));
+                Command.Parameters.AddWithValue("@OPERATION", "ConsultationReport");
+                if (consultationReport.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationReport.AddedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                ConsultationReportResponse result = new ConsultationReportResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new ConsultationReportResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateConsultationReport");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
         #endregion        
     }
 }

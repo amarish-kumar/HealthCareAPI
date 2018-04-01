@@ -87,13 +87,27 @@ namespace OMC.BL.Library
             }
         }
 
-
-
         public ConversationResponse RecordConversation(Conversation conversationDetails)
         {
             try
             {
                 return this._consultationDA.RecordConversation(conversationDetails);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationReportResponse InsertUpdateConsultationReport(ConsultationReports consultationReport)
+        {
+            try
+            {
+                return this._consultationDA.InsertUpdateConsultationReport(consultationReport);
             }
             catch (Exception ex)
             {
