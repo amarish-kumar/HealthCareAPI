@@ -25,9 +25,10 @@ AS
 
 BEGIN
 
---EXEC [SP_GET_PROFILES]
+--EXEC [SP_GET_PROFILES] 2
 
-SELECT P.Id, P.UserId, U.FirstName AS 'UserFirstName', U.LastName AS 'UserLastName', P.FirstName, P.LastName, P.[DOB], R.[Description] AS Relationship, G.GenderName
+SELECT P.Id, P.UserId, U.FirstName AS 'UserFirstName', U.LastName AS 'UserLastName', P.FirstName, P.LastName, P.[DOB]
+	,p.RelationshipId, R.[Description] AS Relationship, G.GenderName, p.GenderId, p.IsDefault
 	FROM [PROFILE] P
 	INNER JOIN [UserDetail] U ON U.Id = P.UserId
 	INNER JOIN [GenderMaster] G ON G.Id = P.GenderId

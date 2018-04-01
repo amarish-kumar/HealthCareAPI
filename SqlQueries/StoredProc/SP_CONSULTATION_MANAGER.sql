@@ -27,12 +27,9 @@ AS
 
 BEGIN
 
---EXEC [dbo].[SP_CONSULTATION_MANAGER] '+919619645344','10dulkaree', '101.120.222.558'
-
-
 /*BLOCK TO READ THE VARIABLES*/
 
-DECLARE @Id AS BIGINT, @PatientId AS BIGINT, @DoctorId AS BIGINT, @ConsultationStatusId AS BIGINT
+DECLARE @Id AS BIGINT, @PatientId AS BIGINT, @DoctorId AS BIGINT, @ConsultationStatusId AS BIGINT, @ProfileId AS BIGINT
 DECLARE @Description AS NVARCHAR(MAX), @ReturnMessage as NVARCHAR(MAX)
 DECLARE @Active AS BIT, @Result as BIT, @IsLocked as BIT
 
@@ -56,6 +53,7 @@ BEGIN
 				   ,[PatientId]
 				   ,[DoctorId]
 				   ,[ConsultationStatusId]
+				   ,[ProfileId]
 				   ,[IsLocked]
 				   ,[Active]
 				   ,[AddedBy]
@@ -65,6 +63,7 @@ BEGIN
 				   ,@PatientId
 				   ,@DoctorId
 				   ,@ConsultationStatusId
+				   ,@ProfileId
 				   ,0
 				   ,@Active
 				   ,@USER_ID

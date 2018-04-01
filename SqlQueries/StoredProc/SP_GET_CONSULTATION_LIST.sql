@@ -29,6 +29,7 @@ BEGIN
 --EXEC [SP_GET_CONSULTATION_LIST] 3 
 --EXEC [SP_GET_CONSULTATION_LIST] 4, 'Patient' 
 	SELECT C.Id AS 'ConsultationId' , C.[Description] AS 'ConsultationDescription'
+	, P.Id as ProfileId, P.FirstName + ' ' + P.LastName AS 'ProfileName'
 	, C.PatientId, UP.FirstName + ' ' + UP.LastName AS 'PatientName'
 	, C.DoctorId, UD.FirstName + ' ' + UD.LastName AS 'DoctorName'
 	, C.ConsultationStatusId, CS.[Description] AS 'ConsultationStatus'
@@ -37,6 +38,7 @@ BEGIN
 	INNER JOIN UserDetail UP ON UP.Id = C.PatientId
 	INNER JOIN UserDetail UD ON UD.Id = C.DoctorId
 	INNER JOIN ConsultationStatus CS ON CS.Id = C.ConsultationStatusId
+	INNER JOIN [Profile] P ON P.Id = C.ProfileId
 	WHERE (@USER_ROLE = 'Doctor' AND C.DoctorId = @USER_ID)
 	OR (@USER_ROLE = 'Patient' AND C.PatientId = @USER_ID)
 	ORDER BY C.AddedDate DESC

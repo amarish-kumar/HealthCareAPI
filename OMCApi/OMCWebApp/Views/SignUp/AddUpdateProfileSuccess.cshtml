@@ -1,0 +1,7 @@
+﻿@model  OMCWebApp.Models.ProfileModel
+@{
+    ViewBag.Title = "Add/Update Profile Success";
+}
+
+Profile added/updated successfully @Html.ActionLink("View Profiles", "ProfileList", "SignUp", new { userId = Model.ProfileObject.UserId }, null)
+

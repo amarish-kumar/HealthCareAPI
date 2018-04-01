@@ -11,5 +11,6 @@ namespace OMC.BL.Interface
         List<ConsultationDisplay> GetConsultationList(int userId, string userRole);
         ConversationResponse GetConversationList(int consultationId, int userId, string userRole);
         ConversationResponse RecordConversation(Conversation conversationDetails);
+        ConsultationReportResponse InsertUpdateConsultationReport(ConsultationReports consultationReport);
     }
 }
