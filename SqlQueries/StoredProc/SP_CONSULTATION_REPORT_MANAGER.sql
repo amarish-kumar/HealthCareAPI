@@ -1,22 +1,24 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_REPORT_MANAGER]    Script Date: 4/1/2018 11:29:57 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_REPORT_MANAGER]    Script Date: 4/3/2018 9:43:50 AM ******/
 DROP PROCEDURE [dbo].[SP_CONSULTATION_REPORT_MANAGER]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_REPORT_MANAGER]    Script Date: 4/1/2018 11:29:57 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_REPORT_MANAGER]    Script Date: 4/3/2018 9:43:50 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
+
 CREATE PROCEDURE [dbo].[SP_CONSULTATION_REPORT_MANAGER]
 (
 	@CONSULTATION_REPORT_XML AS XML,
 	@OPERATION AS NVARCHAR(100) = NULL, --CONVERSATION FOR START/UPDATE CONVERSATION RECORD
-	@USER_ID BIGINT = 1 --SET THE DEFAULT VALUE TO 1 IF NOT PASSED
+	@USER_ID BIGINT = 1, --SET THE DEFAULT VALUE TO 1 IF NOT PASSED,
+	@FILE_DATA  AS VARBINARY(MAX)
 )
 AS
 
@@ -41,10 +43,11 @@ SELECT	 @Id = ConsultationReportList.Columns.value('Id[1]', 'BIGINT')
 	   , @DoctorPhoneNumber = ConsultationReportList.Columns.value('DoctorPhoneNumber[1]', 'nvarchar(max)')
 	   , @LabName = ConsultationReportList.Columns.value('LabName[1]', 'nvarchar(max)')
 	   , @ReportDate = ConsultationReportList.Columns.value('ReportDate[1]', 'DATETIME')
-	   , @FileData = ConsultationReportList.Columns.value('@FileData[1]', 'VARBINARY(MAX)')
+	   , @FileData = ConsultationReportList.Columns.value('@FileData[1]', 'nvarchar(MAX)')
 	   , @Active = ConsultationReportList.Columns.value('Active[1]', 'bit')
-FROM   @CONSULTATION_REPORT_XML.nodes('ConsultationReport') AS ConsultationReportList(Columns)
+FROM   @CONSULTATION_REPORT_XML.nodes('ConsultationReports') AS ConsultationReportList(Columns)
 
+select @FILE_DATA
 /*BLOCK TO READ THE VARIABLES ENDS HERE*/
 IF @OPERATION = 'ConsultationReport'
 BEGIN
@@ -68,7 +71,7 @@ BEGIN
      VALUES
            (@ConsultationId
            ,@FileName
-           ,@FileData
+           ,@FILE_DATA
            ,@Description
            ,@DoctorName
            ,@DoctorPhoneNumber
@@ -103,6 +106,7 @@ END
 
 SELECT @Result AS Result, @ReturnMessage AS ReturnMessage
 END
+
 
 
 

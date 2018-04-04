@@ -118,6 +118,22 @@ namespace OMC.BL.Library
                 //Log
             }
         }
+
+        public ConsultationReportResponse GetConsultationReportList(int consultationId, int? consultationReportId)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationReportList(consultationId, consultationReportId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
         #endregion
 
         #region IDisposable
