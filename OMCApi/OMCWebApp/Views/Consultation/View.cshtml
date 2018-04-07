@@ -22,17 +22,17 @@
         font-size: 15px;
     }
 
-    .active, .collapsible:hover {
-        background-color: #555;
-    }
+        .active, .collapsible:hover {
+            background-color: #555;
+        }
 
-    .collapsible:after {
-        content: '\002B';
-        color: white;
-        font-weight: bold;
-        float: right;
-        margin-left: 5px;
-    }
+        .collapsible:after {
+            content: '\002B';
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
 
     .active:after {
         content: "\2212";
@@ -77,23 +77,23 @@
             </thead>
 
             @foreach (var conversation in Model.ConversationResponseObject.Conversations)
-        {
-            <tr>
-                <td>@conversation.ConversationId</td>
-                <td>@conversation.ConversationDescription</td>
-                <td>
-                    @(conversation.PatientId.HasValue
-        ? conversation.PatientName
-        : (conversation.DoctorId.HasValue
-            ? conversation.DoctorName : string.Empty))
-                </td>
-                <td>
-                    @(conversation.ConversationCreateDate.HasValue
-        ? conversation.ConversationCreateDate.Value.ToString("dd-MMM-yyyy hh:mm")
-        : string.Empty)
-                </td>
-            </tr>
-        }
+            {
+                <tr>
+                    <td>@conversation.ConversationId</td>
+                    <td>@conversation.ConversationDescription</td>
+                    <td>
+                        @(conversation.PatientId.HasValue
+                    ? conversation.PatientName
+                    : (conversation.DoctorId.HasValue
+                        ? conversation.DoctorName : string.Empty))
+                    </td>
+                    <td>
+                        @(conversation.ConversationCreateDate.HasValue
+                    ? conversation.ConversationCreateDate.Value.ToString("dd-MMM-yyyy hh:mm")
+                    : string.Empty)
+                    </td>
+                </tr>
+            }
         </table>
     }
     else
@@ -101,13 +101,19 @@
         <p>No conversations recorded</p>
     }
 
-    @Html.Partial("CreateConv", Model.ConversationModelObject)  
+    @Html.Partial("CreateConv", Model.ConversationModelObject)
 </div>
 
 <button class="collapsible">Reports</button>
 <div class="content">
     <p>No Reports recorded</p>
-    @Html.Partial("CreateReport", Model.ReportModelObject)    
+    @Html.Partial("CreateReport", Model.ReportModelObject)
+</div>
+
+<button class="collapsible">Illegal Drugs</button>
+<div class="content">
+    <p>No Reports recorded</p>
+    @Html.Partial("IllegalDrugs", Model.ReportModelObject)
 </div>
 
 @section scripts{

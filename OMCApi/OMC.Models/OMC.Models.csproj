@@ -51,6 +51,7 @@
     <Compile Include="BaseEntity.cs" />
     <Compile Include="CancerStageMaster.cs" />
     <Compile Include="Consultation.cs" />
+    <Compile Include="ConsultationIllegalDrugs.cs" />
     <Compile Include="ConsultationSurgeries.cs" />
     <Compile Include="ConsultationSDDHabits.cs" />
     <Compile Include="ConsultationReports.cs" />

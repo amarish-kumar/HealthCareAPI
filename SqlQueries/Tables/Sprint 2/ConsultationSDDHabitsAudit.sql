@@ -22,6 +22,7 @@ CREATE TABLE [dbo].[ConsultationSDDHabitsAudit](
 	[YearOfQuittingSmoking] [int] NULL,
 	[SmokingFreq] [int] NULL,
 	[ConsumeDrugs] [bit] NOT NULL,
+	[IllegalDrugsId] [bigint] NULL,
 	[DrugsConsumptionFreq] [nvarchar](15) NULL,
 	[DrugsPerDay] [int] NULL,
 	[DrugsPerWeek] [int] NULL,
