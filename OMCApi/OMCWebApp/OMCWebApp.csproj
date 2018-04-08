@@ -162,6 +162,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CancerTreatmentModel.cs" />
     <Compile Include="Models\ConsultationListModel.cs" />
     <Compile Include="Models\ConsultationModel.cs" />
     <Compile Include="Models\ConsultationViewModel.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Models\GetAccessCodeModel.cs" />
     <Compile Include="Models\ProfileListModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />
+    <Compile Include="Models\SurgeryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -237,6 +239,12 @@
     <Content Include="Views\Consultation\CreateReport.cshtml" />
     <Content Include="Views\Consultation\ReportResponse.cshtml" />
     <Content Include="Views\Consultation\EditReport.cshtml" />
+    <Content Include="Views\Consultation\CreateSurgery.cshtml" />
+    <Content Include="Views\Consultation\CreateCancerTreatment.cshtml" />
+    <Content Include="Views\Consultation\SurgeryResponse.cshtml" />
+    <Content Include="Views\Consultation\CancerTreatmentResponse.cshtml" />
+    <Content Include="Views\Consultation\EditSurgery.cshtml" />
+    <Content Include="Views\Consultation\EditCancerTreatment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

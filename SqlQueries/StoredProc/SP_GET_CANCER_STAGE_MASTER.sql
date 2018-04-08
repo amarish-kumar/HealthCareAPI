@@ -29,7 +29,7 @@ BEGIN
 	FROM [CancerStageMaster]
 	WHERE (@ACTIVE IS NULL OR [Active] = @ACTIVE)
 	AND (@DESCRIPTION IS NULL OR [Description] = @DESCRIPTION)  
-	ORDER BY [Description]
+	ORDER BY [SortOrder]
 END
 
 

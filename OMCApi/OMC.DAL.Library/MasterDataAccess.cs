@@ -318,6 +318,100 @@ namespace OMC.DAL.Library
                 Connection.Close();
             }
         }
+
+        public List<CancerStageMaster> GetCancerStages(bool? isActive, string cancerStageName)
+        {
+            try
+            {
+                Log.Info("Started call to GetCancerStages");
+                Log.Info("parameter values =" + JsonConvert.SerializeObject(new { isActive = isActive, cancerStageName = cancerStageName }));
+                Command.CommandText = "SP_GET_CANCER_STAGE_MASTER";
+                Command.CommandType = CommandType.StoredProcedure;
+
+                Command.Parameters.Clear();
+                if (!string.IsNullOrEmpty(cancerStageName))
+                {
+                    Command.Parameters.AddWithValue("@DESCRIPTION", cancerStageName);
+                }
+                Command.Parameters.AddWithValue("@ACTIVE", isActive);
+
+                Connection.Open();
+
+                SqlDataReader reader = Command.ExecuteReader();
+                List<CancerStageMaster> result = new List<CancerStageMaster>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new CancerStageMaster
+                        {
+                            Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : null,
+                            Id = Convert.ToInt32(reader["Id"].ToString())
+                        });
+                    }
+                }
+                Log.Info("End call to GetCancerStages result " + JsonConvert.SerializeObject(result));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public List<SurgeryMaster> GetSurgeryList(bool? isActive, string surgeryName, string searchTerm)
+        {
+            try
+            {
+                Log.Info("Started call to GetSurgeryList");
+                Log.Info("parameter values =" + JsonConvert.SerializeObject(new { isActive = isActive, surgeryName = surgeryName, searchTerm = searchTerm }));
+                Command.CommandText = "SP_GET_SURGERY_MASTER";
+                Command.CommandType = CommandType.StoredProcedure;
+
+                Command.Parameters.Clear();
+                if (!string.IsNullOrEmpty(surgeryName))
+                {
+                    Command.Parameters.AddWithValue("@DESCRIPTION", surgeryName);
+                }
+                if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    Command.Parameters.AddWithValue("@SEARCH_TERM", searchTerm);
+                }
+                Command.Parameters.AddWithValue("@ACTIVE", isActive);
+
+                Connection.Open();
+
+                SqlDataReader reader = Command.ExecuteReader();
+                List<SurgeryMaster> result = new List<SurgeryMaster>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new SurgeryMaster
+                        {
+                            Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : null,
+                            Id = Convert.ToInt32(reader["Id"].ToString())
+                        });
+                    }
+                }
+                Log.Info("End call to GetSurgeryList result " + JsonConvert.SerializeObject(result));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            finally
+            {
+                Connection.Close();
+            }
+        }
         #endregion
     }
 }

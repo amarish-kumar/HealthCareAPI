@@ -13,5 +13,7 @@ namespace OMC.BL.Interface
         List<AddressType> GetAddressTypes(bool? isActive);
         List<RelationshipMaster> GetRelationships(bool? isActive, string relationship);
         List<Gender> GetGenders(bool? isActive, string genderName);
+        List<CancerStageMaster> GetCancerStages(bool? isActive, string cancerStageName);
+        List<SurgeryMaster> GetSurgeryList(bool? isActive, string surgeryName, string searchTerm);
     }
 }

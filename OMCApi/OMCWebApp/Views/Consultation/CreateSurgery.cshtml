@@ -1,0 +1,35 @@
+﻿@model  OMCWebApp.Models.SurgeryModel
+
+@using (Html.BeginForm("InsertUpdateConsultationSurgery", "Consultation", FormMethod.Post))
+{
+    <h2>Create Consultation Surgery</h2>
+    @Html.AntiForgeryToken()
+    <table class="createConsSurgery">
+        <tr>
+            <td>
+                Surgery:
+            </td>
+            <td> 
+                @Html.HiddenFor(m => m.ConsultationSurgeryObject.AddedBy, Model.ConsultationSurgeryObject.AddedBy)
+                @Html.HiddenFor(m => m.ConsultationSurgeryObject.ConsultationId, Model.ConsultationSurgeryObject.ConsultationId)
+                @Html.DropDownListFor(m => m.ConsultationSurgeryObject.SurgeryId, new SelectList(Model.SurgeryList, "Id", "Description"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Surgery Date:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationSurgeryObject.SurgeryDate, Model.ConsultationSurgeryObject.SurgeryDate)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Create Consultation Surgery</button>
+            </td>
+        </tr>
+    </table>
+}
+
