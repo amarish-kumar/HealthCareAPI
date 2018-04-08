@@ -5,12 +5,14 @@ using OMCWebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
-
+using System.Linq;
 namespace OMCWebApp.Controllers
 {
     public class ConsultationController : Controller
@@ -137,6 +139,9 @@ namespace OMCWebApp.Controllers
                 HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConversationList?userId=" + userId.ToString() + "&consultationId=" + consultationId + "&userRole=" + userRole);
                 result.ConversationResponseObject = JsonConvert.DeserializeObject<ConversationResponse>(Res.Content.ReadAsStringAsync().Result);
 
+                Res = await client.GetAsync("api/ConsultationAPI/GetConsultationReportList?consultationId=" + consultationId.ToString() + "&consultationReportId=");
+                result.ConsultationReportResponseObject = JsonConvert.DeserializeObject<ConsultationReportResponse>(Res.Content.ReadAsStringAsync().Result);
+                Session["ConsultationReportResponseObject"] = result.ConsultationReportResponseObject.ConsultationReports;
                 Res = await client.GetAsync("api/SignUpAPI/GetCountries?isActive=true");
                 result.ReportModelObject.Countries = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
             }
@@ -174,13 +179,21 @@ namespace OMCWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateConsultationReport(ReportModel report)
+        public async Task<ActionResult> InsertUpdateConsultationReport(ReportModel report)
         {
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                if (report.ReportFile != null)
+                {
+                    MemoryStream target = new MemoryStream();
+                    report.ReportFile.InputStream.CopyTo(target);
+                    report.ConsultationReportObject.FileData = target.ToArray();
+                    report.ConsultationReportObject.FileName = report.ReportFile.FileName;
+                }
                 var json = JsonConvert.SerializeObject(report.ConsultationReportObject);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage Res = await client.PostAsync("api/ConsultationAPI/InsertUpdateConsultationReport", content);
@@ -199,6 +212,58 @@ namespace OMCWebApp.Controllers
                 return View("ReportResponse", result);
 
             }
+        }
+
+        [HttpGet]
+        public FileResult DownLoadFile(int consultationReportId)
+        {
+            var reports = Session["ConsultationReportResponseObject"] as List<ConsultationReportDisplay>;
+            var currentReport = reports.Where(cr => cr.Id == consultationReportId).FirstOrDefault();
+            if (currentReport != null && currentReport.FileData != null)
+            {
+                return File(currentReport.FileData, "application/pdf", currentReport.FileName);
+            }
+            return null;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> EditReport(int userId, int consultationId, int consultationReportId)
+        {
+            //set data for the report record edit
+            var ReportModelObject = new ReportModel
+            {
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConsultationReportList?consultationId=" + consultationId.ToString() + "&consultationReportId="+ consultationReportId.ToString());
+                var ConsultationReportResponseObject = JsonConvert.DeserializeObject<ConsultationReportResponse>(Res.Content.ReadAsStringAsync().Result);
+
+                if (ConsultationReportResponseObject.ConsultationReports != null
+                    && ConsultationReportResponseObject.ConsultationReports.Count > 0)
+                {
+                    var consReportDisplay = ConsultationReportResponseObject.ConsultationReports.First();
+                    ReportModelObject.ConsultationReportObject = new ConsultationReports
+                    {
+                        Id = consReportDisplay.Id,
+                        ConsultationId = consReportDisplay.ConsultationId,
+                        Description = consReportDisplay.Description,
+                        DoctorName = consReportDisplay.DoctorName,
+                        DoctorPhoneNumber = consReportDisplay.DoctorPhoneNumber,
+                        FileName = consReportDisplay.FileName,
+                        LabName = consReportDisplay.LabName,
+                        ModifiedBy = userId,
+                        CountryId = consReportDisplay.CountryId,
+                        ReportDate = consReportDisplay.ReportDate,
+                        FileData = consReportDisplay.FileData
+                    };   
+                }
+                Res = await client.GetAsync("api/SignUpAPI/GetCountries?isActive=true");
+                ReportModelObject.Countries = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
+            }            
+            return View(ReportModelObject);
         }
         #endregion
     }

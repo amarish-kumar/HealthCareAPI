@@ -297,10 +297,18 @@ namespace OMC.DAL.Library
                 Command.Parameters.Clear();
 
                 Command.Parameters.AddWithValue("@CONSULTATION_REPORT_XML", GetXMLFromObject(consultationReport));
+                if (consultationReport.FileData != null)
+                {
+                    Command.Parameters.AddWithValue("@FILE_DATA", consultationReport.FileData);
+                }
                 Command.Parameters.AddWithValue("@OPERATION", "ConsultationReport");
                 if (consultationReport.AddedBy.HasValue)
                 {
                     Command.Parameters.AddWithValue("@USER_ID", consultationReport.AddedBy.Value);
+                }
+                if (consultationReport.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationReport.ModifiedBy.Value);
                 }
                 Connection.Open();
                 SqlDataReader reader = Command.ExecuteReader();
@@ -318,6 +326,63 @@ namespace OMC.DAL.Library
                     }
                 }
                 Log.Info("End call to InsertUpdateConsultationReport");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationReportResponse GetConsultationReportList(int consultationId, int? consultationReportId)
+        {
+            try
+            {
+                Log.Info("Started call to GetConsultationReportList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { consultationId = consultationId, consultationReportId = consultationReportId }));
+                Command.CommandText = "SP_GET_REPORT_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_ID", consultationId);
+                if (consultationReportId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@CONSULTATION_REPORT_ID", consultationReportId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                ConsultationReportResponse result = new ConsultationReportResponse();
+                result.ConsultationReports = new List<ConsultationReportDisplay>();
+                foreach (DataRow drConsultationReport in ds.Tables[0].Rows)
+                {
+                    result.ConsultationReports.Add(new ConsultationReportDisplay
+                    {
+                        Id = Convert.ToInt32(drConsultationReport["Id"].ToString()),
+                        ConsultationId = Convert.ToInt32(drConsultationReport["ConsultationId"].ToString()),
+                        FileName = drConsultationReport["FileName"] != DBNull.Value ? drConsultationReport["FileName"].ToString() : null,
+                        FileData = drConsultationReport["FileData"] != DBNull.Value ? (byte[])drConsultationReport["FileData"] : null,
+                        Description = drConsultationReport["Description"] != DBNull.Value ? drConsultationReport["Description"].ToString() : null,
+                        DoctorName = drConsultationReport["DoctorName"] != DBNull.Value ? drConsultationReport["DoctorName"].ToString() : null,
+                        DoctorPhoneNumber = drConsultationReport["DoctorPhoneNumber"] != DBNull.Value ? drConsultationReport["DoctorPhoneNumber"].ToString() : null,
+                        ReportDate = drConsultationReport["ReportDate"] != DBNull.Value ? DateTime.Parse(drConsultationReport["ReportDate"].ToString()) : (DateTime?)null,
+                        LabName = drConsultationReport["LabName"] != DBNull.Value ? drConsultationReport["LabName"].ToString() : null,
+                        CountryId = int.Parse(drConsultationReport["CountryId"].ToString()),
+                        Country = drConsultationReport["Country"] != DBNull.Value ? drConsultationReport["Country"].ToString() : null,
+                        AddedBy = drConsultationReport["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationReport["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drConsultationReport["AddedDate"] != DBNull.Value ? DateTime.Parse(drConsultationReport["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drConsultationReport["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationReport["ModifiedBy"].ToString()) : (int?) null,
+                        ModifiedDate = drConsultationReport["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drConsultationReport["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetConsultationReportList result " + JsonConvert.SerializeObject(result));
 
                 return result;
             }

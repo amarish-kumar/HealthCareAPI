@@ -83,14 +83,13 @@
                 <td>@conversation.ConversationDescription</td>
                 <td>
                     @(conversation.PatientId.HasValue
-        ? conversation.PatientName
-        : (conversation.DoctorId.HasValue
-            ? conversation.DoctorName : string.Empty))
+                        ? conversation.PatientName
+                        : (conversation.DoctorId.HasValue ? conversation.DoctorName : string.Empty))
                 </td>
                 <td>
                     @(conversation.ConversationCreateDate.HasValue
-        ? conversation.ConversationCreateDate.Value.ToString("dd-MMM-yyyy hh:mm")
-        : string.Empty)
+                    ? conversation.ConversationCreateDate.Value.ToString("dd-MMM-yyyy hh:mm")
+                    : string.Empty)
                 </td>
             </tr>
         }
@@ -106,7 +105,45 @@
 
 <button class="collapsible">Reports</button>
 <div class="content">
-    <p>No Reports recorded</p>
+    @if (Model.ConsultationReportResponseObject != null
+        && Model.ConsultationReportResponseObject.ConsultationReports != null
+        && Model.ConsultationReportResponseObject.ConsultationReports.Count() != 0)
+    {
+        <table class="conversations">
+            <thead>
+                <th>Id</th>
+                <th>Consultation Id</th>
+                <th>File Name</th>
+                <th>Report Date</th>
+                <th>Lab Name</th>
+                <th>Description</th>
+                <th>Doctor Name</th>
+                <th>Country</th>
+                <th>Phone Number</th>
+                <th>Action</th>
+            </thead>
+
+            @foreach (var report in Model.ConsultationReportResponseObject.ConsultationReports)
+            {
+                <tr>
+                    <td>@report.Id</td>
+                    <td>@report.ConsultationId</td>
+                    <td>@Html.ActionLink(report.FileName, "DownLoadFile", "Consultation", new { consultationReportId = report.Id }, null)   </td>
+                    <td>@(report.ReportDate.HasValue ? report.ReportDate.Value.ToString("dd-MMM-yyyy") : string.Empty)</td>
+                    <td>@report.LabName</td>
+                    <td>@report.Description</td>
+                    <td>@report.DoctorName</td>
+                    <td>@report.Country</td>
+                    <td>@report.DoctorPhoneNumber</td>
+                    <td>@Html.ActionLink("Edit", "EditReport", "Consultation", new { userId = Model.UserId, consultationId = report.ConsultationId, consultationReportId = report.Id }, null)</td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>No Reports recorded</p>
+    }    
     @Html.Partial("CreateReport", Model.ReportModelObject)    
 </div>
 

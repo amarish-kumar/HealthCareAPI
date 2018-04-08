@@ -236,6 +236,7 @@
     <Content Include="Views\SignUp\UpdateProfile.cshtml" />
     <Content Include="Views\Consultation\CreateReport.cshtml" />
     <Content Include="Views\Consultation\ReportResponse.cshtml" />
+    <Content Include="Views\Consultation\EditReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

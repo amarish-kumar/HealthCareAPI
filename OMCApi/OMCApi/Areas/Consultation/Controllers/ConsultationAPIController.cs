@@ -117,6 +117,15 @@ namespace OMCApi.Areas.Consultation.Controllers
             var ConversationResult = ConsultationBLObj.InsertUpdateConsultationReport(consultationReport);
             return Ok(ConversationResult.Message);
         }
+
+        // Get: api/ConsultationAPI/GetConsultationReportList
+        [HttpGet]
+        [Route("GetConsultationReportList")]
+        public ConsultationReportResponse GetConsultationReportList(int consultationId, int? consultationReportId)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConsultationReportList(consultationId, consultationReportId);
+        }
         #endregion
     }
 }

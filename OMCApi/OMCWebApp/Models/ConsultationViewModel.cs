@@ -17,5 +17,6 @@ namespace OMCWebApp.Models
         /// this is used to create the report record
         /// </summary>
         public ReportModel ReportModelObject { get; set; }
+        public ConsultationReportResponse ConsultationReportResponseObject { get; set; }
     }
 }

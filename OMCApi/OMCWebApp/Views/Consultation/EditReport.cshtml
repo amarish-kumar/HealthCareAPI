@@ -2,16 +2,17 @@
 
 @using (Html.BeginForm("InsertUpdateConsultationReport", "Consultation", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <h2>Create Consultation Report</h2>
+    <h2>Edit Consultation Report</h2>
 
     @Html.AntiForgeryToken()
-    <table class="createConSReport">
+    <table class="editConSReport">
         <tr>
             <td>
                 Description:
             </td>
             <td> 
-                @Html.HiddenFor(m => m.ConsultationReportObject.AddedBy, Model.ConsultationReportObject.AddedBy)
+                @Html.HiddenFor(m => m.ConsultationReportObject.Id, Model.ConsultationReportObject.Id)
+                @Html.HiddenFor(m => m.ConsultationReportObject.ModifiedBy, Model.ConsultationReportObject.ModifiedBy)
                 @Html.HiddenFor(m => m.ConsultationReportObject.ConsultationId, Model.ConsultationReportObject.ConsultationId)
                 @Html.TextAreaFor(m => m.ConsultationReportObject.Description, new { style = "width: 1000px; height:100px;" })
             </td>
@@ -23,6 +24,8 @@
             </td>
             <td>
                 @Html.TextBoxFor(model => model.ReportFile, new { type = "file" })
+                @Html.ActionLink(Model.ConsultationReportObject.FileName, "DownLoadFile", "Consultation", new { consultationReportId = Model.ConsultationReportObject.Id }, null)
+
             </td>
         </tr>
         <tr style="height:20px;"></tr>
@@ -73,7 +76,7 @@
         <tr style="height:20px;"></tr>
         <tr>
             <td colspan="2">
-                <button type="submit">Create Consultation Report</button>
+                <button type="submit">Update Consultation Report</button>
             </td>
         </tr>
 
