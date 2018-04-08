@@ -118,6 +118,7 @@
                 <th>Lab Name</th>
                 <th>Description</th>
                 <th>Doctor Name</th>
+                <th>Country</th>
                 <th>Phone Number</th>
                 <th>Action</th>
             </thead>
@@ -132,6 +133,7 @@
                     <td>@report.LabName</td>
                     <td>@report.Description</td>
                     <td>@report.DoctorName</td>
+                    <td>@report.Country</td>
                     <td>@report.DoctorPhoneNumber</td>
                     <td>@Html.ActionLink("Edit", "EditReport", "Consultation", new { userId = Model.UserId, consultationId = report.ConsultationId, consultationReportId = report.Id }, null)</td>
                 </tr>
