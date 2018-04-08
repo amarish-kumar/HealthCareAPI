@@ -36,6 +36,24 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetConsultationStatuses(isActive, description);
         }
 
+        // Get: api/ConsultationAPI/GetCancerStages
+        [HttpGet]
+        [Route("GetCancerStages")]
+        public List<CancerStageMaster> GetCancerStages(bool? isActive, string cancerStageName)
+        {
+            var masterObj = _Kernel.Get<IMaster>();
+            return masterObj.GetCancerStages(isActive, cancerStageName);
+        }
+
+        // Get: api/ConsultationAPI/GetSurgeryList
+        [HttpGet]
+        [Route("GetSurgeryList")]
+        public List<SurgeryMaster> GetSurgeryList(bool? isActive, string surgeryName, string searchTerm)
+        {
+            var masterObj = _Kernel.Get<IMaster>();
+            return masterObj.GetSurgeryList(isActive, surgeryName, searchTerm);
+        }
+
         // Get: api/ConsultationAPI/GetDoctors
         [HttpGet]
         [Route("GetDoctors")]
@@ -125,6 +143,54 @@ namespace OMCApi.Areas.Consultation.Controllers
         {
             var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
             return ConsultationBLObj.GetConsultationReportList(consultationId, consultationReportId);
+        }
+
+        // POST: api/ConsultationAPI/InsertUpdateConsultationSurgery
+        [HttpPost]
+        [Route("InsertUpdateConsultationSurgery")]
+        public IHttpActionResult InsertUpdateConsultationSurgery([FromBody]ConsultationSurgeries consultationSurgery)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            consultationSurgery.Active = true;
+            var ConversationResult = ConsultationBLObj.InsertUpdateConsultationSurgery(consultationSurgery);
+            return Ok(ConversationResult.Message);
+        }
+
+        // Get: api/ConsultationAPI/GetConsultationSurgeryList
+        [HttpGet]
+        [Route("GetConsultationSurgeryList")]
+        public ConsultationSurgeryResponse GetConsultationSurgeryList(int consultationId, int? consultationSurgeryId)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConsultationSurgeryList(consultationId, consultationSurgeryId);
+        }
+
+        // POST: api/ConsultationAPI/InsertUpdateConsultationCancerTreatment
+        [HttpPost]
+        [Route("InsertUpdateConsultationCancerTreatment")]
+        public IHttpActionResult InsertUpdateConsultationCancerTreatment([FromBody]ConsultationCancerTreatments consultationCancerTreatment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            consultationCancerTreatment.Active = true;
+            var ConversationResult = ConsultationBLObj.InsertUpdateConsultationCancerTreatment(consultationCancerTreatment);
+            return Ok(ConversationResult.Message);
+        }
+
+        // Get: api/ConsultationAPI/GetConsultationCancerTreatmentList
+        [HttpGet]
+        [Route("GetConsultationCancerTreatmentList")]
+        public ConsultationCancerTreatmentResponse GetConsultationCancerTreatmentList(int consultationId, int? consultationCancerTreatmentId)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConsultationCancerTreatmentList(consultationId, consultationCancerTreatmentId);
         }
         #endregion
     }
