@@ -14,6 +14,18 @@ namespace OMC.Models
         public string TreatmentType { get; set; }
         public bool IsTreatmentOn { get; set; }
         public DateTime? TreatmentCompletionDate { get; set; }
+
+        #region Serialization
+        public bool ShouldSerializeDignosisDate()
+        {
+            return DignosisDate.HasValue;
+        }
+
+        public bool ShouldSerializeTreatmentCompletionDate()
+        {
+            return TreatmentCompletionDate.HasValue;
+        }
+        #endregion
     }
 
     public class ConsultationCancerTreatmentResponse
@@ -31,7 +43,7 @@ namespace OMC.Models
         public string CancerStage { get; set; }
         public DateTime? DignosisDate { get; set; }
         public string TreatmentType { get; set; }
-        public bool? IsTreatmentOn { get; set; }
+        public bool IsTreatmentOn { get; set; }
         public DateTime? TreatmentCompletionDate { get; set; }
     }
 }

@@ -1,0 +1,70 @@
+﻿@model  OMCWebApp.Models.CancerTreatmentModel
+
+@using (Html.BeginForm("InsertUpdateConsultationCancerTreatment", "Consultation", FormMethod.Post))
+{
+    <h2>Create Consultation Cancer Treatment</h2>
+    @Html.AntiForgeryToken()
+    <table class="createConsSurgery">
+        <tr>
+            <td>
+                Cancer Type:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationCancerTreatmentObject.CancerType, Model.ConsultationCancerTreatmentObject.CancerType)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Select Stage:
+            </td>
+            <td> 
+                @Html.HiddenFor(m => m.ConsultationCancerTreatmentObject.AddedBy, Model.ConsultationCancerTreatmentObject.AddedBy)
+                @Html.HiddenFor(m => m.ConsultationCancerTreatmentObject.ConsultationId, Model.ConsultationCancerTreatmentObject.ConsultationId)
+                @Html.DropDownListFor(m => m.ConsultationCancerTreatmentObject.CancerStageId, new SelectList(Model.CancerStages, "Id", "Description"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Dignosis Date:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationCancerTreatmentObject.DignosisDate, Model.ConsultationCancerTreatmentObject.DignosisDate)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Treatment Type:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationCancerTreatmentObject.TreatmentType, Model.ConsultationCancerTreatmentObject.TreatmentType)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                IS Treatment On?
+            </td>
+            <td>
+                @Html.CheckBoxFor(m => m.ConsultationCancerTreatmentObject.IsTreatmentOn, Model.ConsultationCancerTreatmentObject.IsTreatmentOn)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Treatment Completion Date:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationCancerTreatmentObject.TreatmentCompletionDate, Model.ConsultationCancerTreatmentObject.TreatmentCompletionDate)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Create Consultation Cancer Treatment</button>
+            </td>
+        </tr>
+    </table>
+}

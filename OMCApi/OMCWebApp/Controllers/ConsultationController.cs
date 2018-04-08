@@ -131,6 +131,26 @@ namespace OMCWebApp.Controllers
                     AddedBy = userId
                 }
             };
+            //set data for the surgery record insert
+            result.SurgeryModelObject = new SurgeryModel
+            {
+                ConsultationSurgeryObject = new ConsultationSurgeries
+                {
+                    ConsultationId = consultationId,
+                    AddedBy = userId
+                }
+            };
+
+            //set data for the cancer treatment record insert
+            result.CancerTreatmentModelObject = new CancerTreatmentModel
+            {
+                ConsultationCancerTreatmentObject = new ConsultationCancerTreatments
+                {
+                    ConsultationId = consultationId,
+                    AddedBy = userId
+                }
+            };
+
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
@@ -142,8 +162,17 @@ namespace OMCWebApp.Controllers
                 Res = await client.GetAsync("api/ConsultationAPI/GetConsultationReportList?consultationId=" + consultationId.ToString() + "&consultationReportId=");
                 result.ConsultationReportResponseObject = JsonConvert.DeserializeObject<ConsultationReportResponse>(Res.Content.ReadAsStringAsync().Result);
                 Session["ConsultationReportResponseObject"] = result.ConsultationReportResponseObject.ConsultationReports;
+                Res = await client.GetAsync("api/ConsultationAPI/GetConsultationSurgeryList?consultationId=" + consultationId.ToString() + "&consultationSurgeryId=");
+                result.ConsultationSurgeryResponseObject = JsonConvert.DeserializeObject<ConsultationSurgeryResponse>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/ConsultationAPI/GetConsultationCancerTreatmentList?consultationId=" + consultationId.ToString() + "&consultationCancerTreatmentId=");
+                result.ConsultationCancerTreatmentResponseObject = JsonConvert.DeserializeObject<ConsultationCancerTreatmentResponse>(Res.Content.ReadAsStringAsync().Result);
+
                 Res = await client.GetAsync("api/SignUpAPI/GetCountries?isActive=true");
                 result.ReportModelObject.Countries = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/ConsultationAPI/GetCancerStages?isActive=true&cancerStageName=");
+                result.CancerTreatmentModelObject.CancerStages = JsonConvert.DeserializeObject<List<CancerStageMaster>>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/ConsultationAPI/GetSurgeryList?isActive=true&surgeryName=&searchTerm=");
+                result.SurgeryModelObject.SurgeryList = JsonConvert.DeserializeObject<List<SurgeryMaster>>(Res.Content.ReadAsStringAsync().Result);
             }
             return View(result);
         }
@@ -264,6 +293,137 @@ namespace OMCWebApp.Controllers
                 ReportModelObject.Countries = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
             }            
             return View(ReportModelObject);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InsertUpdateConsultationSurgery(SurgeryModel surgery)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                
+                var json = JsonConvert.SerializeObject(surgery.ConsultationSurgeryObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/ConsultationAPI/InsertUpdateConsultationSurgery", content);
+                ConsultationSurgeryResponse result = new ConsultationSurgeryResponse();
+                if (Res.IsSuccessStatusCode)
+                {
+                    result.IsSuccess = true;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    result.IsSuccess = false;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                return View("SurgeryResponse", result);
+            }
+        }
+        
+        [HttpGet]
+        public async Task<ActionResult> EditSurgery(int userId, int consultationId, int consultationSurgeryId)
+        {
+            //set data for the surgery record edit
+            var SurgeryModelObject = new SurgeryModel
+            {
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConsultationSurgeryList?consultationId=" + consultationId.ToString() + "&consultationSurgeryId=" + consultationSurgeryId.ToString());
+                var ConsultationSurgeryResponseObject = JsonConvert.DeserializeObject<ConsultationSurgeryResponse>(Res.Content.ReadAsStringAsync().Result);
+
+                if (ConsultationSurgeryResponseObject.ConsultationSurgeriesList != null
+                    && ConsultationSurgeryResponseObject.ConsultationSurgeriesList.Count > 0)
+                {
+                    var consSurgeryDisplay = ConsultationSurgeryResponseObject.ConsultationSurgeriesList.First();
+                    SurgeryModelObject.ConsultationSurgeryObject = new ConsultationSurgeries
+                    {
+                        Id = consSurgeryDisplay.Id,
+                        ConsultationId = consSurgeryDisplay.ConsultationId,
+                        SurgeryId = consSurgeryDisplay.SurgeryId,
+                        SurgeryDate = consSurgeryDisplay.SurgeryDate,
+                        ModifiedBy = userId,
+                        Active = consSurgeryDisplay.Active
+                    };
+                }
+                Res = await client.GetAsync("api/ConsultationAPI/GetSurgeryList?isActive=true&surgeryName=&searchTerm=");
+                SurgeryModelObject.SurgeryList = JsonConvert.DeserializeObject<List<SurgeryMaster>>(Res.Content.ReadAsStringAsync().Result);
+            }
+            return View(SurgeryModelObject);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InsertUpdateConsultationCancerTreatment(CancerTreatmentModel cancerTreatment)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var json = JsonConvert.SerializeObject(cancerTreatment.ConsultationCancerTreatmentObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/ConsultationAPI/InsertUpdateConsultationCancerTreatment", content);
+                ConsultationCancerTreatmentResponse result = new ConsultationCancerTreatmentResponse();
+                if (Res.IsSuccessStatusCode)
+                {
+                    result.IsSuccess = true;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    result.IsSuccess = false;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                return View("CancerTreatmentResponse", result);
+
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> EditCancerTreatment(int userId, int consultationId, int consultationCancerTreatmentId)
+        {
+            //set data for the surgery record edit
+            var CancerTreatmentModelObject = new CancerTreatmentModel
+            {
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConsultationCancerTreatmentList?consultationId=" + consultationId.ToString() + "&consultationCancerTreatmentId=" + consultationCancerTreatmentId.ToString());
+                var ConsultationCancerTreatmentResponseObject = JsonConvert.DeserializeObject<ConsultationCancerTreatmentResponse>(Res.Content.ReadAsStringAsync().Result);
+
+                if (ConsultationCancerTreatmentResponseObject.ConsultationCancerTreatmentList != null
+                    && ConsultationCancerTreatmentResponseObject.ConsultationCancerTreatmentList.Count > 0)
+                {
+                    var consCancerTreatmentDisplay = ConsultationCancerTreatmentResponseObject.ConsultationCancerTreatmentList.First();
+                    CancerTreatmentModelObject.ConsultationCancerTreatmentObject = new ConsultationCancerTreatments
+                    {
+                        Id = consCancerTreatmentDisplay.Id,
+                        ConsultationId = consCancerTreatmentDisplay.ConsultationId,
+                        CancerStageId = consCancerTreatmentDisplay.CancerStageId,
+                        CancerType = consCancerTreatmentDisplay.CancerType,
+                        DignosisDate = consCancerTreatmentDisplay.DignosisDate,
+                        TreatmentCompletionDate = consCancerTreatmentDisplay.TreatmentCompletionDate,
+                        IsTreatmentOn = consCancerTreatmentDisplay.IsTreatmentOn,
+                        TreatmentType = consCancerTreatmentDisplay.TreatmentType,
+                        ModifiedBy = userId,
+                        Active = consCancerTreatmentDisplay.Active
+                    };
+                }
+                Res = await client.GetAsync("api/ConsultationAPI/GetCancerStages?isActive=true&cancerStageName=");
+                CancerTreatmentModelObject.CancerStages = JsonConvert.DeserializeObject<List<CancerStageMaster>>(Res.Content.ReadAsStringAsync().Result);
+            }
+            return View(CancerTreatmentModelObject);
         }
         #endregion
     }

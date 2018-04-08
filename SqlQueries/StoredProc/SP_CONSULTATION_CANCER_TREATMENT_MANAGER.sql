@@ -82,10 +82,10 @@ BEGIN
 		UPDATE [dbo].[ConsultationCancerTreatments]
 		   SET [CancerType] = ISNULL(@CancerType,[CancerType])
 			  ,[CancerStageId] = ISNULL(@CancerStageId, [CancerStageId])
-			  ,[DignosisDate] = ISNULL(@DignosisDate, [DignosisDate])
+			  ,[DignosisDate] = @DignosisDate
 			  ,[TreatmentType] = ISNULL(@TreatmentType, [TreatmentType])
 			  ,[IsTreatmentOn] = ISNULL(@IsTreatmentOn, [IsTreatmentOn])
-			  ,[TreatmentCompletionDate] = ISNULL(@TreatmentCompletionDate, [TreatmentCompletionDate])
+			  ,[TreatmentCompletionDate] = @TreatmentCompletionDate
 			  ,[ModifiedBy] = @USER_ID
 			  ,[ModifiedDate] = GETUTCDATE()
 		WHERE Id = @Id
