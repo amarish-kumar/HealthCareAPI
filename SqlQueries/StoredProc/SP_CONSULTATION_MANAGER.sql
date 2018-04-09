@@ -1,16 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_MANAGER]    Script Date: 2/10/2018 10:22:58 PM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_MANAGER]    Script Date: 4/9/2018 8:19:58 AM ******/
 DROP PROCEDURE [dbo].[SP_CONSULTATION_MANAGER]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_MANAGER]    Script Date: 2/10/2018 10:22:58 PM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_MANAGER]    Script Date: 4/9/2018 8:19:58 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 
@@ -36,6 +37,7 @@ DECLARE @Active AS BIT, @Result as BIT, @IsLocked as BIT
 SELECT	 @Id = ConsultationList.Columns.value('Id[1]', 'BIGINT')
 	   , @Description = ConsultationList.Columns.value('Description[1]', 'nvarchar(max)')
 	   , @PatientId = ConsultationList.Columns.value('PatientId[1]', 'BIGINT')
+	   , @ProfileId = ConsultationList.Columns.value('ProfileId[1]', 'BIGINT')
 	   , @DoctorId = ConsultationList.Columns.value('DoctorId[1]', 'BIGINT')
 	   , @ConsultationStatusId = ConsultationList.Columns.value('ConsultationStatusId[1]', 'BIGINT')
 	   , @Active = ConsultationList.Columns.value('Active[1]', 'bit')
@@ -102,6 +104,7 @@ END
 
 SELECT @Result AS Result, @ReturnMessage AS ReturnMessage
 END
+
 
 GO
 
