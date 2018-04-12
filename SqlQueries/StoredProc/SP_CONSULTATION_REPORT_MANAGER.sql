@@ -1,22 +1,25 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_REPORT_MANAGER]    Script Date: 4/1/2018 11:29:57 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_REPORT_MANAGER]    Script Date: 4/8/2018 10:17:58 PM ******/
 DROP PROCEDURE [dbo].[SP_CONSULTATION_REPORT_MANAGER]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_REPORT_MANAGER]    Script Date: 4/1/2018 11:29:57 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_REPORT_MANAGER]    Script Date: 4/8/2018 10:17:58 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
+
+
 CREATE PROCEDURE [dbo].[SP_CONSULTATION_REPORT_MANAGER]
 (
 	@CONSULTATION_REPORT_XML AS XML,
+	@FILE_DATA AS VARBINARY(MAX) = NULL,
 	@OPERATION AS NVARCHAR(100) = NULL, --CONVERSATION FOR START/UPDATE CONVERSATION RECORD
-	@USER_ID BIGINT = 1 --SET THE DEFAULT VALUE TO 1 IF NOT PASSED
+	@USER_ID BIGINT = 1 --SET THE DEFAULT VALUE TO 1 IF NOT PASSED,
 )
 AS
 
@@ -30,7 +33,7 @@ DECLARE @FileName AS NVARCHAR(MAX),@Description AS NVARCHAR(MAX),@DoctorName AS 
 ,@DoctorPhoneNumber AS NVARCHAR(MAX),@LabName AS NVARCHAR(MAX), @ReturnMessage as NVARCHAR(MAX)
 DECLARE @Active AS BIT, @Result as BIT
 DECLARE @ReportDate AS DATETIME
-DECLARE @FileData AS VARBINARY(MAX)
+DECLARE @FileData AS NVARCHAR(MAX)
 
 SELECT	 @Id = ConsultationReportList.Columns.value('Id[1]', 'BIGINT')
 	   , @ConsultationId = ConsultationReportList.Columns.value('ConsultationId[1]', 'BIGINT')
@@ -41,9 +44,8 @@ SELECT	 @Id = ConsultationReportList.Columns.value('Id[1]', 'BIGINT')
 	   , @DoctorPhoneNumber = ConsultationReportList.Columns.value('DoctorPhoneNumber[1]', 'nvarchar(max)')
 	   , @LabName = ConsultationReportList.Columns.value('LabName[1]', 'nvarchar(max)')
 	   , @ReportDate = ConsultationReportList.Columns.value('ReportDate[1]', 'DATETIME')
-	   , @FileData = ConsultationReportList.Columns.value('@FileData[1]', 'VARBINARY(MAX)')
 	   , @Active = ConsultationReportList.Columns.value('Active[1]', 'bit')
-FROM   @CONSULTATION_REPORT_XML.nodes('ConsultationReport') AS ConsultationReportList(Columns)
+FROM   @CONSULTATION_REPORT_XML.nodes('ConsultationReports') AS ConsultationReportList(Columns)
 
 /*BLOCK TO READ THE VARIABLES ENDS HERE*/
 IF @OPERATION = 'ConsultationReport'
@@ -68,7 +70,7 @@ BEGIN
      VALUES
            (@ConsultationId
            ,@FileName
-           ,@FileData
+           ,@FILE_DATA
            ,@Description
            ,@DoctorName
            ,@DoctorPhoneNumber
@@ -87,8 +89,8 @@ BEGIN
 	BEGIN
 
 		UPDATE [dbo].[ConsultationReports]
-		   SET [FileName] = @FileName
-			  ,[FileData] = @FileData
+		   SET [FileName] = ISNULL(@FileName,[FileName])
+			  ,[FileData] = ISNULL(@FILE_DATA, [FileData])
 			  ,[Description] = @Description
 			  ,[DoctorName] = @DoctorName
 			  ,[DoctorPhoneNumber] = @DoctorPhoneNumber
@@ -98,11 +100,15 @@ BEGIN
 			  ,[ModifiedBy] = @USER_ID
 			  ,[ModifiedDate] = GETUTCDATE()
 		WHERE Id = @Id
+		SET @Result = 1;
+		SET @ReturnMessage = 'Record updated successfully.'
 	END
 END
 
 SELECT @Result AS Result, @ReturnMessage AS ReturnMessage
 END
+
+
 
 
 

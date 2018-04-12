@@ -17,5 +17,18 @@ namespace OMCWebApp.Models
         /// this is used to create the report record
         /// </summary>
         public ReportModel ReportModelObject { get; set; }
+        public ConsultationReportResponse ConsultationReportResponseObject { get; set; }
+
+        /// <summary>
+        /// this is used to create the surgery record
+        /// </summary>
+        public SurgeryModel SurgeryModelObject { get; set; }
+        public ConsultationSurgeryResponse ConsultationSurgeryResponseObject { get; set; }
+
+        /// <summary>
+        /// this is used to create the cancer treatment record
+        /// </summary>
+        public CancerTreatmentModel CancerTreatmentModelObject { get; set; }
+        public ConsultationCancerTreatmentResponse ConsultationCancerTreatmentResponseObject { get; set; }
     }
 }

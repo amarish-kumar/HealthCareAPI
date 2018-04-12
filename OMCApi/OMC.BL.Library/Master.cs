@@ -9,7 +9,9 @@ namespace OMC.BL.Library
     public class Master : IMaster
     {
         #region Declarations
+
         IMasterDataAccess _masterDA;
+        
         #endregion
 
         #region Constructors
@@ -133,19 +135,54 @@ namespace OMC.BL.Library
                 //Log
             }
         }
+
+        public List<CancerStageMaster> GetCancerStages(bool? isActive, string cancerStageName)
+        {
+            try
+            {
+                return this._masterDA.GetCancerStages(isActive, cancerStageName);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public List<SurgeryMaster> GetSurgeryList(bool? isActive, string surgeryName, string searchTerm)
+        {
+            try
+            {
+                return this._masterDA.GetSurgeryList(isActive, surgeryName, searchTerm);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
         #endregion
 
         #region IDisposable
+
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             { }
         }
+
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+        
         #endregion
     }
 }

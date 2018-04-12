@@ -12,5 +12,10 @@ namespace OMC.BL.Interface
         ConversationResponse GetConversationList(int consultationId, int userId, string userRole);
         ConversationResponse RecordConversation(Conversation conversationDetails);
         ConsultationReportResponse InsertUpdateConsultationReport(ConsultationReports consultationReport);
+        ConsultationReportResponse GetConsultationReportList(int consultationId, int? consultationReportId);
+        ConsultationSurgeryResponse InsertUpdateConsultationSurgery(ConsultationSurgeries consultationSurgery);
+        ConsultationSurgeryResponse GetConsultationSurgeryList(int consultationId, int? consultationSurgeryId);
+        ConsultationCancerTreatmentResponse InsertUpdateConsultationCancerTreatment(ConsultationCancerTreatments consultationCancerTreatment);
+        ConsultationCancerTreatmentResponse GetConsultationCancerTreatmentList(int consultationId, int? consultationCancerTreatmentId);
     }
 }

@@ -118,6 +118,86 @@ namespace OMC.BL.Library
                 //Log
             }
         }
+
+        public ConsultationReportResponse GetConsultationReportList(int consultationId, int? consultationReportId)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationReportList(consultationId, consultationReportId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationSurgeryResponse InsertUpdateConsultationSurgery(ConsultationSurgeries consultationSurgery)
+        {
+            try
+            {
+                return this._consultationDA.InsertUpdateConsultationSurgery(consultationSurgery);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationSurgeryResponse GetConsultationSurgeryList(int consultationId, int? consultationSurgeryId)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationSurgeryList(consultationId, consultationSurgeryId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationCancerTreatmentResponse InsertUpdateConsultationCancerTreatment(ConsultationCancerTreatments consultationCancerTreatment)
+        {
+            try
+            {
+                return this._consultationDA.InsertUpdateConsultationCancerTreatment(consultationCancerTreatment);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationCancerTreatmentResponse GetConsultationCancerTreatmentList(int consultationId, int? consultationCancerTreatmentId)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationCancerTreatmentList(consultationId, consultationCancerTreatmentId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
         #endregion
 
         #region IDisposable

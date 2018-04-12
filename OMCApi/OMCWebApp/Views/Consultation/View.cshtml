@@ -62,12 +62,12 @@
 <br />
 
 <button class="collapsible">Conversations</button>
-
 <div class="content">
     @if (Model.ConversationResponseObject != null
-                    && Model.ConversationResponseObject.Conversations != null
-                    && Model.ConversationResponseObject.Conversations.Count() != 0)
+        && Model.ConversationResponseObject.Conversations != null
+        && Model.ConversationResponseObject.Conversations.Count() != 0)
     {
+        <br />
         <table class="conversations">
             <thead>
             <th>Id</th>
@@ -77,20 +77,70 @@
             </thead>
 
             @foreach (var conversation in Model.ConversationResponseObject.Conversations)
-            {
-                <tr>
-                    <td>@conversation.ConversationId</td>
-                    <td>@conversation.ConversationDescription</td>
-                    <td>
-                        @(conversation.PatientId.HasValue
-                    ? conversation.PatientName
-                    : (conversation.DoctorId.HasValue
-                        ? conversation.DoctorName : string.Empty))
-                    </td>
-                    <td>
-                        @(conversation.ConversationCreateDate.HasValue
+        {
+            <tr>
+                <td>@conversation.ConversationId</td>
+                <td>@conversation.ConversationDescription</td>
+                <td>
+                    @(conversation.PatientId.HasValue
+                        ? conversation.PatientName
+                        : (conversation.DoctorId.HasValue ? conversation.DoctorName : string.Empty))
+                </td>
+                <td>
+                    @(conversation.ConversationCreateDate.HasValue
                     ? conversation.ConversationCreateDate.Value.ToString("dd-MMM-yyyy hh:mm")
                     : string.Empty)
+                </td>
+            </tr>
+        }
+        </table>
+    }
+    else
+    {
+        <p>No conversations recorded</p>
+    }
+    @Html.Partial("CreateConv", Model.ConversationModelObject)
+    <br />
+</div>
+
+<button class="collapsible">Reports</button>
+<div class="content">
+    @if (Model.ConsultationReportResponseObject != null
+        && Model.ConsultationReportResponseObject.ConsultationReports != null
+        && Model.ConsultationReportResponseObject.ConsultationReports.Count() != 0)
+    {
+        <br />
+        <table class="conversations">
+            <thead>
+                <th>Id</th>
+                <th>Consultation Id</th>
+                <th>File Name</th>
+                <th>Report Date</th>
+                <th>Lab Name</th>
+                <th>Description</th>
+                <th>Doctor Name</th>
+                <th>Country</th>
+                <th>Phone Number</th>
+                <th>Action</th>
+            </thead>
+
+            @foreach (var report in Model.ConsultationReportResponseObject.ConsultationReports)
+            {
+                <tr>
+                    <td>@report.Id</td>
+                    <td>@report.ConsultationId</td>
+                    <td>@Html.ActionLink(report.FileName, "DownLoadFile", "Consultation", new { consultationReportId = report.Id }, null)   </td>
+                    <td>@(report.ReportDate.HasValue ? report.ReportDate.Value.ToString("dd-MMM-yyyy") : string.Empty)</td>
+                    <td>@report.LabName</td>
+                    <td>@report.Description</td>
+                    <td>@report.DoctorName</td>
+                    <td>@report.Country</td>
+                    <td>@report.DoctorPhoneNumber</td>
+                    <td>                       
+                        @if (Model.UserRole.ToLower() == "patient")
+                        {
+                            @Html.ActionLink("Edit", "EditReport", "Consultation", new { userId = Model.UserId, consultationId = report.ConsultationId, consultationReportId = report.Id }, null)
+                        }
                     </td>
                 </tr>
             }
@@ -98,16 +148,109 @@
     }
     else
     {
-        <p>No conversations recorded</p>
+        <p>No reports recorded</p>
+    }  
+    @if (Model.UserRole.ToLower() == "patient")
+    {
+        @Html.Partial("CreateReport", Model.ReportModelObject)  
     }
-
-    @Html.Partial("CreateConv", Model.ConversationModelObject)
+    <br />
 </div>
 
-<button class="collapsible">Reports</button>
+<button class="collapsible">Surgeries</button>
 <div class="content">
-    <p>No Reports recorded</p>
-    @Html.Partial("CreateReport", Model.ReportModelObject)
+    @if (Model.ConsultationSurgeryResponseObject != null
+                        && Model.ConsultationSurgeryResponseObject.ConsultationSurgeriesList != null
+                        && Model.ConsultationSurgeryResponseObject.ConsultationSurgeriesList.Count() != 0)
+    {
+        <br />
+        <table class="conversations">
+            <thead>
+                <th>Id</th>
+                <th>Consultation Id</th>
+                <th>Surgery</th>
+                <th>Surgery Date</th>
+                <th>Action</th>
+            </thead>
+
+            @foreach (var surgery in Model.ConsultationSurgeryResponseObject.ConsultationSurgeriesList)
+            {
+                <tr>
+                    <td>@surgery.Id</td>
+                    <td>@surgery.ConsultationId</td>
+                    <td>@surgery.SurgeryName</td>
+                    <td>@(surgery.SurgeryDate.HasValue ? surgery.SurgeryDate.Value.ToString("dd-MMM-yyyy") : string.Empty)</td>
+                    <td>
+                        @if (Model.UserRole.ToLower() == "patient")
+                        {
+                            @Html.ActionLink("Edit", "EditSurgery", "Consultation", new { userId = Model.UserId, consultationId = surgery.ConsultationId, consultationSurgeryId = surgery.Id }, null)
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>No surgeries recorded</p>
+    }
+    @if (Model.UserRole.ToLower() == "patient")
+    {
+        @Html.Partial("CreateSurgery", Model.SurgeryModelObject)
+    }
+    <br />
+</div>
+
+<button class="collapsible">Cancer Treatments</button>
+<div class="content">
+    @if (Model.ConsultationCancerTreatmentResponseObject != null
+        && Model.ConsultationCancerTreatmentResponseObject.ConsultationCancerTreatmentList != null
+        && Model.ConsultationCancerTreatmentResponseObject.ConsultationCancerTreatmentList.Count() != 0)
+    {
+        <br/>
+        <table class="conversations">
+            <thead>
+                <th>Id</th>
+                <th>Consultation Id</th>
+                <th>Cancer Stage</th>
+                <th>Cancer Type</th>
+                <th>Dignosis Date</th>
+                <th>Treatment Type</th>
+                <th>Is Treatment On?</th>
+                <th>Treatment Completion Date</th>
+                <th>Action</th>
+            </thead>
+
+            @foreach (var cancerTreatment in Model.ConsultationCancerTreatmentResponseObject.ConsultationCancerTreatmentList)
+                {
+                    <tr>
+                        <td>@cancerTreatment.Id</td>
+                        <td>@cancerTreatment.ConsultationId</td>
+                        <td>@cancerTreatment.CancerStage</td>
+                        <td>@cancerTreatment.CancerType</td>
+                        <td>@(cancerTreatment.DignosisDate.HasValue ? cancerTreatment.DignosisDate.Value.ToString("dd-MMM-yyyy") : string.Empty)</td>
+                        <td>@cancerTreatment.TreatmentType</td>
+                        <td>@(cancerTreatment.IsTreatmentOn ? "Yes" : "No")</td>
+                        <td>@(cancerTreatment.TreatmentCompletionDate.HasValue ? cancerTreatment.TreatmentCompletionDate.Value.ToString("dd-MMM-yyyy") : string.Empty)</td>
+                        <td>
+                            @if (Model.UserRole.ToLower() == "patient")
+                            {
+                                @Html.ActionLink("Edit", "EditCancerTreatment", "Consultation", new { userId = Model.UserId, consultationId = cancerTreatment.ConsultationId, consultationCancerTreatmentId = cancerTreatment.Id }, null)
+                            }
+                        </td>
+                    </tr>
+                }
+        </table>
+    }
+    else
+    {
+        <p>No cancer treatments recorded</p>
+    }
+    @if (Model.UserRole.ToLower() == "patient")
+    {
+        @Html.Partial("CreateCancerTreatment", Model.CancerTreatmentModelObject)
+    }
+    <br />
 </div>
 
 <button class="collapsible">Illegal Drugs</button>

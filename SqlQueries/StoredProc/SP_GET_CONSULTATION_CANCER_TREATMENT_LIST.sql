@@ -1,0 +1,52 @@
+USE [HealthCare]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_CANCER_TREATMENT_LIST]    Script Date: 4/8/2018 12:04:54 PM ******/
+DROP PROCEDURE [dbo].[SP_GET_CONSULTATION_CANCER_TREATMENT_LIST]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_CANCER_TREATMENT_LIST]    Script Date: 4/8/2018 12:04:54 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[SP_GET_CONSULTATION_CANCER_TREATMENT_LIST]
+(	
+	@CONSULTATION_ID BIGINT,
+	@CONSULTATION_CANCER_TREATMENT_ID BIGINT = NULL
+)
+AS
+
+BEGIN
+
+--EXEC [SP_GET_CONSULTATION_CANCER_TREATMENT_LIST] 10018
+
+SELECT CCT.Id
+	, CCT.ConsultationId
+	, CCT.CancerStageId
+	, CSM.[Description] AS CancerStage
+	, CCT.CancerType
+	, CCT.DignosisDate
+	, CCT.TreatmentType
+	, CCT.IsTreatmentOn
+	, CCT.TreatmentCompletionDate
+	, CCT.AddedBy
+	, CCT.AddedDate
+	, CCT.ModifiedBy
+	, CCT.ModifiedDate	
+	FROM [ConsultationCancerTreatments] CCT
+	INNER JOIN Consultation C ON CCT.ConsultationId = C.Id
+	INNER JOIN CancerStageMaster CSM ON CSM.ID = CCT.CancerStageId
+	WHERE C.Id = @CONSULTATION_ID
+	AND (@CONSULTATION_CANCER_TREATMENT_ID IS NULL OR CCT.Id = @CONSULTATION_CANCER_TREATMENT_ID)
+	ORDER BY CCT.AddedDate DESC
+END
+
+
+
+
+GO
+
+
