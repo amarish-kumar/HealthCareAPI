@@ -30,5 +30,11 @@ namespace OMCWebApp.Models
         /// </summary>
         public CancerTreatmentModel CancerTreatmentModelObject { get; set; }
         public ConsultationCancerTreatmentResponse ConsultationCancerTreatmentResponseObject { get; set; }
+
+        /// <summary>
+        /// this is used to create the cancer treatment record
+        /// </summary>
+        public IllegalDrugDetailsModel IllegalDrugDetailsModelObject { get; set; }
+        public ConsultationIllegalDrugDetailsResponse ConsultationIllegalDrugDetailsResponseObject { get; set; }
     }
 }
