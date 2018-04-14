@@ -412,6 +412,104 @@ namespace OMC.DAL.Library
                 Connection.Close();
             }
         }
+
+        public List<AllergyMaster> GetAllergyList(bool? isActive, string allergyName, string searchTerm)
+        {
+            try
+            {
+                Log.Info("Started call to GetAllergyList");
+                Log.Info("parameter values =" + JsonConvert.SerializeObject(new { isActive = isActive, allergyName = allergyName, searchTerm = searchTerm }));
+                Command.CommandText = "SP_GET_ALLERGY_MASTER";
+                Command.CommandType = CommandType.StoredProcedure;
+
+                Command.Parameters.Clear();
+                if (!string.IsNullOrEmpty(allergyName))
+                {
+                    Command.Parameters.AddWithValue("@DESCRIPTION", allergyName);
+                }
+                if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    Command.Parameters.AddWithValue("@SEARCH_TERM", searchTerm);
+                }
+                Command.Parameters.AddWithValue("@ACTIVE", isActive);
+
+                Connection.Open();
+
+                SqlDataReader reader = Command.ExecuteReader();
+                List<AllergyMaster> result = new List<AllergyMaster>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new AllergyMaster
+                        {
+                            Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : null,
+                            Id = Convert.ToInt32(reader["Id"].ToString())
+                        });
+                    }
+                }
+                Log.Info("End call to GetAllergyList result " + JsonConvert.SerializeObject(result));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public List<HealthConditionMaster> GetHealthConditionList(bool? isActive, string healthConditionNameName, string searchTerm)
+        {
+            try
+            {
+                Log.Info("Started call to GetHealthConditionList");
+                Log.Info("parameter values =" + JsonConvert.SerializeObject(new { isActive = isActive, healthConditionNameName = healthConditionNameName, searchTerm = searchTerm }));
+                Command.CommandText = "SP_GET_HEALTH_CONDITION_MASTER";
+                Command.CommandType = CommandType.StoredProcedure;
+
+                Command.Parameters.Clear();
+                if (!string.IsNullOrEmpty(healthConditionNameName))
+                {
+                    Command.Parameters.AddWithValue("@DESCRIPTION", healthConditionNameName);
+                }
+                if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    Command.Parameters.AddWithValue("@SEARCH_TERM", searchTerm);
+                }
+                Command.Parameters.AddWithValue("@ACTIVE", isActive);
+
+                Connection.Open();
+
+                SqlDataReader reader = Command.ExecuteReader();
+                List<HealthConditionMaster> result = new List<HealthConditionMaster>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new HealthConditionMaster
+                        {
+                            Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : null,
+                            Id = Convert.ToInt32(reader["Id"].ToString())
+                        });
+                    }
+                }
+                Log.Info("End call to GetHealthConditionList result " + JsonConvert.SerializeObject(result));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            finally
+            {
+                Connection.Close();
+            }
+        }
         #endregion
     }
 }

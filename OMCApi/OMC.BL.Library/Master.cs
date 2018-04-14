@@ -167,6 +167,38 @@ namespace OMC.BL.Library
                 //Log
             }
         }
+
+        public List<AllergyMaster> GetAllergyList(bool? isActive, string allergyName, string searchTerm)
+        {
+            try
+            {
+                return this._masterDA.GetAllergyList(isActive, allergyName, searchTerm);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public List<HealthConditionMaster> GetHealthConditionList(bool? isActive, string healthConditionNameName, string searchTerm)
+        {
+            try
+            {
+                return this._masterDA.GetHealthConditionList(isActive, healthConditionNameName, searchTerm);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
         #endregion
 
         #region IDisposable
