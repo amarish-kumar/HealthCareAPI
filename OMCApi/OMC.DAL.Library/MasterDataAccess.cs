@@ -229,7 +229,7 @@ namespace OMC.DAL.Library
             }
         }
 
-        public List<RelationshipMaster> GetRelationships(bool? isActive, string relationship)
+        public List<RelationshipMaster> GetRelationships(bool? isActive, string relationship, bool? excludeSelf)
         {
             try
             {
@@ -242,6 +242,10 @@ namespace OMC.DAL.Library
                 if (!string.IsNullOrEmpty(relationship))
                 {
                     Command.Parameters.AddWithValue("@RELATIONSHIP_NAME", relationship);
+                }
+                if (excludeSelf.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@EXCLUDE_SELF", excludeSelf);
                 }
                 Command.Parameters.AddWithValue("@ACTIVE", isActive);
 

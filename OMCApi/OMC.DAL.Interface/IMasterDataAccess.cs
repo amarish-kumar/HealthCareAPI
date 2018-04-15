@@ -10,7 +10,7 @@ namespace OMC.DAL.Interface
         List<UserDetail> GetUserList(bool? isActive, string userRole);
         List<Country> GetCountries(bool? isActive);
         List<AddressType> GetAddressTypes(bool? isActive);
-        List<RelationshipMaster> GetRelationships(bool? isActive, string relationship);
+        List<RelationshipMaster> GetRelationships(bool? isActive, string relationship, bool? excludeSelf);
         List<Gender> GetGenders(bool? isActive, string genderName);
         List<CancerStageMaster> GetCancerStages(bool? isActive, string cancerStageName);
         List<SurgeryMaster> GetSurgeryList(bool? isActive, string surgeryName, string searchTerm);

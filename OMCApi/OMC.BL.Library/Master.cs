@@ -104,11 +104,11 @@ namespace OMC.BL.Library
             }
         }
 
-        public List<RelationshipMaster> GetRelationships(bool? isActive, string relationship)
+        public List<RelationshipMaster> GetRelationships(bool? isActive, string relationship, bool? excludeSelf)
         {
             try
             {
-                return this._masterDA.GetRelationships(isActive, relationship);
+                return this._masterDA.GetRelationships(isActive, relationship, excludeSelf);
             }
             catch (Exception ex)
             {

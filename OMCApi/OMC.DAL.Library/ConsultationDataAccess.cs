@@ -797,7 +797,7 @@ namespace OMC.DAL.Library
                         AgeOnConditionStart = drConsultationAllergy["AgeOnConditionStart"] != DBNull.Value ? Convert.ToInt32(drConsultationAllergy["AgeOnConditionStart"].ToString()) : (int?)null,
                         AgeOnDeath = drConsultationAllergy["AgeOnDeath"] != DBNull.Value ? Convert.ToInt32(drConsultationAllergy["AgeOnDeath"].ToString()) : (int?)null,
                         CauseOfDeath = drConsultationAllergy["CauseOfDeath"] != DBNull.Value ? drConsultationAllergy["CauseOfDeath"].ToString() : null,
-                        IsAlive = drConsultationAllergy["IsAlive"] != DBNull.Value ? Convert.ToBoolean(drConsultationAllergy["IsAlive"].ToString()) : (bool?)null,
+                        IsAlive = drConsultationAllergy["IsAlive"] != DBNull.Value ? Convert.ToBoolean(drConsultationAllergy["IsAlive"].ToString()) : true,
                         AddedBy = drConsultationAllergy["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationAllergy["AddedBy"].ToString()) : (int?)null,
                         AddedDate = drConsultationAllergy["AddedDate"] != DBNull.Value ? DateTime.Parse(drConsultationAllergy["AddedDate"].ToString()) : (DateTime?)null,
                         ModifiedBy = drConsultationAllergy["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationAllergy["ModifiedBy"].ToString()) : (int?)null,

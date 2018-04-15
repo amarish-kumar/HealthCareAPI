@@ -13,9 +13,32 @@ namespace OMC.Models
         public int HealthConditionId { get; set; }
         public int? CurrentAge { get; set; }
         public int? AgeOnConditionStart { get; set; }
-        public bool? IsAlive { get; set; }
+        public bool IsAlive { get; set; }
+        [RequiredIf("IsAlive", false, ErrorMessage = "Cause of death is required")]
         public string CauseOfDeath { get; set; }
         public int? AgeOnDeath { get; set; }
+
+        #region Serialization
+        public bool ShouldSerializeCurrentAge()
+        {
+            return CurrentAge.HasValue;
+        }
+
+        public bool ShouldSerializeAgeOnConditionStart()
+        {
+            return AgeOnConditionStart.HasValue;
+        }
+
+        public bool ShouldSerializeAgeOnDeath()
+        {
+            return AgeOnDeath.HasValue;
+        }
+
+        public bool ShouldSerializeCauseOfDeath()
+        {
+            return !string.IsNullOrEmpty(CauseOfDeath);
+        }
+        #endregion
     }
 
     public class ConsultationFamilyHistoryResponse
@@ -34,7 +57,7 @@ namespace OMC.Models
         public string HealthCondition { get; set; }
         public int? CurrentAge { get; set; }
         public int? AgeOnConditionStart { get; set; }
-        public bool? IsAlive { get; set; }
+        public bool IsAlive { get; set; }
         public string CauseOfDeath { get; set; }
         public int? AgeOnDeath { get; set; }
     }

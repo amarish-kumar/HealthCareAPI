@@ -131,10 +131,10 @@ namespace OMCApi.Areas.Login.Controllers
         // Get: api/SignUpAPI/GetRelationships
         [HttpGet]
         [Route("GetRelationships")]
-        public List<RelationshipMaster> GetRelationships(bool? isActive, string relationship)
+        public List<RelationshipMaster> GetRelationships(bool? isActive, string relationship, bool? excludeSelf)
         {
             var masterObj = _Kernel.Get<IMaster>();
-            return masterObj.GetRelationships(isActive, relationship);
+            return masterObj.GetRelationships(isActive, relationship, excludeSelf);
         }
 
         // Get: api/SignUpAPI/GetGenders

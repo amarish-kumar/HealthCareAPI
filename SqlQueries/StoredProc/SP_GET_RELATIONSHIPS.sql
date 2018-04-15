@@ -1,11 +1,11 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_RELATIONSHIPS]    Script Date: 3/25/2018 11:38:51 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_RELATIONSHIPS]    Script Date: 4/15/2018 11:46:27 AM ******/
 DROP PROCEDURE [dbo].[SP_GET_RELATIONSHIPS]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_RELATIONSHIPS]    Script Date: 3/25/2018 11:38:51 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_RELATIONSHIPS]    Script Date: 4/15/2018 11:46:27 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -16,9 +16,11 @@ GO
 
 
 
+
 CREATE PROCEDURE [dbo].[SP_GET_RELATIONSHIPS]
 (	
-	@RELATIONSHIP_NAME NVARCHAR(200) = NULL,
+	@RELATIONSHIP_NAME NVARCHAR(200) = NULL,	
+	@EXCLUDE_SELF BIT = 0,
 	@ACTIVE BIT = NULL
 )
 AS
@@ -26,12 +28,20 @@ AS
 BEGIN
 
 --EXEC [SP_GET_RELATIONSHIPS] 
---EXEC [SP_GET_RELATIONSHIPS] 'Owner'
+--EXEC [SP_GET_RELATIONSHIPS] 'Owner',0
+
+/*BLOCK TO GET THE RELATIONSHIP ID OF "SELF"*/
+DECLARE @SELF_ID AS BIGINT 
+	SELECT @SELF_ID = ID FROM RelationshipMaster
+		WHERE [Description] = 'Self'
+
 	SELECT *
 	FROM [RelationshipMaster]
 	WHERE (@RELATIONSHIP_NAME IS NULL OR [Description] = @RELATIONSHIP_NAME)
 	AND (@ACTIVE IS NULL OR [Active] = @ACTIVE) 
+	AND (@EXCLUDE_SELF = 0  OR Id <> @SELF_ID)
 END
+
 
 
 

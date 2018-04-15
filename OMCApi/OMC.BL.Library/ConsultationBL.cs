@@ -253,7 +253,7 @@ namespace OMC.BL.Library
             try
             {
                 return this._consultationDA.GetConsultationFamilyHistoryList(consultationId, consultationFamilyHistoryId
-                    , consultationFamilyHistoryId, excludeSelf);
+                    , relationshipId, excludeSelf);
             }
             catch (Exception ex)
             {
