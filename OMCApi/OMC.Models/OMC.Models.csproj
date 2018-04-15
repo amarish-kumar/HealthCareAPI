@@ -51,6 +51,7 @@
     <Compile Include="BaseEntity.cs" />
     <Compile Include="CancerStageMaster.cs" />
     <Compile Include="Consultation.cs" />
+    <Compile Include="ConsultationIllegalDrugDetails.cs" />
     <Compile Include="ConsultationSurgeries.cs" />
     <Compile Include="ConsultationSDDHabits.cs" />
     <Compile Include="ConsultationReports.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Email.cs" />
     <Compile Include="ErrorLog.cs" />
     <Compile Include="Gender.cs" />
+    <Compile Include="IllegalDrugMaster.cs" />
     <Compile Include="SurgeryMaster.cs" />
     <Compile Include="PatientEnquiry.cs" />
     <Compile Include="Profile.cs" />

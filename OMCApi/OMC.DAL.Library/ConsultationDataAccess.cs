@@ -598,6 +598,208 @@ namespace OMC.DAL.Library
             }
         }
 
+        public ConsultationIllegalDrugDetailsResponse InsertUpdateConsultationIllegalDrugDetail(ConsultationIllegalDrugDetails consultationIllegalDrugDetails)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateConsultationIllegalDrugDetail");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(consultationIllegalDrugDetails));
+                Command.CommandText = "SP_CONSULTATION_ILLEGALDRUG_DETAILS_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_ILLEGALDRUG_DETAILS_XML", GetXMLFromObject(consultationIllegalDrugDetails));
+                if (consultationIllegalDrugDetails.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationIllegalDrugDetails.AddedBy.Value);
+                }
+                if (consultationIllegalDrugDetails.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationIllegalDrugDetails.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                ConsultationIllegalDrugDetailsResponse result = new ConsultationIllegalDrugDetailsResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new ConsultationIllegalDrugDetailsResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateConsultationIllegalDrugDetail");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationIllegalDrugDetailsResponse GetConsultationIllegalDrugDetailList(int consultationId, int? consultationIllegalDrugDetailsId)
+        {
+            try
+            {
+                Log.Info("Started call to GetConsultationIllegalDrugDetailList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { consultationId = consultationId, consultationIllegalDrugDetailsId = consultationIllegalDrugDetailsId }));
+                Command.CommandText = "SP_CONSULTATION_ILLEGALDRUG_DETAILS_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_ID", consultationId);
+                if (consultationIllegalDrugDetailsId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@CONSULTATION_ILLEGALDRUGDETAILS_ID", consultationIllegalDrugDetailsId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                ConsultationIllegalDrugDetailsResponse result = new ConsultationIllegalDrugDetailsResponse();
+                result.ConsultationIllegalDrugDetailsDisplayList = new List<ConsultationIllegalDrugDetailsDisplay>();
+                foreach (DataRow drConsultationIllegalDrugDetails in ds.Tables[0].Rows)
+                {
+                    result.ConsultationIllegalDrugDetailsDisplayList.Add(new ConsultationIllegalDrugDetailsDisplay
+                    {
+                        Id = Convert.ToInt32(drConsultationIllegalDrugDetails["Id"].ToString()),
+                        ConsultationId = Convert.ToInt32(drConsultationIllegalDrugDetails["ConsultationId"].ToString()),
+                        ConsumeDrugs = drConsultationIllegalDrugDetails["ConsumeDrugs"] != DBNull.Value ? bool.Parse(drConsultationIllegalDrugDetails["ConsumeDrugs"].ToString()) : false,
+                        IllegalDrugsID = drConsultationIllegalDrugDetails["IllegalDrugsID"] != DBNull.Value ? Convert.ToInt32(drConsultationIllegalDrugDetails["IllegalDrugsID"].ToString()) : (int?)null,
+                        IllegalDrugDesc = drConsultationIllegalDrugDetails["DrugName"] != DBNull.Value ? drConsultationIllegalDrugDetails["DrugName"].ToString() : null,
+                        Frequency = drConsultationIllegalDrugDetails["Frequency"] != DBNull.Value ? drConsultationIllegalDrugDetails["Frequency"].ToString() : null,
+                        PerFrequency = drConsultationIllegalDrugDetails["PerFrequency"] != DBNull.Value ? Convert.ToInt32(drConsultationIllegalDrugDetails["PerFrequency"].ToString()) : (int?)null,
+                        AddedBy = drConsultationIllegalDrugDetails["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationIllegalDrugDetails["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drConsultationIllegalDrugDetails["AddedDate"] != DBNull.Value ? DateTime.Parse(drConsultationIllegalDrugDetails["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drConsultationIllegalDrugDetails["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationIllegalDrugDetails["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drConsultationIllegalDrugDetails["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drConsultationIllegalDrugDetails["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetConsultationIllegalDrugDetailList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationSDDHabitsResponse InsertUpdateConsultationSDDHabits(ConsultationSDDHabits consultationSDDHabits)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateConsultationSDDHabits");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(consultationSDDHabits));
+                Command.CommandText = "SP_CONSULTATION_SDDHABITS_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_SDDHABITS_XML", GetXMLFromObject(consultationSDDHabits));
+                if (consultationSDDHabits.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationSDDHabits.AddedBy.Value);
+                }
+                if (consultationSDDHabits.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationSDDHabits.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                ConsultationSDDHabitsResponse result = new ConsultationSDDHabitsResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new ConsultationSDDHabitsResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateConsultationSDDHabits");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationSDDHabitsResponse GetConsultationSDDHabitsList(int consultationId, int? consultationSDDHabitsId)
+        {
+            try
+            {
+                Log.Info("Started call to GetConsultationSDDHabitsList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { consultationId = consultationId, consultationSDDHabitsId = consultationSDDHabitsId }));
+                Command.CommandText = "SP_CONSULTATION_SDDHABITS_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_ID", consultationId);
+                if (consultationSDDHabitsId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@CONSULTATION_SDDHABITS_ID", consultationSDDHabitsId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                ConsultationSDDHabitsResponse result = new ConsultationSDDHabitsResponse();
+                result.ConsultationSDDHabitsDisplayList = new List<ConsultationSDDHabitsDisplay>();
+                foreach (DataRow drConsultationSDDHabitsDisplay in ds.Tables[0].Rows)
+                {
+                    result.ConsultationSDDHabitsDisplayList.Add(new ConsultationSDDHabitsDisplay
+                    {
+                        Id = Convert.ToInt32(drConsultationSDDHabitsDisplay["Id"].ToString()),
+                        ConsultationId = Convert.ToInt32(drConsultationSDDHabitsDisplay["ConsultationId"].ToString()),
+                        DoSmoke = drConsultationSDDHabitsDisplay["DoSmoke"] != DBNull.Value ? bool.Parse(drConsultationSDDHabitsDisplay["DoSmoke"].ToString()) : false,
+                        EverSmoked = drConsultationSDDHabitsDisplay["EverSmoked"] != DBNull.Value ? bool.Parse(drConsultationSDDHabitsDisplay["EverSmoked"].ToString()) : false,
+                        YearOfQuittingSmoking = drConsultationSDDHabitsDisplay["YearOfQuittingSmoking"] != DBNull.Value ? Convert.ToInt32(drConsultationSDDHabitsDisplay["YearOfQuittingSmoking"].ToString()) : (int?)null,
+                        SmokingFreq = drConsultationSDDHabitsDisplay["SmokingFreq"] != DBNull.Value ? Convert.ToInt32(drConsultationSDDHabitsDisplay["SmokingFreq"].ToString()) : (int?)null,
+                        AddedBy = drConsultationSDDHabitsDisplay["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationSDDHabitsDisplay["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drConsultationSDDHabitsDisplay["AddedDate"] != DBNull.Value ? DateTime.Parse(drConsultationSDDHabitsDisplay["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drConsultationSDDHabitsDisplay["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationSDDHabitsDisplay["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drConsultationSDDHabitsDisplay["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drConsultationSDDHabitsDisplay["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetConsultationSDDHabitsList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+
         public ConsultationAllergyResponse InsertUpdateConsultationAllergy(ConsultationAllergies consultationAllergy)
         {
             try

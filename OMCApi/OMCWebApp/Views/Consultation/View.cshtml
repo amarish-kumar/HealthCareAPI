@@ -22,17 +22,17 @@
         font-size: 15px;
     }
 
-    .active, .collapsible:hover {
-        background-color: #555;
-    }
+        .active, .collapsible:hover {
+            background-color: #555;
+        }
 
-    .collapsible:after {
-        content: '\002B';
-        color: white;
-        font-weight: bold;
-        float: right;
-        margin-left: 5px;
-    }
+        .collapsible:after {
+            content: '\002B';
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
 
     .active:after {
         content: "\2212";
@@ -77,22 +77,22 @@
             </thead>
 
             @foreach (var conversation in Model.ConversationResponseObject.Conversations)
-        {
-            <tr>
-                <td>@conversation.ConversationId</td>
-                <td>@conversation.ConversationDescription</td>
-                <td>
-                    @(conversation.PatientId.HasValue
-                        ? conversation.PatientName
-                        : (conversation.DoctorId.HasValue ? conversation.DoctorName : string.Empty))
-                </td>
-                <td>
-                    @(conversation.ConversationCreateDate.HasValue
-                    ? conversation.ConversationCreateDate.Value.ToString("dd-MMM-yyyy hh:mm")
-                    : string.Empty)
-                </td>
-            </tr>
-        }
+            {
+                <tr>
+                    <td>@conversation.ConversationId</td>
+                    <td>@conversation.ConversationDescription</td>
+                    <td>
+                        @(conversation.PatientId.HasValue
+                                    ? conversation.PatientName
+                                    : (conversation.DoctorId.HasValue ? conversation.DoctorName : string.Empty))
+                    </td>
+                    <td>
+                        @(conversation.ConversationCreateDate.HasValue
+                                ? conversation.ConversationCreateDate.Value.ToString("dd-MMM-yyyy hh:mm")
+                                : string.Empty)
+                    </td>
+                </tr>
+            }
         </table>
     }
     else
@@ -112,16 +112,16 @@
         <br />
         <table class="conversations">
             <thead>
-                <th>Id</th>
-                <th>Consultation Id</th>
-                <th>File Name</th>
-                <th>Report Date</th>
-                <th>Lab Name</th>
-                <th>Description</th>
-                <th>Doctor Name</th>
-                <th>Country</th>
-                <th>Phone Number</th>
-                <th>Action</th>
+            <th>Id</th>
+            <th>Consultation Id</th>
+            <th>File Name</th>
+            <th>Report Date</th>
+            <th>Lab Name</th>
+            <th>Description</th>
+            <th>Doctor Name</th>
+            <th>Country</th>
+            <th>Phone Number</th>
+            <th>Action</th>
             </thead>
 
             @foreach (var report in Model.ConsultationReportResponseObject.ConsultationReports)
@@ -136,7 +136,7 @@
                     <td>@report.DoctorName</td>
                     <td>@report.Country</td>
                     <td>@report.DoctorPhoneNumber</td>
-                    <td>                       
+                    <td>
                         @if (Model.UserRole.ToLower() == "patient")
                         {
                             @Html.ActionLink("Edit", "EditReport", "Consultation", new { userId = Model.UserId, consultationId = report.ConsultationId, consultationReportId = report.Id }, null)
@@ -149,10 +149,10 @@
     else
     {
         <p>No reports recorded</p>
-    }  
+    }
     @if (Model.UserRole.ToLower() == "patient")
     {
-        @Html.Partial("CreateReport", Model.ReportModelObject)  
+        @Html.Partial("CreateReport", Model.ReportModelObject)
     }
     <br />
 </div>
@@ -166,11 +166,11 @@
         <br />
         <table class="conversations">
             <thead>
-                <th>Id</th>
-                <th>Consultation Id</th>
-                <th>Surgery</th>
-                <th>Surgery Date</th>
-                <th>Action</th>
+            <th>Id</th>
+            <th>Consultation Id</th>
+            <th>Surgery</th>
+            <th>Surgery Date</th>
+            <th>Action</th>
             </thead>
 
             @foreach (var surgery in Model.ConsultationSurgeryResponseObject.ConsultationSurgeriesList)
@@ -207,39 +207,39 @@
         && Model.ConsultationCancerTreatmentResponseObject.ConsultationCancerTreatmentList != null
         && Model.ConsultationCancerTreatmentResponseObject.ConsultationCancerTreatmentList.Count() != 0)
     {
-        <br/>
+        <br />
         <table class="conversations">
             <thead>
-                <th>Id</th>
-                <th>Consultation Id</th>
-                <th>Cancer Stage</th>
-                <th>Cancer Type</th>
-                <th>Dignosis Date</th>
-                <th>Treatment Type</th>
-                <th>Is Treatment On?</th>
-                <th>Treatment Completion Date</th>
-                <th>Action</th>
+            <th>Id</th>
+            <th>Consultation Id</th>
+            <th>Cancer Stage</th>
+            <th>Cancer Type</th>
+            <th>Dignosis Date</th>
+            <th>Treatment Type</th>
+            <th>Is Treatment On?</th>
+            <th>Treatment Completion Date</th>
+            <th>Action</th>
             </thead>
 
             @foreach (var cancerTreatment in Model.ConsultationCancerTreatmentResponseObject.ConsultationCancerTreatmentList)
-                {
-                    <tr>
-                        <td>@cancerTreatment.Id</td>
-                        <td>@cancerTreatment.ConsultationId</td>
-                        <td>@cancerTreatment.CancerStage</td>
-                        <td>@cancerTreatment.CancerType</td>
-                        <td>@(cancerTreatment.DignosisDate.HasValue ? cancerTreatment.DignosisDate.Value.ToString("dd-MMM-yyyy") : string.Empty)</td>
-                        <td>@cancerTreatment.TreatmentType</td>
-                        <td>@(cancerTreatment.IsTreatmentOn ? "Yes" : "No")</td>
-                        <td>@(cancerTreatment.TreatmentCompletionDate.HasValue ? cancerTreatment.TreatmentCompletionDate.Value.ToString("dd-MMM-yyyy") : string.Empty)</td>
-                        <td>
-                            @if (Model.UserRole.ToLower() == "patient")
-                            {
-                                @Html.ActionLink("Edit", "EditCancerTreatment", "Consultation", new { userId = Model.UserId, consultationId = cancerTreatment.ConsultationId, consultationCancerTreatmentId = cancerTreatment.Id }, null)
-                            }
-                        </td>
-                    </tr>
-                }
+            {
+                <tr>
+                    <td>@cancerTreatment.Id</td>
+                    <td>@cancerTreatment.ConsultationId</td>
+                    <td>@cancerTreatment.CancerStage</td>
+                    <td>@cancerTreatment.CancerType</td>
+                    <td>@(cancerTreatment.DignosisDate.HasValue ? cancerTreatment.DignosisDate.Value.ToString("dd-MMM-yyyy") : string.Empty)</td>
+                    <td>@cancerTreatment.TreatmentType</td>
+                    <td>@(cancerTreatment.IsTreatmentOn ? "Yes" : "No")</td>
+                    <td>@(cancerTreatment.TreatmentCompletionDate.HasValue ? cancerTreatment.TreatmentCompletionDate.Value.ToString("dd-MMM-yyyy") : string.Empty)</td>
+                    <td>
+                        @if (Model.UserRole.ToLower() == "patient")
+                        {
+                            @Html.ActionLink("Edit", "EditCancerTreatment", "Consultation", new { userId = Model.UserId, consultationId = cancerTreatment.ConsultationId, consultationCancerTreatmentId = cancerTreatment.Id }, null)
+                        }
+                    </td>
+                </tr>
+            }
         </table>
     }
     else
@@ -398,6 +398,104 @@
     }
     <br />
 </div>
+<button class="collapsible">Illegal Drugs</button>
+<div class="content">
+    @if (Model.ConsultationIllegalDrugDetailsResponseObject != null
+        && Model.ConsultationIllegalDrugDetailsResponseObject.ConsultationIllegalDrugDetailsDisplayList != null
+        && Model.ConsultationIllegalDrugDetailsResponseObject.ConsultationIllegalDrugDetailsDisplayList.Count() != 0)
+    {
+        <br />
+        <table class="conversations">
+            <thead>
+            <th>Id</th>
+            <th>Consultation Id</th>
+            <th>Consume Drugs?</th>
+            <th>Drug Name</th>
+            <th>Frequency</th>
+            <th>Per Frequency</th>
+            <th>Action</th>
+            </thead>
+
+            @foreach (var illegaldrugDetails in Model.ConsultationIllegalDrugDetailsResponseObject.ConsultationIllegalDrugDetailsDisplayList)
+            {
+                <tr>
+                    <td>@illegaldrugDetails.Id</td>
+                    <td>@illegaldrugDetails.ConsultationId</td>
+                    <td>@illegaldrugDetails.ConsumeDrugs</td>
+                    <td>@illegaldrugDetails.IllegalDrugDesc</td>
+                    <td>@illegaldrugDetails.Frequency</td>
+                    <td>@illegaldrugDetails.PerFrequency</td>
+                    <td>
+                        @if (Model.UserRole.ToLower() == "patient")
+                        {
+                            @Html.ActionLink("Edit", "EditIllegalDrugDetails", "Consultation", new { userId = Model.UserId, consultationId = illegaldrugDetails.ConsultationId, consultationIllegalDrugDetailsId = illegaldrugDetails.Id }, null)
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>No Illegal Drug consumption recorded</p>
+    }
+    @if (Model.UserRole.ToLower() == "patient")
+    {
+        @Html.Partial("IllegalDrugs", Model.IllegalDrugDetailsModelObject)
+    }
+    <br />
+</div>
+
+
+<button class="collapsible">Smoking Habits</button>
+<div class="content">
+    @if (Model.ConsultationSDDHabitsResponseObject != null
+        && Model.ConsultationSDDHabitsResponseObject.ConsultationSDDHabitsDisplayList != null
+        && Model.ConsultationSDDHabitsResponseObject.ConsultationSDDHabitsDisplayList.Count() != 0)
+    {
+        <br />
+        <table class="conversations">
+            <thead>
+            <th>Id</th>
+            <th>Consultation Id</th>
+            <th>Do you smoke?</th>
+            <th>Have you ever smoked?</th>
+            <th>Year when you quit smoking</th>
+            <th>Frequency(no. of packets)</th>
+            <th>Action</th>
+            </thead>
+
+            @foreach (var sddhabitDetails in Model.ConsultationSDDHabitsResponseObject.ConsultationSDDHabitsDisplayList)
+            {
+                <tr>
+                    <td>@sddhabitDetails.Id</td>
+                    <td>@sddhabitDetails.ConsultationId</td>
+                    <td>@sddhabitDetails.DoSmoke</td>
+                    <td>@sddhabitDetails.EverSmoked</td>
+                    <td>@sddhabitDetails.YearOfQuittingSmoking</td>
+                    <td>@sddhabitDetails.SmokingFreq</td>
+                    <td>
+                        @if (Model.UserRole.ToLower() == "patient")
+                        {
+                            @Html.ActionLink("Edit", "EditSDDHabits", "Consultation", new { userId = Model.UserId, consultationId = sddhabitDetails.ConsultationId, consultationSDDHabitsId = sddhabitDetails.Id }, null)
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>No Smoking habits recorded</p>
+    }
+    @if (Model.UserRole.ToLower() == "patient")
+    {
+        @Html.Partial("SmokingHabits", Model.SDDHabitsModelObject)
+    }
+    <br />
+</div>
+
+
 @section scripts{
 
     <script type="text/javascript">

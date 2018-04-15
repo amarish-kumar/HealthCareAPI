@@ -81,6 +81,15 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetUserList(isActive, userRole);
         }
 
+        // Get: api/ConsultationAPI/GetIllegalDrugs
+        [HttpGet]
+        [Route("GetIllegalDrugs")]
+        public List<IllegalDrugMaster> GetIllegalDrugs(bool? isActive, string IllegalDrug)
+        {
+            var masterObj = _Kernel.Get<IMaster>();
+            return masterObj.GetIllegalDrugs(isActive, IllegalDrug);
+        }
+
         // Get: api/ConsultationAPI/GetUnregisteredPatientEnquiry
         [HttpPost]
         [Route("GetUnregisteredPatientEnquiry")]
@@ -210,6 +219,55 @@ namespace OMCApi.Areas.Consultation.Controllers
             var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
             return ConsultationBLObj.GetConsultationCancerTreatmentList(consultationId, consultationCancerTreatmentId);
         }
+
+        // POST: api/ConsultationAPI/InsertUpdateConsultationIllegalDrugDetail
+        [HttpPost]
+        [Route("InsertUpdateConsultationIllegalDrugDetail")]
+        public IHttpActionResult InsertUpdateConsultationIllegalDrugDetail([FromBody]ConsultationIllegalDrugDetails consultationIllegalDrugDetails)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            consultationIllegalDrugDetails.Active = true;
+            var ConversationResult = ConsultationBLObj.InsertUpdateConsultationIllegalDrugDetail(consultationIllegalDrugDetails);
+            return Ok(ConversationResult.Message);
+        }
+
+        // Get: api/ConsultationAPI/GetConsultationIllegalDrugDetailList
+        [HttpGet]
+        [Route("GetConsultationIllegalDrugDetailList")]
+        public ConsultationIllegalDrugDetailsResponse GetConsultationIllegalDrugDetailList(int consultationId, int? consultationIllegalDrugDetailsId)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConsultationIllegalDrugDetailList(consultationId, consultationIllegalDrugDetailsId);
+        }
+
+        // POST: api/ConsultationAPI/InsertUpdateConsultationSDDHabits
+        [HttpPost]
+        [Route("InsertUpdateConsultationSDDHabits")]
+        public IHttpActionResult InsertUpdateConsultationSDDHabits([FromBody]ConsultationSDDHabits consultationSDDHabits)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            consultationSDDHabits.Active = true;
+            var ConversationResult = ConsultationBLObj.InsertUpdateConsultationSDDHabits(consultationSDDHabits);
+            return Ok(ConversationResult.Message);
+        }
+
+        // Get: api/ConsultationAPI/GetConsultationSDDHabitsList
+        [HttpGet]
+        [Route("GetConsultationSDDHabitsList")]
+        public ConsultationSDDHabitsResponse GetConsultationSDDHabitsList(int consultationId, int? consultationSDDHabitsId)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConsultationSDDHabitsList(consultationId, consultationSDDHabitsId);
+        }
+
 
         // POST: api/ConsultationAPI/InsertUpdateConsultationAllergy
         [HttpPost]

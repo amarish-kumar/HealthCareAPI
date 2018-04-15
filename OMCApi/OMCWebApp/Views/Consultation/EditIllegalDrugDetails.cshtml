@@ -1,0 +1,53 @@
+﻿@model  OMCWebApp.Models.IllegalDrugDetailsModel
+
+@using (Html.BeginForm("InsertUpdateConsultationIllegalDrugDetail", "Consultation", FormMethod.Post))
+{
+    <h2>Update Illegal Drug Detail</h2>
+    @Html.AntiForgeryToken()
+    <table class="createIllegalDrugDetail">
+        <tr>
+            <td>
+                Do you consume Drugs? :
+            </td>
+            <td>
+                @Html.CheckBoxFor(m => m.ConsultationIllegalDrugDetailsObject.ConsumeDrugs, Model.ConsultationIllegalDrugDetailsObject.ConsumeDrugs)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Name of drug:
+            </td>
+            <td>
+                @Html.HiddenFor(m => m.ConsultationIllegalDrugDetailsObject.Id, Model.ConsultationIllegalDrugDetailsObject.Id)
+                @Html.HiddenFor(m => m.ConsultationIllegalDrugDetailsObject.AddedBy, Model.ConsultationIllegalDrugDetailsObject.AddedBy)
+                @Html.HiddenFor(m => m.ConsultationIllegalDrugDetailsObject.ConsultationId, Model.ConsultationIllegalDrugDetailsObject.ConsultationId)
+                @Html.DropDownListFor(m => m.ConsultationIllegalDrugDetailsObject.IllegalDrugsID, new SelectList(Model.IllegalDrugDetails, "ID", "Description"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Frequency of consumption:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.ConsultationIllegalDrugDetailsObject.Frequency, (IEnumerable<SelectListItem>)ViewBag.DDLItems)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Frequency of intake:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationIllegalDrugDetailsObject.PerFrequency, Model.ConsultationIllegalDrugDetailsObject.PerFrequency)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Update Consultation Illegal Drugs details</button>
+            </td>
+        </tr>
+    </table>
+}

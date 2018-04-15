@@ -15,6 +15,7 @@ namespace OMC.BL.Interface
         List<Gender> GetGenders(bool? isActive, string genderName);
         List<CancerStageMaster> GetCancerStages(bool? isActive, string cancerStageName);
         List<SurgeryMaster> GetSurgeryList(bool? isActive, string surgeryName, string searchTerm);
+        List<IllegalDrugMaster> GetIllegalDrugs(bool? isActive, string IllegalDrug);
         List<AllergyMaster> GetAllergyList(bool? isActive, string allergyName, string searchTerm);
         List<HealthConditionMaster> GetHealthConditionList(bool? isActive, string healthConditionNameName, string searchTerm);
     }

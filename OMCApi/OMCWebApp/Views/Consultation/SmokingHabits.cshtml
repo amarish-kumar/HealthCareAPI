@@ -1,0 +1,52 @@
+﻿@model  OMCWebApp.Models.SDDHabitsModel
+
+@using (Html.BeginForm("InsertUpdateConsultationSDDHabits", "Consultation", FormMethod.Post))
+{
+    <h2>Create Smoking habits record</h2>
+    @Html.AntiForgeryToken()
+    <table class="createIllegalDrugDetail">
+        <tr>
+            <td>
+                Do you smoke? :
+            </td>
+            <td>
+                @Html.CheckBoxFor(m => m.ConsultationSDDHabitsObject.DoSmoke, Model.ConsultationSDDHabitsObject.DoSmoke)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Have you ever smoked? :
+            </td>
+            <td>
+                @Html.CheckBoxFor(m => m.ConsultationSDDHabitsObject.EverSmoked, Model.ConsultationSDDHabitsObject.EverSmoked)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Year when you quit smoking:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationSDDHabitsObject.YearOfQuittingSmoking, Model.ConsultationSDDHabitsObject.YearOfQuittingSmoking)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Frequency of smoking(no. of packets):
+            </td>
+            <td>
+                @Html.HiddenFor(m => m.ConsultationSDDHabitsObject.AddedBy, Model.ConsultationSDDHabitsObject.AddedBy)
+                @Html.HiddenFor(m => m.ConsultationSDDHabitsObject.ConsultationId, Model.ConsultationSDDHabitsObject.ConsultationId)
+                @Html.TextBoxFor(m => m.ConsultationSDDHabitsObject.SmokingFreq, Model.ConsultationSDDHabitsObject.SmokingFreq)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Create Consultation Smoking Habits</button>
+            </td>
+        </tr>
+    </table>
+}

@@ -199,6 +199,70 @@ namespace OMC.BL.Library
             }
         }
 
+        public ConsultationIllegalDrugDetailsResponse InsertUpdateConsultationIllegalDrugDetail(ConsultationIllegalDrugDetails consultationIllegalDrugDetails)
+        {
+            try
+            {
+                return this._consultationDA.InsertUpdateConsultationIllegalDrugDetail(consultationIllegalDrugDetails);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationIllegalDrugDetailsResponse GetConsultationIllegalDrugDetailList(int consultationId, int? consultationIllegalDrugDetailsId)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationIllegalDrugDetailList(consultationId, consultationIllegalDrugDetailsId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationSDDHabitsResponse InsertUpdateConsultationSDDHabits(ConsultationSDDHabits consultationSDDHabits)
+        {
+            try
+            {
+                return this._consultationDA.InsertUpdateConsultationSDDHabits(consultationSDDHabits);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationSDDHabitsResponse GetConsultationSDDHabitsList(int consultationId, int? consultationSDDHabitsId)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationSDDHabitsList(consultationId, consultationSDDHabitsId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
         public ConsultationAllergyResponse InsertUpdateConsultationAllergy(ConsultationAllergies consultationAllergy)
         {
             try

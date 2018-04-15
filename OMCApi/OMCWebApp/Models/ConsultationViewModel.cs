@@ -32,6 +32,19 @@ namespace OMCWebApp.Models
         public ConsultationCancerTreatmentResponse ConsultationCancerTreatmentResponseObject { get; set; }
 
         /// <summary>
+        /// this is used to create the Illegal Drugs details record
+        /// </summary>
+        public IllegalDrugDetailsModel IllegalDrugDetailsModelObject { get; set; }
+        public ConsultationIllegalDrugDetailsResponse ConsultationIllegalDrugDetailsResponseObject { get; set; }
+
+
+        /// <summary>
+        /// this is used to create the Illegal Drugs details record
+        /// </summary>
+        public SDDHabitsModel SDDHabitsModelObject { get; set; }
+        public ConsultationSDDHabitsResponse ConsultationSDDHabitsResponseObject { get; set; }
+
+        /// <summary>
         /// this is used to create the allergy record
         /// </summary>
         public AllergyModel AllergyModelObject { get; set; }

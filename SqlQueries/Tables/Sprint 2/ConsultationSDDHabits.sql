@@ -3,15 +3,16 @@
 CREATE TABLE [dbo].[ConsultationSDDHabits](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[ConsultationId] [bigint] NOT NULL,
-	[ConsumeAlcohol] [bit] NOT NULL,
+	[ConsumeAlcohol] [bit] NULL,
 	[AlcoholConsumptionFreq] [nvarchar](15) NULL,
 	[DrinksPerDay] [int] NULL,
 	[DrinksPerWeek] [int] NULL,
-	[DoSmoke] [bit] NOT NULL,
-	[EverSmoked] [bit] NOT NULL,
+	[DoSmoke] [bit]  NULL,
+	[EverSmoked] [bit] NULL,
 	[YearOfQuittingSmoking] [int] NULL,
 	[SmokingFreq] [int] NULL,
-	[ConsumeDrugs] [bit] NOT NULL,
+	[ConsumeDrugs] [bit] NULL,
+	[IllegalDrugsId] [bigint] NULL,
 	[DrugsConsumptionFreq] [nvarchar](15) NULL,
 	[DrugsPerDay] [int] NULL,
 	[DrugsPerWeek] [int] NULL,
@@ -37,4 +38,10 @@ GO
 ALTER TABLE [dbo].[ConsultationSDDHabits] CHECK CONSTRAINT [FK_ConsultationSDDHabits_Consultation_Id]
 GO
 
+ALTER TABLE [dbo].[ConsultationSDDHabits]  WITH CHECK ADD  CONSTRAINT [FK_ConsultationSDDHabits_IllegalDrugsId] FOREIGN KEY([IllegalDrugsId])
+REFERENCES [dbo].[IllegalDrugsMaster] ([Id])
+GO
+
+ALTER TABLE [dbo].[ConsultationSDDHabits] CHECK CONSTRAINT [FK_ConsultationSDDHabits_IllegalDrugsId]
+GO
 

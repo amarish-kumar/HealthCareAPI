@@ -1,0 +1,43 @@
+USE [HealthCare]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_GET_ILLEGALDRUGS_MASTER]    Script Date: 4/15/2018 3:17:36 PM ******/
+DROP PROCEDURE [dbo].[SP_GET_ILLEGALDRUGS_MASTER]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_GET_ILLEGALDRUGS_MASTER]    Script Date: 4/15/2018 3:17:36 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE PROCEDURE [dbo].[SP_GET_ILLEGALDRUGS_MASTER]
+(
+	@ACTIVE BIT = NULL,
+	@DESCRIPTION NVARCHAR(100) =  NULL
+)
+AS
+
+BEGIN
+
+--EXEC [SP_GET_ILLEGALDRUGS_MASTER]
+--EXEC [SP_GET_ILLEGALDRUGS_MASTER] 1, 'First'
+
+	SELECT Id, [Description]
+	FROM [IllegalDrugsMaster]
+	WHERE (@ACTIVE IS NULL OR [Active] = @ACTIVE)
+	AND (@DESCRIPTION IS NULL OR [Description] = @DESCRIPTION)  
+	ORDER BY [Id]
+END
+
+
+
+
+
+
+GO
+
+

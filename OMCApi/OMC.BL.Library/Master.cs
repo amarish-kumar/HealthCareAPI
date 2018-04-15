@@ -168,6 +168,22 @@ namespace OMC.BL.Library
             }
         }
 
+        public List<IllegalDrugMaster> GetIllegalDrugs(bool? isActive, string IllegalDrug)
+        {
+            try
+            {
+                return this._masterDA.GetIllegalDrugs(isActive, IllegalDrug);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
         public List<AllergyMaster> GetAllergyList(bool? isActive, string allergyName, string searchTerm)
         {
             try
