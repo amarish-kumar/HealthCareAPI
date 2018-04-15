@@ -1,0 +1,82 @@
+﻿@model  OMCWebApp.Models.FamilyHistoryModel
+
+@using (Html.BeginForm("InsertUpdateConsultationFamilyHistory", "Consultation", FormMethod.Post))
+{
+    <h2>Create Family History</h2>
+    @Html.AntiForgeryToken()
+    <table class="createConsFamilyHistory">
+        <tr>
+            <td>
+                Relationship:
+            </td>
+            <td> 
+                @Html.HiddenFor(m => m.ConsultationFamilyHistoryObject.AddedBy, Model.ConsultationFamilyHistoryObject.AddedBy)
+                @Html.HiddenFor(m => m.ConsultationFamilyHistoryObject.ConsultationId, Model.ConsultationFamilyHistoryObject.ConsultationId)
+                @Html.DropDownListFor(m => m.ConsultationFamilyHistoryObject.RelationshipId, new SelectList(Model.RelationshipList, "Id", "Description"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Health Condition:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.ConsultationFamilyHistoryObject.HealthConditionId
+                    , new SelectList(Model.HealthConditionList, "Id", "Description"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Current Age:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationFamilyHistoryObject.CurrentAge, Model.ConsultationFamilyHistoryObject.CurrentAge)
+            </td>
+        </tr>
+        
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Age On Condition Start:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationFamilyHistoryObject.AgeOnConditionStart, Model.ConsultationFamilyHistoryObject.AgeOnConditionStart)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Is Alive:
+            </td>
+            <td>
+                @Html.CheckBoxFor(m => m.ConsultationFamilyHistoryObject.IsAlive, Model.ConsultationFamilyHistoryObject.IsAlive)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Cause Of Death:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationFamilyHistoryObject.CauseOfDeath, Model.ConsultationFamilyHistoryObject.CauseOfDeath)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Age On Death:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationFamilyHistoryObject.AgeOnDeath, Model.ConsultationFamilyHistoryObject.AgeOnDeath)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Create Consultation Family History</button>
+            </td>
+        </tr>
+    </table>
+}
+

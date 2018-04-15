@@ -104,11 +104,11 @@ namespace OMC.BL.Library
             }
         }
 
-        public List<RelationshipMaster> GetRelationships(bool? isActive, string relationship)
+        public List<RelationshipMaster> GetRelationships(bool? isActive, string relationship, bool? excludeSelf)
         {
             try
             {
-                return this._masterDA.GetRelationships(isActive, relationship);
+                return this._masterDA.GetRelationships(isActive, relationship, excludeSelf);
             }
             catch (Exception ex)
             {
@@ -157,6 +157,38 @@ namespace OMC.BL.Library
             try
             {
                 return this._masterDA.GetSurgeryList(isActive, surgeryName, searchTerm);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public List<AllergyMaster> GetAllergyList(bool? isActive, string allergyName, string searchTerm)
+        {
+            try
+            {
+                return this._masterDA.GetAllergyList(isActive, allergyName, searchTerm);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public List<HealthConditionMaster> GetHealthConditionList(bool? isActive, string healthConditionNameName, string searchTerm)
+        {
+            try
+            {
+                return this._masterDA.GetHealthConditionList(isActive, healthConditionNameName, searchTerm);
             }
             catch (Exception ex)
             {

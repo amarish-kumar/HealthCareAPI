@@ -141,7 +141,7 @@ namespace OMCWebApp.Controllers
                 client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = await client.GetAsync("api/SignUpAPI/GetRelationships?isActive=true&relationship=");
+                HttpResponseMessage Res = await client.GetAsync("api/SignUpAPI/GetRelationships?isActive=true&relationship=&excludeSelf=true");
                 model.Relationships = JsonConvert.DeserializeObject<List<RelationshipMaster>>(Res.Content.ReadAsStringAsync().Result);
 
                 client.DefaultRequestHeaders.Clear();
@@ -164,7 +164,7 @@ namespace OMCWebApp.Controllers
                 client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = await client.GetAsync("api/SignUpAPI/GetRelationships?isActive=true&relationship=");
+                HttpResponseMessage Res = await client.GetAsync("api/SignUpAPI/GetRelationships?isActive=true&relationship=&excludeSelf=true");
                 model.Relationships = JsonConvert.DeserializeObject<List<RelationshipMaster>>(Res.Content.ReadAsStringAsync().Result);
 
                 client.DefaultRequestHeaders.Clear();
@@ -218,7 +218,7 @@ namespace OMCWebApp.Controllers
                 client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = await client.GetAsync("api/SignUpAPI/GetRelationships?isActive=true&relationship=");
+                HttpResponseMessage Res = await client.GetAsync("api/SignUpAPI/GetRelationships?isActive=true&relationship=&excludeSelf=false");
                 model.Relationships = JsonConvert.DeserializeObject<List<RelationshipMaster>>(Res.Content.ReadAsStringAsync().Result);
                 
                 Res = await client.GetAsync("api/SignUpAPI/GetGenders?isActive=true&genderName=");

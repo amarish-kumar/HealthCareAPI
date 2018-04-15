@@ -1,0 +1,44 @@
+﻿@model  OMCWebApp.Models.AllergyModel
+
+@using (Html.BeginForm("InsertUpdateConsultationAllergy", "Consultation", FormMethod.Post))
+{
+    <h2>Create Consultation Allergy</h2>
+    @Html.AntiForgeryToken()
+    <table class="createConsAllergy">
+        <tr>
+            <td>
+                Allergy:
+            </td>
+            <td> 
+                @Html.HiddenFor(m => m.ConsultationAllergyObject.AddedBy, Model.ConsultationAllergyObject.AddedBy)
+                @Html.HiddenFor(m => m.ConsultationAllergyObject.ConsultationId, Model.ConsultationAllergyObject.ConsultationId)
+                @Html.DropDownListFor(m => m.ConsultationAllergyObject.AllergyId, new SelectList(Model.AllergyList, "Id", "Description"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Allergy Date:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationAllergyObject.AllergyStartDate, Model.ConsultationAllergyObject.AllergyStartDate)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Treatment:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationAllergyObject.Treatment, Model.ConsultationAllergyObject.Treatment)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Create Consultation Allergy</button>
+            </td>
+        </tr>
+    </table>
+}
+

@@ -54,6 +54,24 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetSurgeryList(isActive, surgeryName, searchTerm);
         }
 
+        // Get: api/ConsultationAPI/GetAllergyList
+        [HttpGet]
+        [Route("GetAllergyList")]
+        public List<AllergyMaster> GetAllergyList(bool? isActive, string allergyName, string searchTerm)
+        {
+            var masterObj = _Kernel.Get<IMaster>();
+            return masterObj.GetAllergyList(isActive, allergyName, searchTerm);
+        }
+
+        // Get: api/ConsultationAPI/GetHealthConditionList
+        [HttpGet]
+        [Route("GetHealthConditionList")]
+        public List<HealthConditionMaster> GetHealthConditionList(bool? isActive, string healthConditionNameName, string searchTerm)
+        {
+            var masterObj = _Kernel.Get<IMaster>();
+            return masterObj.GetHealthConditionList(isActive, healthConditionNameName, searchTerm);
+        }
+
         // Get: api/ConsultationAPI/GetDoctors
         [HttpGet]
         [Route("GetDoctors")]
@@ -180,8 +198,8 @@ namespace OMCApi.Areas.Consultation.Controllers
             }
             var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
             consultationCancerTreatment.Active = true;
-            var ConversationResult = ConsultationBLObj.InsertUpdateConsultationCancerTreatment(consultationCancerTreatment);
-            return Ok(ConversationResult.Message);
+            var consultationCancerTreatmentResult = ConsultationBLObj.InsertUpdateConsultationCancerTreatment(consultationCancerTreatment);
+            return Ok(consultationCancerTreatmentResult.Message);
         }
 
         // Get: api/ConsultationAPI/GetConsultationCancerTreatmentList
@@ -191,6 +209,55 @@ namespace OMCApi.Areas.Consultation.Controllers
         {
             var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
             return ConsultationBLObj.GetConsultationCancerTreatmentList(consultationId, consultationCancerTreatmentId);
+        }
+
+        // POST: api/ConsultationAPI/InsertUpdateConsultationAllergy
+        [HttpPost]
+        [Route("InsertUpdateConsultationAllergy")]
+        public IHttpActionResult InsertUpdateConsultationAllergy([FromBody]ConsultationAllergies consultationAllergy)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            consultationAllergy.Active = true;
+            var consultationAllergyResult = ConsultationBLObj.InsertUpdateConsultationAllergy(consultationAllergy);
+            return Ok(consultationAllergyResult.Message);
+        }
+
+        // Get: api/ConsultationAPI/GetConsultationAllergyList
+        [HttpGet]
+        [Route("GetConsultationAllergyList")]
+        public ConsultationAllergyResponse GetConsultationAllergyList(int consultationId, int? consultationAllergyId)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConsultationAllergyList(consultationId, consultationAllergyId);
+        }
+
+        // POST: api/ConsultationAPI/InsertUpdateConsultationFamilyHistory
+        [HttpPost]
+        [Route("InsertUpdateConsultationFamilyHistory")]
+        public IHttpActionResult InsertUpdateConsultationFamilyHistory([FromBody]ConsultationFamilyHistory consultationFamilyHistory)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            consultationFamilyHistory.Active = true;
+            var consultationFamilyHistoryResult = ConsultationBLObj.InsertUpdateConsultationFamilyHistory(consultationFamilyHistory);
+            return Ok(consultationFamilyHistoryResult.Message);
+        }
+
+        // Get: api/ConsultationAPI/GetConsultationFamilyHistoryList
+        [HttpGet]
+        [Route("GetConsultationFamilyHistoryList")]
+        public ConsultationFamilyHistoryResponse GetConsultationFamilyHistoryList(int consultationId, int? consultationFamilyHistoryId
+            , int? relationshipId, bool? excludeSelf)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConsultationFamilyHistoryList(consultationId, consultationFamilyHistoryId, relationshipId, excludeSelf);
         }
         #endregion
     }

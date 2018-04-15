@@ -253,6 +253,105 @@
     <br />
 </div>
 
+<button class="collapsible">Allergies</button>
+<div class="content">
+    @if (Model.ConsultationAllergyResponseObject != null
+        && Model.ConsultationAllergyResponseObject.ConsultationAllergyList != null
+        && Model.ConsultationAllergyResponseObject.ConsultationAllergyList.Count() != 0)
+    {
+        <br />
+        <table class="conversations">
+            <thead>
+                <th>Id</th>
+                <th>Consultation Id</th>
+                <th>Allergy</th>
+                <th>Allergy Start Date</th>
+                <th>Treatment</th>
+                <th>Action</th>
+            </thead>
+
+            @foreach (var allergy in Model.ConsultationAllergyResponseObject.ConsultationAllergyList)
+            {
+                <tr>
+                    <td>@allergy.Id</td>
+                    <td>@allergy.ConsultationId</td>
+                    <td>@allergy.AllergyName</td>
+                    <td>@(allergy.AllergyStartDate.HasValue ? allergy.AllergyStartDate.Value.ToString("dd-MMM-yyyy") : string.Empty)</td>
+                    <td>@allergy.Treatment</td>
+                    <td>
+                        @if (Model.UserRole.ToLower() == "patient")
+                        {
+                            @Html.ActionLink("Edit", "EditAllergy", "Consultation", new { userId = Model.UserId, consultationId = allergy.ConsultationId, consultationAllergyId = allergy.Id }, null)
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>No allergies recorded</p>
+    }
+    @if (Model.UserRole.ToLower() == "patient")
+    {
+        @Html.Partial("CreateAllergy", Model.AllergyModelObject)
+    }
+    <br />
+</div>
+
+<button class="collapsible">Family History</button>
+<div class="content">
+    @if (Model.ConsultationFamilyHistoryResponseObject != null
+        && Model.ConsultationFamilyHistoryResponseObject.ConsultationFamilyHistories != null
+        && Model.ConsultationFamilyHistoryResponseObject.ConsultationFamilyHistories.Count() != 0)
+    {
+        <br />
+        <table class="conversations">
+        <thead>
+            <th>Id</th>
+            <th>Consultation Id</th>
+            <th>Relationship</th>
+            <th>Health Condition</th>
+            <th>Current Age</th>
+            <th>Age On Condition Start</th>
+            <th>Is Alive</th>
+            <th>Cause Of Death</th>
+            <th>Age On Death</th>
+            <th>Action</th>
+        </thead>
+
+        @foreach (var familyHistory in Model.ConsultationFamilyHistoryResponseObject.ConsultationFamilyHistories)
+        {
+            <tr>
+                <td>@familyHistory.Id</td>
+                <td>@familyHistory.ConsultationId</td>
+                <td>@familyHistory.Relationship</td>
+                <td>@familyHistory.HealthCondition</td>
+                <td>@(familyHistory.CurrentAge.HasValue ? familyHistory.CurrentAge.Value.ToString() : string.Empty)</td>
+                <td>@(familyHistory.AgeOnConditionStart.HasValue ? familyHistory.AgeOnConditionStart.Value.ToString() : string.Empty)</td>
+                <td>@(familyHistory.IsAlive ? "Yes" : "No")</td>
+                <td>@familyHistory.CauseOfDeath</td>
+                <td>@(familyHistory.AgeOnDeath.HasValue ? familyHistory.AgeOnDeath.Value.ToString() : string.Empty)</td>                   
+                <td>
+                    @if (Model.UserRole.ToLower() == "patient")
+                    {
+                        @Html.ActionLink("Edit", "EditFamilyHistory", "Consultation", new { userId = Model.UserId, consultationId = familyHistory.ConsultationId, consultationFamilyHistoryId = familyHistory.Id }, null)
+                    }
+                </td>
+            </tr>
+        }
+        </table>
+    }
+    else
+    {
+        <p>No family history recorded</p>
+    }
+    @if (Model.UserRole.ToLower() == "patient")
+    {
+        @Html.Partial("CreateFamilyHistory", Model.FamilyHistoryModelObject)
+    }
+    <br />
+</div>
 @section scripts{
 
     <script type="text/javascript">
