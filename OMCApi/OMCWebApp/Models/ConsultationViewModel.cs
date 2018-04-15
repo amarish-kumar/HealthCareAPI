@@ -47,6 +47,6 @@ namespace OMCWebApp.Models
         /// this is used to create the existing conditions record
         /// </summary>
         public FamilyHistoryModel ExistingConditionModelObject { get; set; }
-        public ConsultationFamilyHistoryResponse ExistingConditionResponseObject { get; set; }
+        public ConsultationFamilyHistoryResponse ConsultationExistingConditionResponseObject { get; set; }
     }
 }

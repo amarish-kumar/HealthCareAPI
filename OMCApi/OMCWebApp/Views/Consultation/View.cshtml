@@ -352,6 +352,52 @@
     }
     <br />
 </div>
+
+<button class="collapsible">Existing Condition</button>
+<div class="content">
+    @if (Model.ConsultationExistingConditionResponseObject != null
+        && Model.ConsultationExistingConditionResponseObject.ConsultationFamilyHistories != null
+        && Model.ConsultationExistingConditionResponseObject.ConsultationFamilyHistories.Count() != 0)
+    {
+        <br />
+        <table class="conversations">
+            <thead>
+                <th>Id</th>
+                <th>Consultation Id</th>
+                <th>Relationship</th>
+                <th>Health Condition</th>
+                <th>Condition Start Date</th>
+                <th>Action</th>
+            </thead>
+
+            @foreach (var existingCondition in Model.ConsultationExistingConditionResponseObject.ConsultationFamilyHistories)
+            {
+                <tr>
+                    <td>@existingCondition.Id</td>
+                    <td>@existingCondition.ConsultationId</td>
+                    <td>@existingCondition.Relationship</td>
+                    <td>@existingCondition.HealthCondition</td>
+                    <td>@(existingCondition.ConditionStartDate.HasValue ? existingCondition.ConditionStartDate.Value.ToString("dd-MMM-yyyy") : string.Empty)</td>                    
+                    <td>
+                    @if (Model.UserRole.ToLower() == "patient" || Model.UserRole.ToLower() == "doctor")
+                    {
+                            @Html.ActionLink("Edit", "EditExistingCondition", "Consultation", new { userId = Model.UserId, consultationId = existingCondition.ConsultationId, consultationFamilyHistoryId = existingCondition.Id, excludeSelf = false }, null)
+                    }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>No existing conditions recorded</p>
+    } 
+    @if (Model.UserRole.ToLower() == "patient" || Model.UserRole.ToLower() == "doctor")
+    {
+        @Html.Partial("CreateExistingCondition", Model.ExistingConditionModelObject)
+    }
+    <br />
+</div>
 @section scripts{
 
     <script type="text/javascript">

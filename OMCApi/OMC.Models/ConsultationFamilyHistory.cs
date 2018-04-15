@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OMC.Models
@@ -12,6 +13,7 @@ namespace OMC.Models
         [Required(ErrorMessage = "Health Condition Id is required.")]
         public int HealthConditionId { get; set; }
         public int? CurrentAge { get; set; }
+        public DateTime? ConditionStartDate { get; set; }
         public int? AgeOnConditionStart { get; set; }
         public bool IsAlive { get; set; }
         [RequiredIf("IsAlive", false, ErrorMessage = "Cause of death is required")]
@@ -38,6 +40,11 @@ namespace OMC.Models
         {
             return !string.IsNullOrEmpty(CauseOfDeath);
         }
+
+        public bool ShouldSerializeConditionStartDate()
+        {
+            return ConditionStartDate.HasValue;
+        }
         #endregion
     }
 
@@ -56,6 +63,7 @@ namespace OMC.Models
         public int HealthConditionId { get; set; }
         public string HealthCondition { get; set; }
         public int? CurrentAge { get; set; }
+        public DateTime? ConditionStartDate { get; set; }
         public int? AgeOnConditionStart { get; set; }
         public bool IsAlive { get; set; }
         public string CauseOfDeath { get; set; }

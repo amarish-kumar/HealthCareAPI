@@ -1,7 +1,11 @@
 USE [HealthCare]
 GO
 
-/****** Object:  Table [dbo].[ConsultationFamilyHistoryAudit]    Script Date: 3/12/2018 6:35:30 PM ******/
+/****** Object:  Table [dbo].[ConsultationFamilyHistoryAudit]    Script Date: 4/15/2018 2:15:43 PM ******/
+DROP TABLE [dbo].[ConsultationFamilyHistoryAudit]
+GO
+
+/****** Object:  Table [dbo].[ConsultationFamilyHistoryAudit]    Script Date: 4/15/2018 2:15:43 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -16,6 +20,7 @@ CREATE TABLE [dbo].[ConsultationFamilyHistoryAudit](
 	[RelationshipId] [bigint] NOT NULL,
 	[HealthConditionId] [bigint] NOT NULL,
 	[CurrentAge] [int] NULL,
+	[ConditionStartDate] datetime NULL,
 	[AgeOnConditionStart] [int] NULL,
 	[IsAlive] [bit] NOT NULL,
 	[CAuseOfDeath] [nvarchar](255) NULL,
@@ -32,3 +37,7 @@ CREATE TABLE [dbo].[ConsultationFamilyHistoryAudit](
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+
+GO
+
+
