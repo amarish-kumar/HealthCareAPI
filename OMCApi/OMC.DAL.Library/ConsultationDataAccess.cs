@@ -597,6 +597,108 @@ namespace OMC.DAL.Library
                 Connection.Close();
             }
         }
+
+        public ConsultationIllegalDrugDetailsResponse InsertUpdateConsultationIllegalDrugDetail(ConsultationIllegalDrugDetails consultationIllegalDrugDetails)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateConsultationIllegalDrugDetail");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(consultationIllegalDrugDetails));
+                Command.CommandText = "SP_CONSULTATION_ILLEGALDRUG_DETAILS_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_ILLEGALDRUG_DETAILS_XML", GetXMLFromObject(consultationIllegalDrugDetails));
+                if (consultationIllegalDrugDetails.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationIllegalDrugDetails.AddedBy.Value);
+                }
+                if (consultationIllegalDrugDetails.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationIllegalDrugDetails.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                ConsultationIllegalDrugDetailsResponse result = new ConsultationIllegalDrugDetailsResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new ConsultationIllegalDrugDetailsResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateConsultationIllegalDrugDetail");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationIllegalDrugDetailsResponse GetConsultationIllegalDrugDetailList(int consultationId, int? consultationIllegalDrugDetailsId)
+        {
+            try
+            {
+                Log.Info("Started call to GetConsultationConsultationIllegalDrugDetailList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { consultationId = consultationId, consultationIllegalDrugDetailsId = consultationIllegalDrugDetailsId }));
+                Command.CommandText = "SP_CONSULTATION_ILLEGALDRUG_DETAILS_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_ID", consultationId);
+                if (consultationIllegalDrugDetailsId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@CONSULTATION_ILLEGALDRUGDETAILS_ID", consultationIllegalDrugDetailsId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                ConsultationIllegalDrugDetailsResponse result = new ConsultationIllegalDrugDetailsResponse();
+                result.ConsultationIllegalDrugDetailsDisplayList = new List<ConsultationIllegalDrugDetailsDisplay>();
+                foreach (DataRow drConsultationIllegalDrugDetails in ds.Tables[0].Rows)
+                {
+                    result.ConsultationIllegalDrugDetailsDisplayList.Add(new ConsultationIllegalDrugDetailsDisplay
+                    {
+                        Id = Convert.ToInt32(drConsultationIllegalDrugDetails["Id"].ToString()),
+                        ConsultationId = Convert.ToInt32(drConsultationIllegalDrugDetails["ConsultationId"].ToString()),
+                        ConsumeDrugs = drConsultationIllegalDrugDetails["ConsumeDrugs"] != DBNull.Value ? bool.Parse(drConsultationIllegalDrugDetails["ConsumeDrugs"].ToString()) : false,
+                        IllegalDrugsID = drConsultationIllegalDrugDetails["IllegalDrugsID"] != DBNull.Value ? Convert.ToInt32(drConsultationIllegalDrugDetails["IllegalDrugsID"].ToString()) : (int?)null,
+                        IllegalDrugDesc = drConsultationIllegalDrugDetails["DrugName"] != DBNull.Value ? drConsultationIllegalDrugDetails["DrugName"].ToString() : null,
+                        Frequency = drConsultationIllegalDrugDetails["Frequency"] != DBNull.Value ? drConsultationIllegalDrugDetails["Frequency"].ToString() : null,
+                        PerFrequency = drConsultationIllegalDrugDetails["PerFrequency"] != DBNull.Value ? Convert.ToInt32(drConsultationIllegalDrugDetails["PerFrequency"].ToString()) : (int?)null,
+                        AddedBy = drConsultationIllegalDrugDetails["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationIllegalDrugDetails["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drConsultationIllegalDrugDetails["AddedDate"] != DBNull.Value ? DateTime.Parse(drConsultationIllegalDrugDetails["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drConsultationIllegalDrugDetails["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationIllegalDrugDetails["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drConsultationIllegalDrugDetails["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drConsultationIllegalDrugDetails["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetConsultationConsultationIllegalDrugDetailList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
         #endregion
     }
 }

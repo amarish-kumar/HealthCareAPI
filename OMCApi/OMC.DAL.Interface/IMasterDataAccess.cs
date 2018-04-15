@@ -14,5 +14,6 @@ namespace OMC.DAL.Interface
         List<Gender> GetGenders(bool? isActive, string genderName);
         List<CancerStageMaster> GetCancerStages(bool? isActive, string cancerStageName);
         List<SurgeryMaster> GetSurgeryList(bool? isActive, string surgeryName, string searchTerm);
+        List<IllegalDrugMaster> GetIllegalDrugs(bool? isActive, string IllegalDrug);
     }
 }

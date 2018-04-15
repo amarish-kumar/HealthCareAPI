@@ -167,6 +167,22 @@ namespace OMC.BL.Library
                 //Log
             }
         }
+
+        public List<IllegalDrugMaster> GetIllegalDrugs(bool? isActive, string IllegalDrug)
+        {
+            try
+            {
+                return this._masterDA.GetIllegalDrugs(isActive, IllegalDrug);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
         #endregion
 
         #region IDisposable

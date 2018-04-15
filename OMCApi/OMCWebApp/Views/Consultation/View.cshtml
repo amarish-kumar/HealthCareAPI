@@ -283,7 +283,7 @@
                     <td>
                         @if (Model.UserRole.ToLower() == "patient")
                         {
-                            @Html.ActionLink("Edit", "EditCancerTreatment", "Consultation", new { userId = Model.UserId, consultationId = cancerTreatment.ConsultationId, consultationCancerTreatmentId = cancerTreatment.Id }, null)
+                            @Html.ActionLink("Edit", "EditIllegalDrugDetails", "Consultation", new { userId = Model.UserId, consultationId = illegaldrugDetails.ConsultationId, consultationIllegalDrugDetailsId = illegaldrugDetails.Id }, null)
                         }
                     </td>
                 </tr>
@@ -296,7 +296,7 @@
     }
     @if (Model.UserRole.ToLower() == "patient")
     {
-        @Html.Partial("CreateCancerTreatment", Model.CancerTreatmentModelObject)
+        @Html.Partial("IllegalDrugs", Model.IllegalDrugDetailsModelObject)
     }
     <br />
 </div>

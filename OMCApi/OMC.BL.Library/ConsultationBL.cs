@@ -198,6 +198,39 @@ namespace OMC.BL.Library
                 //Log
             }
         }
+
+        public ConsultationIllegalDrugDetailsResponse InsertUpdateConsultationIllegalDrugDetail(ConsultationIllegalDrugDetails consultationIllegalDrugDetails)
+        {
+            try
+            {
+                return this._consultationDA.InsertUpdateConsultationIllegalDrugDetail(consultationIllegalDrugDetails);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationIllegalDrugDetailsResponse GetConsultationIllegalDrugDetailList(int consultationId, int? consultationIllegalDrugDetailsId)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationIllegalDrugDetailList(consultationId, consultationIllegalDrugDetailsId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+            
         #endregion
 
         #region IDisposable

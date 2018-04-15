@@ -10,6 +10,8 @@ GO
 
 CREATE TABLE [dbo].[ConsultationIllegaldrugsAudit](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[Action] [nvarchar](10) NOT NULL,
+	[EntityId] [bigint] NOT NULL,
 	[ConsultationId] [bigint] NOT NULL,
 	[Consumedrugs] [bit] NULL,
 	[IllegalDrugsID] [bigint] NULL,

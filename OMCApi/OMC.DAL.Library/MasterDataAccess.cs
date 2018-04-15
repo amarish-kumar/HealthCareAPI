@@ -412,6 +412,51 @@ namespace OMC.DAL.Library
                 Connection.Close();
             }
         }
+
+        public List<IllegalDrugMaster> GetIllegalDrugs(bool? isActive, string IllegalDrug)
+        {
+            try
+            {
+                Log.Info("Started call to GetIllegalDrugs");
+                Log.Info("parameter values =" + JsonConvert.SerializeObject(new { isActive = isActive, IllegalDrug = IllegalDrug }));
+                Command.CommandText = "SP_GET_ILLEGALDRUGS_MASTER";
+                Command.CommandType = CommandType.StoredProcedure;
+
+                Command.Parameters.Clear();
+                if (!string.IsNullOrEmpty(IllegalDrug))
+                {
+                    Command.Parameters.AddWithValue("@DESCRIPTION", IllegalDrug);
+                }
+                Command.Parameters.AddWithValue("@ACTIVE", isActive);
+
+                Connection.Open();
+
+                SqlDataReader reader = Command.ExecuteReader();
+                List<IllegalDrugMaster> result = new List<IllegalDrugMaster>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new IllegalDrugMaster
+                        {
+                            Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : null,
+                            ID = Convert.ToInt32(reader["ID"].ToString())
+                        });
+                    }
+                }
+                Log.Info("End call to GetIllegalDrugs result " + JsonConvert.SerializeObject(result));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            finally
+            {
+                Connection.Close();
+            }
+        }
         #endregion
     }
 }
