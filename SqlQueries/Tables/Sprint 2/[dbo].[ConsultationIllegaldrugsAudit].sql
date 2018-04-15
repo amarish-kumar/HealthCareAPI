@@ -1,7 +1,11 @@
 USE [HealthCare]
 GO
 
-/****** Object:  Table [dbo].[ConsultationIllegaldrugsAudit]    Script Date: 3/23/2018 11:59:42 AM ******/
+/****** Object:  Table [dbo].[ConsultationIllegaldrugsAudit]    Script Date: 4/16/2018 2:12:14 AM ******/
+DROP TABLE [dbo].[ConsultationIllegaldrugsAudit]
+GO
+
+/****** Object:  Table [dbo].[ConsultationIllegaldrugsAudit]    Script Date: 4/16/2018 2:12:14 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -17,7 +21,6 @@ CREATE TABLE [dbo].[ConsultationIllegaldrugsAudit](
 	[IllegalDrugsID] [bigint] NULL,
 	[Frequency] [nvarchar](255) NULL,
 	[PerFrequency] [bigint] NULL,
-	--[PerWeek] [bigint] NULL,
 	[Active] [bit] NOT NULL,
 	[AddedBy] [bigint] NULL,
 	[AddedDate] [datetime] NULL,
@@ -32,3 +35,5 @@ CREATE TABLE [dbo].[ConsultationIllegaldrugsAudit](
 ) ON [PRIMARY]
 
 GO
+
+

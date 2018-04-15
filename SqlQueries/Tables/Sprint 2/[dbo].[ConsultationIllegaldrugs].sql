@@ -1,7 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  Table [dbo].[ConsultationIllegaldrugs]    Script Date: 3/23/2018 11:59:42 AM ******/
+ALTER TABLE [dbo].[ConsultationIllegaldrugs] DROP CONSTRAINT [FK_ConsultationIllegaldrugs_IllegalDrugsID]
+GO
+
+ALTER TABLE [dbo].[ConsultationIllegaldrugs] DROP CONSTRAINT [FK_ConsultationIllegaldrugs_Consultation_Id]
+GO
+
+/****** Object:  Table [dbo].[ConsultationIllegaldrugs]    Script Date: 4/16/2018 2:11:41 AM ******/
+DROP TABLE [dbo].[ConsultationIllegaldrugs]
+GO
+
+/****** Object:  Table [dbo].[ConsultationIllegaldrugs]    Script Date: 4/16/2018 2:11:41 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -14,8 +24,7 @@ CREATE TABLE [dbo].[ConsultationIllegaldrugs](
 	[Consumedrugs] [bit] NULL,
 	[IllegalDrugsID] [bigint] NULL,
 	[Frequency] [nvarchar](255) NULL,
-	[PerDay] [bigint] NULL,
-	[PerWeek] [bigint] NULL,
+	[PerFrequency] [bigint] NULL,
 	[Active] [bit] NOT NULL,
 	[AddedBy] [bigint] NULL,
 	[AddedDate] [datetime] NULL,
@@ -38,9 +47,8 @@ GO
 ALTER TABLE [dbo].[ConsultationIllegaldrugs] CHECK CONSTRAINT [FK_ConsultationIllegaldrugs_Consultation_Id]
 GO
 
-
 ALTER TABLE [dbo].[ConsultationIllegaldrugs]  WITH CHECK ADD  CONSTRAINT [FK_ConsultationIllegaldrugs_IllegalDrugsID] FOREIGN KEY([IllegalDrugsID])
-REFERENCES [dbo].[IllegalDrugsMaster] ([Id])
+REFERENCES [dbo].[IllegalDrugsMaster] ([ID])
 GO
 
 ALTER TABLE [dbo].[ConsultationIllegaldrugs] CHECK CONSTRAINT [FK_ConsultationIllegaldrugs_IllegalDrugsID]
