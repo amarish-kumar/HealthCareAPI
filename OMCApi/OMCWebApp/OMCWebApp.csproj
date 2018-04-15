@@ -172,6 +172,7 @@
     <Compile Include="Models\GetAccessCodeModel.cs" />
     <Compile Include="Models\ProfileListModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />
+    <Compile Include="Models\SDDHabitsModel.cs" />
     <Compile Include="Models\SurgeryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -249,6 +250,9 @@
     <Content Include="Views\Consultation\EditCancerTreatment.cshtml" />
     <Content Include="Views\Consultation\IllegalDrugDetailsResponse.cshtml" />
     <Content Include="Views\Consultation\EditIllegalDrugDetails.cshtml" />
+    <Content Include="Views\Consultation\SDDHabitsResponse.cshtml" />
+    <Content Include="Views\Consultation\SmokingHabits.cshtml" />
+    <Content Include="Views\Consultation\EditSDDHabits.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

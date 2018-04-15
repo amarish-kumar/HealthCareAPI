@@ -161,6 +161,16 @@ namespace OMCWebApp.Controllers
                 }
             };
 
+            //set data for the Smoking Habits record insert
+            result.SDDHabitsModelObject = new SDDHabitsModel
+            {
+                ConsultationSDDHabitsObject = new ConsultationSDDHabits
+                {
+                    ConsultationId = consultationId,
+                    AddedBy = userId
+                }
+            };
+
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
@@ -188,6 +198,10 @@ namespace OMCWebApp.Controllers
                 result.ConsultationIllegalDrugDetailsResponseObject = JsonConvert.DeserializeObject<ConsultationIllegalDrugDetailsResponse>(Res.Content.ReadAsStringAsync().Result);
                 Res = await client.GetAsync("api/ConsultationAPI/GetIllegalDrugs?isActive=true&IllegalDrug=");
                 result.IllegalDrugDetailsModelObject.IllegalDrugDetails = JsonConvert.DeserializeObject<List<IllegalDrugMaster>>(Res.Content.ReadAsStringAsync().Result);
+
+                Res = await client.GetAsync("api/ConsultationAPI/GetConsultationSDDHabitsList?consultationId=" + consultationId.ToString() + "&consultationSDDHabitsId=");
+                result.ConsultationSDDHabitsResponseObject = JsonConvert.DeserializeObject<ConsultationSDDHabitsResponse>(Res.Content.ReadAsStringAsync().Result);
+                
             }
 
 
@@ -545,6 +559,72 @@ namespace OMCWebApp.Controllers
             ViewBag.DDLItems = items;
 
             return View(IllegalDrugDetailsModelObject);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InsertUpdateConsultationSDDHabits(SDDHabitsModel sddHabits)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var json = JsonConvert.SerializeObject(sddHabits.ConsultationSDDHabitsObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/ConsultationAPI/InsertUpdateConsultationSDDHabits", content);
+                ConsultationSDDHabitsResponse result = new ConsultationSDDHabitsResponse();
+                if (Res.IsSuccessStatusCode)
+                {
+                    result.IsSuccess = true;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    result.IsSuccess = false;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                return View("SDDHabitsResponse", result);
+
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> EditSDDHabits(int userId, int consultationId, int consultationSDDHabitsId)
+        {
+            //set data for the surgery record edit
+            var SDDHabitsModelObject = new SDDHabitsModel
+            {
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConsultationSDDHabitsList?consultationId=" + consultationId.ToString() + "&consultationSDDHabitsId=" + consultationSDDHabitsId.ToString());
+                var ConsultationSDDHabitsResponseObject = JsonConvert.DeserializeObject<ConsultationSDDHabitsResponse>(Res.Content.ReadAsStringAsync().Result);
+
+                if (ConsultationSDDHabitsResponseObject.ConsultationSDDHabitsDisplayList != null
+                    && ConsultationSDDHabitsResponseObject.ConsultationSDDHabitsDisplayList.Count > 0)
+                {
+                    var consSDDHabitsDisplay = ConsultationSDDHabitsResponseObject.ConsultationSDDHabitsDisplayList.First();
+                    SDDHabitsModelObject.ConsultationSDDHabitsObject = new ConsultationSDDHabits
+                    {
+                        Id = consSDDHabitsDisplay.Id,
+                        ConsultationId = consSDDHabitsDisplay.ConsultationId,
+                        DoSmoke = consSDDHabitsDisplay.DoSmoke,
+                        EverSmoked = consSDDHabitsDisplay.EverSmoked,
+                        YearOfQuittingSmoking = consSDDHabitsDisplay.YearOfQuittingSmoking,
+                        SmokingFreq = consSDDHabitsDisplay.SmokingFreq,
+                        ModifiedBy = userId,
+                        Active = consSDDHabitsDisplay.Active
+                    };
+                }
+                Res = await client.GetAsync("api/ConsultationAPI/GetIllegalDrugs?isActive=true&IllegalDrug=");
+            }
+
+            return View(SDDHabitsModelObject);
         }
 
         #endregion

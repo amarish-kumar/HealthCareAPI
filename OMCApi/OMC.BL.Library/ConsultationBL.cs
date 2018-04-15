@@ -230,7 +230,38 @@ namespace OMC.BL.Library
                 //Log
             }
         }
-            
+
+        public ConsultationSDDHabitsResponse InsertUpdateConsultationSDDHabits(ConsultationSDDHabits consultationSDDHabits)
+        {
+            try
+            {
+                return this._consultationDA.InsertUpdateConsultationSDDHabits(consultationSDDHabits);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationSDDHabitsResponse GetConsultationSDDHabitsList(int consultationId, int? consultationSDDHabitsId)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationSDDHabitsList(consultationId, consultationSDDHabitsId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
         #endregion
 
         #region IDisposable

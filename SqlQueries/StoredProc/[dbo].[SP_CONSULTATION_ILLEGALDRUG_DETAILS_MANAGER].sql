@@ -30,14 +30,14 @@ DECLARE @Id AS BIGINT, @ConsultationId AS BIGINT, @ConsumeDrugs AS BIT
 DECLARE @IllegalDrugsID as BIGINT, @PerFrequency as BIGINT,@Frequency as NVARCHAR(MAX), @ReturnMessage as NVARCHAR(MAX)
 DECLARE @Active AS BIT, @Result as BIT
 
-SELECT	 @Id = ConsultationCancerTreatmentList.Columns.value('Id[1]', 'BIGINT')
-	   , @ConsumeDrugs = ConsultationCancerTreatmentList.Columns.value('ConsumeDrugs[1]', 'BIT')
-	   , @IllegalDrugsID = ConsultationCancerTreatmentList.Columns.value('IllegalDrugsID[1]', 'BIGINT')
-	   , @ConsultationId = ConsultationCancerTreatmentList.Columns.value('ConsultationId[1]', 'BIGINT')
-	   , @Frequency  = ConsultationCancerTreatmentList.Columns.value('Frequency[1]', 'NVARCHAR(MAX)')
-	   , @PerFrequency = ConsultationCancerTreatmentList.Columns.value('PerFrequency[1]', 'BIGINT')
-	   , @Active = ConsultationCancerTreatmentList.Columns.value('Active[1]', 'bit')
-FROM   @CONSULTATION_ILLEGALDRUG_DETAILS_XML.nodes('ConsultationIllegalDrugDetails') AS ConsultationCancerTreatmentList(Columns)
+SELECT	 @Id = ConsultationILLEGALDRUGDETAILSList.Columns.value('Id[1]', 'BIGINT')
+	   , @ConsumeDrugs = ConsultationILLEGALDRUGDETAILSList.Columns.value('ConsumeDrugs[1]', 'BIT')
+	   , @IllegalDrugsID = ConsultationILLEGALDRUGDETAILSList.Columns.value('IllegalDrugsID[1]', 'BIGINT')
+	   , @ConsultationId = ConsultationILLEGALDRUGDETAILSList.Columns.value('ConsultationId[1]', 'BIGINT')
+	   , @Frequency  = ConsultationILLEGALDRUGDETAILSList.Columns.value('Frequency[1]', 'NVARCHAR(MAX)')
+	   , @PerFrequency = ConsultationILLEGALDRUGDETAILSList.Columns.value('PerFrequency[1]', 'BIGINT')
+	   , @Active = ConsultationILLEGALDRUGDETAILSList.Columns.value('Active[1]', 'bit')
+FROM   @CONSULTATION_ILLEGALDRUG_DETAILS_XML.nodes('ConsultationIllegalDrugDetails') AS ConsultationILLEGALDRUGDETAILSList(Columns)
 
 /*BLOCK TO READ THE VARIABLES ENDS HERE*/
 IF @OPERATION IS NULL

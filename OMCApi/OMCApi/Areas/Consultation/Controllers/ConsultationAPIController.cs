@@ -225,6 +225,31 @@ namespace OMCApi.Areas.Consultation.Controllers
             var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
             return ConsultationBLObj.GetConsultationIllegalDrugDetailList(consultationId, consultationIllegalDrugDetailsId);
         }
+
+        // POST: api/ConsultationAPI/InsertUpdateConsultationSDDHabits
+        [HttpPost]
+        [Route("InsertUpdateConsultationSDDHabits")]
+        public IHttpActionResult InsertUpdateConsultationSDDHabits([FromBody]ConsultationSDDHabits consultationSDDHabits)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            consultationSDDHabits.Active = true;
+            var ConversationResult = ConsultationBLObj.InsertUpdateConsultationSDDHabits(consultationSDDHabits);
+            return Ok(ConversationResult.Message);
+        }
+
+        // Get: api/ConsultationAPI/GetConsultationSDDHabitsList
+        [HttpGet]
+        [Route("GetConsultationSDDHabitsList")]
+        public ConsultationSDDHabitsResponse GetConsultationSDDHabitsList(int consultationId, int? consultationSDDHabitsId)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConsultationSDDHabitsList(consultationId, consultationSDDHabitsId);
+        }
+
         #endregion
     }
 }
