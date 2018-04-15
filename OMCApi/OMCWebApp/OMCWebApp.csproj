@@ -162,6 +162,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\FamilyHistoryModel.cs" />
     <Compile Include="Models\CancerTreatmentModel.cs" />
     <Compile Include="Models\ConsultationListModel.cs" />
     <Compile Include="Models\ConsultationModel.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Models\GetAccessCodeModel.cs" />
     <Compile Include="Models\ProfileListModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />
+    <Compile Include="Models\AllergyModel.cs" />
     <Compile Include="Models\SurgeryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -245,6 +247,14 @@
     <Content Include="Views\Consultation\CancerTreatmentResponse.cshtml" />
     <Content Include="Views\Consultation\EditSurgery.cshtml" />
     <Content Include="Views\Consultation\EditCancerTreatment.cshtml" />
+    <Content Include="Views\Consultation\CreateAllergy.cshtml" />
+    <Content Include="Views\Consultation\EditAllergy.cshtml" />
+    <Content Include="Views\Consultation\AllergyResponse.cshtml" />
+    <Content Include="Views\Consultation\CreateFamilyHistory.cshtml" />
+    <Content Include="Views\Consultation\EditFamilyHistory.cshtml" />
+    <Content Include="Views\Consultation\FamilyHistoryResponse.cshtml" />
+    <Content Include="Views\Consultation\CreateExistingCondition.cshtml" />
+    <Content Include="Views\Consultation\EditExistingCondition.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
