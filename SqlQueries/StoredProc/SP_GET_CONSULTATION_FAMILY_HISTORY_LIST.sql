@@ -39,6 +39,7 @@ SELECT CFH.Id
 	, CFH.HealthConditionId
 	, HCM.[Description] AS HealthCondition
 	, CFH.CurrentAge
+	, CFH.ConditionStartDate
 	, CFH.AgeOnConditionStart
 	, CFH.IsAlive
 	, CFH.CauseOfDeath

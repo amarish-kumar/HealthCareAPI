@@ -783,25 +783,26 @@ namespace OMC.DAL.Library
                 dataAdapter.Fill(ds);
                 ConsultationFamilyHistoryResponse result = new ConsultationFamilyHistoryResponse();
                 result.ConsultationFamilyHistories = new List<ConsultationFamilyHistoryDisplay>();
-                foreach (DataRow drConsultationAllergy in ds.Tables[0].Rows)
+                foreach (DataRow drConsultationFamilyHistory in ds.Tables[0].Rows)
                 {
                     result.ConsultationFamilyHistories.Add(new ConsultationFamilyHistoryDisplay
                     {
-                        Id = Convert.ToInt32(drConsultationAllergy["Id"].ToString()),
-                        ConsultationId = Convert.ToInt32(drConsultationAllergy["ConsultationId"].ToString()),
-                        RelationshipId = Convert.ToInt32(drConsultationAllergy["RelationshipId"].ToString()),
-                        Relationship = drConsultationAllergy["Relationship"] != DBNull.Value ? drConsultationAllergy["Relationship"].ToString() : null,
-                        HealthConditionId = Convert.ToInt32(drConsultationAllergy["HealthConditionId"].ToString()),
-                        HealthCondition = drConsultationAllergy["HealthCondition"] != DBNull.Value ? drConsultationAllergy["HealthCondition"].ToString() : null,
-                        CurrentAge = drConsultationAllergy["CurrentAge"] != DBNull.Value ? Convert.ToInt32(drConsultationAllergy["CurrentAge"].ToString()) : (int?)null,
-                        AgeOnConditionStart = drConsultationAllergy["AgeOnConditionStart"] != DBNull.Value ? Convert.ToInt32(drConsultationAllergy["AgeOnConditionStart"].ToString()) : (int?)null,
-                        AgeOnDeath = drConsultationAllergy["AgeOnDeath"] != DBNull.Value ? Convert.ToInt32(drConsultationAllergy["AgeOnDeath"].ToString()) : (int?)null,
-                        CauseOfDeath = drConsultationAllergy["CauseOfDeath"] != DBNull.Value ? drConsultationAllergy["CauseOfDeath"].ToString() : null,
-                        IsAlive = drConsultationAllergy["IsAlive"] != DBNull.Value ? Convert.ToBoolean(drConsultationAllergy["IsAlive"].ToString()) : true,
-                        AddedBy = drConsultationAllergy["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationAllergy["AddedBy"].ToString()) : (int?)null,
-                        AddedDate = drConsultationAllergy["AddedDate"] != DBNull.Value ? DateTime.Parse(drConsultationAllergy["AddedDate"].ToString()) : (DateTime?)null,
-                        ModifiedBy = drConsultationAllergy["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationAllergy["ModifiedBy"].ToString()) : (int?)null,
-                        ModifiedDate = drConsultationAllergy["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drConsultationAllergy["ModifiedDate"].ToString()) : (DateTime?)null,
+                        Id = Convert.ToInt32(drConsultationFamilyHistory["Id"].ToString()),
+                        ConsultationId = Convert.ToInt32(drConsultationFamilyHistory["ConsultationId"].ToString()),
+                        RelationshipId = Convert.ToInt32(drConsultationFamilyHistory["RelationshipId"].ToString()),
+                        Relationship = drConsultationFamilyHistory["Relationship"] != DBNull.Value ? drConsultationFamilyHistory["Relationship"].ToString() : null,
+                        HealthConditionId = Convert.ToInt32(drConsultationFamilyHistory["HealthConditionId"].ToString()),
+                        HealthCondition = drConsultationFamilyHistory["HealthCondition"] != DBNull.Value ? drConsultationFamilyHistory["HealthCondition"].ToString() : null,
+                        CurrentAge = drConsultationFamilyHistory["CurrentAge"] != DBNull.Value ? Convert.ToInt32(drConsultationFamilyHistory["CurrentAge"].ToString()) : (int?)null,
+                        ConditionStartDate = drConsultationFamilyHistory["ConditionStartDate"] != DBNull.Value ? Convert.ToDateTime(drConsultationFamilyHistory["ConditionStartDate"].ToString()) : (DateTime?)null,
+                        AgeOnConditionStart = drConsultationFamilyHistory["AgeOnConditionStart"] != DBNull.Value ? Convert.ToInt32(drConsultationFamilyHistory["AgeOnConditionStart"].ToString()) : (int?)null,
+                        AgeOnDeath = drConsultationFamilyHistory["AgeOnDeath"] != DBNull.Value ? Convert.ToInt32(drConsultationFamilyHistory["AgeOnDeath"].ToString()) : (int?)null,
+                        CauseOfDeath = drConsultationFamilyHistory["CauseOfDeath"] != DBNull.Value ? drConsultationFamilyHistory["CauseOfDeath"].ToString() : null,
+                        IsAlive = drConsultationFamilyHistory["IsAlive"] != DBNull.Value ? Convert.ToBoolean(drConsultationFamilyHistory["IsAlive"].ToString()) : true,
+                        AddedBy = drConsultationFamilyHistory["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationFamilyHistory["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drConsultationFamilyHistory["AddedDate"] != DBNull.Value ? DateTime.Parse(drConsultationFamilyHistory["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drConsultationFamilyHistory["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationFamilyHistory["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drConsultationFamilyHistory["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drConsultationFamilyHistory["ModifiedDate"].ToString()) : (DateTime?)null,
                     });
                 }
                 Log.Info("End call to GetConsultationFamilyHistoryList result " + JsonConvert.SerializeObject(result));

@@ -172,6 +172,18 @@ namespace OMCWebApp.Controllers
                 }
             };
 
+            //set data for the existing condition record insert
+            result.ExistingConditionModelObject = new FamilyHistoryModel
+            {
+                ConsultationFamilyHistoryObject = new ConsultationFamilyHistory
+                {
+                    ConsultationId = consultationId,
+                    RelationshipId = 1, //hard coded for self
+                    IsAlive = true,
+                    AddedBy = userId
+                }
+            };
+
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
@@ -198,7 +210,7 @@ namespace OMCWebApp.Controllers
                 Res = await client.GetAsync("api/ConsultationAPI/GetAllergyList?isActive=true&allergyName=&searchTerm=");
                 result.AllergyModelObject.AllergyList = JsonConvert.DeserializeObject<List<AllergyMaster>>(Res.Content.ReadAsStringAsync().Result);
                 Res = await client.GetAsync("api/ConsultationAPI/GetHealthConditionList?isActive=true&healthConditionNameName=&searchTerm=");
-                result.FamilyHistoryModelObject.HealthConditionList = JsonConvert.DeserializeObject<List<HealthConditionMaster>>(Res.Content.ReadAsStringAsync().Result);
+                result.ExistingConditionModelObject.HealthConditionList = result.FamilyHistoryModelObject.HealthConditionList = JsonConvert.DeserializeObject<List<HealthConditionMaster>>(Res.Content.ReadAsStringAsync().Result);
                 Res = await client.GetAsync("api/SignUpAPI/GetRelationships?isActive=true&relationship=&excludeSelf=true");
                 result.FamilyHistoryModelObject.RelationshipList = JsonConvert.DeserializeObject<List<RelationshipMaster>>(Res.Content.ReadAsStringAsync().Result);
 
@@ -206,6 +218,11 @@ namespace OMCWebApp.Controllers
                 result.ConsultationAllergyResponseObject = JsonConvert.DeserializeObject<ConsultationAllergyResponse>(Res.Content.ReadAsStringAsync().Result);
                 Res = await client.GetAsync("api/ConsultationAPI/GetConsultationFamilyHistoryList?consultationId=" + consultationId.ToString() + "&consultationFamilyHistoryId=&relationshipId=&excludeSelf=true");
                 result.ConsultationFamilyHistoryResponseObject = JsonConvert.DeserializeObject<ConsultationFamilyHistoryResponse>(Res.Content.ReadAsStringAsync().Result);
+
+                Res = await client.GetAsync("api/ConsultationAPI/GetConsultationFamilyHistoryList?consultationId=" + consultationId.ToString() + "&consultationFamilyHistoryId=&relationshipId=1&excludeSelf=false");
+                result.ConsultationExistingConditionResponseObject = JsonConvert.DeserializeObject<ConsultationFamilyHistoryResponse>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/SignUpAPI/GetRelationships?isActive=true&relationship=self&excludeSelf=false");
+                result.ExistingConditionModelObject.RelationshipList = JsonConvert.DeserializeObject<List<RelationshipMaster>>(Res.Content.ReadAsStringAsync().Result);
 
             }
             return View(result);
@@ -591,6 +608,45 @@ namespace OMCWebApp.Controllers
                 FamilyHistoryModelObject.RelationshipList = JsonConvert.DeserializeObject<List<RelationshipMaster>>(Res.Content.ReadAsStringAsync().Result);
             }
             return View(FamilyHistoryModelObject);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> EditExistingCondition(int userId, int consultationId, int consultationFamilyHistoryId, 
+            int? relationshipId, bool? excludeSelf)
+        {
+            //set data for the surgery record edit
+            var ExistingConditionModelObject = new FamilyHistoryModel
+            {
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConsultationFamilyHistoryList?consultationId=" + consultationId.ToString() + "&relationshipId=&excludeSelf="+excludeSelf.ToString()+"&consultationFamilyHistoryId=" + consultationFamilyHistoryId.ToString());
+                var ConsultationExistingConditionResponseObject = JsonConvert.DeserializeObject<ConsultationFamilyHistoryResponse>(Res.Content.ReadAsStringAsync().Result);
+
+                if (ConsultationExistingConditionResponseObject.ConsultationFamilyHistories != null
+                    && ConsultationExistingConditionResponseObject.ConsultationFamilyHistories.Count > 0)
+                {
+                    var consExistingConditionDisplay = ConsultationExistingConditionResponseObject.ConsultationFamilyHistories.First();
+                    ExistingConditionModelObject.ConsultationFamilyHistoryObject = new ConsultationFamilyHistory
+                    {
+                        Id = consExistingConditionDisplay.Id,
+                        ConsultationId = consExistingConditionDisplay.ConsultationId,
+                        RelationshipId = consExistingConditionDisplay.RelationshipId,
+                        ConditionStartDate = consExistingConditionDisplay.ConditionStartDate,
+                        IsAlive = consExistingConditionDisplay.IsAlive,
+                        ModifiedBy = userId,
+                        Active = consExistingConditionDisplay.Active
+                    };
+                }
+                Res = await client.GetAsync("api/ConsultationAPI/GetHealthConditionList?isActive=true&healthConditionNameName=&searchTerm=");
+                ExistingConditionModelObject.HealthConditionList = JsonConvert.DeserializeObject<List<HealthConditionMaster>>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/SignUpAPI/GetRelationships?isActive=true&relationship=self&excludeSelf=false");
+                ExistingConditionModelObject.RelationshipList = JsonConvert.DeserializeObject<List<RelationshipMaster>>(Res.Content.ReadAsStringAsync().Result);
+            }
+            return View(ExistingConditionModelObject);
         }
         #endregion
     }

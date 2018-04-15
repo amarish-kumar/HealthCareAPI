@@ -1,0 +1,49 @@
+﻿@model  OMCWebApp.Models.FamilyHistoryModel
+
+@using (Html.BeginForm("InsertUpdateConsultationFamilyHistory", "Consultation", FormMethod.Post))
+{
+    <h2>Edit Existing Condition</h2>
+    @Html.AntiForgeryToken()
+    <table class="createConsExistingCondition">
+        <tr>
+            <td>
+                Relationship:
+            </td>
+            <td>
+                @Html.HiddenFor(m => m.ConsultationFamilyHistoryObject.Id, Model.ConsultationFamilyHistoryObject.Id)
+                @Html.HiddenFor(m => m.ConsultationFamilyHistoryObject.ModifiedBy, Model.ConsultationFamilyHistoryObject.ModifiedBy)
+                @Html.HiddenFor(m => m.ConsultationFamilyHistoryObject.RelationshipId, Model.ConsultationFamilyHistoryObject.RelationshipId)
+                @Html.HiddenFor(m => m.ConsultationFamilyHistoryObject.ConsultationId, Model.ConsultationFamilyHistoryObject.ConsultationId)
+                @Html.HiddenFor(m => m.ConsultationFamilyHistoryObject.IsAlive, Model.ConsultationFamilyHistoryObject.IsAlive)
+                @Html.DropDownListFor(m => m.ConsultationFamilyHistoryObject.RelationshipId,
+                    new SelectList(Model.RelationshipList, "Id", "Description"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Health Condition:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.ConsultationFamilyHistoryObject.HealthConditionId
+                    , new SelectList(Model.HealthConditionList, "Id", "Description"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Condition Start Date:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationFamilyHistoryObject.ConditionStartDate, Model.ConsultationFamilyHistoryObject.ConditionStartDate)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Update Consultation Existing Condition</button>
+            </td>
+        </tr>
+    </table>
+}
+
