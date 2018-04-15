@@ -43,5 +43,23 @@ namespace OMCWebApp.Models
         /// </summary>
         public SDDHabitsModel SDDHabitsModelObject { get; set; }
         public ConsultationSDDHabitsResponse ConsultationSDDHabitsResponseObject { get; set; }
+
+        /// <summary>
+        /// this is used to create the allergy record
+        /// </summary>
+        public AllergyModel AllergyModelObject { get; set; }
+        public ConsultationAllergyResponse ConsultationAllergyResponseObject { get; set; }
+
+        /// <summary>
+        /// this is used to create the family history record
+        /// </summary>
+        public FamilyHistoryModel FamilyHistoryModelObject { get; set; }
+        public ConsultationFamilyHistoryResponse ConsultationFamilyHistoryResponseObject { get; set; }
+
+        /// <summary>
+        /// this is used to create the existing conditions record
+        /// </summary>
+        public FamilyHistoryModel ExistingConditionModelObject { get; set; }
+        public ConsultationFamilyHistoryResponse ConsultationExistingConditionResponseObject { get; set; }
     }
 }

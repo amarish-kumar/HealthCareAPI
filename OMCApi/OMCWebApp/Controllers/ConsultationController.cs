@@ -171,6 +171,39 @@ namespace OMCWebApp.Controllers
                 }
             };
 
+            //set data for the allergy record insert
+            result.AllergyModelObject = new AllergyModel 
+            {
+                ConsultationAllergyObject = new ConsultationAllergies
+                {
+                    ConsultationId = consultationId,
+                    AddedBy = userId
+                }
+            };
+
+            //set data for the family history record insert
+            result.FamilyHistoryModelObject = new FamilyHistoryModel
+            {
+                ConsultationFamilyHistoryObject = new ConsultationFamilyHistory
+                {
+                    ConsultationId = consultationId,
+                    IsAlive = true,
+                    AddedBy = userId
+                }
+            };
+
+            //set data for the existing condition record insert
+            result.ExistingConditionModelObject = new FamilyHistoryModel
+            {
+                ConsultationFamilyHistoryObject = new ConsultationFamilyHistory
+                {
+                    ConsultationId = consultationId,
+                    RelationshipId = 1, //hard coded for self
+                    IsAlive = true,
+                    AddedBy = userId
+                }
+            };
+
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
@@ -202,6 +235,24 @@ namespace OMCWebApp.Controllers
                 Res = await client.GetAsync("api/ConsultationAPI/GetConsultationSDDHabitsList?consultationId=" + consultationId.ToString() + "&consultationSDDHabitsId=");
                 result.ConsultationSDDHabitsResponseObject = JsonConvert.DeserializeObject<ConsultationSDDHabitsResponse>(Res.Content.ReadAsStringAsync().Result);
                 
+
+                Res = await client.GetAsync("api/ConsultationAPI/GetAllergyList?isActive=true&allergyName=&searchTerm=");
+                result.AllergyModelObject.AllergyList = JsonConvert.DeserializeObject<List<AllergyMaster>>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/ConsultationAPI/GetHealthConditionList?isActive=true&healthConditionNameName=&searchTerm=");
+                result.ExistingConditionModelObject.HealthConditionList = result.FamilyHistoryModelObject.HealthConditionList = JsonConvert.DeserializeObject<List<HealthConditionMaster>>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/SignUpAPI/GetRelationships?isActive=true&relationship=&excludeSelf=true");
+                result.FamilyHistoryModelObject.RelationshipList = JsonConvert.DeserializeObject<List<RelationshipMaster>>(Res.Content.ReadAsStringAsync().Result);
+
+                Res = await client.GetAsync("api/ConsultationAPI/GetConsultationAllergyList?consultationId=" + consultationId.ToString() + "&consultationAllergyId=");
+                result.ConsultationAllergyResponseObject = JsonConvert.DeserializeObject<ConsultationAllergyResponse>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/ConsultationAPI/GetConsultationFamilyHistoryList?consultationId=" + consultationId.ToString() + "&consultationFamilyHistoryId=&relationshipId=&excludeSelf=true");
+                result.ConsultationFamilyHistoryResponseObject = JsonConvert.DeserializeObject<ConsultationFamilyHistoryResponse>(Res.Content.ReadAsStringAsync().Result);
+
+                Res = await client.GetAsync("api/ConsultationAPI/GetConsultationFamilyHistoryList?consultationId=" + consultationId.ToString() + "&consultationFamilyHistoryId=&relationshipId=1&excludeSelf=false");
+                result.ConsultationExistingConditionResponseObject = JsonConvert.DeserializeObject<ConsultationFamilyHistoryResponse>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/SignUpAPI/GetRelationships?isActive=true&relationship=self&excludeSelf=false");
+                result.ExistingConditionModelObject.RelationshipList = JsonConvert.DeserializeObject<List<RelationshipMaster>>(Res.Content.ReadAsStringAsync().Result);
+
             }
 
 
@@ -627,6 +678,178 @@ namespace OMCWebApp.Controllers
             return View(SDDHabitsModelObject);
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InsertUpdateConsultationAllergy(AllergyModel allergy)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var json = JsonConvert.SerializeObject(allergy.ConsultationAllergyObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/ConsultationAPI/InsertUpdateConsultationAllergy", content);
+                ConsultationAllergyResponse result = new ConsultationAllergyResponse();
+                if (Res.IsSuccessStatusCode)
+                {
+                    result.IsSuccess = true;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    result.IsSuccess = false;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                return View("AllergyResponse", result);
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> EditAllergy(int userId, int consultationId, int consultationAllergyId)
+        {
+            //set data for the surgery record edit
+            var AllergyModelObject = new AllergyModel
+            {
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConsultationAllergyList?consultationId=" + consultationId.ToString() + "&consultationAllergyId=" + consultationAllergyId.ToString());
+                var ConsultationAllergyResponseObject = JsonConvert.DeserializeObject<ConsultationAllergyResponse>(Res.Content.ReadAsStringAsync().Result);
+
+                if (ConsultationAllergyResponseObject.ConsultationAllergyList != null
+                    && ConsultationAllergyResponseObject.ConsultationAllergyList.Count > 0)
+                {
+                    var consAllergyDisplay = ConsultationAllergyResponseObject.ConsultationAllergyList.First();
+                    AllergyModelObject.ConsultationAllergyObject = new ConsultationAllergies
+                    {
+                        Id = consAllergyDisplay.Id,
+                        ConsultationId = consAllergyDisplay.ConsultationId,
+                        AllergyId = consAllergyDisplay.AllergyId,
+                        AllergyStartDate = consAllergyDisplay.AllergyStartDate,
+                        Treatment = consAllergyDisplay.Treatment,
+                        ModifiedBy = userId,
+                        Active = consAllergyDisplay.Active
+                    };
+                }
+                Res = await client.GetAsync("api/ConsultationAPI/GetAllergyList?isActive=true&allergyName=&searchTerm=");
+                AllergyModelObject.AllergyList = JsonConvert.DeserializeObject<List<AllergyMaster>>(Res.Content.ReadAsStringAsync().Result);
+            }
+            return View(AllergyModelObject);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InsertUpdateConsultationFamilyHistory(FamilyHistoryModel familyHistory)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var json = JsonConvert.SerializeObject(familyHistory.ConsultationFamilyHistoryObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/ConsultationAPI/InsertUpdateConsultationFamilyHistory", content);
+                ConsultationFamilyHistoryResponse result = new ConsultationFamilyHistoryResponse();
+                if (Res.IsSuccessStatusCode)
+                {
+                    result.IsSuccess = true;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    result.IsSuccess = false;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                return View("FamilyHistoryResponse", result);
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> EditFamilyHistory(int userId, int consultationId, int consultationFamilyHistoryId, int? relationshipId, bool? excludeSelf)
+        {
+            //set data for the surgery record edit
+            var FamilyHistoryModelObject = new FamilyHistoryModel
+            {
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConsultationFamilyHistoryList?consultationId=" + consultationId.ToString() + "&relationshipId=&excludeSelf=&consultationFamilyHistoryId=" + consultationFamilyHistoryId.ToString());
+                var ConsultationFamilyHistoryResponseObject = JsonConvert.DeserializeObject<ConsultationFamilyHistoryResponse>(Res.Content.ReadAsStringAsync().Result);
+
+                if (ConsultationFamilyHistoryResponseObject.ConsultationFamilyHistories != null
+                    && ConsultationFamilyHistoryResponseObject.ConsultationFamilyHistories.Count > 0)
+                {
+                    var consAllergyDisplay = ConsultationFamilyHistoryResponseObject.ConsultationFamilyHistories.First();
+                    FamilyHistoryModelObject.ConsultationFamilyHistoryObject = new ConsultationFamilyHistory
+                    {
+                        Id = consAllergyDisplay.Id,
+                        ConsultationId = consAllergyDisplay.ConsultationId,
+                        RelationshipId = consAllergyDisplay.RelationshipId,
+                        CurrentAge = consAllergyDisplay.CurrentAge,
+                        AgeOnConditionStart = consAllergyDisplay.AgeOnConditionStart,
+                        IsAlive = consAllergyDisplay.IsAlive,
+                        AgeOnDeath = consAllergyDisplay.AgeOnDeath,
+                        CauseOfDeath = consAllergyDisplay.CauseOfDeath,
+                        ModifiedBy = userId,
+                        Active = consAllergyDisplay.Active
+                    };
+                }
+                Res = await client.GetAsync("api/ConsultationAPI/GetHealthConditionList?isActive=true&healthConditionNameName=&searchTerm=");
+                FamilyHistoryModelObject.HealthConditionList = JsonConvert.DeserializeObject<List<HealthConditionMaster>>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/SignUpAPI/GetRelationships?isActive=true&relationship=&excludeSelf=true");
+                FamilyHistoryModelObject.RelationshipList = JsonConvert.DeserializeObject<List<RelationshipMaster>>(Res.Content.ReadAsStringAsync().Result);
+            }
+            return View(FamilyHistoryModelObject);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> EditExistingCondition(int userId, int consultationId, int consultationFamilyHistoryId, 
+            int? relationshipId, bool? excludeSelf)
+        {
+            //set data for the surgery record edit
+            var ExistingConditionModelObject = new FamilyHistoryModel
+            {
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConsultationFamilyHistoryList?consultationId=" + consultationId.ToString() + "&relationshipId=&excludeSelf="+excludeSelf.ToString()+"&consultationFamilyHistoryId=" + consultationFamilyHistoryId.ToString());
+                var ConsultationExistingConditionResponseObject = JsonConvert.DeserializeObject<ConsultationFamilyHistoryResponse>(Res.Content.ReadAsStringAsync().Result);
+
+                if (ConsultationExistingConditionResponseObject.ConsultationFamilyHistories != null
+                    && ConsultationExistingConditionResponseObject.ConsultationFamilyHistories.Count > 0)
+                {
+                    var consExistingConditionDisplay = ConsultationExistingConditionResponseObject.ConsultationFamilyHistories.First();
+                    ExistingConditionModelObject.ConsultationFamilyHistoryObject = new ConsultationFamilyHistory
+                    {
+                        Id = consExistingConditionDisplay.Id,
+                        ConsultationId = consExistingConditionDisplay.ConsultationId,
+                        RelationshipId = consExistingConditionDisplay.RelationshipId,
+                        ConditionStartDate = consExistingConditionDisplay.ConditionStartDate,
+                        IsAlive = consExistingConditionDisplay.IsAlive,
+                        ModifiedBy = userId,
+                        Active = consExistingConditionDisplay.Active
+                    };
+                }
+                Res = await client.GetAsync("api/ConsultationAPI/GetHealthConditionList?isActive=true&healthConditionNameName=&searchTerm=");
+                ExistingConditionModelObject.HealthConditionList = JsonConvert.DeserializeObject<List<HealthConditionMaster>>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/SignUpAPI/GetRelationships?isActive=true&relationship=self&excludeSelf=false");
+                ExistingConditionModelObject.RelationshipList = JsonConvert.DeserializeObject<List<RelationshipMaster>>(Res.Content.ReadAsStringAsync().Result);
+            }
+            return View(ExistingConditionModelObject);
+        }
         #endregion
     }
 }
