@@ -511,19 +511,19 @@ namespace OMC.DAL.Library
             }
         }
 
-        public List<HealthConditionMaster> GetHealthConditionList(bool? isActive, string healthConditionNameName, string searchTerm)
+        public List<HealthConditionMaster> GetHealthConditionList(bool? isActive, string healthConditionName, string searchTerm)
         {
             try
             {
                 Log.Info("Started call to GetHealthConditionList");
-                Log.Info("parameter values =" + JsonConvert.SerializeObject(new { isActive = isActive, healthConditionNameName = healthConditionNameName, searchTerm = searchTerm }));
+                Log.Info("parameter values =" + JsonConvert.SerializeObject(new { isActive = isActive, healthConditionName = healthConditionName, searchTerm = searchTerm }));
                 Command.CommandText = "SP_GET_HEALTH_CONDITION_MASTER";
                 Command.CommandType = CommandType.StoredProcedure;
 
                 Command.Parameters.Clear();
-                if (!string.IsNullOrEmpty(healthConditionNameName))
+                if (!string.IsNullOrEmpty(healthConditionName))
                 {
-                    Command.Parameters.AddWithValue("@DESCRIPTION", healthConditionNameName);
+                    Command.Parameters.AddWithValue("@DESCRIPTION", healthConditionName);
                 }
                 if (!string.IsNullOrEmpty(searchTerm))
                 {
@@ -547,6 +547,104 @@ namespace OMC.DAL.Library
                     }
                 }
                 Log.Info("End call to GetHealthConditionList result " + JsonConvert.SerializeObject(result));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public List<DrugTypeMaster> GetDrugTypeList(bool? isActive, string drugType, string searchTerm)
+        {
+            try
+            {
+                Log.Info("Started call to GetDrugTypeList");
+                Log.Info("parameter values =" + JsonConvert.SerializeObject(new { isActive = isActive, drugType = drugType, searchTerm = searchTerm }));
+                Command.CommandText = "SP_GET_DRUG_TYPE_MASTER";
+                Command.CommandType = CommandType.StoredProcedure;
+
+                Command.Parameters.Clear();
+                if (!string.IsNullOrEmpty(drugType))
+                {
+                    Command.Parameters.AddWithValue("@DESCRIPTION", drugType);
+                }
+                if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    Command.Parameters.AddWithValue("@SEARCH_TERM", searchTerm);
+                }
+                Command.Parameters.AddWithValue("@ACTIVE", isActive);
+
+                Connection.Open();
+
+                SqlDataReader reader = Command.ExecuteReader();
+                List<DrugTypeMaster> result = new List<DrugTypeMaster>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new DrugTypeMaster
+                        {
+                            Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : null,
+                            Id = Convert.ToInt32(reader["Id"].ToString())
+                        });
+                    }
+                }
+                Log.Info("End call to GetDrugTypeList result " + JsonConvert.SerializeObject(result));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public List<OccupationMaster> GetOccupationList(bool? isActive, string occupationName, string searchTerm)
+        {
+            try
+            {
+                Log.Info("Started call to GetOccupationList");
+                Log.Info("parameter values =" + JsonConvert.SerializeObject(new { isActive = isActive, drugType = occupationName, searchTerm = searchTerm }));
+                Command.CommandText = "SP_GET_OCCUPATION_MASTER";
+                Command.CommandType = CommandType.StoredProcedure;
+
+                Command.Parameters.Clear();
+                if (!string.IsNullOrEmpty(occupationName))
+                {
+                    Command.Parameters.AddWithValue("@DESCRIPTION", occupationName);
+                }
+                if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    Command.Parameters.AddWithValue("@SEARCH_TERM", searchTerm);
+                }
+                Command.Parameters.AddWithValue("@ACTIVE", isActive);
+
+                Connection.Open();
+
+                SqlDataReader reader = Command.ExecuteReader();
+                List<OccupationMaster> result = new List<OccupationMaster>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new OccupationMaster
+                        {
+                            Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : null,
+                            Id = Convert.ToInt32(reader["Id"].ToString())
+                        });
+                    }
+                }
+                Log.Info("End call to GetOccupationList result " + JsonConvert.SerializeObject(result));
                 return result;
             }
             catch (Exception ex)

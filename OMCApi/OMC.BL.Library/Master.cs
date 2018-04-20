@@ -200,11 +200,11 @@ namespace OMC.BL.Library
             }
         }
 
-        public List<HealthConditionMaster> GetHealthConditionList(bool? isActive, string healthConditionNameName, string searchTerm)
+        public List<HealthConditionMaster> GetHealthConditionList(bool? isActive, string healthConditionName, string searchTerm)
         {
             try
             {
-                return this._masterDA.GetHealthConditionList(isActive, healthConditionNameName, searchTerm);
+                return this._masterDA.GetHealthConditionList(isActive, healthConditionName, searchTerm);
             }
             catch (Exception ex)
             {
@@ -215,6 +215,39 @@ namespace OMC.BL.Library
                 //Log
             }
         }
+
+        public List<DrugTypeMaster> GetDrugTypeList(bool? isActive, string drugType, string searchTerm)
+        {
+            try
+            {
+                return this._masterDA.GetDrugTypeList(isActive, drugType, searchTerm);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public List<OccupationMaster> GetOccupationList(bool? isActive, string occupationName, string searchTerm)
+        {
+            try
+            {
+                return this._masterDA.GetOccupationList(isActive, occupationName, searchTerm);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+        
         #endregion
 
         #region IDisposable
