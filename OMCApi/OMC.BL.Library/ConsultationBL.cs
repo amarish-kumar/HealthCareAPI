@@ -328,6 +328,71 @@ namespace OMC.BL.Library
                 //Log
             }
         }
+
+        public ConsultationOccupationResponse InsertUpdateConsultationOccupation(ConsultationOccupation consultationOccupation)
+        {
+            try
+            {
+                return this._consultationDA.InsertUpdateConsultationOccupation(consultationOccupation);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationOccupationResponse GetConsultationOccupationList(int consultationId, int? consultationOccupationId)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationOccupationList(consultationId, consultationOccupationId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationBloodPressureReadingResponse InsertUpdateConsultationBloodPressureReading(ConsultationBloodPressureReading consultationBloodPressureReading)
+        {
+            try
+            {
+                return this._consultationDA.InsertUpdateConsultationBloodPressureReading(consultationBloodPressureReading);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationBloodPressureReadingResponse GetConsultationBloodPressureReadingList(int consultationId, int? consultationBloodPressureReadingId)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationBloodPressureReadingList(consultationId, consultationBloodPressureReadingId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
         #endregion
 
         #region IDisposable

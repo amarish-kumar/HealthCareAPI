@@ -16,6 +16,8 @@ namespace OMC.DAL.Interface
         List<SurgeryMaster> GetSurgeryList(bool? isActive, string surgeryName, string searchTerm);
         List<IllegalDrugMaster> GetIllegalDrugs(bool? isActive, string IllegalDrug);
         List<AllergyMaster> GetAllergyList(bool? isActive, string allergyName, string searchTerm);
-        List<HealthConditionMaster> GetHealthConditionList(bool? isActive, string healthConditionNameName, string searchTerm);
+        List<HealthConditionMaster> GetHealthConditionList(bool? isActive, string healthConditionName, string searchTerm);
+        List<DrugTypeMaster> GetDrugTypeList(bool? isActive, string drugType, string searchTerm);
+        List<OccupationMaster> GetOccupationList(bool? isActive, string occupationName, string searchTerm);
     }
 }

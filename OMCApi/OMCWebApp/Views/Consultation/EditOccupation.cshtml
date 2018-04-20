@@ -1,0 +1,27 @@
+﻿@model  OMCWebApp.Models.OccupationModel
+
+@using (Html.BeginForm("InsertUpdateConsultationOccupation", "Consultation", FormMethod.Post))
+{
+    <h2>Edit Consultation Occupation</h2>
+    @Html.AntiForgeryToken()
+    <table class="createConsAllergy">
+        <tr>
+            <td>
+                Occupation:
+            </td>
+            <td> 
+                @Html.HiddenFor(m => m.ConsultationOccupationObject.Id, Model.ConsultationOccupationObject.Id)
+                @Html.HiddenFor(m => m.ConsultationOccupationObject.ModifiedBy, Model.ConsultationOccupationObject.ModifiedBy)
+                @Html.HiddenFor(m => m.ConsultationOccupationObject.ConsultationId, Model.ConsultationOccupationObject.ConsultationId)
+                @Html.DropDownListFor(m => m.ConsultationOccupationObject.OccupationId, new SelectList(Model.OccupationList, "Id", "Description"))
+            </td>
+        </tr>       
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Update Consultation Occupation</button>
+            </td>
+        </tr>
+    </table>
+}
+

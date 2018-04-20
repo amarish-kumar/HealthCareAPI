@@ -47,6 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsultationOccupation.cs" />
+    <Compile Include="ConsultationBloodPressureReading.cs" />
+    <Compile Include="DrugTypeMaster.cs" />
+    <Compile Include="OccupationMaster.cs" />
     <Compile Include="AllergyMaster.cs" />
     <Compile Include="BaseEntity.cs" />
     <Compile Include="CancerStageMaster.cs" />

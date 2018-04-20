@@ -66,10 +66,10 @@ namespace OMCApi.Areas.Consultation.Controllers
         // Get: api/ConsultationAPI/GetHealthConditionList
         [HttpGet]
         [Route("GetHealthConditionList")]
-        public List<HealthConditionMaster> GetHealthConditionList(bool? isActive, string healthConditionNameName, string searchTerm)
+        public List<HealthConditionMaster> GetHealthConditionList(bool? isActive, string healthConditionName, string searchTerm)
         {
             var masterObj = _Kernel.Get<IMaster>();
-            return masterObj.GetHealthConditionList(isActive, healthConditionNameName, searchTerm);
+            return masterObj.GetHealthConditionList(isActive, healthConditionName, searchTerm);
         }
 
         // Get: api/ConsultationAPI/GetDoctors
@@ -88,6 +88,24 @@ namespace OMCApi.Areas.Consultation.Controllers
         {
             var masterObj = _Kernel.Get<IMaster>();
             return masterObj.GetIllegalDrugs(isActive, IllegalDrug);
+        }
+
+        // Get: api/ConsultationAPI/GetDrugTypeList
+        [HttpGet]
+        [Route("GetDrugTypeList")]
+        public List<DrugTypeMaster> GetDrugTypeList(bool? isActive, string drugType, string searchTerm)
+        {
+            var masterObj = _Kernel.Get<IMaster>();
+            return masterObj.GetDrugTypeList(isActive, drugType, searchTerm);
+        }
+
+        // Get: api/ConsultationAPI/GetOccupationList
+        [HttpGet]
+        [Route("GetOccupationList")]
+        public List<OccupationMaster> GetOccupationList(bool? isActive, string occupationName, string searchTerm)
+        {
+            var masterObj = _Kernel.Get<IMaster>();
+            return masterObj.GetOccupationList(isActive, occupationName, searchTerm);
         }
 
         // Get: api/ConsultationAPI/GetUnregisteredPatientEnquiry
@@ -316,6 +334,54 @@ namespace OMCApi.Areas.Consultation.Controllers
         {
             var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
             return ConsultationBLObj.GetConsultationFamilyHistoryList(consultationId, consultationFamilyHistoryId, relationshipId, excludeSelf);
+        }
+
+        // POST: api/ConsultationAPI/InsertUpdateConsultationOccupation
+        [HttpPost]
+        [Route("InsertUpdateConsultationOccupation")]
+        public IHttpActionResult InsertUpdateConsultationOccupation(ConsultationOccupation consultationOccupation)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            consultationOccupation.Active = true;
+            var consultationOccupationResult = ConsultationBLObj.InsertUpdateConsultationOccupation(consultationOccupation);
+            return Ok(consultationOccupationResult.Message);
+        }
+
+        // Get: api/ConsultationAPI/GetConsultationOccupationList
+        [HttpGet]
+        [Route("GetConsultationOccupationList")]
+        public ConsultationOccupationResponse GetConsultationOccupationList(int consultationId, int? consultationOccupationId)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConsultationOccupationList(consultationId, consultationOccupationId);
+        }
+
+        // POST: api/ConsultationAPI/InsertUpdateConsultationBloodPressureReading
+        [HttpPost]
+        [Route("InsertUpdateConsultationBloodPressureReading")]
+        public IHttpActionResult InsertUpdateConsultationBloodPressureReading(ConsultationBloodPressureReading consultationBloodPressureReading)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            consultationBloodPressureReading.Active = true;
+            var consultationBloodPressureReadingResult = ConsultationBLObj.InsertUpdateConsultationBloodPressureReading(consultationBloodPressureReading);
+            return Ok(consultationBloodPressureReadingResult.Message);
+        }
+
+        // Get: api/ConsultationAPI/GetConsultationBloodPressureReadingList
+        [HttpGet]
+        [Route("GetConsultationBloodPressureReadingList")]
+        public ConsultationBloodPressureReadingResponse GetConsultationBloodPressureReadingList(int consultationId, int? consultationBloodPressureReadingId)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConsultationBloodPressureReadingList(consultationId, consultationBloodPressureReadingId);
         }
         #endregion
     }

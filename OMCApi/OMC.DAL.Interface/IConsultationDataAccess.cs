@@ -25,5 +25,9 @@ namespace OMC.DAL.Interface
         ConsultationFamilyHistoryResponse InsertUpdateConsultationFamilyHistory(ConsultationFamilyHistory consultationFamilyHistory);
         ConsultationFamilyHistoryResponse GetConsultationFamilyHistoryList(int consultationId, int? consultationFamilyHistoryId
             , int? relationshipId, bool? excludeSelf);
+        ConsultationOccupationResponse InsertUpdateConsultationOccupation(ConsultationOccupation consultationOccupation);
+        ConsultationOccupationResponse GetConsultationOccupationList(int consultationId, int? consultationOccupationId);
+        ConsultationBloodPressureReadingResponse InsertUpdateConsultationBloodPressureReading(ConsultationBloodPressureReading consultationBloodPressureReading);
+        ConsultationBloodPressureReadingResponse GetConsultationBloodPressureReadingList(int consultationId, int? consultationBloodPressureReadingId);
     }
 }

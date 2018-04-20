@@ -392,12 +392,13 @@
     {
         <p>No existing conditions recorded</p>
     } 
-    @if (Model.UserRole.ToLower() == "patient" || Model.UserRole.ToLower() == "doctor")
+    @if (Model.UserRole.ToLower() == "patient")
     {
         @Html.Partial("CreateExistingCondition", Model.ExistingConditionModelObject)
     }
     <br />
 </div>
+
 <button class="collapsible">Illegal Drugs</button>
 <div class="content">
     @if (Model.ConsultationIllegalDrugDetailsResponseObject != null
@@ -445,7 +446,6 @@
     }
     <br />
 </div>
-
 
 <button class="collapsible">Smoking Habits</button>
 <div class="content">
@@ -495,7 +495,93 @@
     <br />
 </div>
 
+<button class="collapsible">Occupations</button>
+<div class="content">
+    @if (Model.ConsultationOccupationResponseObject != null
+        && Model.ConsultationOccupationResponseObject.ConsultationOccupationList != null
+        && Model.ConsultationOccupationResponseObject.ConsultationOccupationList.Count() != 0)
+    {
+        <br />
+        <table class="conversations">
+            <thead>
+                <th>Id</th>
+                <th>Consultation Id</th>
+                <th>Occupation</th>
+                <th>Action</th>
+            </thead>
 
+            @foreach (var occupation in Model.ConsultationOccupationResponseObject.ConsultationOccupationList)
+            {
+                <tr>
+                    <td>@occupation.Id</td>
+                    <td>@occupation.ConsultationId</td>
+                    <td>@occupation.OccupationName</td>
+                    <td>
+                        @if (Model.UserRole.ToLower() == "patient")
+                        {
+                            @Html.ActionLink("Edit", "EditOccupation", "Consultation", new { userId = Model.UserId, consultationId = occupation.ConsultationId, consultationOccupationId = occupation.Id }, null)
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>No occupations recorded</p>
+    }
+    @if (Model.UserRole.ToLower() == "patient")
+    {
+        @Html.Partial("CreateOccupation", Model.OccupationModelObject)
+    }
+    <br />
+</div>
+
+<button class="collapsible">Blood Pressure Readings</button>
+<div class="content">
+    @if (Model.ConsultationBloodPressureReadingResponseObject != null
+        && Model.ConsultationBloodPressureReadingResponseObject.ConsultationBloodPressureReadingList != null
+        && Model.ConsultationBloodPressureReadingResponseObject.ConsultationBloodPressureReadingList.Count() != 0)
+    {
+        <br />
+        <table class="conversations">
+            <thead>
+                <th>Id</th>
+                <th>Consultation Id</th>
+                <th>Systolic</th>
+                <th>Diastolic</th>
+                <th>Timestamp</th>
+                <th>Action</th>
+            </thead>
+
+            @foreach (var bloodPressureReading in Model.ConsultationBloodPressureReadingResponseObject.ConsultationBloodPressureReadingList)
+            {
+                <tr>
+                    <td>@bloodPressureReading.Id</td>
+                    <td>@bloodPressureReading.ConsultationId</td>
+                    <td>@bloodPressureReading.Systolic</td>
+                    <td>@bloodPressureReading.Diastolic</td>
+                    <td>@(bloodPressureReading.Timestamp.HasValue ? bloodPressureReading.Timestamp.Value.ToString("dd-MMM-yyyy") : "")</td>
+                    <td>
+                        @if (Model.UserRole.ToLower() == "patient")
+                        {
+                            @Html.ActionLink("Edit", "EditBloodPressureReading", "Consultation", new { userId = Model.UserId, consultationId = bloodPressureReading.ConsultationId, consultationBloodPressureReadingId = bloodPressureReading.Id }, null)
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>No blood pressure reading recorded</p>
+    }
+    @if (Model.UserRole.ToLower() == "patient")
+    {
+        @Html.Partial("CreateBloodPressureReading", Model.BloodPressureReadingModelObject)
+    }
+    <br />
+</div>
 @section scripts{
 
     <script type="text/javascript">

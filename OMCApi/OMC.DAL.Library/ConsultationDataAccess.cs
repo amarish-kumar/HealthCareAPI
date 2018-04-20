@@ -548,7 +548,7 @@ namespace OMC.DAL.Library
             try
             {
                 Log.Info("Started call to GetConsultationCancerTreatmentList");
-                Log.Info("parameter values" + JsonConvert.SerializeObject(new { consultationId = consultationId, consultationSurgeryId = consultationCancerTreatmentId }));
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { consultationId = consultationId, consultationCancerTreatmentId = consultationCancerTreatmentId }));
                 Command.CommandText = "SP_GET_CONSULTATION_CANCER_TREATMENT_LIST";
                 Command.CommandType = CommandType.StoredProcedure;
                 Command.Parameters.Clear();
@@ -798,8 +798,7 @@ namespace OMC.DAL.Library
                 Connection.Close();
             }
         }
-
-
+        
         public ConsultationAllergyResponse InsertUpdateConsultationAllergy(ConsultationAllergies consultationAllergy)
         {
             try
@@ -853,7 +852,7 @@ namespace OMC.DAL.Library
             try
             {
                 Log.Info("Started call to GetConsultationAllergyList");
-                Log.Info("parameter values" + JsonConvert.SerializeObject(new { consultationId = consultationId, consultationSurgeryId = consultationAllergyId }));
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { consultationId = consultationId, consultationAllergyId = consultationAllergyId }));
                 Command.CommandText = "SP_GET_CONSULTATION_ALLERGY_LIST";
                 Command.CommandType = CommandType.StoredProcedure;
                 Command.Parameters.Clear();
@@ -957,7 +956,7 @@ namespace OMC.DAL.Library
                 Log.Info("parameter values" + JsonConvert.SerializeObject(new
                     {
                       consultationId = consultationId
-                    , consultationSurgeryId = consultationFamilyHistoryId
+                    , consultationFamilyHistoryId = consultationFamilyHistoryId
                     , relationshipId = relationshipId
                     , excludeSelf = excludeSelf
                 }));
@@ -1008,6 +1007,203 @@ namespace OMC.DAL.Library
                     });
                 }
                 Log.Info("End call to GetConsultationFamilyHistoryList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationOccupationResponse InsertUpdateConsultationOccupation(ConsultationOccupation consultationOccupation)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateConsultationOccupation");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(consultationOccupation));
+                Command.CommandText = "SP_CONSULTATION_OCCUPATION_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_OCCUPATION_XML", GetXMLFromObject(consultationOccupation));
+                if (consultationOccupation.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationOccupation.AddedBy.Value);
+                }
+                if (consultationOccupation.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationOccupation.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                ConsultationOccupationResponse result = new ConsultationOccupationResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new ConsultationOccupationResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateConsultationOccupation");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationOccupationResponse GetConsultationOccupationList(int consultationId, int? consultationOccupationId)
+        {
+            try
+            {
+                Log.Info("Started call to GetConsultationOccupationList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { consultationId = consultationId, consultationOccupationId = consultationOccupationId }));
+                Command.CommandText = "SP_GET_CONSULTATION_OCCUPATION_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_ID", consultationId);
+                if (consultationOccupationId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@CONSULTATION_OCCUPATION_ID", consultationOccupationId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                ConsultationOccupationResponse result = new ConsultationOccupationResponse();
+                result.ConsultationOccupationList = new List<ConsultationOccupationDisplay>();
+                foreach (DataRow drConsultationOccupation in ds.Tables[0].Rows)
+                {
+                    result.ConsultationOccupationList.Add(new ConsultationOccupationDisplay
+                    {
+                        Id = Convert.ToInt32(drConsultationOccupation["Id"].ToString()),
+                        ConsultationId = Convert.ToInt32(drConsultationOccupation["ConsultationId"].ToString()),
+                        OccupationId = Convert.ToInt32(drConsultationOccupation["OccupationId"].ToString()),
+                        OccupationName = drConsultationOccupation["OccupationName"] != DBNull.Value ? drConsultationOccupation["OccupationName"].ToString() : null,
+                        AddedBy = drConsultationOccupation["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationOccupation["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drConsultationOccupation["AddedDate"] != DBNull.Value ? DateTime.Parse(drConsultationOccupation["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drConsultationOccupation["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationOccupation["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drConsultationOccupation["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drConsultationOccupation["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetConsultationOccupationList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationBloodPressureReadingResponse InsertUpdateConsultationBloodPressureReading(ConsultationBloodPressureReading consultationBloodPressureReading)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateConsultationBloodPressureReading");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(consultationBloodPressureReading));
+                Command.CommandText = "SP_CONSULTATION_BLOOD_PRESSURE_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_BLOOD_PRESSURE_XML", GetXMLFromObject(consultationBloodPressureReading));
+                if (consultationBloodPressureReading.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationBloodPressureReading.AddedBy.Value);
+                }
+                if (consultationBloodPressureReading.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationBloodPressureReading.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                ConsultationBloodPressureReadingResponse result = new ConsultationBloodPressureReadingResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new ConsultationBloodPressureReadingResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateConsultationBloodPressureReading");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationBloodPressureReadingResponse GetConsultationBloodPressureReadingList(int consultationId, int? consultationBloodPressureReadingId)
+        {
+            try
+            {
+                Log.Info("Started call to GetConsultationBloodPressureReadingList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { consultationId = consultationId, consultationBloodPressureReadingId = consultationBloodPressureReadingId }));
+                Command.CommandText = "SP_GET_CONSULTATION_BLOOD_PRESSURE_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_ID", consultationId);
+                if (consultationBloodPressureReadingId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@CONSULTATION_BLOOD_PRESSURE_ID", consultationBloodPressureReadingId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                ConsultationBloodPressureReadingResponse result = new ConsultationBloodPressureReadingResponse();
+                result.ConsultationBloodPressureReadingList = new List<ConsultationBloodPressureReading>();
+                foreach (DataRow drConsultationBloodPressureReading in ds.Tables[0].Rows)
+                {
+                    result.ConsultationBloodPressureReadingList.Add(new ConsultationBloodPressureReading
+                    {
+                        Id = Convert.ToInt32(drConsultationBloodPressureReading["Id"].ToString()),
+                        ConsultationId = Convert.ToInt32(drConsultationBloodPressureReading["ConsultationId"].ToString()),
+                        Systolic = Convert.ToInt32(drConsultationBloodPressureReading["Systolic"].ToString()),
+                        Diastolic = Convert.ToInt32(drConsultationBloodPressureReading["Diastolic"].ToString()),
+                        Timestamp = drConsultationBloodPressureReading["Timestamp"] != DBNull.Value ? DateTime.Parse(drConsultationBloodPressureReading["Timestamp"].ToString()) : (DateTime?)null,
+                        AddedBy = drConsultationBloodPressureReading["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationBloodPressureReading["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drConsultationBloodPressureReading["AddedDate"] != DBNull.Value ? DateTime.Parse(drConsultationBloodPressureReading["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drConsultationBloodPressureReading["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationBloodPressureReading["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drConsultationBloodPressureReading["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drConsultationBloodPressureReading["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetConsultationBloodPressureReadingList result " + JsonConvert.SerializeObject(result));
 
                 return result;
             }

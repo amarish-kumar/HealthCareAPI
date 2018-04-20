@@ -1,0 +1,36 @@
+﻿@model  OMCWebApp.Models.BloodPressureReadingModel
+
+@using (Html.BeginForm("InsertUpdateConsultationBloodPressureReading", "Consultation", FormMethod.Post))
+{
+    <h2>Create Consultation Blood Pressure Reading</h2>
+    @Html.AntiForgeryToken()
+    <table class="createConsAllergy">
+        <tr>
+            <td>
+                Systolic:
+            </td>
+            <td> 
+                @Html.HiddenFor(m => m.ConsultationBloodPressureReadingObject.AddedBy, Model.ConsultationBloodPressureReadingObject.AddedBy)
+                @Html.HiddenFor(m => m.ConsultationBloodPressureReadingObject.ConsultationId, Model.ConsultationBloodPressureReadingObject.ConsultationId)
+                @Html.TextBoxFor(m => m.ConsultationBloodPressureReadingObject.Systolic, Model.ConsultationBloodPressureReadingObject.Systolic)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Diastolic:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationBloodPressureReadingObject.Diastolic, Model.ConsultationBloodPressureReadingObject.Diastolic)
+            </td>
+        </tr>
+        
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Create Consultation Blood Pressure Reading</button>
+            </td>
+        </tr>
+    </table>
+}
+
