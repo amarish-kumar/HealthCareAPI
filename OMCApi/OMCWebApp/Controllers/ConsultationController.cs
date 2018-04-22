@@ -53,6 +53,9 @@ namespace OMCWebApp.Controllers
 
                 Res = await client.GetAsync("api/SignUpAPI/GetProfiles?userId=" + patientId.ToString() + "&profileId=");
                 model.Profiles = JsonConvert.DeserializeObject<List<Profile>>(Res.Content.ReadAsStringAsync().Result);
+
+                Res = await client.GetAsync("api/ConsultationAPI/GetPackageList?isActive=true&packageId=");
+                model.Packages = JsonConvert.DeserializeObject<List<PackageMaster>>(Res.Content.ReadAsStringAsync().Result);
             }
             return View(model);
         }

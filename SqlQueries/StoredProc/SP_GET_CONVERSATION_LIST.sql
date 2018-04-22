@@ -1,16 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_CONVERSATION_LIST]    Script Date: 2/17/2018 5:53:09 PM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONVERSATION_LIST]    Script Date: 4/22/2018 12:15:34 PM ******/
 DROP PROCEDURE [dbo].[SP_GET_CONVERSATION_LIST]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_CONVERSATION_LIST]    Script Date: 2/17/2018 5:53:09 PM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONVERSATION_LIST]    Script Date: 4/22/2018 12:15:34 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 
@@ -29,6 +30,7 @@ BEGIN
 --EXEC [SP_GET_CONVERSATION_LIST] 8, 3, 'Doctor' 
 	SELECT C.Id AS 'ConsultationId' , C.[Description] AS 'ConsultationDescription'
 	, P.Id as ProfileId, P.FirstName + ' ' + P.LastName AS 'ProfileName'
+	, PM.Id as PackageId, PM.[Description] +' ($ ' + CONVERT(NVARCHAR(25), PM.[Price]) + ')'  AS 'PackageName'
 	, C.PatientId, UP.FirstName + ' ' + UP.LastName AS 'PatientName'
 	, C.DoctorId, UD.FirstName + ' ' + UD.LastName AS 'DoctorName'
 	, C.ConsultationStatusId, CS.[Description] AS 'ConsultationStatus'
@@ -38,6 +40,7 @@ BEGIN
 	INNER JOIN UserDetail UD ON UD.Id = C.DoctorId
 	INNER JOIN ConsultationStatus CS ON CS.Id = C.ConsultationStatusId
 	INNER JOIN [Profile] P ON P.Id = C.ProfileId
+	INNER JOIN [PackageMaster] PM ON PM.Id = C.PackageId
 	WHERE (
 		(@USER_ROLE = 'Doctor' AND C.DoctorId = @USER_ID)
 		OR	
@@ -59,6 +62,7 @@ BEGIN
 	WHERE C.Id = @CONSULTATION_ID
 	ORDER BY CONV.AddedDate
 END
+
 
 
 GO

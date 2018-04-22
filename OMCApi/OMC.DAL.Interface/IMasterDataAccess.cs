@@ -19,5 +19,6 @@ namespace OMC.DAL.Interface
         List<HealthConditionMaster> GetHealthConditionList(bool? isActive, string healthConditionName, string searchTerm);
         List<DrugTypeMaster> GetDrugTypeList(bool? isActive, string drugType, string searchTerm);
         List<OccupationMaster> GetOccupationList(bool? isActive, string occupationName, string searchTerm);
+        List<PackageMaster> GetPackageList(bool? isActive, int? packageId);
     }
 }

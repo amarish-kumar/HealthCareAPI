@@ -108,6 +108,15 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetOccupationList(isActive, occupationName, searchTerm);
         }
 
+        // Get: api/ConsultationAPI/GetPackageList
+        [HttpGet]
+        [Route("GetPackageList")]
+        public List<PackageMaster> GetPackageList(bool? isActive, int? packageId)
+        {
+            var masterObj = _Kernel.Get<IMaster>();
+            return masterObj.GetPackageList(isActive, packageId);
+        }
+
         // Get: api/ConsultationAPI/GetUnregisteredPatientEnquiry
         [HttpPost]
         [Route("GetUnregisteredPatientEnquiry")]

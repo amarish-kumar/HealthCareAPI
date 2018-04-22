@@ -19,6 +19,16 @@
         <tr style="height:20px;"></tr>
         <tr>
             <td>
+                Select Package:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.ConsultationObject.PackageId
+                    , new SelectList(Model.Packages, "Id", "PackageName"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
                 Describe the problem:
             </td>
             <td>

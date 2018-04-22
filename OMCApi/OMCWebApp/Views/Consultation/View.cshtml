@@ -58,6 +58,8 @@
 <br />
 <b><font color="blue">Profile: </font></b> @Model.ConversationResponseObject.ConsultationObject.ProfileName
 <br />
+<b><font color="blue">Package: </font></b> @Model.ConversationResponseObject.ConsultationObject.PackageName
+<br />
 <b><font color="blue">User: </font></b> @Model.ConversationResponseObject.ConsultationObject.PatientName
 <br />
 
@@ -70,10 +72,10 @@
         <br />
         <table class="conversations">
             <thead>
-            <th>Id</th>
-            <th>Description</th>
-            <th>From</th>
-            <th>Timestamp</th>
+                <th>Id</th>
+                <th>Description</th>
+                <th>From</th>
+                <th>Timestamp</th>
             </thead>
 
             @foreach (var conversation in Model.ConversationResponseObject.Conversations)
