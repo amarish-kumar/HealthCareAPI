@@ -12,6 +12,7 @@ namespace OMC.Models
         public int RelationshipId { get; set; }
         [Required(ErrorMessage = "Health Condition Id is required.")]
         public int HealthConditionId { get; set; }
+        public string OtherHealthConditionDescription { get; set; }
         public int? CurrentAge { get; set; }
         public DateTime? ConditionStartDate { get; set; }
         public int? AgeOnConditionStart { get; set; }
@@ -45,6 +46,11 @@ namespace OMC.Models
         {
             return ConditionStartDate.HasValue;
         }
+
+        public bool ShouldSerializeOtherHealthConditionDescription()
+        {
+            return !string.IsNullOrEmpty(OtherHealthConditionDescription);
+        }
         #endregion
     }
 
@@ -62,6 +68,7 @@ namespace OMC.Models
         public string Relationship { get; set; }
         public int HealthConditionId { get; set; }
         public string HealthCondition { get; set; }
+        public string OtherHealthConditionDescription { get; set; }
         public int? CurrentAge { get; set; }
         public DateTime? ConditionStartDate { get; set; }
         public int? AgeOnConditionStart { get; set; }

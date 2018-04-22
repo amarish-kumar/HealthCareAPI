@@ -10,6 +10,14 @@ namespace OMC.Models
         [Required(ErrorMessage = "Occupation Id is required.")]
         [Range(1, int.MaxValue, ErrorMessage = "Occupation Id is required.")]
         public int OccupationId { get; set; }
+        public string OtherDescription { get; set; }
+
+        #region Serialization
+        public bool ShouldSerializeOtherDescription()
+        {
+            return !string.IsNullOrEmpty(OtherDescription);
+        }
+        #endregion
     }
 
     public class ConsultationOccupationResponse
@@ -23,6 +31,7 @@ namespace OMC.Models
     {
         public int ConsultationId { get; set; }
         public int OccupationId { get; set; }
+        public string OtherDescription { get; set; }
         public string OccupationName { get; set; }
     }
 }

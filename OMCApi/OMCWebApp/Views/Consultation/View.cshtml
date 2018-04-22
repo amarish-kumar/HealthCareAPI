@@ -169,6 +169,7 @@
             <th>Id</th>
             <th>Consultation Id</th>
             <th>Surgery</th>
+            <th>Other Description</th>
             <th>Surgery Date</th>
             <th>Action</th>
             </thead>
@@ -179,6 +180,7 @@
                     <td>@surgery.Id</td>
                     <td>@surgery.ConsultationId</td>
                     <td>@surgery.SurgeryName</td>
+                    <td>@surgery.OtherDescription</td>
                     <td>@(surgery.SurgeryDate.HasValue ? surgery.SurgeryDate.Value.ToString("dd-MMM-yyyy") : string.Empty)</td>
                     <td>
                         @if (Model.UserRole.ToLower() == "patient")
@@ -265,6 +267,7 @@
                 <th>Id</th>
                 <th>Consultation Id</th>
                 <th>Allergy</th>
+                <th>Other Description</th>
                 <th>Allergy Start Date</th>
                 <th>Treatment</th>
                 <th>Action</th>
@@ -276,6 +279,7 @@
                     <td>@allergy.Id</td>
                     <td>@allergy.ConsultationId</td>
                     <td>@allergy.AllergyName</td>
+                    <td>@allergy.OtherDescription</td>
                     <td>@(allergy.AllergyStartDate.HasValue ? allergy.AllergyStartDate.Value.ToString("dd-MMM-yyyy") : string.Empty)</td>
                     <td>@allergy.Treatment</td>
                     <td>
@@ -312,6 +316,7 @@
             <th>Consultation Id</th>
             <th>Relationship</th>
             <th>Health Condition</th>
+            <th>Other Description</th>
             <th>Current Age</th>
             <th>Age On Condition Start</th>
             <th>Is Alive</th>
@@ -327,6 +332,7 @@
                 <td>@familyHistory.ConsultationId</td>
                 <td>@familyHistory.Relationship</td>
                 <td>@familyHistory.HealthCondition</td>
+                <td>@familyHistory.OtherHealthConditionDescription</td>
                 <td>@(familyHistory.CurrentAge.HasValue ? familyHistory.CurrentAge.Value.ToString() : string.Empty)</td>
                 <td>@(familyHistory.AgeOnConditionStart.HasValue ? familyHistory.AgeOnConditionStart.Value.ToString() : string.Empty)</td>
                 <td>@(familyHistory.IsAlive ? "Yes" : "No")</td>
@@ -366,6 +372,7 @@
                 <th>Consultation Id</th>
                 <th>Relationship</th>
                 <th>Health Condition</th>
+                <th>Other Health Condition Description</th>
                 <th>Condition Start Date</th>
                 <th>Action</th>
             </thead>
@@ -377,6 +384,7 @@
                     <td>@existingCondition.ConsultationId</td>
                     <td>@existingCondition.Relationship</td>
                     <td>@existingCondition.HealthCondition</td>
+                    <td>@existingCondition.OtherHealthConditionDescription</td>
                     <td>@(existingCondition.ConditionStartDate.HasValue ? existingCondition.ConditionStartDate.Value.ToString("dd-MMM-yyyy") : string.Empty)</td>                    
                     <td>
                     @if (Model.UserRole.ToLower() == "patient" || Model.UserRole.ToLower() == "doctor")
@@ -507,6 +515,7 @@
                 <th>Id</th>
                 <th>Consultation Id</th>
                 <th>Occupation</th>
+                <th>Other Description</th>
                 <th>Action</th>
             </thead>
 
@@ -516,6 +525,7 @@
                     <td>@occupation.Id</td>
                     <td>@occupation.ConsultationId</td>
                     <td>@occupation.OccupationName</td>
+                    <td>@occupation.OtherDescription</td>
                     <td>
                         @if (Model.UserRole.ToLower() == "patient")
                         {

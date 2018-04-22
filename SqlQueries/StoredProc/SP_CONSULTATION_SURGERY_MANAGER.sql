@@ -1,16 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_SURGERY_MANAGER]    Script Date: 4/8/2018 11:33:42 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_SURGERY_MANAGER]    Script Date: 4/22/2018 10:16:23 AM ******/
 DROP PROCEDURE [dbo].[SP_CONSULTATION_SURGERY_MANAGER]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_SURGERY_MANAGER]    Script Date: 4/8/2018 11:33:42 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_SURGERY_MANAGER]    Script Date: 4/22/2018 10:16:23 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 CREATE PROCEDURE [dbo].[SP_CONSULTATION_SURGERY_MANAGER]
 (
@@ -26,7 +27,7 @@ BEGIN
 /*BLOCK TO READ THE VARIABLES*/
 
 DECLARE @Id AS BIGINT, @ConsultationId AS BIGINT, @SurgeryId AS BIGINT
-DECLARE @ReturnMessage as NVARCHAR(MAX)
+DECLARE @ReturnMessage as NVARCHAR(MAX), @OtherDescription as NVARCHAR(MAX)
 DECLARE @Active AS BIT, @Result as BIT
 DECLARE @SurgeryDate AS DATETIME
 
@@ -34,6 +35,7 @@ SELECT	 @Id = ConsultationSurgeryList.Columns.value('Id[1]', 'BIGINT')
 	   , @ConsultationId = ConsultationSurgeryList.Columns.value('ConsultationId[1]', 'BIGINT')
 	   , @SurgeryId = ConsultationSurgeryList.Columns.value('SurgeryId[1]', 'BIGINT')   
 	   , @SurgeryDate = ConsultationSurgeryList.Columns.value('SurgeryDate[1]', 'DATETIME')
+	   , @OtherDescription = ConsultationSurgeryList.Columns.value('OtherDescription[1]', 'NVARCHAR(MAX)')
 	   , @Active = ConsultationSurgeryList.Columns.value('Active[1]', 'bit')
 FROM   @CONSULTATION_SURGERY_XML.nodes('ConsultationSurgeries') AS ConsultationSurgeryList(Columns)
 
@@ -47,6 +49,7 @@ BEGIN
 	INSERT INTO [dbo].[ConsultationSurgeries]
            ([ConsultationId]
            ,[SurgeryId]
+		   ,[OtherDescription]
            ,[SurgeryDate]
            ,[Active]
            ,[AddedBy]
@@ -54,6 +57,7 @@ BEGIN
      VALUES
            (@ConsultationId
            ,@SurgeryId
+		   ,@OtherDescription
            ,@SurgeryDate
            ,@Active
 		   ,@USER_ID
@@ -69,6 +73,7 @@ BEGIN
 
 		UPDATE [dbo].[ConsultationSurgeries]
 		   SET [SurgeryId] = ISNULL(@SurgeryId,[SurgeryId])
+			  ,[OtherDescription] = @OtherDescription
 			  ,[SurgeryDate] = ISNULL(@SurgeryDate, [SurgeryDate])
 			  ,[ModifiedBy] = @USER_ID
 			  ,[ModifiedDate] = GETUTCDATE()
@@ -80,6 +85,7 @@ END
 
 SELECT @Result AS Result, @ReturnMessage AS ReturnMessage
 END
+
 
 
 

@@ -474,6 +474,7 @@ namespace OMCWebApp.Controllers
                         Id = consSurgeryDisplay.Id,
                         ConsultationId = consSurgeryDisplay.ConsultationId,
                         SurgeryId = consSurgeryDisplay.SurgeryId,
+                        OtherDescription = consSurgeryDisplay.OtherDescription,
                         SurgeryDate = consSurgeryDisplay.SurgeryDate,
                         ModifiedBy = userId,
                         Active = consSurgeryDisplay.Active
@@ -758,6 +759,7 @@ namespace OMCWebApp.Controllers
                         Id = consAllergyDisplay.Id,
                         ConsultationId = consAllergyDisplay.ConsultationId,
                         AllergyId = consAllergyDisplay.AllergyId,
+                        OtherDescription = consAllergyDisplay.OtherDescription,
                         AllergyStartDate = consAllergyDisplay.AllergyStartDate,
                         Treatment = consAllergyDisplay.Treatment,
                         ModifiedBy = userId,
@@ -816,19 +818,21 @@ namespace OMCWebApp.Controllers
                 if (ConsultationFamilyHistoryResponseObject.ConsultationFamilyHistories != null
                     && ConsultationFamilyHistoryResponseObject.ConsultationFamilyHistories.Count > 0)
                 {
-                    var consAllergyDisplay = ConsultationFamilyHistoryResponseObject.ConsultationFamilyHistories.First();
+                    var consFamilyHistoryDisplay = ConsultationFamilyHistoryResponseObject.ConsultationFamilyHistories.First();
                     FamilyHistoryModelObject.ConsultationFamilyHistoryObject = new ConsultationFamilyHistory
                     {
-                        Id = consAllergyDisplay.Id,
-                        ConsultationId = consAllergyDisplay.ConsultationId,
-                        RelationshipId = consAllergyDisplay.RelationshipId,
-                        CurrentAge = consAllergyDisplay.CurrentAge,
-                        AgeOnConditionStart = consAllergyDisplay.AgeOnConditionStart,
-                        IsAlive = consAllergyDisplay.IsAlive,
-                        AgeOnDeath = consAllergyDisplay.AgeOnDeath,
-                        CauseOfDeath = consAllergyDisplay.CauseOfDeath,
+                        Id = consFamilyHistoryDisplay.Id,
+                        ConsultationId = consFamilyHistoryDisplay.ConsultationId,
+                        RelationshipId = consFamilyHistoryDisplay.RelationshipId,
+                        HealthConditionId = consFamilyHistoryDisplay.HealthConditionId,
+                        OtherHealthConditionDescription = consFamilyHistoryDisplay.OtherHealthConditionDescription,
+                        CurrentAge = consFamilyHistoryDisplay.CurrentAge,
+                        AgeOnConditionStart = consFamilyHistoryDisplay.AgeOnConditionStart,
+                        IsAlive = consFamilyHistoryDisplay.IsAlive,
+                        AgeOnDeath = consFamilyHistoryDisplay.AgeOnDeath,
+                        CauseOfDeath = consFamilyHistoryDisplay.CauseOfDeath,
                         ModifiedBy = userId,
-                        Active = consAllergyDisplay.Active
+                        Active = consFamilyHistoryDisplay.Active
                     };
                 }
                 Res = await client.GetAsync("api/ConsultationAPI/GetHealthConditionList?isActive=true&healthConditionName=&searchTerm=");
@@ -864,6 +868,8 @@ namespace OMCWebApp.Controllers
                         Id = consExistingConditionDisplay.Id,
                         ConsultationId = consExistingConditionDisplay.ConsultationId,
                         RelationshipId = consExistingConditionDisplay.RelationshipId,
+                        HealthConditionId = consExistingConditionDisplay.HealthConditionId,
+                        OtherHealthConditionDescription = consExistingConditionDisplay.OtherHealthConditionDescription,
                         ConditionStartDate = consExistingConditionDisplay.ConditionStartDate,
                         IsAlive = consExistingConditionDisplay.IsAlive,
                         ModifiedBy = userId,
@@ -930,6 +936,7 @@ namespace OMCWebApp.Controllers
                         Id = consOccupationDisplay.Id,
                         ConsultationId = consOccupationDisplay.ConsultationId,
                         OccupationId = consOccupationDisplay.OccupationId,
+                        OtherDescription = consOccupationDisplay.OtherDescription,
                         ModifiedBy = userId,
                         Active = consOccupationDisplay.Active
                     };

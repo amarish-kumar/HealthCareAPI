@@ -1,7 +1,11 @@
 USE [HealthCare]
 GO
 
-/****** Object:  Table [dbo].[ConsultationSurgeriesAudit]    Script Date: 3/12/2018 6:21:09 PM ******/
+/****** Object:  Table [dbo].[ConsultationSurgeriesAudit]    Script Date: 4/22/2018 10:02:38 AM ******/
+DROP TABLE [dbo].[ConsultationSurgeriesAudit]
+GO
+
+/****** Object:  Table [dbo].[ConsultationSurgeriesAudit]    Script Date: 4/22/2018 10:02:38 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -14,6 +18,7 @@ CREATE TABLE [dbo].[ConsultationSurgeriesAudit](
 	[EntityId] [bigint] NOT NULL,
 	[ConsultationId] [bigint] NOT NULL,
 	[SurgeryId] [bigint] NOT NULL,
+	[OtherDescription] [nvarchar](255) NULL,
 	[SurgeryDate] [datetime] NOT NULL,
 	[Active] [bit] NOT NULL,
 	[AddedBy] [bigint] NULL,

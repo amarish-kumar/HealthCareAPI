@@ -1,11 +1,11 @@
 USE [HealthCare]
 GO
 
-/****** Object:  Table [dbo].[ConsultationAllergiesAudit]    Script Date: 4/9/2018 10:07:44 PM ******/
+/****** Object:  Table [dbo].[ConsultationAllergiesAudit]    Script Date: 4/22/2018 10:04:53 AM ******/
 DROP TABLE [dbo].[ConsultationAllergiesAudit]
 GO
 
-/****** Object:  Table [dbo].[ConsultationAllergiesAudit]    Script Date: 4/9/2018 10:07:44 PM ******/
+/****** Object:  Table [dbo].[ConsultationAllergiesAudit]    Script Date: 4/22/2018 10:04:53 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -18,6 +18,7 @@ CREATE TABLE [dbo].[ConsultationAllergiesAudit](
 	[EntityId] [bigint] NOT NULL,
 	[ConsultationId] [bigint] NOT NULL,
 	[AllergyId] [bigint] NOT NULL,
+	[OtherDescription] [nvarchar](255) NULL,
 	[AllergyStartDate] [datetime] NULL,
 	[Treatment] [nvarchar](1000) NULL,
 	[Active] [bit] NOT NULL,
