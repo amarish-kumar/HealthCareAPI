@@ -1,3 +1,4 @@
+use healthCare
 Alter table dbo.[Consultation]
 add PackageId bigint null
 
@@ -12,3 +13,4 @@ UPDATE [dbo].[Consultation]
 SET PackageId = 1
 
 ALTER TABLE [dbo].[Consultation] ALTER COLUMN PackageId bigint NOT NULL
+ALTER TABLE [dbo].[Consultation] ALTER COLUMN ProfileId bigint NOT NULL
