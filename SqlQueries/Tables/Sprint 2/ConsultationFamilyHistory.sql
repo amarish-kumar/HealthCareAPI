@@ -10,11 +10,11 @@ GO
 ALTER TABLE [dbo].[ConsultationFamilyHistory] DROP CONSTRAINT [FK_ConsultationFamilyHistory_Consultation_Id]
 GO
 
-/****** Object:  Table [dbo].[ConsultationFamilyHistory]    Script Date: 4/15/2018 2:14:56 PM ******/
+/****** Object:  Table [dbo].[ConsultationFamilyHistory]    Script Date: 4/22/2018 10:06:55 AM ******/
 DROP TABLE [dbo].[ConsultationFamilyHistory]
 GO
 
-/****** Object:  Table [dbo].[ConsultationFamilyHistory]    Script Date: 4/15/2018 2:14:56 PM ******/
+/****** Object:  Table [dbo].[ConsultationFamilyHistory]    Script Date: 4/22/2018 10:06:55 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -26,8 +26,9 @@ CREATE TABLE [dbo].[ConsultationFamilyHistory](
 	[ConsultationId] [bigint] NOT NULL,
 	[RelationshipId] [bigint] NOT NULL,
 	[HealthConditionId] [bigint] NOT NULL,
+	[OtherHealthConditionDescription] [nvarchar](255) NULL,
 	[CurrentAge] [int] NULL,
-	[ConditionStartDate] datetime NULL,
+	[ConditionStartDate] [datetime] NULL,
 	[AgeOnConditionStart] [int] NULL,
 	[IsAlive] [bit] NOT NULL,
 	[CauseOfDeath] [nvarchar](255) NULL,

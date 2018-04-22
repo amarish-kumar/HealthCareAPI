@@ -1,7 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  Table [dbo].[ConsultationSurgeries]    Script Date: 3/12/2018 6:20:59 PM ******/
+ALTER TABLE [dbo].[ConsultationSurgeries] DROP CONSTRAINT [FK_ConsultationSurgeries_SurgeryMaster_Id]
+GO
+
+ALTER TABLE [dbo].[ConsultationSurgeries] DROP CONSTRAINT [FK_ConsultationSurgeries_Consultation_Id]
+GO
+
+/****** Object:  Table [dbo].[ConsultationSurgeries]    Script Date: 4/22/2018 10:03:23 AM ******/
+DROP TABLE [dbo].[ConsultationSurgeries]
+GO
+
+/****** Object:  Table [dbo].[ConsultationSurgeries]    Script Date: 4/22/2018 10:03:23 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -12,6 +22,7 @@ CREATE TABLE [dbo].[ConsultationSurgeries](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[ConsultationId] [bigint] NOT NULL,
 	[SurgeryId] [bigint] NOT NULL,
+	[OtherDescription] [nvarchar](255) NULL,
 	[SurgeryDate] [datetime] NOT NULL,
 	[Active] [bit] NOT NULL,
 	[AddedBy] [bigint] NULL,

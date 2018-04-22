@@ -1,16 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_FAMILY_HISTORY_LIST]    Script Date: 4/12/2018 9:43:08 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_FAMILY_HISTORY_LIST]    Script Date: 4/22/2018 10:15:35 AM ******/
 DROP PROCEDURE [dbo].[SP_GET_CONSULTATION_FAMILY_HISTORY_LIST]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_FAMILY_HISTORY_LIST]    Script Date: 4/12/2018 9:43:08 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_FAMILY_HISTORY_LIST]    Script Date: 4/22/2018 10:15:35 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 CREATE PROCEDURE [dbo].[SP_GET_CONSULTATION_FAMILY_HISTORY_LIST]
 (	
@@ -38,6 +39,7 @@ SELECT CFH.Id
 	, RM.[Description] AS Relationship
 	, CFH.HealthConditionId
 	, HCM.[Description] AS HealthCondition
+	, CFH.OtherHealthConditionDescription
 	, CFH.CurrentAge
 	, CFH.ConditionStartDate
 	, CFH.AgeOnConditionStart
@@ -58,6 +60,7 @@ SELECT CFH.Id
 	AND (@EXCLUDE_SELF IS NULL OR @EXCLUDE_SELF = 0  OR CFH.RelationshipId <> @SELF_ID)
 	ORDER BY CFH.AddedDate DESC
 END
+
 
 
 

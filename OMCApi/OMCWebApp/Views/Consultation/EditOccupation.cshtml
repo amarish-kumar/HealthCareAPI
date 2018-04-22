@@ -15,7 +15,16 @@
                 @Html.HiddenFor(m => m.ConsultationOccupationObject.ConsultationId, Model.ConsultationOccupationObject.ConsultationId)
                 @Html.DropDownListFor(m => m.ConsultationOccupationObject.OccupationId, new SelectList(Model.OccupationList, "Id", "Description"))
             </td>
-        </tr>       
+        </tr>   
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Others (not found in list):
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationOccupationObject.OtherDescription, Model.ConsultationOccupationObject.OtherDescription)
+            </td>
+        </tr>
         <tr style="height:20px;"></tr>
         <tr>
             <td colspan="2">

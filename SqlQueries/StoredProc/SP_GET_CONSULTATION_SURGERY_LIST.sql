@@ -1,16 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_SURGERY_LIST]    Script Date: 4/8/2018 12:01:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_SURGERY_LIST]    Script Date: 4/22/2018 10:14:58 AM ******/
 DROP PROCEDURE [dbo].[SP_GET_CONSULTATION_SURGERY_LIST]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_SURGERY_LIST]    Script Date: 4/8/2018 12:01:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_SURGERY_LIST]    Script Date: 4/22/2018 10:14:58 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 CREATE PROCEDURE [dbo].[SP_GET_CONSULTATION_SURGERY_LIST]
 (	
@@ -26,6 +27,7 @@ BEGIN
 SELECT CS.Id
 	, CS.ConsultationId
 	, CS.SurgeryId
+	, CS.OtherDescription
 	, SM.[Description] as SurgeryName
 	, CS.SurgeryDate
 	, CS.AddedBy
@@ -39,6 +41,7 @@ SELECT CS.Id
 	AND (@CONSULTATION_SURGERY_ID IS NULL OR CS.Id = @CONSULTATION_SURGERY_ID)
 	ORDER BY CS.AddedDate DESC
 END
+
 
 
 

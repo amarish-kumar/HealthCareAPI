@@ -1,11 +1,11 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_OCCUPATION_LIST]    Script Date: 4/18/2018 10:09:05 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_OCCUPATION_LIST]    Script Date: 4/22/2018 10:14:23 AM ******/
 DROP PROCEDURE [dbo].[SP_GET_CONSULTATION_OCCUPATION_LIST]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_OCCUPATION_LIST]    Script Date: 4/18/2018 10:09:05 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_OCCUPATION_LIST]    Script Date: 4/22/2018 10:14:23 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -27,6 +27,7 @@ BEGIN
 SELECT CO.Id
 	, CO.ConsultationId
 	, CO.OccupationId
+	, CO.OtherDescription
 	, OM.[Description] OccupationName
 	, CO.AddedBy
 	, CO.AddedDate

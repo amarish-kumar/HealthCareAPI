@@ -1,16 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_FAMILY_HISTORY_MANAGER]    Script Date: 4/15/2018 2:53:31 PM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_FAMILY_HISTORY_MANAGER]    Script Date: 4/22/2018 10:18:53 AM ******/
 DROP PROCEDURE [dbo].[SP_CONSULTATION_FAMILY_HISTORY_MANAGER]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_FAMILY_HISTORY_MANAGER]    Script Date: 4/15/2018 2:53:31 PM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_FAMILY_HISTORY_MANAGER]    Script Date: 4/22/2018 10:18:53 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 
@@ -30,6 +31,7 @@ BEGIN
 DECLARE @Id AS BIGINT, @ConsultationId AS BIGINT, @RelationshipId AS BIGINT, @HealthConditionId AS BIGINT
 DECLARE @CurrentAge AS INT, @AgeOnConditionStart AS INT, @AgeOnDeath AS INT
 DECLARE @CauseOfDeath AS NVARCHAR(MAX), @ReturnMessage as NVARCHAR(MAX)
+, @OtherHealthConditionDescription as NVARCHAR(MAX)
 DECLARE @ConditionStartDate AS DATETIME
 DECLARE @Active AS BIT, @IsAlive AS BIT, @Result as BIT
 
@@ -42,6 +44,7 @@ SELECT	 @Id = ConsultationFamilyHistoryList.Columns.value('Id[1]', 'BIGINT')
 	   , @AgeOnConditionStart = ConsultationFamilyHistoryList.Columns.value('AgeOnConditionStart[1]', 'INT')
 	   , @AgeOnDeath = ConsultationFamilyHistoryList.Columns.value('AgeOnDeath[1]', 'INT')
 	   , @CauseOfDeath = ConsultationFamilyHistoryList.Columns.value('CauseOfDeath[1]', 'nvarchar(max)')
+	   , @OtherHealthConditionDescription = ConsultationFamilyHistoryList.Columns.value('OtherHealthConditionDescription[1]', 'NVARCHAR(MAX)')
 	   , @IsAlive = ConsultationFamilyHistoryList.Columns.value('IsAlive[1]', 'bit')
 	   , @Active = ConsultationFamilyHistoryList.Columns.value('Active[1]', 'bit')
 FROM   @CONSULTATION_FAMILY_HISTORY_XML.nodes('ConsultationFamilyHistory') AS ConsultationFamilyHistoryList(Columns)
@@ -57,6 +60,7 @@ BEGIN
            ([ConsultationId]
            ,[RelationshipId]
            ,[HealthConditionId]
+		   ,[OtherHealthConditionDescription]
            ,[CurrentAge]
 		   ,[ConditionStartDate]
            ,[AgeOnConditionStart]
@@ -70,6 +74,7 @@ BEGIN
            (@ConsultationId
            ,@RelationshipId
            ,@HealthConditionId
+		   ,@OtherHealthConditionDescription
            ,@CurrentAge
 		   ,@ConditionStartDate
            ,@AgeOnConditionStart
@@ -90,6 +95,7 @@ BEGIN
 		UPDATE [dbo].[ConsultationFamilyHistory]
 		   SET [RelationshipId] = ISNULL(@RelationshipId,[RelationshipId])
 			  ,[HealthConditionId] = ISNULL(@HealthConditionId, [HealthConditionId])
+			  ,[OtherHealthConditionDescription] = @OtherHealthConditionDescription
 			  ,[CurrentAge] = @CurrentAge
 			  ,[ConditionStartDate] = @ConditionStartDate
 			  ,[AgeOnConditionStart] = @AgeOnConditionStart
@@ -106,6 +112,7 @@ END
 
 SELECT @Result AS Result, @ReturnMessage AS ReturnMessage
 END
+
 
 
 
