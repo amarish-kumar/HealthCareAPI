@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PackageMaster.cs" />
     <Compile Include="ConsultationOccupation.cs" />
     <Compile Include="ConsultationBloodPressureReading.cs" />
     <Compile Include="DrugTypeMaster.cs" />

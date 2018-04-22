@@ -247,7 +247,23 @@ namespace OMC.BL.Library
                 //Log
             }
         }
-        
+
+        public List<PackageMaster> GetPackageList(bool? isActive, int? packageId)
+        {
+            try
+            {
+                return this._masterDA.GetPackageList(isActive, packageId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
         #endregion
 
         #region IDisposable

@@ -614,7 +614,7 @@ namespace OMC.DAL.Library
             try
             {
                 Log.Info("Started call to GetOccupationList");
-                Log.Info("parameter values =" + JsonConvert.SerializeObject(new { isActive = isActive, drugType = occupationName, searchTerm = searchTerm }));
+                Log.Info("parameter values =" + JsonConvert.SerializeObject(new { isActive = isActive, occupationName = occupationName, searchTerm = searchTerm }));
                 Command.CommandText = "SP_GET_OCCUPATION_MASTER";
                 Command.CommandType = CommandType.StoredProcedure;
 
@@ -645,6 +645,53 @@ namespace OMC.DAL.Library
                     }
                 }
                 Log.Info("End call to GetOccupationList result " + JsonConvert.SerializeObject(result));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public List<PackageMaster> GetPackageList(bool? isActive, int? packageId)
+        {
+            try
+            {
+                Log.Info("Started call to GetPackageList");
+                Log.Info("parameter values =" + JsonConvert.SerializeObject(new { isActive = isActive, packageId = packageId }));
+                Command.CommandText = "SP_GET_PACKAGE_MASTER";
+                Command.CommandType = CommandType.StoredProcedure;
+
+                Command.Parameters.Clear();
+                if (packageId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@PACKAGE_ID", packageId);
+                }
+                Command.Parameters.AddWithValue("@ACTIVE", isActive);
+
+                Connection.Open();
+
+                SqlDataReader reader = Command.ExecuteReader();
+                List<PackageMaster> result = new List<PackageMaster>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new PackageMaster
+                        {
+                            Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : null,
+                            Id = Convert.ToInt32(reader["Id"].ToString()),
+                            Packagename = reader["Packagename"] != DBNull.Value ? reader["Packagename"].ToString() : null,
+                            Price = reader["Price"] != DBNull.Value ? Convert.ToDecimal(reader["Price"].ToString()) : 0
+                        });
+                    }
+                }
+                Log.Info("End call to GetPackageList result " + JsonConvert.SerializeObject(result));
                 return result;
             }
             catch (Exception ex)
