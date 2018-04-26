@@ -393,6 +393,37 @@ namespace OMC.BL.Library
             }
         }
 
+        public ConsultationMedicationResponse InsertUpdateConsultationMedication(ConsultationMedications consultationMedication)
+        {
+            try
+            {
+                return this._consultationDA.InsertUpdateConsultationMedication(consultationMedication);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationMedicationResponse GetConsultationMedicationList(int consultationId, int? consultationMedicationId)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationMedicationList(consultationId, consultationMedicationId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
         #endregion
 
         #region IDisposable

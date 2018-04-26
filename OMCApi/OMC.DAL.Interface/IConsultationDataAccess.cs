@@ -29,5 +29,7 @@ namespace OMC.DAL.Interface
         ConsultationOccupationResponse GetConsultationOccupationList(int consultationId, int? consultationOccupationId);
         ConsultationBloodPressureReadingResponse InsertUpdateConsultationBloodPressureReading(ConsultationBloodPressureReading consultationBloodPressureReading);
         ConsultationBloodPressureReadingResponse GetConsultationBloodPressureReadingList(int consultationId, int? consultationBloodPressureReadingId);
+        ConsultationMedicationResponse InsertUpdateConsultationMedication(ConsultationMedications consultationMedication);
+        ConsultationMedicationResponse GetConsultationMedicationList(int consultationId, int? consultationMedicationId);
     }
 }
