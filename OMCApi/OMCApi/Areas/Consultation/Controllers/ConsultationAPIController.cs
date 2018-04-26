@@ -99,9 +99,9 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetDrugTypeList(isActive, drugType, searchTerm);
         }
 
-        // Get: api/ConsultationAPI/GetSubDrugTypeList
+        // Get: api/ConsultationAPI/GetDrugSubTypeList
         [HttpGet]
-        [Route("GetSubDrugTypeList")]
+        [Route("GetDrugSubTypeList")]
         public List<DrugSubTypeMaster> GetDrugSubTypeList(int drugTypeId, bool? isActive, string drugSubTypeName, string searchTerm)
         {
             var masterObj = _Kernel.Get<IMaster>();

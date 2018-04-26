@@ -114,16 +114,16 @@
         <br />
         <table class="conversations">
             <thead>
-            <th>Id</th>
-            <th>Consultation Id</th>
-            <th>File Name</th>
-            <th>Report Date</th>
-            <th>Lab Name</th>
-            <th>Description</th>
-            <th>Doctor Name</th>
-            <th>Country</th>
-            <th>Phone Number</th>
-            <th>Action</th>
+                <th>Id</th>
+                <th>Consultation Id</th>
+                <th>File Name</th>
+                <th>Report Date</th>
+                <th>Lab Name</th>
+                <th>Description</th>
+                <th>Doctor Name</th>
+                <th>Country</th>
+                <th>Phone Number</th>
+                <th>Action</th>
             </thead>
 
             @foreach (var report in Model.ConsultationReportResponseObject.ConsultationReports)
@@ -594,6 +594,55 @@
     }
     <br />
 </div>
+
+<button class="collapsible">Medications</button>
+<div class="content">
+    @if (Model.ConsultationMedicationResponseObject != null
+        && Model.ConsultationMedicationResponseObject.ConsultationMedicationList != null
+        && Model.ConsultationMedicationResponseObject.ConsultationMedicationList.Count() != 0)
+    {
+        <br />
+        <table class="conversations">
+            <thead>
+                <th>Id</th>
+                <th>Consultation Id</th>
+                <th>Systolic</th>
+                <th>Diastolic</th>
+                <th>Timestamp</th>
+                <th>Action</th>
+            </thead>
+
+            @foreach (var medication in Model.ConsultationMedicationResponseObject.ConsultationMedicationList)
+            {
+                <tr>
+                    @*<td>@medication.Id</td>
+                    <td>@medication.ConsultationId</td>
+                    <td>@medication.Systolic</td>
+                    <td>@medication.Diastolic</td>
+                    <td>@(medication.Timestamp.HasValue ? medication.Timestamp.Value.ToString("dd-MMM-yyyy") : "")</td>*@
+                    <td>
+                        @if (Model.UserRole.ToLower() == "patient")
+                        {
+                            @Html.ActionLink("Edit", "EditMedication", "Consultation"
+                            , new { userId = Model.UserId, consultationId = medication.ConsultationId
+                                    , consultationMedicationId = medication.Id }
+                            , null)
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>No medications recorded</p>
+    }
+    @if (Model.UserRole.ToLower() == "patient")
+    {
+        @Html.Partial("CreateMedication", Model.MedicationModelObject)
+    }
+    <br />
+</div>
 @section scripts{
 
     <script type="text/javascript">
@@ -612,6 +661,25 @@
                     }
                 });
             }
+
+            $('#ConsultationMedicationObject_DrugTypeId').change(function () {
+                var drugTypeId = $(this).val();
+                $.ajax({
+                    url: '/Consultation/GetDrugSubTypeList?drugTypeId=' + drugTypeId,
+                    type: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        $('#ConsultationMedicationObject_DrugSubTypeId').find('option:not(:first)').remove();
+                        $.each(data, function (i, record) {                            
+                            $('#ConsultationMedicationObject_DrugSubTypeId').append(
+                                $('<option></option>').val(record.Id).html(record.Description));
+                        });
+                    },
+                    error: function (a,b,c) {
+                    }
+                });
+            });
         });
     </script>
 

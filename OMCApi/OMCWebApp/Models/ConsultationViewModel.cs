@@ -73,5 +73,11 @@ namespace OMCWebApp.Models
         /// </summary>
         public BloodPressureReadingModel BloodPressureReadingModelObject { get; set; }
         public ConsultationBloodPressureReadingResponse ConsultationBloodPressureReadingResponseObject { get; set; }
+
+        /// <summary>
+        /// this is used to create the medication record
+        /// </summary>
+        public MedicationModel MedicationModelObject { get; set; }
+        public ConsultationMedicationResponse ConsultationMedicationResponseObject { get; set; }
     }
 }
