@@ -1,16 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_DRUG_SUB_TYPE_MASTER]    Script Date: 4/26/2018 11:14:12 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_DRUG_SUB_TYPE_MASTER]    Script Date: 4/26/2018 12:33:34 PM ******/
 DROP PROCEDURE [dbo].[SP_GET_DRUG_SUB_TYPE_MASTER]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_DRUG_SUB_TYPE_MASTER]    Script Date: 4/26/2018 11:14:12 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_DRUG_SUB_TYPE_MASTER]    Script Date: 4/26/2018 12:33:34 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 CREATE PROCEDURE [dbo].[SP_GET_DRUG_SUB_TYPE_MASTER]
@@ -28,7 +29,7 @@ BEGIN
 --EXEC [SP_GET_DRUG_SUB_TYPE_MASTER] 1, 1, 'Tablet'
 --EXEC [SP_GET_DRUG_SUB_TYPE_MASTER] 1, 1, null, 'Tablet'
 
-	SELECT Id, [Description]
+	SELECT Id, @DRUG_TYPE_ID AS DrugTypeId, [Description]
 	FROM [DrugSubTypeMaster]
 	WHERE DrugTypeId = @DRUG_TYPE_ID
 	AND (@ACTIVE IS NULL OR [Active] = @ACTIVE)
@@ -36,6 +37,7 @@ BEGIN
 	AND (@SEARCH_TERM IS NULL OR [Description] like '%' + @SEARCH_TERM + '%') 
 	ORDER BY [Description]
 END
+
 
 
 

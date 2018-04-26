@@ -1224,6 +1224,118 @@ namespace OMC.DAL.Library
                 Connection.Close();
             }
         }
+
+        public ConsultationMedicationResponse InsertUpdateConsultationMedication(ConsultationMedications consultationMedication)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateConsultationMedication");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(consultationMedication));
+                Command.CommandText = "SP_CONSULTATION_MEDICATION_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_MEDICATION_XML", GetXMLFromObject(consultationMedication));
+                if (consultationMedication.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationMedication.AddedBy.Value);
+                }
+                if (consultationMedication.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationMedication.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                ConsultationMedicationResponse result = new ConsultationMedicationResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new ConsultationMedicationResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateConsultationMedication");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationMedicationResponse GetConsultationMedicationList(int consultationId, int? consultationMedicationId)
+        {
+            try
+            {
+                Log.Info("Started call to GetConsultationMedicationList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { consultationId = consultationId, consultationMedicationId = consultationMedicationId }));
+                Command.CommandText = "SP_GET_CONSULTATION_MEDICATION_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_ID", consultationId);
+                if (consultationMedicationId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@CONSULTATION_MEDICATION_ID", consultationMedicationId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                ConsultationMedicationResponse result = new ConsultationMedicationResponse();
+                result.ConsultationMedicationList = new List<ConsultationMedicationDisplay>();
+                foreach (DataRow drConsultationMedication in ds.Tables[0].Rows)
+                {
+                    result.ConsultationMedicationList.Add(new ConsultationMedicationDisplay
+                    {
+                        Id = Convert.ToInt32(drConsultationMedication["Id"].ToString()),
+                        ConsultationId = Convert.ToInt32(drConsultationMedication["ConsultationId"].ToString()),
+                        DrugBrandId = Convert.ToInt32(drConsultationMedication["DrugBrandId"].ToString()),
+                        DrugBrandName = drConsultationMedication["DrugBrandName"] != DBNull.Value ? drConsultationMedication["DrugBrandName"].ToString() : string.Empty,
+                        DrugBrandOtherDescription = drConsultationMedication["DrugBrandOtherDescription"] != DBNull.Value ? drConsultationMedication["DrugBrandOtherDescription"].ToString() : string.Empty,
+                        DrugChemicalId = Convert.ToInt32(drConsultationMedication["DrugChemicalId"].ToString()),
+                        DrugChemicalName = drConsultationMedication["DrugChemicalName"] != DBNull.Value ? drConsultationMedication["DrugChemicalName"].ToString() : string.Empty,
+                        DrugChemicalOtherDescription = drConsultationMedication["DrugChemicalOtherDescription"] != DBNull.Value ? drConsultationMedication["DrugChemicalOtherDescription"].ToString() : string.Empty,
+                        DrugFrequencyId = Convert.ToInt32(drConsultationMedication["DrugFrequencyId"].ToString()),
+                        DrugFrequencyName = drConsultationMedication["DrugFrequencyName"] != DBNull.Value ? drConsultationMedication["DrugFrequencyName"].ToString() : string.Empty,
+                        DrugTypeId = Convert.ToInt32(drConsultationMedication["DrugTypeId"].ToString()),
+                        DrugTypeName = drConsultationMedication["DrugTypeName"] != DBNull.Value ? drConsultationMedication["DrugTypeName"].ToString() : string.Empty,
+                        DrugSubTypeId = Convert.ToInt32(drConsultationMedication["DrugSubTypeId"].ToString()),
+                        DrugSubTypeName = drConsultationMedication["DrugSubTypeName"] != DBNull.Value ? drConsultationMedication["DrugSubTypeName"].ToString() : string.Empty,
+                        DrugStartDate = drConsultationMedication["DrugStartDate"] != DBNull.Value ? Convert.ToDateTime(drConsultationMedication["DrugStartDate"].ToString()) : (DateTime?)null,
+                        DrugEndDate = drConsultationMedication["DrugEndDate"] != DBNull.Value ? Convert.ToDateTime(drConsultationMedication["DrugEndDate"].ToString()) : (DateTime?)null,
+                        DrugDosage = drConsultationMedication["DrugDosage"] != DBNull.Value ? Decimal.Parse(drConsultationMedication["DrugDosage"].ToString()) : (Decimal?)null,
+                        AddedBy = drConsultationMedication["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationMedication["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drConsultationMedication["AddedDate"] != DBNull.Value ? DateTime.Parse(drConsultationMedication["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drConsultationMedication["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationMedication["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drConsultationMedication["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drConsultationMedication["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetConsultationMedicationList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
         #endregion
     }
 }

@@ -248,6 +248,70 @@ namespace OMC.BL.Library
             }
         }
 
+        public List<DrugSubTypeMaster> GetDrugSubTypeList(int drugTypeId, bool? isActive, string drugSubTypeName, string searchTerm)
+        {
+            try
+            {
+                return this._masterDA.GetDrugSubTypeList(drugTypeId, isActive, drugSubTypeName, searchTerm);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public List<DrugBrandMaster> GetDrugBrandList(bool? isActive, string drugBrandName, string searchTerm)
+        {
+            try
+            {
+                return this._masterDA.GetDrugBrandList(isActive, drugBrandName, searchTerm);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public List<DrugChemicalMaster> GetDrugChemicalList(bool? isActive, string drugChemicalName, string searchTerm)
+        {
+            try
+            {
+                return this._masterDA.GetDrugChemicalList(isActive, drugChemicalName, searchTerm);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public List<DrugFrequencyMaster> GetDrugFrequencyList(bool? isActive, string drugFrequencyName, string searchTerm)
+        {
+            try
+            {
+                return this._masterDA.GetDrugFrequencyList(isActive, drugFrequencyName, searchTerm);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+        
         public List<PackageMaster> GetPackageList(bool? isActive, int? packageId)
         {
             try

@@ -1,0 +1,109 @@
+﻿@model  OMCWebApp.Models.MedicationModel
+
+@using (Html.BeginForm("InsertUpdateConsultationMedication", "Consultation", FormMethod.Post))
+{
+    <h2>Create Consultation Medication</h2>
+    @Html.AntiForgeryToken()
+    <table class="createConsMedication">
+        <tr>
+            <td>
+                Drug Chemical Name:
+            </td>
+            <td> 
+                @Html.HiddenFor(m => m.ConsultationMedicationObject.AddedBy, Model.ConsultationMedicationObject.AddedBy)
+                @Html.HiddenFor(m => m.ConsultationMedicationObject.ConsultationId, Model.ConsultationMedicationObject.ConsultationId)
+                @Html.DropDownListFor(m => m.ConsultationMedicationObject.DrugChemicalId, new SelectList(Model.DrugChemicalList, "Id", "Description"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Others (drug chemical not found in list):
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationMedicationObject.DrugChemicalOtherDescription, Model.ConsultationMedicationObject.DrugChemicalOtherDescription)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Drug Brand Name:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.ConsultationMedicationObject.DrugBrandId, new SelectList(Model.DrugBrandList, "Id", "Description"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Others (drug brand not found in list):
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationMedicationObject.DrugBrandOtherDescription, Model.ConsultationMedicationObject.DrugBrandOtherDescription)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Drug Frequency:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.ConsultationMedicationObject.DrugFrequencyId, new SelectList(Model.DrugFrequencyList, "Id", "Description"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Dosage:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationMedicationObject.DrugDosage, Model.ConsultationMedicationObject.DrugDosage)
+                &nbsp;&nbsp;
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Drug Type:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.ConsultationMedicationObject.DrugTypeId
+                    , new SelectList(Model.DrugTypeList, "Id", "Description"), "Select Drug Type")
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Drug Sub Type:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.ConsultationMedicationObject.DrugSubTypeId, new SelectList(Model.DrugSubTypeList, "Id", "Description"), "Select Drug Sub Type")
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Drug Start Date:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationMedicationObject.DrugStartDate, Model.ConsultationMedicationObject.DrugStartDate)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Drug End Date:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationMedicationObject.DrugEndDate, Model.ConsultationMedicationObject.DrugEndDate)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Create Consultation Medication</button>
+            </td>
+        </tr>
+    </table>
+}
+

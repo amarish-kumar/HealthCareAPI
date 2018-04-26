@@ -162,6 +162,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\MedicationModel.cs" />
     <Compile Include="Models\OccupationModel.cs" />
     <Compile Include="Models\BloodPressureReadingModel.cs" />
     <Compile Include="Models\FamilyHistoryModel.cs" />
@@ -271,6 +272,7 @@
     <Content Include="Views\Consultation\CreateBloodPressureReading.cshtml" />
     <Content Include="Views\Consultation\EditBloodPressureReading.cshtml" />
     <Content Include="Views\Consultation\BloodPressureReadingResponse.cshtml" />
+    <Content Include="Views\Consultation\CreateMedication.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

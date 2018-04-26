@@ -21,5 +21,9 @@ namespace OMC.BL.Interface
         List<DrugTypeMaster> GetDrugTypeList(bool? isActive, string drugType, string searchTerm);
         List<OccupationMaster> GetOccupationList(bool? isActive, string occupationName, string searchTerm);
         List<PackageMaster> GetPackageList(bool? isActive, int? packageId);
+        List<DrugSubTypeMaster> GetDrugSubTypeList(int drugTypeId, bool? isActive, string drugSubTypeName, string searchTerm);
+        List<DrugBrandMaster> GetDrugBrandList(bool? isActive, string drugBrandName, string searchTerm);
+        List<DrugChemicalMaster> GetDrugChemicalList(bool? isActive, string drugChemicalName, string searchTerm);
+        List<DrugFrequencyMaster> GetDrugFrequencyList(bool? isActive, string drugFrequencyName, string searchTerm);
     }
 }
