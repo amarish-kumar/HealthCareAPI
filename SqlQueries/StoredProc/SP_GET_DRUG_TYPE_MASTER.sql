@@ -1,11 +1,11 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_DRUG_TYPE_MASTER]    Script Date: 4/18/2018 9:29:33 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_DRUG_TYPE_MASTER]    Script Date: 4/26/2018 11:14:24 AM ******/
 DROP PROCEDURE [dbo].[SP_GET_DRUG_TYPE_MASTER]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_DRUG_TYPE_MASTER]    Script Date: 4/18/2018 9:29:33 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_DRUG_TYPE_MASTER]    Script Date: 4/26/2018 11:14:24 AM ******/
 SET ANSI_NULLS ON
 GO
 
