@@ -61,5 +61,23 @@ namespace OMCWebApp.Models
         /// </summary>
         public FamilyHistoryModel ExistingConditionModelObject { get; set; }
         public ConsultationFamilyHistoryResponse ConsultationExistingConditionResponseObject { get; set; }
+
+        /// <summary>
+        /// this is used to create the occupation record
+        /// </summary>
+        public OccupationModel OccupationModelObject { get; set; }
+        public ConsultationOccupationResponse ConsultationOccupationResponseObject { get; set; }
+
+        /// <summary>
+        /// this is used to create the blood pressure record
+        /// </summary>
+        public BloodPressureReadingModel BloodPressureReadingModelObject { get; set; }
+        public ConsultationBloodPressureReadingResponse ConsultationBloodPressureReadingResponseObject { get; set; }
+
+        /// <summary>
+        /// this is used to create the medication record
+        /// </summary>
+        public MedicationModel MedicationModelObject { get; set; }
+        public ConsultationMedicationResponse ConsultationMedicationResponseObject { get; set; }
     }
 }

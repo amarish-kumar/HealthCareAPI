@@ -9,6 +9,14 @@ namespace OMC.Models
         public int AllergyId { get; set; }
         public DateTime? AllergyStartDate { get; set; }
         public string Treatment { get; set; }
+        public string OtherDescription { get; set; }
+
+        #region Serialization
+        public bool ShouldSerializeOtherDescription()
+        {
+            return !string.IsNullOrEmpty(OtherDescription);
+        }
+        #endregion
     }
 
     public class ConsultationAllergyResponse
@@ -25,5 +33,6 @@ namespace OMC.Models
         public string AllergyName { get; set; }
         public DateTime? AllergyStartDate { get; set; }
         public string Treatment { get; set; }
+        public string OtherDescription { get; set; }
     }
 }

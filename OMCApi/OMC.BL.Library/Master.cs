@@ -200,11 +200,11 @@ namespace OMC.BL.Library
             }
         }
 
-        public List<HealthConditionMaster> GetHealthConditionList(bool? isActive, string healthConditionNameName, string searchTerm)
+        public List<HealthConditionMaster> GetHealthConditionList(bool? isActive, string healthConditionName, string searchTerm)
         {
             try
             {
-                return this._masterDA.GetHealthConditionList(isActive, healthConditionNameName, searchTerm);
+                return this._masterDA.GetHealthConditionList(isActive, healthConditionName, searchTerm);
             }
             catch (Exception ex)
             {
@@ -215,6 +215,119 @@ namespace OMC.BL.Library
                 //Log
             }
         }
+
+        public List<DrugTypeMaster> GetDrugTypeList(bool? isActive, string drugType, string searchTerm)
+        {
+            try
+            {
+                return this._masterDA.GetDrugTypeList(isActive, drugType, searchTerm);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public List<OccupationMaster> GetOccupationList(bool? isActive, string occupationName, string searchTerm)
+        {
+            try
+            {
+                return this._masterDA.GetOccupationList(isActive, occupationName, searchTerm);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public List<DrugSubTypeMaster> GetDrugSubTypeList(int drugTypeId, bool? isActive, string drugSubTypeName, string searchTerm)
+        {
+            try
+            {
+                return this._masterDA.GetDrugSubTypeList(drugTypeId, isActive, drugSubTypeName, searchTerm);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public List<DrugBrandMaster> GetDrugBrandList(bool? isActive, string drugBrandName, string searchTerm)
+        {
+            try
+            {
+                return this._masterDA.GetDrugBrandList(isActive, drugBrandName, searchTerm);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public List<DrugChemicalMaster> GetDrugChemicalList(bool? isActive, string drugChemicalName, string searchTerm)
+        {
+            try
+            {
+                return this._masterDA.GetDrugChemicalList(isActive, drugChemicalName, searchTerm);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public List<DrugFrequencyMaster> GetDrugFrequencyList(bool? isActive, string drugFrequencyName, string searchTerm)
+        {
+            try
+            {
+                return this._masterDA.GetDrugFrequencyList(isActive, drugFrequencyName, searchTerm);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+        
+        public List<PackageMaster> GetPackageList(bool? isActive, int? packageId)
+        {
+            try
+            {
+                return this._masterDA.GetPackageList(isActive, packageId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
         #endregion
 
         #region IDisposable

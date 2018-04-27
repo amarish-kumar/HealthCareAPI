@@ -1,16 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_ALLERGY_LIST]    Script Date: 4/13/2018 7:11:15 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_ALLERGY_LIST]    Script Date: 4/22/2018 10:13:21 AM ******/
 DROP PROCEDURE [dbo].[SP_GET_CONSULTATION_ALLERGY_LIST]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_ALLERGY_LIST]    Script Date: 4/13/2018 7:11:15 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_ALLERGY_LIST]    Script Date: 4/22/2018 10:13:21 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 CREATE PROCEDURE [dbo].[SP_GET_CONSULTATION_ALLERGY_LIST]
@@ -28,6 +29,7 @@ SELECT CA.Id
 	, CA.ConsultationId
 	, CA.AllergyId
 	, AM.[Description] as AllergyName
+	, CA.OtherDescription
 	, CA.AllergyStartDate
 	, CA.Treatment
 	, CA.AddedBy
@@ -41,6 +43,7 @@ SELECT CA.Id
 	AND (@CONSULTATION_ALLERGY_ID IS NULL OR CA.Id = @CONSULTATION_ALLERGY_ID)
 	ORDER BY CA.AddedDate DESC
 END
+
 
 
 

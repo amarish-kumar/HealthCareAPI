@@ -58,6 +58,8 @@
 <br />
 <b><font color="blue">Profile: </font></b> @Model.ConversationResponseObject.ConsultationObject.ProfileName
 <br />
+<b><font color="blue">Package: </font></b> @Model.ConversationResponseObject.ConsultationObject.PackageName
+<br />
 <b><font color="blue">User: </font></b> @Model.ConversationResponseObject.ConsultationObject.PatientName
 <br />
 
@@ -70,10 +72,10 @@
         <br />
         <table class="conversations">
             <thead>
-            <th>Id</th>
-            <th>Description</th>
-            <th>From</th>
-            <th>Timestamp</th>
+                <th>Id</th>
+                <th>Description</th>
+                <th>From</th>
+                <th>Timestamp</th>
             </thead>
 
             @foreach (var conversation in Model.ConversationResponseObject.Conversations)
@@ -112,16 +114,16 @@
         <br />
         <table class="conversations">
             <thead>
-            <th>Id</th>
-            <th>Consultation Id</th>
-            <th>File Name</th>
-            <th>Report Date</th>
-            <th>Lab Name</th>
-            <th>Description</th>
-            <th>Doctor Name</th>
-            <th>Country</th>
-            <th>Phone Number</th>
-            <th>Action</th>
+                <th>Id</th>
+                <th>Consultation Id</th>
+                <th>File Name</th>
+                <th>Report Date</th>
+                <th>Lab Name</th>
+                <th>Description</th>
+                <th>Doctor Name</th>
+                <th>Country</th>
+                <th>Phone Number</th>
+                <th>Action</th>
             </thead>
 
             @foreach (var report in Model.ConsultationReportResponseObject.ConsultationReports)
@@ -169,6 +171,7 @@
             <th>Id</th>
             <th>Consultation Id</th>
             <th>Surgery</th>
+            <th>Other Description</th>
             <th>Surgery Date</th>
             <th>Action</th>
             </thead>
@@ -179,6 +182,7 @@
                     <td>@surgery.Id</td>
                     <td>@surgery.ConsultationId</td>
                     <td>@surgery.SurgeryName</td>
+                    <td>@surgery.OtherDescription</td>
                     <td>@(surgery.SurgeryDate.HasValue ? surgery.SurgeryDate.Value.ToString("dd-MMM-yyyy") : string.Empty)</td>
                     <td>
                         @if (Model.UserRole.ToLower() == "patient")
@@ -265,6 +269,7 @@
                 <th>Id</th>
                 <th>Consultation Id</th>
                 <th>Allergy</th>
+                <th>Other Description</th>
                 <th>Allergy Start Date</th>
                 <th>Treatment</th>
                 <th>Action</th>
@@ -276,6 +281,7 @@
                     <td>@allergy.Id</td>
                     <td>@allergy.ConsultationId</td>
                     <td>@allergy.AllergyName</td>
+                    <td>@allergy.OtherDescription</td>
                     <td>@(allergy.AllergyStartDate.HasValue ? allergy.AllergyStartDate.Value.ToString("dd-MMM-yyyy") : string.Empty)</td>
                     <td>@allergy.Treatment</td>
                     <td>
@@ -312,6 +318,7 @@
             <th>Consultation Id</th>
             <th>Relationship</th>
             <th>Health Condition</th>
+            <th>Other Description</th>
             <th>Current Age</th>
             <th>Age On Condition Start</th>
             <th>Is Alive</th>
@@ -327,6 +334,7 @@
                 <td>@familyHistory.ConsultationId</td>
                 <td>@familyHistory.Relationship</td>
                 <td>@familyHistory.HealthCondition</td>
+                <td>@familyHistory.OtherHealthConditionDescription</td>
                 <td>@(familyHistory.CurrentAge.HasValue ? familyHistory.CurrentAge.Value.ToString() : string.Empty)</td>
                 <td>@(familyHistory.AgeOnConditionStart.HasValue ? familyHistory.AgeOnConditionStart.Value.ToString() : string.Empty)</td>
                 <td>@(familyHistory.IsAlive ? "Yes" : "No")</td>
@@ -366,6 +374,7 @@
                 <th>Consultation Id</th>
                 <th>Relationship</th>
                 <th>Health Condition</th>
+                <th>Other Health Condition Description</th>
                 <th>Condition Start Date</th>
                 <th>Action</th>
             </thead>
@@ -377,6 +386,7 @@
                     <td>@existingCondition.ConsultationId</td>
                     <td>@existingCondition.Relationship</td>
                     <td>@existingCondition.HealthCondition</td>
+                    <td>@existingCondition.OtherHealthConditionDescription</td>
                     <td>@(existingCondition.ConditionStartDate.HasValue ? existingCondition.ConditionStartDate.Value.ToString("dd-MMM-yyyy") : string.Empty)</td>                    
                     <td>
                     @if (Model.UserRole.ToLower() == "patient" || Model.UserRole.ToLower() == "doctor")
@@ -392,12 +402,13 @@
     {
         <p>No existing conditions recorded</p>
     } 
-    @if (Model.UserRole.ToLower() == "patient" || Model.UserRole.ToLower() == "doctor")
+    @if (Model.UserRole.ToLower() == "patient")
     {
         @Html.Partial("CreateExistingCondition", Model.ExistingConditionModelObject)
     }
     <br />
 </div>
+
 <button class="collapsible">Illegal Drugs</button>
 <div class="content">
     @if (Model.ConsultationIllegalDrugDetailsResponseObject != null
@@ -445,7 +456,6 @@
     }
     <br />
 </div>
-
 
 <button class="collapsible">Smoking Habits</button>
 <div class="content">
@@ -495,7 +505,144 @@
     <br />
 </div>
 
+<button class="collapsible">Occupations</button>
+<div class="content">
+    @if (Model.ConsultationOccupationResponseObject != null
+        && Model.ConsultationOccupationResponseObject.ConsultationOccupationList != null
+        && Model.ConsultationOccupationResponseObject.ConsultationOccupationList.Count() != 0)
+    {
+        <br />
+        <table class="conversations">
+            <thead>
+                <th>Id</th>
+                <th>Consultation Id</th>
+                <th>Occupation</th>
+                <th>Other Description</th>
+                <th>Action</th>
+            </thead>
 
+            @foreach (var occupation in Model.ConsultationOccupationResponseObject.ConsultationOccupationList)
+            {
+                <tr>
+                    <td>@occupation.Id</td>
+                    <td>@occupation.ConsultationId</td>
+                    <td>@occupation.OccupationName</td>
+                    <td>@occupation.OtherDescription</td>
+                    <td>
+                        @if (Model.UserRole.ToLower() == "patient")
+                        {
+                            @Html.ActionLink("Edit", "EditOccupation", "Consultation", new { userId = Model.UserId, consultationId = occupation.ConsultationId, consultationOccupationId = occupation.Id }, null)
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>No occupations recorded</p>
+    }
+    @if (Model.UserRole.ToLower() == "patient")
+    {
+        @Html.Partial("CreateOccupation", Model.OccupationModelObject)
+    }
+    <br />
+</div>
+
+<button class="collapsible">Blood Pressure Readings</button>
+<div class="content">
+    @if (Model.ConsultationBloodPressureReadingResponseObject != null
+        && Model.ConsultationBloodPressureReadingResponseObject.ConsultationBloodPressureReadingList != null
+        && Model.ConsultationBloodPressureReadingResponseObject.ConsultationBloodPressureReadingList.Count() != 0)
+    {
+        <br />
+        <table class="conversations">
+            <thead>
+                <th>Id</th>
+                <th>Consultation Id</th>
+                <th>Systolic</th>
+                <th>Diastolic</th>
+                <th>Timestamp</th>
+                <th>Action</th>
+            </thead>
+
+            @foreach (var bloodPressureReading in Model.ConsultationBloodPressureReadingResponseObject.ConsultationBloodPressureReadingList)
+            {
+                <tr>
+                    <td>@bloodPressureReading.Id</td>
+                    <td>@bloodPressureReading.ConsultationId</td>
+                    <td>@bloodPressureReading.Systolic</td>
+                    <td>@bloodPressureReading.Diastolic</td>
+                    <td>@(bloodPressureReading.Timestamp.HasValue ? bloodPressureReading.Timestamp.Value.ToString("dd-MMM-yyyy") : "")</td>
+                    <td>
+                        @if (Model.UserRole.ToLower() == "patient")
+                        {
+                            @Html.ActionLink("Edit", "EditBloodPressureReading", "Consultation", new { userId = Model.UserId, consultationId = bloodPressureReading.ConsultationId, consultationBloodPressureReadingId = bloodPressureReading.Id }, null)
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>No blood pressure reading recorded</p>
+    }
+    @if (Model.UserRole.ToLower() == "patient")
+    {
+        @Html.Partial("CreateBloodPressureReading", Model.BloodPressureReadingModelObject)
+    }
+    <br />
+</div>
+
+<button class="collapsible">Medications</button>
+<div class="content">
+    @if (Model.ConsultationMedicationResponseObject != null
+        && Model.ConsultationMedicationResponseObject.ConsultationMedicationList != null
+        && Model.ConsultationMedicationResponseObject.ConsultationMedicationList.Count() != 0)
+    {
+        <br />
+        <table class="conversations">
+            <thead>
+                <th>Id</th>
+                <th>Consultation Id</th>
+                <th>Systolic</th>
+                <th>Diastolic</th>
+                <th>Timestamp</th>
+                <th>Action</th>
+            </thead>
+
+            @foreach (var medication in Model.ConsultationMedicationResponseObject.ConsultationMedicationList)
+            {
+                <tr>
+                    @*<td>@medication.Id</td>
+                    <td>@medication.ConsultationId</td>
+                    <td>@medication.Systolic</td>
+                    <td>@medication.Diastolic</td>
+                    <td>@(medication.Timestamp.HasValue ? medication.Timestamp.Value.ToString("dd-MMM-yyyy") : "")</td>*@
+                    <td>
+                        @if (Model.UserRole.ToLower() == "patient")
+                        {
+                            @Html.ActionLink("Edit", "EditMedication", "Consultation"
+                            , new { userId = Model.UserId, consultationId = medication.ConsultationId
+                                    , consultationMedicationId = medication.Id }
+                            , null)
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>No medications recorded</p>
+    }
+    @if (Model.UserRole.ToLower() == "patient")
+    {
+        @Html.Partial("CreateMedication", Model.MedicationModelObject)
+    }
+    <br />
+</div>
 @section scripts{
 
     <script type="text/javascript">
@@ -514,6 +661,25 @@
                     }
                 });
             }
+
+            $('#ConsultationMedicationObject_DrugTypeId').change(function () {
+                var drugTypeId = $(this).val();
+                $.ajax({
+                    url: '/Consultation/GetDrugSubTypeList?drugTypeId=' + drugTypeId,
+                    type: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        $('#ConsultationMedicationObject_DrugSubTypeId').find('option:not(:first)').remove();
+                        $.each(data, function (i, record) {                            
+                            $('#ConsultationMedicationObject_DrugSubTypeId').append(
+                                $('<option></option>').val(record.Id).html(record.Description));
+                        });
+                    },
+                    error: function (a,b,c) {
+                    }
+                });
+            });
         });
     </script>
 

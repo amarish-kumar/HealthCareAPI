@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OMC.Models
@@ -14,6 +13,9 @@ namespace OMC.Models
 
         [Required(ErrorMessage = "Profile Id is required.")]
         public int ProfileId { get; set; }
+
+        [Required(ErrorMessage = "Package Id is required.")]
+        public int PackageId { get; set; }
 
         [Required(ErrorMessage = "Doctor Id is required.")]
         public int DoctorId { get; set; }
@@ -34,6 +36,8 @@ namespace OMC.Models
         public string ConsultationDescription { get; set; }
         public int ProfileId { get; set; }
         public string ProfileName { get; set; }
+        public int PackageId { get; set; }
+        public string PackageName { get; set; }
         public int PatientId { get; set; }
         public string PatientName { get; set; }
         public int DoctorId { get; set; }

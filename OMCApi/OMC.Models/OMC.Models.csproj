@@ -47,6 +47,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsultationMedications.cs" />
+    <Compile Include="DrugBrandMaster.cs" />
+    <Compile Include="DrugChemicalMaster.cs" />
+    <Compile Include="DrugFrequencyMaster.cs" />
+    <Compile Include="DrugSubTypeMaster.cs" />
+    <Compile Include="PackageMaster.cs" />
+    <Compile Include="ConsultationOccupation.cs" />
+    <Compile Include="ConsultationBloodPressureReading.cs" />
+    <Compile Include="DrugTypeMaster.cs" />
+    <Compile Include="OccupationMaster.cs" />
     <Compile Include="AllergyMaster.cs" />
     <Compile Include="BaseEntity.cs" />
     <Compile Include="CancerStageMaster.cs" />

@@ -1,0 +1,50 @@
+USE [HealthCare]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_BLOOD_PRESSURE_LIST]    Script Date: 4/17/2018 10:43:10 PM ******/
+DROP PROCEDURE [dbo].[SP_GET_CONSULTATION_BLOOD_PRESSURE_LIST]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_BLOOD_PRESSURE_LIST]    Script Date: 4/17/2018 10:43:10 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[SP_GET_CONSULTATION_BLOOD_PRESSURE_LIST]
+(	
+	@CONSULTATION_ID BIGINT,
+	@CONSULTATION_BLOOD_PRESSURE_ID BIGINT = NULL
+)
+AS
+
+BEGIN
+
+--EXEC [SP_GET_CONSULTATION_BLOOD_PRESSURE_LIST] 10018
+
+SELECT CB.Id
+	, CB.ConsultationId
+	, CB.Systolic
+	, CB.Diastolic
+	, CB.[TimeStamp]
+	, CB.AddedBy
+	, CB.AddedDate
+	, CB.ModifiedBy
+	, CB.ModifiedDate	
+	FROM [ConsultationBloodPressureReading] CB
+	INNER JOIN Consultation C ON CB.ConsultationId = C.Id
+	WHERE C.Id = @CONSULTATION_ID
+	AND (@CONSULTATION_BLOOD_PRESSURE_ID IS NULL OR CB.Id = @CONSULTATION_BLOOD_PRESSURE_ID)
+	ORDER BY CB.[TimeStamp] DESC
+END
+
+
+
+
+
+
+
+GO
+
+
