@@ -632,6 +632,7 @@ namespace OMCWebApp.Controllers
                         ConsumeDrugs = consIllegalDrugDetailsDisplay.ConsumeDrugs,
                         IllegalDrugsID = consIllegalDrugDetailsDisplay.IllegalDrugsID,
                         IllegalDrugDesc = consIllegalDrugDetailsDisplay.IllegalDrugDesc,
+                        OtherDescription = consIllegalDrugDetailsDisplay.OtherDescription,
                         //Frequency = consIllegalDrugDetailsDisplay.Frequency,
                         PerFrequency = consIllegalDrugDetailsDisplay.PerFrequency,
                         ModifiedBy = userId,

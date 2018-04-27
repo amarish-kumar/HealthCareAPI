@@ -19,6 +19,7 @@ CREATE TABLE [dbo].[ConsultationIllegaldrugsAudit](
 	[ConsultationId] [bigint] NOT NULL,
 	[Consumedrugs] [bit] NULL,
 	[IllegalDrugsID] [bigint] NULL,
+	[OtherDescription] [nvarchar](255) NULL,
 	[Frequency] [nvarchar](255) NULL,
 	[PerFrequency] [bigint] NULL,
 	[Active] [bit] NOT NULL,

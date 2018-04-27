@@ -12,6 +12,7 @@ namespace OMC.Models
         public string IllegalDrugDesc { get; set; }
         public string Frequency { get; set; }
         public int? PerFrequency { get; set; }
+        public string OtherDescription { get; set; }
     }
 
     public class ConsultationIllegalDrugDetailsDisplay : BaseEntity
@@ -22,6 +23,7 @@ namespace OMC.Models
         public string IllegalDrugDesc { get; set; }
         public string Frequency { get; set; }
         public int? PerFrequency { get; set; }
+        public string OtherDescription { get; set; }
     }
 
     public class ConsultationIllegalDrugDetailsResponse
