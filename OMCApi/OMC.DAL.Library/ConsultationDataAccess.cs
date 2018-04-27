@@ -682,6 +682,7 @@ namespace OMC.DAL.Library
                         ConsumeDrugs = drConsultationIllegalDrugDetails["ConsumeDrugs"] != DBNull.Value ? bool.Parse(drConsultationIllegalDrugDetails["ConsumeDrugs"].ToString()) : false,
                         IllegalDrugsID = drConsultationIllegalDrugDetails["IllegalDrugsID"] != DBNull.Value ? Convert.ToInt32(drConsultationIllegalDrugDetails["IllegalDrugsID"].ToString()) : (int?)null,
                         IllegalDrugDesc = drConsultationIllegalDrugDetails["DrugName"] != DBNull.Value ? drConsultationIllegalDrugDetails["DrugName"].ToString() : null,
+                        OtherDescription = drConsultationIllegalDrugDetails["OtherDescription"] != DBNull.Value ? drConsultationIllegalDrugDetails["OtherDescription"].ToString() : null,
                         Frequency = drConsultationIllegalDrugDetails["Frequency"] != DBNull.Value ? drConsultationIllegalDrugDetails["Frequency"].ToString() : null,
                         PerFrequency = drConsultationIllegalDrugDetails["PerFrequency"] != DBNull.Value ? Convert.ToInt32(drConsultationIllegalDrugDetails["PerFrequency"].ToString()) : (int?)null,
                         AddedBy = drConsultationIllegalDrugDetails["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationIllegalDrugDetails["AddedBy"].ToString()) : (int?)null,

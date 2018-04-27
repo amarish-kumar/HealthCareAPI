@@ -27,12 +27,13 @@ BEGIN
 /*BLOCK TO READ THE VARIABLES*/
 
 DECLARE @Id AS BIGINT, @ConsultationId AS BIGINT, @ConsumeDrugs AS BIT
-DECLARE @IllegalDrugsID as BIGINT, @PerFrequency as BIGINT,@Frequency as NVARCHAR(MAX), @ReturnMessage as NVARCHAR(MAX)
+DECLARE @IllegalDrugsID as BIGINT, @OtherDescription as NVARCHAR(MAX), @PerFrequency as BIGINT,@Frequency as NVARCHAR(MAX), @ReturnMessage as NVARCHAR(MAX)
 DECLARE @Active AS BIT, @Result as BIT
 
 SELECT	 @Id = ConsultationILLEGALDRUGDETAILSList.Columns.value('Id[1]', 'BIGINT')
 	   , @ConsumeDrugs = ConsultationILLEGALDRUGDETAILSList.Columns.value('ConsumeDrugs[1]', 'BIT')
 	   , @IllegalDrugsID = ConsultationILLEGALDRUGDETAILSList.Columns.value('IllegalDrugsID[1]', 'BIGINT')
+	   , @OtherDescription = ConsultationILLEGALDRUGDETAILSList.Columns.value('OtherDescription[1]', 'NVARCHAR(MAX)')
 	   , @ConsultationId = ConsultationILLEGALDRUGDETAILSList.Columns.value('ConsultationId[1]', 'BIGINT')
 	   , @Frequency  = ConsultationILLEGALDRUGDETAILSList.Columns.value('Frequency[1]', 'NVARCHAR(MAX)')
 	   , @PerFrequency = ConsultationILLEGALDRUGDETAILSList.Columns.value('PerFrequency[1]', 'BIGINT')
@@ -50,6 +51,7 @@ BEGIN
            ([ConsultationId]
            ,[Consumedrugs]
            ,[IllegalDrugsID]
+		   ,[OtherDescription]
            ,[Frequency]
            ,[PerFrequency]
            ,[Active]
@@ -59,6 +61,7 @@ BEGIN
            (@ConsultationId
            ,@ConsumeDrugs
            ,@IllegalDrugsID
+		   ,@OtherDescription
 		   ,@Frequency
 		   ,@PerFrequency
            ,@Active
@@ -76,6 +79,7 @@ BEGIN
 		UPDATE [dbo].[ConsultationIllegaldrugs]
 		   SET [Consumedrugs] = ISNULL(@ConsumeDrugs,[Consumedrugs])
 			  ,[IllegalDrugsID] = ISNULL(@IllegalDrugsID, [IllegalDrugsID])
+			  ,[OtherDescription] = @OtherDescription
 			  ,[Frequency] = @Frequency
 			  ,[PerFrequency] = ISNULL(@PerFrequency, [PerFrequency])
 			  ,[ModifiedBy] = @USER_ID

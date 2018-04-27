@@ -422,28 +422,30 @@
             <th>Consultation Id</th>
             <th>Consume Drugs?</th>
             <th>Drug Name</th>
+            <th>Other Description</th>
             <th>Frequency</th>
             <th>Per Frequency</th>
             <th>Action</th>
             </thead>
 
             @foreach (var illegaldrugDetails in Model.ConsultationIllegalDrugDetailsResponseObject.ConsultationIllegalDrugDetailsDisplayList)
-            {
-                <tr>
-                    <td>@illegaldrugDetails.Id</td>
-                    <td>@illegaldrugDetails.ConsultationId</td>
-                    <td>@illegaldrugDetails.ConsumeDrugs</td>
-                    <td>@illegaldrugDetails.IllegalDrugDesc</td>
-                    <td>@illegaldrugDetails.Frequency</td>
-                    <td>@illegaldrugDetails.PerFrequency</td>
-                    <td>
-                        @if (Model.UserRole.ToLower() == "patient")
-                        {
-                            @Html.ActionLink("Edit", "EditIllegalDrugDetails", "Consultation", new { userId = Model.UserId, consultationId = illegaldrugDetails.ConsultationId, consultationIllegalDrugDetailsId = illegaldrugDetails.Id }, null)
-                        }
-                    </td>
-                </tr>
-            }
+    {
+            <tr>
+                <td>@illegaldrugDetails.Id</td>
+                <td>@illegaldrugDetails.ConsultationId</td>
+                <td>@illegaldrugDetails.ConsumeDrugs</td>
+                <td>@illegaldrugDetails.IllegalDrugDesc</td>
+                <td>@illegaldrugDetails.OtherDescription</td>
+                <td>@illegaldrugDetails.Frequency</td>
+                <td>@illegaldrugDetails.PerFrequency</td>
+                <td>
+                    @if (Model.UserRole.ToLower() == "patient")
+        {
+            @Html.ActionLink("Edit", "EditIllegalDrugDetails", "Consultation", new { userId = Model.UserId, consultationId = illegaldrugDetails.ConsultationId, consultationIllegalDrugDetailsId = illegaldrugDetails.Id }, null)
+}
+                </td>
+            </tr>
+}
         </table>
     }
     else

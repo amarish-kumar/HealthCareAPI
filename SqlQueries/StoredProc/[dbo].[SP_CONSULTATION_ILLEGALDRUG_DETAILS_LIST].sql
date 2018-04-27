@@ -29,6 +29,7 @@ SELECT CID.Id
 	, CID.Consumedrugs
 	, CID.IllegalDrugsID
 	, IDM.[Description] AS DrugName
+	, CID.OtherDescription
 	, CID.Frequency
 	, CID.PerFrequency
 	, CID.AddedBy
