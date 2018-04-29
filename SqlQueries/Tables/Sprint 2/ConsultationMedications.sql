@@ -1,6 +1,15 @@
 USE [HealthCare]
 GO
 
+ALTER TABLE [dbo].[ConsultationMedications] DROP CONSTRAINT [FK_ConsultationMedications_DrugTypeMaster_Id]
+GO
+
+ALTER TABLE [dbo].[ConsultationMedications] DROP CONSTRAINT [FK_ConsultationMedications_DrugSubTypeMaster_Id]
+GO
+
+ALTER TABLE [dbo].[ConsultationMedications] DROP CONSTRAINT [FK_ConsultationMedications_DrugFrequencyMaster_Id]
+GO
+
 ALTER TABLE [dbo].[ConsultationMedications] DROP CONSTRAINT [FK_ConsultationMedications_DrugChemicalMaster_Id]
 GO
 
@@ -10,11 +19,11 @@ GO
 ALTER TABLE [dbo].[ConsultationMedications] DROP CONSTRAINT [FK_ConsultationMedications_Consultation_Id]
 GO
 
-/****** Object:  Table [dbo].[ConsultationMedications]    Script Date: 4/25/2018 12:19:19 PM ******/
+/****** Object:  Table [dbo].[ConsultationMedications]    Script Date: 4/29/2018 11:02:00 PM ******/
 DROP TABLE [dbo].[ConsultationMedications]
 GO
 
-/****** Object:  Table [dbo].[ConsultationMedications]    Script Date: 4/25/2018 12:19:19 PM ******/
+/****** Object:  Table [dbo].[ConsultationMedications]    Script Date: 4/29/2018 11:02:00 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -29,6 +38,7 @@ CREATE TABLE [dbo].[ConsultationMedications](
 	[DrugBrandId] [bigint] NOT NULL,
 	[DrugBrandOtherDescription] [nvarchar](255) NULL,
 	[DrugDosage] [decimal](10, 2) NULL,
+	[DrugUnitId] [bigint] NOT NULL,
 	[DrugFrequencyId] [bigint] NOT NULL,
 	[DrugTypeId] [bigint] NOT NULL,
 	[DrugSubTypeId] [bigint] NOT NULL,
@@ -77,6 +87,13 @@ GO
 ALTER TABLE [dbo].[ConsultationMedications] CHECK CONSTRAINT [FK_ConsultationMedications_DrugFrequencyMaster_Id]
 GO
 
+ALTER TABLE [dbo].[ConsultationMedications]  WITH CHECK ADD  CONSTRAINT [FK_ConsultationMedications_DrugSubTypeMaster_Id] FOREIGN KEY([DrugSubTypeId])
+REFERENCES [dbo].[DrugSubTypeMaster] ([ID])
+GO
+
+ALTER TABLE [dbo].[ConsultationMedications] CHECK CONSTRAINT [FK_ConsultationMedications_DrugSubTypeMaster_Id]
+GO
+
 ALTER TABLE [dbo].[ConsultationMedications]  WITH CHECK ADD  CONSTRAINT [FK_ConsultationMedications_DrugTypeMaster_Id] FOREIGN KEY([DrugTypeId])
 REFERENCES [dbo].[DrugTypeMaster] ([ID])
 GO
@@ -84,9 +101,10 @@ GO
 ALTER TABLE [dbo].[ConsultationMedications] CHECK CONSTRAINT [FK_ConsultationMedications_DrugTypeMaster_Id]
 GO
 
-ALTER TABLE [dbo].[ConsultationMedications]  WITH CHECK ADD  CONSTRAINT [FK_ConsultationMedications_DrugSubTypeMaster_Id] FOREIGN KEY([DrugSubTypeId])
-REFERENCES [dbo].[DrugSubTypeMaster] ([ID])
+ALTER TABLE [dbo].[ConsultationMedications]  WITH CHECK ADD  CONSTRAINT [FK_ConsultationMedications_UnitMaster_Id] FOREIGN KEY([DrugUnitId])
+REFERENCES [dbo].[UnitMaster] ([ID])
 GO
 
-ALTER TABLE [dbo].[ConsultationMedications] CHECK CONSTRAINT [FK_ConsultationMedications_DrugSubTypeMaster_Id]
+ALTER TABLE [dbo].[ConsultationMedications] CHECK CONSTRAINT [FK_ConsultationMedications_UnitMaster_Id]
 GO
+

@@ -24,5 +24,6 @@ namespace OMC.DAL.Interface
         List<DrugBrandMaster> GetDrugBrandList(bool? isActive, string drugBrandName, string searchTerm);
         List<DrugChemicalMaster> GetDrugChemicalList(bool? isActive, string drugChemicalName, string searchTerm);
         List<DrugFrequencyMaster> GetDrugFrequencyList(bool? isActive, string drugFrequencyName, string searchTerm);
+        List<UnitMaster> GetDrugUnitList(bool? isActive, string drugUnitName, string searchTerm);
     }
 }

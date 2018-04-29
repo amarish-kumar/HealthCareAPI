@@ -37,6 +37,10 @@ namespace OMC.Models
         [Range(1, int.MaxValue, ErrorMessage = "Drug Sub Type Id is required.")]
         public int DrugSubTypeId { get; set; }
 
+        [Required(ErrorMessage = "Drug Unit Id is required.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Drug Unit Id is required.")]
+        public int DrugUnitId { get; set; }
+
         #region Serialization
 
         public bool ShouldSerializeDrugDosage()
@@ -91,5 +95,7 @@ namespace OMC.Models
         public string DrugTypeName { get; set; }
         public int DrugSubTypeId { get; set; }
         public string DrugSubTypeName { get; set; }
+        public int DrugUnitId { get; set; }
+        public string DrugUnitName { get; set; }
     }
 }

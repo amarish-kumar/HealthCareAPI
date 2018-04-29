@@ -1,11 +1,11 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_MEDICATION_LIST]    Script Date: 4/26/2018 1:25:50 PM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_MEDICATION_LIST]    Script Date: 4/29/2018 11:07:31 PM ******/
 DROP PROCEDURE [dbo].[SP_GET_CONSULTATION_MEDICATION_LIST]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_MEDICATION_LIST]    Script Date: 4/26/2018 1:25:50 PM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_MEDICATION_LIST]    Script Date: 4/29/2018 11:07:31 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -39,6 +39,8 @@ SELECT CM.Id
 	, CM.DrugSubTypeId
 	, DST.[Description] as DrugSubTypeName
 	, CM.DrugDosage
+	, CM.DrugUnitId
+	, UM.[Description] as DrugUnitName
 	, CM.DrugStartDate
 	, CM.DrugEndDate
 	, CM.AddedBy
@@ -52,6 +54,7 @@ SELECT CM.Id
 	INNER JOIN DrugFrequencyMaster DF ON DF.ID = CM.DrugFrequencyId
 	INNER JOIN DrugTypeMaster DT ON DT.ID = CM.DrugTypeId
 	INNER JOIN DrugSubTypeMaster DST ON DST.ID = CM.DrugSubTypeId
+	INNER JOIN UnitMaster UM ON UM.ID = CM.DrugUnitId
 	WHERE C.Id = @CONSULTATION_ID
 	AND (@CONSULTATION_MEDICATION_ID IS NULL OR CM.Id = @CONSULTATION_MEDICATION_ID)
 	ORDER BY CM.AddedDate DESC
