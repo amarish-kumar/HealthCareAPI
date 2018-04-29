@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsultationMedications.cs" />
+    <Compile Include="UnitMaster.cs" />
     <Compile Include="DrugBrandMaster.cs" />
     <Compile Include="DrugChemicalMaster.cs" />
     <Compile Include="DrugFrequencyMaster.cs" />

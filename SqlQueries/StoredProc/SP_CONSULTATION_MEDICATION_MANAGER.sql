@@ -1,11 +1,11 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_MEDICATION_MANAGER]    Script Date: 4/26/2018 11:36:08 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_MEDICATION_MANAGER]    Script Date: 4/29/2018 11:04:34 PM ******/
 DROP PROCEDURE [dbo].[SP_CONSULTATION_MEDICATION_MANAGER]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_MEDICATION_MANAGER]    Script Date: 4/26/2018 11:36:08 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_MEDICATION_MANAGER]    Script Date: 4/29/2018 11:04:34 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -25,10 +25,10 @@ BEGIN
 
 /*BLOCK TO READ THE VARIABLES*/
 
-DECLARE @Id AS BIGINT, @ConsultationId AS BIGINT, @DrugChemicalId AS BIGINT, @DrugBrandId AS BIGINT, @DrugFrequencyId AS BIGINT
+DECLARE @Id AS BIGINT, @ConsultationId AS BIGINT, @DrugChemicalId AS BIGINT, @DrugBrandId AS BIGINT, @DrugFrequencyId AS BIGINT, @DrugUnitId AS BIGINT
 , @DrugTypeId AS BIGINT, @DrugSubTypeId AS BIGINT
-DECLARE @ReturnMessage as NVARCHAR(MAX), @DrugChemicalDescription as NVARCHAR(MAX), @DrugBrandDescription as NVARCHAR(MAX)
-DECLARE @DrugDosage AS DECIMAL
+DECLARE @ReturnMessage as NVARCHAR(MAX), @DrugChemicalOtherDescription as NVARCHAR(MAX), @DrugBrandOtherDescription as NVARCHAR(MAX)
+DECLARE @DrugDosage AS DECIMAL(10,2)
 DECLARE @Active AS BIT, @Result as BIT
 DECLARE @DrugStartDate AS DATETIME, @DrugEndDate AS DATETIME
 
@@ -41,9 +41,10 @@ SELECT	 @Id = ConsultationMedicationList.Columns.value('Id[1]', 'BIGINT')
 	   , @DrugSubTypeId = ConsultationMedicationList.Columns.value('DrugSubTypeId[1]', 'BIGINT')  
 	   , @DrugStartDate = ConsultationMedicationList.Columns.value('DrugStartDate[1]', 'DATETIME')
 	   , @DrugEndDate = ConsultationMedicationList.Columns.value('DrugEndDate[1]', 'DATETIME')
-	   , @DrugChemicalDescription = ConsultationMedicationList.Columns.value('DrugChemicalDescription[1]', 'NVARCHAR(MAX)')
-	   , @DrugBrandDescription = ConsultationMedicationList.Columns.value('DrugBrandDescription[1]', 'NVARCHAR(MAX)')
-	   , @DrugDosage = ConsultationMedicationList.Columns.value('DrugDosage[1]', 'DECIMAL')
+	   , @DrugChemicalOtherDescription = ConsultationMedicationList.Columns.value('DrugChemicalOtherDescription[1]', 'NVARCHAR(MAX)')
+	   , @DrugBrandOtherDescription = ConsultationMedicationList.Columns.value('DrugBrandOtherDescription[1]', 'NVARCHAR(MAX)')
+	   , @DrugDosage = ConsultationMedicationList.Columns.value('DrugDosage[1]', 'DECIMAL(10,2)')
+	   , @DrugUnitId = ConsultationMedicationList.Columns.value('DrugUnitId[1]', 'BIGINT') 
 	   , @Active = ConsultationMedicationList.Columns.value('Active[1]', 'bit')
 FROM   @CONSULTATION_MEDICATION_XML.nodes('ConsultationMedications') AS ConsultationMedicationList(Columns)
 
@@ -62,6 +63,7 @@ BEGIN
            ,[DrugBrandId]
            ,[DrugBrandOtherDescription]
            ,[DrugDosage]
+		   ,[DrugUnitId]
            ,[DrugFrequencyId]
            ,[DrugTypeId]
            ,[DrugSubTypeId]
@@ -73,10 +75,11 @@ BEGIN
      VALUES          
            (@ConsultationId
            ,@DrugChemicalId
-		   ,@DrugChemicalDescription
+		   ,@DrugChemicalOtherDescription
 		   ,@DrugBrandId
-		   ,@DrugBrandDescription
+		   ,@DrugBrandOtherDescription
 		   ,@DrugDosage
+		   ,@DrugUnitId
            ,@DrugFrequencyId
 		   ,@DrugTypeId
 		   ,@DrugSubTypeId
@@ -96,10 +99,11 @@ BEGIN
 
 		UPDATE [dbo].[ConsultationMedications]
 		   SET [DrugChemicalId] = ISNULL(@DrugChemicalId,[DrugChemicalId])				
-			  ,[DrugChemicalOtherDescription] = @DrugChemicalDescription
+			  ,[DrugChemicalOtherDescription] = @DrugChemicalOtherDescription
 			  ,[DrugBrandId] = ISNULL(@DrugBrandId,[DrugBrandId])				
-			  ,[DrugBrandOtherDescription] = @DrugBrandDescription
+			  ,[DrugBrandOtherDescription] = @DrugBrandOtherDescription
 			  ,[DrugDosage] = ISNULL(@DrugDosage,[DrugDosage])	
+			  ,[DrugUnitId] = ISNULL(@DrugUnitId,[DrugUnitId])	
 			  ,[DrugFrequencyId] = ISNULL(@DrugFrequencyId,[DrugFrequencyId])		
 			  ,[DrugTypeId] = ISNULL(@DrugTypeId,[DrugTypeId])		
 			  ,[DrugSubTypeId] = ISNULL(@DrugSubTypeId,[DrugSubTypeId])		

@@ -328,6 +328,21 @@ namespace OMC.BL.Library
             }
         }
 
+        public List<UnitMaster> GetDrugUnitList(bool? isActive, string drugUnitName, string searchTerm)
+        {
+            try
+            {
+                return this._masterDA.GetDrugUnitList(isActive, drugUnitName, searchTerm);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
         #endregion
 
         #region IDisposable

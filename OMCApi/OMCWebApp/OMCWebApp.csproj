@@ -273,6 +273,7 @@
     <Content Include="Views\Consultation\EditBloodPressureReading.cshtml" />
     <Content Include="Views\Consultation\BloodPressureReadingResponse.cshtml" />
     <Content Include="Views\Consultation\CreateMedication.cshtml" />
+    <Content Include="Views\Consultation\EditMedication.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
