@@ -118,3 +118,29 @@
     </table>
 }
 
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {           
+            $('#ConsultationMedicationObject_DrugTypeId').change(function () {
+                var drugTypeId = $(this).val();
+                $.ajax({
+                    url: '/Consultation/GetDrugSubTypeList?drugTypeId=' + drugTypeId,
+                    type: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        $('#ConsultationMedicationObject_DrugSubTypeId').find('option:not(:first)').remove();
+                        $.each(data, function (i, record) {
+                            $('#ConsultationMedicationObject_DrugSubTypeId').append(
+                                $('<option></option>').val(record.Id).html(record.Description));
+                        });
+                    },
+                    error: function (a,b,c) {
+                    }
+                });
+            });
+        });
+    </script>
+
+}
