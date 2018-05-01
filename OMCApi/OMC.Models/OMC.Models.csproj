@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsultationMedications.cs" />
+    <Compile Include="UnitMaster.cs" />
     <Compile Include="ConsultationPregnancyDetails.cs" />
     <Compile Include="ConsultationPreviousPregnancyDetails.cs" />
     <Compile Include="DrugBrandMaster.cs" />

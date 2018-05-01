@@ -2,7 +2,7 @@
 
 @using (Html.BeginForm("InsertUpdateConsultationMedication", "Consultation", FormMethod.Post))
 {
-    <h2>Create Consultation Medication</h2>
+    <h2>Edit Consultation Medication</h2>
     @Html.AntiForgeryToken()
     <table class="createConsMedication">
         <tr>
@@ -10,7 +10,8 @@
                 Drug Chemical Name:
             </td>
             <td> 
-                @Html.HiddenFor(m => m.ConsultationMedicationObject.AddedBy, Model.ConsultationMedicationObject.AddedBy)
+                @Html.HiddenFor(m => m.ConsultationMedicationObject.Id, Model.ConsultationMedicationObject.Id)
+                @Html.HiddenFor(m => m.ConsultationMedicationObject.ModifiedBy, Model.ConsultationMedicationObject.ModifiedBy)
                 @Html.HiddenFor(m => m.ConsultationMedicationObject.ConsultationId, Model.ConsultationMedicationObject.ConsultationId)
                 @Html.DropDownListFor(m => m.ConsultationMedicationObject.DrugChemicalId, new SelectList(Model.DrugChemicalList, "Id", "Description"))
             </td>
@@ -111,9 +112,35 @@
         <tr style="height:20px;"></tr>
         <tr>
             <td colspan="2">
-                <button type="submit">Create Consultation Medication</button>
+                <button type="submit">Update Consultation Medication</button>
             </td>
         </tr>
     </table>
 }
 
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {           
+            $('#ConsultationMedicationObject_DrugTypeId').change(function () {
+                var drugTypeId = $(this).val();
+                $.ajax({
+                    url: '/Consultation/GetDrugSubTypeList?drugTypeId=' + drugTypeId,
+                    type: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        $('#ConsultationMedicationObject_DrugSubTypeId').find('option:not(:first)').remove();
+                        $.each(data, function (i, record) {
+                            $('#ConsultationMedicationObject_DrugSubTypeId').append(
+                                $('<option></option>').val(record.Id).html(record.Description));
+                        });
+                    },
+                    error: function (a,b,c) {
+                    }
+                });
+            });
+        });
+    </script>
+
+}

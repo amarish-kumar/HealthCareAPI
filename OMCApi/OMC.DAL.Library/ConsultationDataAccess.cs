@@ -1538,6 +1538,8 @@ namespace OMC.DAL.Library
                         DrugStartDate = drConsultationMedication["DrugStartDate"] != DBNull.Value ? Convert.ToDateTime(drConsultationMedication["DrugStartDate"].ToString()) : (DateTime?)null,
                         DrugEndDate = drConsultationMedication["DrugEndDate"] != DBNull.Value ? Convert.ToDateTime(drConsultationMedication["DrugEndDate"].ToString()) : (DateTime?)null,
                         DrugDosage = drConsultationMedication["DrugDosage"] != DBNull.Value ? Decimal.Parse(drConsultationMedication["DrugDosage"].ToString()) : (Decimal?)null,
+                        DrugUnitId = Convert.ToInt32(drConsultationMedication["DrugUnitId"].ToString()),
+                        DrugUnitName = drConsultationMedication["DrugUnitName"] != DBNull.Value ? drConsultationMedication["DrugUnitName"].ToString() : string.Empty,
                         AddedBy = drConsultationMedication["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationMedication["AddedBy"].ToString()) : (int?)null,
                         AddedDate = drConsultationMedication["AddedDate"] != DBNull.Value ? DateTime.Parse(drConsultationMedication["AddedDate"].ToString()) : (DateTime?)null,
                         ModifiedBy = drConsultationMedication["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationMedication["ModifiedBy"].ToString()) : (int?)null,

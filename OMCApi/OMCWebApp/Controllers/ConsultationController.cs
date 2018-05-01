@@ -323,6 +323,8 @@ namespace OMCWebApp.Controllers
                 result.MedicationModelObject.DrugChemicalList = JsonConvert.DeserializeObject<List<DrugChemicalMaster>>(Res.Content.ReadAsStringAsync().Result);
                 Res = await client.GetAsync("api/ConsultationAPI/GetDrugFrequencyList?isActive=true&drugFrequencyName=&searchTerm=");
                 result.MedicationModelObject.DrugFrequencyList = JsonConvert.DeserializeObject<List<DrugFrequencyMaster>>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/ConsultationAPI/GetDrugUnitList?isActive=true&drugUnitName=&searchTerm=");
+                result.MedicationModelObject.DrugUnitList = JsonConvert.DeserializeObject<List<UnitMaster>>(Res.Content.ReadAsStringAsync().Result);
                 Res = await client.GetAsync("api/ConsultationAPI/GetConsultationMedicationList?consultationId=" + consultationId.ToString() + "&consultationMedicationId=");
                 result.ConsultationMedicationResponseObject = JsonConvert.DeserializeObject<ConsultationMedicationResponse>(Res.Content.ReadAsStringAsync().Result);
 
@@ -1187,6 +1189,7 @@ namespace OMCWebApp.Controllers
                         DrugChemicalId = consMedication.DrugChemicalId,
                         DrugChemicalOtherDescription = consMedication.DrugChemicalOtherDescription,
                         DrugFrequencyId = consMedication.DrugFrequencyId,
+                        DrugUnitId = consMedication.DrugUnitId,
                         DrugStartDate = consMedication.DrugStartDate,
                         DrugEndDate = consMedication.DrugEndDate,
                         DrugDosage = consMedication.DrugDosage,
@@ -1195,12 +1198,14 @@ namespace OMCWebApp.Controllers
                     };
                     Res = await client.GetAsync("api/ConsultationAPI/GetDrugTypeList?isActive=true&drugType=&searchTerm=");
                     MedicationModelObject.DrugTypeList = JsonConvert.DeserializeObject<List<DrugTypeMaster>>(Res.Content.ReadAsStringAsync().Result);
-                    Res = await client.GetAsync("api/ConsultationAPI/GetSubDrugTypeList?drugTypeId=" + MedicationModelObject.ConsultationMedicationObject.DrugTypeId + "isActive=true&drugSubTypeName=&searchTerm=");
+                    Res = await client.GetAsync("api/ConsultationAPI/GetDrugSubTypeList?drugTypeId=" + MedicationModelObject.ConsultationMedicationObject.DrugTypeId + "&isActive=true&drugSubTypeName=&searchTerm=");
                     MedicationModelObject.DrugSubTypeList = JsonConvert.DeserializeObject<List<DrugSubTypeMaster>>(Res.Content.ReadAsStringAsync().Result);
                     Res = await client.GetAsync("api/ConsultationAPI/GetDrugBrandList?isActive=true&drugBrandName=&searchTerm=");
                     MedicationModelObject.DrugBrandList = JsonConvert.DeserializeObject<List<DrugBrandMaster>>(Res.Content.ReadAsStringAsync().Result);
                     Res = await client.GetAsync("api/ConsultationAPI/GetDrugChemicalList?isActive=true&drugChemicalName=&searchTerm=");
                     MedicationModelObject.DrugChemicalList = JsonConvert.DeserializeObject<List<DrugChemicalMaster>>(Res.Content.ReadAsStringAsync().Result);
+                    Res = await client.GetAsync("api/ConsultationAPI/GetDrugUnitList?isActive=true&drugUnitName=&searchTerm=");
+                    MedicationModelObject.DrugUnitList = JsonConvert.DeserializeObject<List<UnitMaster>>(Res.Content.ReadAsStringAsync().Result);
                     Res = await client.GetAsync("api/ConsultationAPI/GetDrugFrequencyList?isActive=true&drugFrequencyName=&searchTerm=");
                     MedicationModelObject.DrugFrequencyList = JsonConvert.DeserializeObject<List<DrugFrequencyMaster>>(Res.Content.ReadAsStringAsync().Result);
                 }

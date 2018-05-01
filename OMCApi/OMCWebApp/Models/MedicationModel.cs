@@ -11,6 +11,7 @@ namespace OMCWebApp.Models
         public List<DrugFrequencyMaster> DrugFrequencyList { get; set; }
         public List<DrugBrandMaster> DrugBrandList { get; set; }
         public List<DrugChemicalMaster> DrugChemicalList { get; set; }
+        public List<UnitMaster> DrugUnitList { get; set; }
         public MedicationModel()
         {
             ConsultationMedicationObject = new ConsultationMedications();

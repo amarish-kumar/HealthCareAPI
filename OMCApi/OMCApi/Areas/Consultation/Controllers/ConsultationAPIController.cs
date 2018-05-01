@@ -144,6 +144,16 @@ namespace OMCApi.Areas.Consultation.Controllers
             var masterObj = _Kernel.Get<IMaster>();
             return masterObj.GetDrugFrequencyList(isActive, drugFrequencyName, searchTerm);
         }
+
+        // Get: api/ConsultationAPI/GetDrugUnitList
+        [HttpGet]
+        [Route("GetDrugUnitList")]
+        public List<UnitMaster> GetDrugUnitList(bool? isActive, string drugUnitName, string searchTerm)
+        {
+            var masterObj = _Kernel.Get<IMaster>();
+            return masterObj.GetDrugUnitList(isActive, drugUnitName, searchTerm);
+        }
+
         // Get: api/ConsultationAPI/GetOccupationList
         [HttpGet]
         [Route("GetOccupationList")]

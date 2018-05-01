@@ -908,6 +908,55 @@ namespace OMC.DAL.Library
             }
         }
 
+        public List<UnitMaster> GetDrugUnitList(bool? isActive, string drugUnitName, string searchTerm)
+        {
+            try
+            {
+                Log.Info("Started call to GetDrugUnitList");
+                Log.Info("parameter values =" + JsonConvert.SerializeObject(new { isActive = isActive, drugUnitName = drugUnitName, searchTerm = searchTerm }));
+                Command.CommandText = "SP_GET_UNIT_MASTER";
+                Command.CommandType = CommandType.StoredProcedure;
+
+                Command.Parameters.Clear();
+                if (!string.IsNullOrEmpty(drugUnitName))
+                {
+                    Command.Parameters.AddWithValue("@DESCRIPTION", drugUnitName);
+                }
+                if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    Command.Parameters.AddWithValue("@SEARCH_TERM", searchTerm);
+                }
+                Command.Parameters.AddWithValue("@ACTIVE", isActive);
+
+                Connection.Open();
+
+                SqlDataReader reader = Command.ExecuteReader();
+                List<UnitMaster> result = new List<UnitMaster>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new UnitMaster
+                        {
+                            Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : null,
+                            Id = Convert.ToInt32(reader["Id"].ToString())
+                        });
+                    }
+                }
+                Log.Info("End call to GetDrugUnitList result " + JsonConvert.SerializeObject(result));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
         public List<MenstrualSymptomsMaster> GetMenstrualSymptoms(bool? isActive, string MenstrualSymptoms)
         {
             try

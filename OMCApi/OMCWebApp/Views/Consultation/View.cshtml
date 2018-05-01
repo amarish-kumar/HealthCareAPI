@@ -606,22 +606,38 @@
         <br />
         <table class="conversations">
             <thead>
-            <th>Id</th>
-            <th>Consultation Id</th>
-            <th>Systolic</th>
-            <th>Diastolic</th>
-            <th>Timestamp</th>
-            <th>Action</th>
+                <th>Id</th>
+                <th>Consultation Id</th>
+                <th>Chemical Name</th>
+                <th>Others</th>
+                <th>Brand Name</th>
+                <th>Others</th>
+                <th>Frequency</th>
+                <th>Dosage</th>
+                <th>Unit</th>
+                <th>Type</th>
+                <th>Sub Type</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Action</th>
             </thead>
 
             @foreach (var medication in Model.ConsultationMedicationResponseObject.ConsultationMedicationList)
             {
                 <tr>
-                    @*<td>@medication.Id</td>
-                        <td>@medication.ConsultationId</td>
-                        <td>@medication.Systolic</td>
-                        <td>@medication.Diastolic</td>
-                        <td>@(medication.Timestamp.HasValue ? medication.Timestamp.Value.ToString("dd-MMM-yyyy") : "")</td>*@
+                    <td>@medication.Id</td>
+                    <td>@medication.ConsultationId</td>
+                    <td>@medication.DrugChemicalName</td>
+                    <td>@medication.DrugChemicalOtherDescription</td>
+                    <td>@medication.DrugBrandName</td>
+                    <td>@medication.DrugBrandOtherDescription</td>
+                    <td>@medication.DrugFrequencyName</td>
+                    <td>@medication.DrugDosage</td>
+                    <td>@medication.DrugUnitName</td>
+                    <td>@medication.DrugTypeName</td>
+                    <td>@medication.DrugSubTypeName</td>
+                    <td>@(medication.DrugStartDate.HasValue ? medication.DrugStartDate.Value.ToString("dd-MMM-yyyy") : "")</td>
+                    <td>@(medication.DrugEndDate.HasValue ? medication.DrugEndDate.Value.ToString("dd-MMM-yyyy") : "")</td>
                     <td>
                         @if (Model.UserRole.ToLower() == "patient")
                         {
