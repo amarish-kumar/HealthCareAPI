@@ -25,5 +25,6 @@ namespace OMC.BL.Interface
         List<DrugBrandMaster> GetDrugBrandList(bool? isActive, string drugBrandName, string searchTerm);
         List<DrugChemicalMaster> GetDrugChemicalList(bool? isActive, string drugChemicalName, string searchTerm);
         List<DrugFrequencyMaster> GetDrugFrequencyList(bool? isActive, string drugFrequencyName, string searchTerm);
+        List<MenstrualSymptomsMaster> GetMenstrualSymptoms(bool? isActive, string MenstrualSymptoms);
     }
 }

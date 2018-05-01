@@ -907,6 +907,51 @@ namespace OMC.DAL.Library
                 Connection.Close();
             }
         }
+
+        public List<MenstrualSymptomsMaster> GetMenstrualSymptoms(bool? isActive, string MenstrualSymptoms)
+        {
+            try
+            {
+                Log.Info("Started call to GetMenstrualSymptoms");
+                Log.Info("parameter values =" + JsonConvert.SerializeObject(new { isActive = isActive, MenstrualSymptoms = MenstrualSymptoms }));
+                Command.CommandText = "SP_GET_MENSTRUALSYMPTOMS_MASTER";
+                Command.CommandType = CommandType.StoredProcedure;
+
+                Command.Parameters.Clear();
+                if (!string.IsNullOrEmpty(MenstrualSymptoms))
+                {
+                    Command.Parameters.AddWithValue("@DESCRIPTION", MenstrualSymptoms);
+                }
+                Command.Parameters.AddWithValue("@ACTIVE", isActive);
+
+                Connection.Open();
+
+                SqlDataReader reader = Command.ExecuteReader();
+                List<MenstrualSymptomsMaster> result = new List<MenstrualSymptomsMaster>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new MenstrualSymptomsMaster
+                        {
+                            SymptomDescription = reader["SymptomDescription"] != DBNull.Value ? reader["SymptomDescription"].ToString() : null,
+                            Id = Convert.ToInt32(reader["ID"].ToString())
+                        });
+                    }
+                }
+                Log.Info("End call to GetMenstrualSymptoms result " + JsonConvert.SerializeObject(result));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            finally
+            {
+                Connection.Close();
+            }
+        }
         #endregion
     }
 }

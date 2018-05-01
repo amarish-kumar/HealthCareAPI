@@ -238,6 +238,27 @@ namespace OMCWebApp.Controllers
                 DrugSubTypeList = new List<DrugSubTypeMaster>()
             };
 
+
+            //set data for the Pregnancy detail record insert
+            result.PregnancyDetailsModelObject = new PregnancyDetailsModel
+            {
+                ConsultationPregnancyDetailsObject = new ConsultationPregnancyDetails
+                {
+                    ConsultationId = consultationId,
+                    AddedBy = userId
+                }
+            };
+
+            //set data for the Previous Pregnancy detail record insert
+            result.PreviousPregnancyDetailsModelObject = new PreviousPregnancyDetailsModel
+            {
+                ConsultationPreviousPregnancyDetailsObject = new ConsultationPreviousPregnancyDetails
+                {
+                    ConsultationId = consultationId,
+                    AddedBy = userId
+                }
+            };
+
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
@@ -304,6 +325,14 @@ namespace OMCWebApp.Controllers
                 result.MedicationModelObject.DrugFrequencyList = JsonConvert.DeserializeObject<List<DrugFrequencyMaster>>(Res.Content.ReadAsStringAsync().Result);
                 Res = await client.GetAsync("api/ConsultationAPI/GetConsultationMedicationList?consultationId=" + consultationId.ToString() + "&consultationMedicationId=");
                 result.ConsultationMedicationResponseObject = JsonConvert.DeserializeObject<ConsultationMedicationResponse>(Res.Content.ReadAsStringAsync().Result);
+
+                Res = await client.GetAsync("api/ConsultationAPI/GetConsultationPregnancyDetailsList?consultationId=" + consultationId.ToString() + "&consultationPregnancyDetailsId=");
+                result.ConsultationPregnancyDetailsResponseObject = JsonConvert.DeserializeObject<ConsultationPregnancyDetailsResponse>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/ConsultationAPI/GetMenstrualSymptoms?isActive=true&MenstrualSymptoms=");
+                result.PregnancyDetailsModelObject.MenstrualSymptoms = JsonConvert.DeserializeObject<List<MenstrualSymptomsMaster>>(Res.Content.ReadAsStringAsync().Result);
+
+                Res = await client.GetAsync("api/ConsultationAPI/GetConsultationPreviousPregnancyDetailsList?consultationId=" + consultationId.ToString() + "&consultationPreviousPregnancyDetailsId=''&CurrentPregnancyID=");
+                result.ConsultationPreviousPregnancyDetailsResponseObject = JsonConvert.DeserializeObject<ConsultationPreviousPregnancyDetailsResponse>(Res.Content.ReadAsStringAsync().Result);
             }
 
             List<SelectListItem> items = new List<SelectListItem>();
@@ -323,6 +352,58 @@ namespace OMCWebApp.Controllers
                 Value = "Socially"
             });
             ViewBag.DDLItems = items;
+
+
+            List<SelectListItem> mcitems = new List<SelectListItem>();
+            mcitems.Add(new SelectListItem
+            {
+                Text = "Normal",
+                Value = "Normal"
+            });
+            mcitems.Add(new SelectListItem
+            {
+                Text = "High",
+                Value = "High"
+            });
+            mcitems.Add(new SelectListItem
+            {
+                Text = "Extreme",
+                Value = "Extreme"
+            });
+            ViewBag.DDLMCFlowItems = mcitems;
+
+            List<SelectListItem> mcproductitems = new List<SelectListItem>();
+            mcproductitems.Add(new SelectListItem
+            {
+                Text = "Tampon",
+                Value = "Tampon"
+            });
+            mcproductitems.Add(new SelectListItem
+            {
+                Text = "Pad",
+                Value = "Pad"
+            });
+           
+            ViewBag.DDLMCProductItems = mcproductitems;
+
+
+            List<SelectListItem> deliveryitems = new List<SelectListItem>();
+            deliveryitems.Add(new SelectListItem
+            {
+                Text = "L Section",
+                Value = "L Section"
+            });
+            deliveryitems.Add(new SelectListItem
+            {
+                Text = "C Section",
+                Value = "C Section"
+            });
+            deliveryitems.Add(new SelectListItem
+            {
+                Text = "Natural Delivery",
+                Value = "Natural Delivery"
+            });
+            ViewBag.DDLdeliveryitems = deliveryitems;
 
             return View(result);
         }
@@ -1127,7 +1208,210 @@ namespace OMCWebApp.Controllers
             }
             return View(MedicationModelObject);
         }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InsertUpdateConsultationPregnancyDetail(PregnancyDetailsModel pregnancyDetails)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+                var json = JsonConvert.SerializeObject(pregnancyDetails.ConsultationPregnancyDetailsObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/ConsultationAPI/InsertUpdateConsultationPregnancyDetail", content);
+                ConsultationPregnancyDetailsResponse result = new ConsultationPregnancyDetailsResponse();
+                if (Res.IsSuccessStatusCode)
+                {
+                    result.IsSuccess = true;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    result.IsSuccess = false;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                return View("PregnancyDetailsResponse", result);
+
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> EditPregnancyDetails(int userId, int consultationId, int consultationPregnancyDetailsId)
+        {
+            //set data for the pregnancy record edit
+            var PregnancyDetailsModelObject = new PregnancyDetailsModel
+            {
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConsultationPregnancyDetailsList?consultationId=" + consultationId.ToString() + "&consultationPregnancyDetailsId=" + consultationPregnancyDetailsId.ToString());
+                var ConsultationPregnancyDetailsResponseObject = JsonConvert.DeserializeObject<ConsultationPregnancyDetailsResponse>(Res.Content.ReadAsStringAsync().Result);
+
+                if (ConsultationPregnancyDetailsResponseObject.ConsultationPregnancyDetailsList != null
+                    && ConsultationPregnancyDetailsResponseObject.ConsultationPregnancyDetailsList.Count > 0)
+                {
+                    var consPregnancyDetailsDisplay = ConsultationPregnancyDetailsResponseObject.ConsultationPregnancyDetailsList.First();
+                    PregnancyDetailsModelObject.ConsultationPregnancyDetailsObject = new ConsultationPregnancyDetails
+                    {
+                        Id = consPregnancyDetailsDisplay.Id,
+                        ConsultationId = consPregnancyDetailsDisplay.ConsultationId,
+                        CurrentlyPregnant = consPregnancyDetailsDisplay.CurrentlyPregnant,
+                        CurrentPregnancyMonths = consPregnancyDetailsDisplay.CurrentPregnancyMonths,
+                        CurrentPregnancyEDD = consPregnancyDetailsDisplay.CurrentPregnancyEDD,
+                        PregnantBefore = consPregnancyDetailsDisplay.PregnantBefore,
+                        MenstrualCycles = consPregnancyDetailsDisplay.MenstrualCycles,
+                        NoMCReason = consPregnancyDetailsDisplay.NoMCReason,
+                        LastMCCycle = consPregnancyDetailsDisplay.LastMCCycle,
+                        MCRegInterval = consPregnancyDetailsDisplay.MCRegInterval,
+                        LenMCCycle = consPregnancyDetailsDisplay.LenMCCycle,
+                        MCStartAge = consPregnancyDetailsDisplay.MCStartAge,
+                        MCFlow = consPregnancyDetailsDisplay.MCFlow,
+                        MCProductType = consPregnancyDetailsDisplay.MCProductType,
+                        MCProductPerDay = consPregnancyDetailsDisplay.MCProductPerDay,
+                        MCPain = consPregnancyDetailsDisplay.MCPain,
+                        MCPainSeverity = consPregnancyDetailsDisplay.MCPainSeverity,
+                        MCSymptomDesc = consPregnancyDetailsDisplay.MCSymptomDesc,
+                        MCSymptomID = consPregnancyDetailsDisplay.MCSymptomID,
+                        ModifiedBy = userId,
+                        Active = consPregnancyDetailsDisplay.Active
+                    };
+                }
+                Res = await client.GetAsync("api/ConsultationAPI/GetMenstrualSymptoms?isActive=true&MenstrualSymptoms=");
+                PregnancyDetailsModelObject.MenstrualSymptoms = JsonConvert.DeserializeObject<List<MenstrualSymptomsMaster>>(Res.Content.ReadAsStringAsync().Result);
+            }
+
+            List<SelectListItem> mcitems = new List<SelectListItem>();
+            mcitems.Add(new SelectListItem
+            {
+                Text = "Normal",
+                Value = "Normal"
+            });
+            mcitems.Add(new SelectListItem
+            {
+                Text = "High",
+                Value = "High"
+            });
+            mcitems.Add(new SelectListItem
+            {
+                Text = "Extreme",
+                Value = "Extreme"
+            });
+            ViewBag.DDLMCFlowItems = mcitems;
+
+            List<SelectListItem> mcproductitems = new List<SelectListItem>();
+            mcproductitems.Add(new SelectListItem
+            {
+                Text = "Tampon",
+                Value = "Tampon"
+            });
+            mcproductitems.Add(new SelectListItem
+            {
+                Text = "Pad",
+                Value = "Pad"
+            });
+
+            ViewBag.DDLMCProductItems = mcproductitems;
+
+            return View(PregnancyDetailsModelObject);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InsertUpdateConsultationPreviousPregnancyDetail(PreviousPregnancyDetailsModel previouspregnancyDetails)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var json = JsonConvert.SerializeObject(previouspregnancyDetails.ConsultationPreviousPregnancyDetailsObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/ConsultationAPI/InsertUpdateConsultationPreviousPregnancyDetail", content);
+                ConsultationPreviousPregnancyDetailsResponse result = new ConsultationPreviousPregnancyDetailsResponse();
+                if (Res.IsSuccessStatusCode)
+                {
+                    result.IsSuccess = true;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    result.IsSuccess = false;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                return View("PreviousPregnancyDetailsResponse", result);
+
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> EditPreviousPregnancyDetails(int userId, int consultationId,int consultationPreviousPregnancyDetailsId, int CurrentPregnancyID)
+        {
+            //set data for the pregnancy record edit
+            var PreviousPregnancyDetailsModelObject = new PreviousPregnancyDetailsModel
+            {
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConsultationPreviousPregnancyDetailsList?consultationId=" + consultationId.ToString() + "&consultationPreviousPregnancyDetailsId=" + consultationPreviousPregnancyDetailsId.ToString() + "&CurrentPregnancyID=" + CurrentPregnancyID.ToString());
+                var ConsultationPreviousPregnancyDetailsResponseObject = JsonConvert.DeserializeObject<ConsultationPreviousPregnancyDetailsResponse>(Res.Content.ReadAsStringAsync().Result);
+                
+                if (ConsultationPreviousPregnancyDetailsResponseObject.ConsultationPreviousPregnancyDetailsList != null
+                    && ConsultationPreviousPregnancyDetailsResponseObject.ConsultationPreviousPregnancyDetailsList.Count > 0)
+                {
+                    var consPreviousPregnancyDetailsDisplay = ConsultationPreviousPregnancyDetailsResponseObject.ConsultationPreviousPregnancyDetailsList.First();
+                    PreviousPregnancyDetailsModelObject.ConsultationPreviousPregnancyDetailsObject = new ConsultationPreviousPregnancyDetails
+                    {
+                        Id = consPreviousPregnancyDetailsDisplay.Id,
+                        ConsultationId = consPreviousPregnancyDetailsDisplay.ConsultationId,
+                        CurrentPregnancyID = consPreviousPregnancyDetailsDisplay.CurrentPregnancyID != 0 ? consPreviousPregnancyDetailsDisplay.CurrentPregnancyID : CurrentPregnancyID,
+                        NoofPregnancy = consPreviousPregnancyDetailsDisplay.NoofPregnancy,
+                        ChildNo = consPreviousPregnancyDetailsDisplay.ChildNo,
+                        DeliveryYear = consPreviousPregnancyDetailsDisplay.DeliveryYear,
+                        DeliveryType = consPreviousPregnancyDetailsDisplay.DeliveryType,
+                        ModifiedBy = userId,
+                        Active = consPreviousPregnancyDetailsDisplay.Active
+                    };
+                }
+                else
+                {
+                    PreviousPregnancyDetailsModelObject.ConsultationPreviousPregnancyDetailsObject.CurrentPregnancyID = CurrentPregnancyID;
+                    PreviousPregnancyDetailsModelObject.ConsultationPreviousPregnancyDetailsObject.ConsultationId = consultationId;
+                    PreviousPregnancyDetailsModelObject.ConsultationPreviousPregnancyDetailsObject.AddedBy = userId;
+                }
+                
+            }
+
+            List<SelectListItem> deliveryitems = new List<SelectListItem>();
+            deliveryitems.Add(new SelectListItem
+            {
+                Text = "L Section",
+                Value = "L Section"
+            });
+            deliveryitems.Add(new SelectListItem
+            {
+                Text = "C Section",
+                Value = "C Section"
+            });
+            deliveryitems.Add(new SelectListItem
+            {
+                Text = "Natural Delivery",
+                Value = "Natural Delivery"
+            });
+            ViewBag.DDLdeliveryitems = deliveryitems;
+
+            return View(PreviousPregnancyDetailsModelObject);
+        }
+        
         #endregion
     }
 }

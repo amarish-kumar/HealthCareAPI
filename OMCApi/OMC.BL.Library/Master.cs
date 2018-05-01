@@ -328,6 +328,22 @@ namespace OMC.BL.Library
             }
         }
 
+        public List<MenstrualSymptomsMaster> GetMenstrualSymptoms(bool? isActive, string MenstrualSymptoms)
+        {
+            try
+            {
+                return this._masterDA.GetMenstrualSymptoms(isActive, MenstrualSymptoms);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
         #endregion
 
         #region IDisposable

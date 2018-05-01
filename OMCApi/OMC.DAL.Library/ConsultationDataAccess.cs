@@ -705,6 +705,227 @@ namespace OMC.DAL.Library
             }
         }
 
+        public ConsultationPregnancyDetailsResponse InsertUpdateConsultationPregnancyDetail(ConsultationPregnancyDetails consultationPregnancyDetails)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateConsultationPregnancyDetail");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(consultationPregnancyDetails));
+                Command.CommandText = "SP_CONSULTATION_PREGNANCYDETAILS_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                if ((consultationPregnancyDetails.MCSymptomIDArray) != null && consultationPregnancyDetails.MCSymptomIDArray.Length > 0)
+                { consultationPregnancyDetails.MCSymptomID = string.Join(",", consultationPregnancyDetails.MCSymptomIDArray); }
+
+                Command.Parameters.AddWithValue("@CONSULTATION_PREGNANCYDETAILS_XML", GetXMLFromObject(consultationPregnancyDetails));
+                if (consultationPregnancyDetails.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationPregnancyDetails.AddedBy.Value);
+                }
+                if (consultationPregnancyDetails.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationPregnancyDetails.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                ConsultationPregnancyDetailsResponse result = new ConsultationPregnancyDetailsResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new ConsultationPregnancyDetailsResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateConsultationPregnancyDetail");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationPregnancyDetailsResponse GetConsultationPregnancyDetailsList(int consultationId, int? consultationPregnancyDetailsId)
+        {
+            try
+            {
+                Log.Info("Started call to GetConsultationPregnancyDetailsList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { consultationId = consultationId, consultationPregnancyDetailsId = consultationPregnancyDetailsId }));
+                Command.CommandText = "SP_CONSULTATION_PREGNANCYDETAILS_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_ID", consultationId);
+                if (consultationPregnancyDetailsId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@CONSULTATION_PREGNANCYDETAILS_ID", consultationPregnancyDetailsId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                ConsultationPregnancyDetailsResponse result = new ConsultationPregnancyDetailsResponse();
+                result.ConsultationPregnancyDetailsList = new List<ConsultationPregnancyDetailsDisplay>();
+                foreach (DataRow drConsultationPregnancyDetails in ds.Tables[0].Rows)
+                {
+                    result.ConsultationPregnancyDetailsList.Add(new ConsultationPregnancyDetailsDisplay
+                    {
+                        Id = Convert.ToInt32(drConsultationPregnancyDetails["Id"].ToString()),
+                        ConsultationId = Convert.ToInt32(drConsultationPregnancyDetails["ConsultationId"].ToString()),
+                        CurrentlyPregnant = drConsultationPregnancyDetails["CurrentlyPregnant"] != DBNull.Value ? bool.Parse(drConsultationPregnancyDetails["CurrentlyPregnant"].ToString()) : false,
+                        CurrentPregnancyMonths = drConsultationPregnancyDetails["CurrentPregnancyMonths"] != DBNull.Value ? Convert.ToInt32(drConsultationPregnancyDetails["CurrentPregnancyMonths"].ToString()) : (int?)null,
+                        CurrentPregnancyEDD = drConsultationPregnancyDetails["CurrentPregnancyEDD"] != DBNull.Value ? DateTime.Parse(drConsultationPregnancyDetails["CurrentPregnancyEDD"].ToString()) : (DateTime?)null,
+                        PregnantBefore = drConsultationPregnancyDetails["PregnantBefore"] != DBNull.Value ? bool.Parse(drConsultationPregnancyDetails["PregnantBefore"].ToString()) : false,
+                        MenstrualCycles = drConsultationPregnancyDetails["MenstrualCycles"] != DBNull.Value ? bool.Parse(drConsultationPregnancyDetails["MenstrualCycles"].ToString()) : false,
+                        NoMCReason = drConsultationPregnancyDetails["NoMCReason"] != DBNull.Value ? drConsultationPregnancyDetails["NoMCReason"].ToString() : null,
+                        LastMCCycle = drConsultationPregnancyDetails["LastMCCycle"] != DBNull.Value ? DateTime.Parse(drConsultationPregnancyDetails["LastMCCycle"].ToString()) : (DateTime?)null,
+                        MCRegInterval = drConsultationPregnancyDetails["MCRegInterval"] != DBNull.Value ? bool.Parse(drConsultationPregnancyDetails["MCRegInterval"].ToString()) : false,
+                        LenMCCycle = drConsultationPregnancyDetails["LenMCCycle"] != DBNull.Value ? Convert.ToInt32(drConsultationPregnancyDetails["LenMCCycle"].ToString()) : (int?)null,
+                        MCStartAge = drConsultationPregnancyDetails["MCStartAge"] != DBNull.Value ? Convert.ToInt32(drConsultationPregnancyDetails["MCStartAge"].ToString()) : (int?)null,
+                        MCFlow = drConsultationPregnancyDetails["MCFlow"] != DBNull.Value ? drConsultationPregnancyDetails["MCFlow"].ToString() : null,
+                        MCProductType = drConsultationPregnancyDetails["MCProductType"] != DBNull.Value ? drConsultationPregnancyDetails["MCProductType"].ToString() : null,
+                        MCProductPerDay = drConsultationPregnancyDetails["MCProductPerDay"] != DBNull.Value ? Convert.ToInt32(drConsultationPregnancyDetails["MCProductPerDay"].ToString()) : (int?)null,
+                        MCPain = drConsultationPregnancyDetails["MCPain"] != DBNull.Value ? bool.Parse(drConsultationPregnancyDetails["MCPain"].ToString()) : false,
+                        MCPainSeverity = drConsultationPregnancyDetails["MCPainSeverity"] != DBNull.Value ? Convert.ToInt32(drConsultationPregnancyDetails["MCPainSeverity"].ToString()) : (int?)null,
+                        MCSymptomDesc = drConsultationPregnancyDetails["MCSymptomDesc"] != DBNull.Value ? drConsultationPregnancyDetails["MCSymptomDesc"].ToString() : null,
+                        AddedBy = drConsultationPregnancyDetails["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationPregnancyDetails["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drConsultationPregnancyDetails["AddedDate"] != DBNull.Value ? DateTime.Parse(drConsultationPregnancyDetails["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drConsultationPregnancyDetails["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationPregnancyDetails["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drConsultationPregnancyDetails["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drConsultationPregnancyDetails["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetConsultationPregnancyDetailsList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationPreviousPregnancyDetailsResponse InsertUpdateConsultationPreviousPregnancyDetail(ConsultationPreviousPregnancyDetails consultationPreviousPregnancyDetails)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateConsultationPreviousPregnancyDetail");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(consultationPreviousPregnancyDetails));
+                Command.CommandText = "SP_CONSULTATION_PREVIOUSPREGNANCYDETAILS_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+                
+                Command.Parameters.AddWithValue("@CONSULTATION_PREVIOUSPREGNANCYDETAILS_XML", GetXMLFromObject(consultationPreviousPregnancyDetails));
+                if (consultationPreviousPregnancyDetails.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationPreviousPregnancyDetails.AddedBy.Value);
+                }
+                if (consultationPreviousPregnancyDetails.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationPreviousPregnancyDetails.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                ConsultationPreviousPregnancyDetailsResponse result = new ConsultationPreviousPregnancyDetailsResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new ConsultationPreviousPregnancyDetailsResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateConsultationPreviousPregnancyDetail");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationPreviousPregnancyDetailsResponse GetConsultationPreviousPregnancyDetailsList(int consultationId, int? consultationPreviousPregnancyDetailsId, int? CurrentPregnancyID)
+        {
+            try
+            {
+                Log.Info("Started call to GetConsultationPreviousPregnancyDetailsList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { consultationId = consultationId, consultationPreviousPregnancyDetailsId = consultationPreviousPregnancyDetailsId, CurrentPregnancyID = CurrentPregnancyID }));
+                Command.CommandText = "SP_CONSULTATION_PREVIOUSPREGNANCYDETAILS_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_ID", consultationId);
+                if (consultationPreviousPregnancyDetailsId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@CONSULTATION_PREVIOUSPREGNANCYDETAILS_ID", consultationPreviousPregnancyDetailsId);
+                }
+                if (CurrentPregnancyID.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@CONSULTATION_CURRENTPREGNANCYDETAILS_ID", CurrentPregnancyID);
+                }
+                //Command.Parameters.AddWithValue("@CONSULTATION_CURRENTPREGNANCYDETAILS_ID", consultationId);
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                ConsultationPreviousPregnancyDetailsResponse result = new ConsultationPreviousPregnancyDetailsResponse();
+                result.ConsultationPreviousPregnancyDetailsList = new List<ConsultationPreviousPregnancyDetailsDisplay>();
+                foreach (DataRow drConsultationPreviousPregnancyDetails in ds.Tables[0].Rows)
+                {
+                    result.ConsultationPreviousPregnancyDetailsList.Add(new ConsultationPreviousPregnancyDetailsDisplay
+                    {
+                        Id = Convert.ToInt32(drConsultationPreviousPregnancyDetails["Id"].ToString()),
+                        ConsultationId = Convert.ToInt32(drConsultationPreviousPregnancyDetails["ConsultationId"].ToString()),
+                        CurrentPregnancyID = Convert.ToInt32(drConsultationPreviousPregnancyDetails["CurrentPregnancyID"].ToString()),
+                        NoofPregnancy = drConsultationPreviousPregnancyDetails["NoofPregnancy"] != DBNull.Value ? Convert.ToInt32(drConsultationPreviousPregnancyDetails["NoofPregnancy"].ToString()) : (int?)null,
+                        ChildNo = drConsultationPreviousPregnancyDetails["ChildNo"] != DBNull.Value ? Convert.ToInt32(drConsultationPreviousPregnancyDetails["ChildNo"].ToString()) : (int?)null,
+                        DeliveryYear = drConsultationPreviousPregnancyDetails["DeliveryYear"] != DBNull.Value ? drConsultationPreviousPregnancyDetails["DeliveryYear"].ToString() : null,
+                        DeliveryType = drConsultationPreviousPregnancyDetails["DeliveryType"] != DBNull.Value ? drConsultationPreviousPregnancyDetails["DeliveryType"].ToString() : null,
+                        AddedBy = drConsultationPreviousPregnancyDetails["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationPreviousPregnancyDetails["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drConsultationPreviousPregnancyDetails["AddedDate"] != DBNull.Value ? DateTime.Parse(drConsultationPreviousPregnancyDetails["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drConsultationPreviousPregnancyDetails["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationPreviousPregnancyDetails["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drConsultationPreviousPregnancyDetails["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drConsultationPreviousPregnancyDetails["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetConsultationPreviousPregnancyDetailsList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
         public ConsultationSDDHabitsResponse InsertUpdateConsultationSDDHabits(ConsultationSDDHabits consultationSDDHabits)
         {
             try
