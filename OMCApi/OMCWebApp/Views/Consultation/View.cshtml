@@ -72,10 +72,10 @@
         <br />
         <table class="conversations">
             <thead>
-                <th>Id</th>
-                <th>Description</th>
-                <th>From</th>
-                <th>Timestamp</th>
+            <th>Id</th>
+            <th>Description</th>
+            <th>From</th>
+            <th>Timestamp</th>
             </thead>
 
             @foreach (var conversation in Model.ConversationResponseObject.Conversations)
@@ -85,13 +85,13 @@
                     <td>@conversation.ConversationDescription</td>
                     <td>
                         @(conversation.PatientId.HasValue
-                                    ? conversation.PatientName
-                                    : (conversation.DoctorId.HasValue ? conversation.DoctorName : string.Empty))
+                                            ? conversation.PatientName
+                                            : (conversation.DoctorId.HasValue ? conversation.DoctorName : string.Empty))
                     </td>
                     <td>
                         @(conversation.ConversationCreateDate.HasValue
-                                ? conversation.ConversationCreateDate.Value.ToString("dd-MMM-yyyy hh:mm")
-                                : string.Empty)
+                                        ? conversation.ConversationCreateDate.Value.ToString("dd-MMM-yyyy hh:mm")
+                                        : string.Empty)
                     </td>
                 </tr>
             }
@@ -114,16 +114,16 @@
         <br />
         <table class="conversations">
             <thead>
-                <th>Id</th>
-                <th>Consultation Id</th>
-                <th>File Name</th>
-                <th>Report Date</th>
-                <th>Lab Name</th>
-                <th>Description</th>
-                <th>Doctor Name</th>
-                <th>Country</th>
-                <th>Phone Number</th>
-                <th>Action</th>
+            <th>Id</th>
+            <th>Consultation Id</th>
+            <th>File Name</th>
+            <th>Report Date</th>
+            <th>Lab Name</th>
+            <th>Description</th>
+            <th>Doctor Name</th>
+            <th>Country</th>
+            <th>Phone Number</th>
+            <th>Action</th>
             </thead>
 
             @foreach (var report in Model.ConsultationReportResponseObject.ConsultationReports)
@@ -266,13 +266,13 @@
         <br />
         <table class="conversations">
             <thead>
-                <th>Id</th>
-                <th>Consultation Id</th>
-                <th>Allergy</th>
-                <th>Other Description</th>
-                <th>Allergy Start Date</th>
-                <th>Treatment</th>
-                <th>Action</th>
+            <th>Id</th>
+            <th>Consultation Id</th>
+            <th>Allergy</th>
+            <th>Other Description</th>
+            <th>Allergy Start Date</th>
+            <th>Treatment</th>
+            <th>Action</th>
             </thead>
 
             @foreach (var allergy in Model.ConsultationAllergyResponseObject.ConsultationAllergyList)
@@ -313,7 +313,7 @@
     {
         <br />
         <table class="conversations">
-        <thead>
+            <thead>
             <th>Id</th>
             <th>Consultation Id</th>
             <th>Relationship</th>
@@ -325,29 +325,29 @@
             <th>Cause Of Death</th>
             <th>Age On Death</th>
             <th>Action</th>
-        </thead>
+            </thead>
 
-        @foreach (var familyHistory in Model.ConsultationFamilyHistoryResponseObject.ConsultationFamilyHistories)
-        {
-            <tr>
-                <td>@familyHistory.Id</td>
-                <td>@familyHistory.ConsultationId</td>
-                <td>@familyHistory.Relationship</td>
-                <td>@familyHistory.HealthCondition</td>
-                <td>@familyHistory.OtherHealthConditionDescription</td>
-                <td>@(familyHistory.CurrentAge.HasValue ? familyHistory.CurrentAge.Value.ToString() : string.Empty)</td>
-                <td>@(familyHistory.AgeOnConditionStart.HasValue ? familyHistory.AgeOnConditionStart.Value.ToString() : string.Empty)</td>
-                <td>@(familyHistory.IsAlive ? "Yes" : "No")</td>
-                <td>@familyHistory.CauseOfDeath</td>
-                <td>@(familyHistory.AgeOnDeath.HasValue ? familyHistory.AgeOnDeath.Value.ToString() : string.Empty)</td>                   
-                <td>
-                    @if (Model.UserRole.ToLower() == "patient")
-                    {
-                        @Html.ActionLink("Edit", "EditFamilyHistory", "Consultation", new { userId = Model.UserId, consultationId = familyHistory.ConsultationId, consultationFamilyHistoryId = familyHistory.Id }, null)
-                    }
-                </td>
-            </tr>
-        }
+            @foreach (var familyHistory in Model.ConsultationFamilyHistoryResponseObject.ConsultationFamilyHistories)
+            {
+                <tr>
+                    <td>@familyHistory.Id</td>
+                    <td>@familyHistory.ConsultationId</td>
+                    <td>@familyHistory.Relationship</td>
+                    <td>@familyHistory.HealthCondition</td>
+                    <td>@familyHistory.OtherHealthConditionDescription</td>
+                    <td>@(familyHistory.CurrentAge.HasValue ? familyHistory.CurrentAge.Value.ToString() : string.Empty)</td>
+                    <td>@(familyHistory.AgeOnConditionStart.HasValue ? familyHistory.AgeOnConditionStart.Value.ToString() : string.Empty)</td>
+                    <td>@(familyHistory.IsAlive ? "Yes" : "No")</td>
+                    <td>@familyHistory.CauseOfDeath</td>
+                    <td>@(familyHistory.AgeOnDeath.HasValue ? familyHistory.AgeOnDeath.Value.ToString() : string.Empty)</td>
+                    <td>
+                        @if (Model.UserRole.ToLower() == "patient")
+                        {
+                            @Html.ActionLink("Edit", "EditFamilyHistory", "Consultation", new { userId = Model.UserId, consultationId = familyHistory.ConsultationId, consultationFamilyHistoryId = familyHistory.Id }, null)
+                        }
+                    </td>
+                </tr>
+            }
         </table>
     }
     else
@@ -370,13 +370,13 @@
         <br />
         <table class="conversations">
             <thead>
-                <th>Id</th>
-                <th>Consultation Id</th>
-                <th>Relationship</th>
-                <th>Health Condition</th>
-                <th>Other Health Condition Description</th>
-                <th>Condition Start Date</th>
-                <th>Action</th>
+            <th>Id</th>
+            <th>Consultation Id</th>
+            <th>Relationship</th>
+            <th>Health Condition</th>
+            <th>Other Health Condition Description</th>
+            <th>Condition Start Date</th>
+            <th>Action</th>
             </thead>
 
             @foreach (var existingCondition in Model.ConsultationExistingConditionResponseObject.ConsultationFamilyHistories)
@@ -387,12 +387,12 @@
                     <td>@existingCondition.Relationship</td>
                     <td>@existingCondition.HealthCondition</td>
                     <td>@existingCondition.OtherHealthConditionDescription</td>
-                    <td>@(existingCondition.ConditionStartDate.HasValue ? existingCondition.ConditionStartDate.Value.ToString("dd-MMM-yyyy") : string.Empty)</td>                    
+                    <td>@(existingCondition.ConditionStartDate.HasValue ? existingCondition.ConditionStartDate.Value.ToString("dd-MMM-yyyy") : string.Empty)</td>
                     <td>
-                    @if (Model.UserRole.ToLower() == "patient" || Model.UserRole.ToLower() == "doctor")
-                    {
+                        @if (Model.UserRole.ToLower() == "patient" || Model.UserRole.ToLower() == "doctor")
+                        {
                             @Html.ActionLink("Edit", "EditExistingCondition", "Consultation", new { userId = Model.UserId, consultationId = existingCondition.ConsultationId, consultationFamilyHistoryId = existingCondition.Id, excludeSelf = false }, null)
-                    }
+                        }
                     </td>
                 </tr>
             }
@@ -401,7 +401,7 @@
     else
     {
         <p>No existing conditions recorded</p>
-    } 
+    }
     @if (Model.UserRole.ToLower() == "patient")
     {
         @Html.Partial("CreateExistingCondition", Model.ExistingConditionModelObject)
@@ -429,23 +429,23 @@
             </thead>
 
             @foreach (var illegaldrugDetails in Model.ConsultationIllegalDrugDetailsResponseObject.ConsultationIllegalDrugDetailsDisplayList)
-    {
-            <tr>
-                <td>@illegaldrugDetails.Id</td>
-                <td>@illegaldrugDetails.ConsultationId</td>
-                <td>@illegaldrugDetails.ConsumeDrugs</td>
-                <td>@illegaldrugDetails.IllegalDrugDesc</td>
-                <td>@illegaldrugDetails.OtherDescription</td>
-                <td>@illegaldrugDetails.Frequency</td>
-                <td>@illegaldrugDetails.PerFrequency</td>
-                <td>
-                    @if (Model.UserRole.ToLower() == "patient")
-        {
-            @Html.ActionLink("Edit", "EditIllegalDrugDetails", "Consultation", new { userId = Model.UserId, consultationId = illegaldrugDetails.ConsultationId, consultationIllegalDrugDetailsId = illegaldrugDetails.Id }, null)
-}
-                </td>
-            </tr>
-}
+            {
+                <tr>
+                    <td>@illegaldrugDetails.Id</td>
+                    <td>@illegaldrugDetails.ConsultationId</td>
+                    <td>@illegaldrugDetails.ConsumeDrugs</td>
+                    <td>@illegaldrugDetails.IllegalDrugDesc</td>
+                    <td>@illegaldrugDetails.OtherDescription</td>
+                    <td>@illegaldrugDetails.Frequency</td>
+                    <td>@illegaldrugDetails.PerFrequency</td>
+                    <td>
+                        @if (Model.UserRole.ToLower() == "patient")
+                        {
+                            @Html.ActionLink("Edit", "EditIllegalDrugDetails", "Consultation", new { userId = Model.UserId, consultationId = illegaldrugDetails.ConsultationId, consultationIllegalDrugDetailsId = illegaldrugDetails.Id }, null)
+                        }
+                    </td>
+                </tr>
+            }
         </table>
     }
     else
@@ -516,11 +516,11 @@
         <br />
         <table class="conversations">
             <thead>
-                <th>Id</th>
-                <th>Consultation Id</th>
-                <th>Occupation</th>
-                <th>Other Description</th>
-                <th>Action</th>
+            <th>Id</th>
+            <th>Consultation Id</th>
+            <th>Occupation</th>
+            <th>Other Description</th>
+            <th>Action</th>
             </thead>
 
             @foreach (var occupation in Model.ConsultationOccupationResponseObject.ConsultationOccupationList)
@@ -560,12 +560,12 @@
         <br />
         <table class="conversations">
             <thead>
-                <th>Id</th>
-                <th>Consultation Id</th>
-                <th>Systolic</th>
-                <th>Diastolic</th>
-                <th>Timestamp</th>
-                <th>Action</th>
+            <th>Id</th>
+            <th>Consultation Id</th>
+            <th>Systolic</th>
+            <th>Diastolic</th>
+            <th>Timestamp</th>
+            <th>Action</th>
             </thead>
 
             @foreach (var bloodPressureReading in Model.ConsultationBloodPressureReadingResponseObject.ConsultationBloodPressureReadingList)
@@ -642,9 +642,14 @@
                         @if (Model.UserRole.ToLower() == "patient")
                         {
                             @Html.ActionLink("Edit", "EditMedication", "Consultation"
-                            , new { userId = Model.UserId, consultationId = medication.ConsultationId
-                                    , consultationMedicationId = medication.Id }
-                            , null)
+                                 , new
+                                 {
+                                     userId = Model.UserId,
+                                     consultationId = medication.ConsultationId
+                                         ,
+                                     consultationMedicationId = medication.Id
+                                 }
+                                 , null)
                         }
                     </td>
                 </tr>
@@ -661,6 +666,193 @@
     }
     <br />
 </div>
+
+<button class="collapsible">Pregnancy Details</button>
+<div class="content" style="overflow: auto;">
+    @if (Model.ConsultationPregnancyDetailsResponseObject != null
+        && Model.ConsultationPregnancyDetailsResponseObject.ConsultationPregnancyDetailsList != null
+        && Model.ConsultationPregnancyDetailsResponseObject.ConsultationPregnancyDetailsList.Count() != 0)
+    {
+        <br />
+        <table class="conversations">
+            <thead>
+            <th>Id</th>
+            <th>Consultation Id</th>
+            <th>Are you currently pregnant?</th>
+            <th>How many months pregnant?</th>
+            <th>Expected Date of Delivery</th>
+            <th>Have you been pregnant before?</th>
+            <th>Do you have menstrual cycles?</th>
+            <th>Reason for No menstrual cycles</th>
+            <th>First Date of Last menstrual cycle?</th>
+            <th>Has your cycle been on regular interval?</th>
+            <th>Average Length of Cycle?</th>
+            <th>Age when menstrual started?</th>
+            <th>Flow of menstrual?</th>
+            <th>Type of Product used in menstrual cycle</th>
+            <th>Product use per day in menstrual cycle?</th>
+            <th>Pain during Menstrual?</th>
+            <th>Severity of Pain</th>
+            <th>Pre menstrual symptoms</th>
+            <th>Action</th>
+            </thead>
+
+            @foreach (var pregnancyDetails in Model.ConsultationPregnancyDetailsResponseObject.ConsultationPregnancyDetailsList)
+            {
+            <tr>
+                <td>@pregnancyDetails.Id</td>
+                <td>@pregnancyDetails.ConsultationId</td>
+                <td>@pregnancyDetails.CurrentlyPregnant</td>
+                <td>@pregnancyDetails.CurrentPregnancyMonths</td>
+                <td>@pregnancyDetails.CurrentPregnancyEDD</td>
+                @*<td>@pregnancyDetails.PregnantBefore</td>*@
+                <td>
+                    @if (Model.UserRole.ToLower() == "patient" && @pregnancyDetails.PregnantBefore)
+                    {
+                      @Html.ActionLink(@pregnancyDetails.PregnantBefore.ToString(), "EditPreviousPregnancyDetails", "Consultation", new { userId = Model.UserId, consultationId = pregnancyDetails.ConsultationId, consultationPreviousPregnancyDetailsId=0, CurrentPregnancyID = pregnancyDetails.Id }, null)
+                    }
+                    else
+                    { @pregnancyDetails.PregnantBefore }
+                </td>
+                <td>@pregnancyDetails.MenstrualCycles</td>
+                <td>@pregnancyDetails.NoMCReason</td>
+                <td>@pregnancyDetails.LastMCCycle</td>
+                <td>@pregnancyDetails.MCRegInterval</td>
+                <td>@pregnancyDetails.LenMCCycle</td>
+                <td>@pregnancyDetails.MCStartAge</td>
+                <td>@pregnancyDetails.MCFlow</td>
+                <td>@pregnancyDetails.MCProductType</td>
+                <td>@pregnancyDetails.MCProductPerDay</td>
+                <td>@pregnancyDetails.MCPain</td>
+                <td>@pregnancyDetails.MCPainSeverity</td>
+                <td>@pregnancyDetails.MCSymptomDesc</td>
+                <td>
+                    @if (Model.UserRole.ToLower() == "patient")
+        {
+            @Html.ActionLink("Edit", "EditPregnancyDetails", "Consultation", new { userId = Model.UserId, consultationId = pregnancyDetails.ConsultationId, consultationPregnancyDetailsId = pregnancyDetails.Id }, null)
+}
+                </td>
+            </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>No Pregnancy details recorded</p>
+    }
+    @if (Model.UserRole.ToLower() == "patient")
+    {
+        @Html.Partial("PregnancyDetails", Model.PregnancyDetailsModelObject)
+    }
+    <br />
+</div>
+
+<button class="collapsible">Previous Pregnancy Details</button>
+<div class="content" style="overflow: auto;">
+    @if (Model.ConsultationPregnancyDetailsResponseObject != null
+        && Model.ConsultationPregnancyDetailsResponseObject.ConsultationPregnancyDetailsList != null
+        && Model.ConsultationPregnancyDetailsResponseObject.ConsultationPregnancyDetailsList.Count() != 0)
+    {
+        <p>Current Pregnancy Details</p>
+        <br />
+        <table class="conversations">
+            <thead>
+            <th>Id</th>
+            <th>Consultation Id</th>
+            <th>Are you currently pregnant?</th>
+            <th>How many months pregnant?</th>
+            <th>Expected Date of Delivery</th>
+            <th>Have you been pregnant before?</th>
+            <th>Do you have menstrual cycles?</th>
+            <th>Reason for No menstrual cycles</th>
+            <th>First Date of Last menstrual cycle?</th>
+            <th>Has your cycle been on regular interval?</th>
+            <th>Average Length of Cycle?</th>
+            <th>Age when menstrual started?</th>
+            <th>Flow of menstrual?</th>
+            <th>Type of Product used in menstrual cycle</th>
+            <th>Product use per day in menstrual cycle?</th>
+            <th>Pain during Menstrual?</th>
+            <th>Severity of Pain</th>
+            <th>Pre menstrual symptoms</th>
+            </thead>
+
+            @foreach (var pregnancyDetails in Model.ConsultationPregnancyDetailsResponseObject.ConsultationPregnancyDetailsList)
+            {
+                <tr>
+                    <td>@pregnancyDetails.Id</td>
+                    <td>@pregnancyDetails.ConsultationId</td>
+                    <td>@pregnancyDetails.CurrentlyPregnant</td>
+                    <td>@pregnancyDetails.CurrentPregnancyMonths</td>
+                    <td>@pregnancyDetails.CurrentPregnancyEDD</td>
+                    <td>@pregnancyDetails.PregnantBefore</td>
+                    <td>@pregnancyDetails.MenstrualCycles</td>
+                    <td>@pregnancyDetails.NoMCReason</td>
+                    <td>@pregnancyDetails.LastMCCycle</td>
+                    <td>@pregnancyDetails.MCRegInterval</td>
+                    <td>@pregnancyDetails.LenMCCycle</td>
+                    <td>@pregnancyDetails.MCStartAge</td>
+                    <td>@pregnancyDetails.MCFlow</td>
+                    <td>@pregnancyDetails.MCProductType</td>
+                    <td>@pregnancyDetails.MCProductPerDay</td>
+                    <td>@pregnancyDetails.MCPain</td>
+                    <td>@pregnancyDetails.MCPainSeverity</td>
+                    <td>@pregnancyDetails.MCSymptomDesc</td>
+                </tr>
+            }
+        </table>
+    }
+    else { <p>No Current Pregnancy details recorded</p> }
+    
+    @if (Model.ConsultationPreviousPregnancyDetailsResponseObject != null
+        && Model.ConsultationPreviousPregnancyDetailsResponseObject.ConsultationPreviousPregnancyDetailsList != null
+        && Model.ConsultationPreviousPregnancyDetailsResponseObject.ConsultationPreviousPregnancyDetailsList.Count() != 0)
+    {
+        <br />
+        <table class="conversations">
+            <thead>
+            <th>Id</th>
+            <th>Consultation Id</th>
+            <th>Current Pregnancy Id</th>
+            <th>How many times pregnant before?</th>
+            <th>Child Number</th>
+            <th>Year of delivery</th>
+            <th>Type of Delivery</th>
+            <th>Action</th>
+            </thead>
+
+            @foreach (var previouspregnancyDetails in Model.ConsultationPreviousPregnancyDetailsResponseObject.ConsultationPreviousPregnancyDetailsList)
+            {
+            <tr>
+                <td>@previouspregnancyDetails.Id</td>
+                <td>@previouspregnancyDetails.ConsultationId</td>
+                <td>@previouspregnancyDetails.CurrentPregnancyID</td>
+                <td>@previouspregnancyDetails.NoofPregnancy</td>
+                <td>@previouspregnancyDetails.ChildNo</td>
+                <td>@previouspregnancyDetails.DeliveryYear</td>
+                <td>@previouspregnancyDetails.DeliveryType</td>
+                <td>
+                    @if (Model.UserRole.ToLower() == "patient")
+        {
+            @Html.ActionLink("Edit", "EditPreviousPregnancyDetails", "Consultation", new { userId = Model.UserId, consultationId = previouspregnancyDetails.ConsultationId, consultationPreviousPregnancyDetailsId = previouspregnancyDetails.Id, CurrentPregnancyID = previouspregnancyDetails.CurrentPregnancyID }, null)
+}
+                </td>
+            </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>No Previous Pregnancy details recorded</p>
+    }
+    @*@if (Model.UserRole.ToLower() == "patient")
+    {
+        @Html.Partial("PreviousPregnancyDetails", Model.PreviousPregnancyDetailsModelObject)
+    }*@
+    <br />
+</div>
+
+
 @section scripts{
 
     <script type="text/javascript">
@@ -689,12 +881,12 @@
                     contentType: 'application/json',
                     success: function (data) {
                         $('#ConsultationMedicationObject_DrugSubTypeId').find('option:not(:first)').remove();
-                        $.each(data, function (i, record) {                            
+                        $.each(data, function (i, record) {
                             $('#ConsultationMedicationObject_DrugSubTypeId').append(
                                 $('<option></option>').val(record.Id).html(record.Description));
                         });
                     },
-                    error: function (a,b,c) {
+                    error: function (a, b, c) {
                     }
                 });
             });

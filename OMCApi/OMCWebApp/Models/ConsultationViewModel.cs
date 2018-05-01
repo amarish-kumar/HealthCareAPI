@@ -79,5 +79,17 @@ namespace OMCWebApp.Models
         /// </summary>
         public MedicationModel MedicationModelObject { get; set; }
         public ConsultationMedicationResponse ConsultationMedicationResponseObject { get; set; }
+
+        /// <summary>
+        /// this is used to create the pregnancy details record
+        /// </summary>
+        public PregnancyDetailsModel PregnancyDetailsModelObject { get; set; }
+        public ConsultationPregnancyDetailsResponse ConsultationPregnancyDetailsResponseObject { get; set; }
+
+        /// <summary>
+        /// this is used to create the previous pregnancy details record
+        /// </summary>
+        public PreviousPregnancyDetailsModel PreviousPregnancyDetailsModelObject { get; set; }
+        public ConsultationPreviousPregnancyDetailsResponse ConsultationPreviousPregnancyDetailsResponseObject { get; set; }
     }
 }
