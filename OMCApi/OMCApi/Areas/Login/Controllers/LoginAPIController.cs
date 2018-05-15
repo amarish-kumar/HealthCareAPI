@@ -27,6 +27,12 @@ namespace OMCApi.Areas.Login.Controllers
         #endregion
 
         // Get: api/LoginAPI/GetRoles
+        /// <summary>
+        /// Gets the list of Roles available in the system
+        /// </summary>
+        /// <param name="isActive">pass the value of isActive flag</param>
+        /// <param name="roleDescription">pass the value of roleDescription to filter by role. Pass null/empty to bypass the filter</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetRoles")]
         public List<Role> GetRoles(bool? isActive, string roleDescription)
