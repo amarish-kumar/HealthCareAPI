@@ -155,7 +155,7 @@ namespace OMCApi.Areas.Login.Controllers
 
         /// <summary>
         /// Gets the list of Relationships available  in the system
-        /// OMC-169, OMC-118
+        /// OMC-169, OMC-118, OMC-115
         /// </summary>
         /// <param name="isActive"></param>
         /// <param name="relationship"></param>
