@@ -6,6 +6,9 @@ using System.Web.Http;
 
 namespace OMCApi.Areas.Login.Controllers
 {
+    /// <summary>
+    /// This controller hosts all APIs related to login functionality
+    /// </summary>
     [RoutePrefix("api/LoginAPI")]
     public class LoginAPIController : ApiController
     {
@@ -41,7 +44,11 @@ namespace OMCApi.Areas.Login.Controllers
             return masterObj.GetRoles(isActive, roleDescription);
         }
 
-
+        /// <summary>
+        /// Posts the User Login data and checks for the validity
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         // POST: api/LoginAPI
         [HttpPost]
         [Route("PostUserLogin")]
@@ -52,7 +59,12 @@ namespace OMCApi.Areas.Login.Controllers
             return SignInResult;
         }
 
-        // POST: api/LoginAPI
+        /// <summary>
+        /// Gets the 6 digit access code for validating the new device by email/sms
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        // POST: api/GetAccessCode
         [HttpPost]
         [Route("GetAccessCode")]
         public UserAccessCodeResponse GetAccessCode([FromBody]UserLogin user)
@@ -63,6 +75,11 @@ namespace OMCApi.Areas.Login.Controllers
             return getUserAccessCodeResult;
         }
 
+        /// <summary>
+        /// API to validate the 6 digit access code against the new device
+        /// </summary>
+        /// <param name="userAccessCode"></param>
+        /// <returns></returns>
         // POST: api/LoginAPI
         [HttpPost]
         [Route("ValidateAccessCode")]

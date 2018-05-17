@@ -6,6 +6,9 @@ using System.Web.Http;
 
 namespace OMCApi.Areas.Consultation.Controllers
 {
+    /// <summary>
+    /// This controller hosts all APIs related to Consultation functionality
+    /// </summary>
     [RoutePrefix("api/ConsultationAPI")]
     public class ConsultationAPIController : ApiController
     {
@@ -27,6 +30,12 @@ namespace OMCApi.Areas.Consultation.Controllers
         #endregion
 
         #region Actions
+        /// <summary>
+        /// Gets the list of Consultation statuses available in the system
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetConsultationStatuses
         [HttpGet]
         [Route("GetConsultationStatuses")]
@@ -36,6 +45,13 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetConsultationStatuses(isActive, description);
         }
 
+        /// <summary>
+        /// Gets the list of Cancer stages available in the system
+        /// OMC-116
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="cancerStageName"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetCancerStages
         [HttpGet]
         [Route("GetCancerStages")]
@@ -45,6 +61,14 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetCancerStages(isActive, cancerStageName);
         }
 
+        /// <summary>
+        /// Gets the list of Surgeries available in the system
+        /// OMC-116
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="surgeryName"></param>
+        /// <param name="searchTerm"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetSurgeryList
         [HttpGet]
         [Route("GetSurgeryList")]
@@ -54,6 +78,13 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetSurgeryList(isActive, surgeryName, searchTerm);
         }
 
+        /// <summary>
+        /// Gets the list of Allergies available in the system
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="allergyName"></param>
+        /// <param name="searchTerm"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetAllergyList
         [HttpGet]
         [Route("GetAllergyList")]
@@ -63,6 +94,14 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetAllergyList(isActive, allergyName, searchTerm);
         }
 
+        /// <summary>
+        /// Gets the list of Health conditions available in the system
+        /// OMC-118, OMC-115
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="healthConditionName"></param>
+        /// <param name="searchTerm"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetHealthConditionList
         [HttpGet]
         [Route("GetHealthConditionList")]
@@ -72,6 +111,12 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetHealthConditionList(isActive, healthConditionName, searchTerm);
         }
 
+        /// <summary>
+        /// Gets the list of Doctors available in the system
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="userRole"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetDoctors
         [HttpGet]
         [Route("GetDoctors")]
@@ -81,6 +126,13 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetUserList(isActive, userRole);
         }
 
+        /// <summary>
+        /// Gets the list of Illegal drugs available in the system
+        /// OMC-162
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="IllegalDrug"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetIllegalDrugs
         [HttpGet]
         [Route("GetIllegalDrugs")]
@@ -90,6 +142,14 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetIllegalDrugs(isActive, IllegalDrug);
         }
 
+        /// <summary>
+        /// Gets the list of Drug types available in the system
+        /// OMC-113
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="drugType"></param>
+        /// <param name="searchTerm"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetDrugTypeList
         [HttpGet]
         [Route("GetDrugTypeList")]
@@ -99,6 +159,15 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetDrugTypeList(isActive, drugType, searchTerm);
         }
 
+        /// <summary>
+        /// Gets the list of Drug sub types available for the selected drug type in the system
+        /// OMC-113
+        /// </summary>
+        /// <param name="drugTypeId"></param>
+        /// <param name="isActive"></param>
+        /// <param name="drugSubTypeName"></param>
+        /// <param name="searchTerm"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetDrugSubTypeList
         [HttpGet]
         [Route("GetDrugSubTypeList")]
@@ -108,6 +177,14 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetDrugSubTypeList(drugTypeId, isActive, drugSubTypeName, searchTerm);
         }
 
+        /// <summary>
+        /// Gets the list of Drug brands available in the system
+        /// OMC-113
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="drugBrandName"></param>
+        /// <param name="searchTerm"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetDrugBrandList
         [HttpGet]
         [Route("GetDrugBrandList")]
@@ -117,6 +194,14 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetDrugBrandList(isActive, drugBrandName, searchTerm);
         }
 
+        /// <summary>
+        /// Gets the list of Drug chemicals available in the system
+        /// OMC-113
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="drugChemicalName"></param>
+        /// <param name="searchTerm"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetDrugChemicalList
         [HttpGet]
         [Route("GetDrugChemicalList")]
@@ -126,6 +211,15 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetDrugChemicalList(isActive, drugChemicalName, searchTerm);
         }
 
+        /// <summary>
+        /// Gets the list of Drug frequencies available in the system
+        /// OMC-113
+        /// OMC-162
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="drugFrequencyName"></param>
+        /// <param name="searchTerm"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetDrugFrequencyList
         [HttpGet]
         [Route("GetDrugFrequencyList")]
@@ -135,6 +229,14 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetDrugFrequencyList(isActive, drugFrequencyName, searchTerm);
         }
 
+        /// <summary>
+        /// Gets the list of Drug units available in the system
+        /// OMC-113
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="drugUnitName"></param>
+        /// <param name="searchTerm"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetDrugUnitList
         [HttpGet]
         [Route("GetDrugUnitList")]
@@ -144,6 +246,13 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetDrugUnitList(isActive, drugUnitName, searchTerm);
         }
 
+        /// <summary>
+        /// Gets the list of Occupations available in the system
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="occupationName"></param>
+        /// <param name="searchTerm"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetOccupationList
         [HttpGet]
         [Route("GetOccupationList")]
@@ -153,6 +262,12 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetOccupationList(isActive, occupationName, searchTerm);
         }
 
+        /// <summary>
+        /// Gets the list of Packages available in the system
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="packageId"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetPackageList
         [HttpGet]
         [Route("GetPackageList")]
@@ -162,6 +277,11 @@ namespace OMCApi.Areas.Consultation.Controllers
             return masterObj.GetPackageList(isActive, packageId);
         }
 
+        /// <summary>
+        /// API to handle the unregistered patient enquiry for doctors
+        /// </summary>
+        /// <param name="enquiry"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetUnregisteredPatientEnquiry
         [HttpPost]
         [Route("GetUnregisteredPatientEnquiry")]
@@ -169,9 +289,14 @@ namespace OMCApi.Areas.Consultation.Controllers
         {
             var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
             return ConsultationBLObj.UnregisteredPatientEnquiry(enquiry);
-
         }
 
+        /// <summary>
+        /// Gets the list of consultation for the user as per the role of the logged in user (patient/doctor)
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="userRole"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetConsultationList
         [HttpGet]
         [Route("GetConsultationList")]
@@ -181,6 +306,13 @@ namespace OMCApi.Areas.Consultation.Controllers
             return ConsultationBLObj.GetConsultationList(userId, userRole);
         }
 
+        /// <summary>
+        /// Gets the list of conversations for a particularr consultation as per the role of the logged in user (patient/doctor)
+        /// </summary>
+        /// <param name="consultationId"></param>
+        /// <param name="userId"></param>
+        /// <param name="userRole"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetConsultationList
         [HttpGet]
         [Route("GetConversationList")]
@@ -190,6 +322,11 @@ namespace OMCApi.Areas.Consultation.Controllers
             return ConsultationBLObj.GetConversationList(consultationId, userId, userRole);
         }
 
+        /// <summary>
+        /// API to create the new consultation record
+        /// </summary>
+        /// <param name="consultation"></param>
+        /// <returns></returns>
         // POST: api/ConsultationAPI/CreateConsultation
         [HttpPost]
         [Route("CreateConsultation")]
@@ -205,6 +342,11 @@ namespace OMCApi.Areas.Consultation.Controllers
             return Ok(ConsultationResult.Message); 
         }
 
+        /// <summary>
+        /// API to create the new conversation record
+        /// </summary>
+        /// <param name="conversation"></param>
+        /// <returns></returns>
         // POST: api/ConsultationAPI/CreateConsultation
         [HttpPost]
         [Route("CreateConversation")]
@@ -220,6 +362,11 @@ namespace OMCApi.Areas.Consultation.Controllers
             return Ok(ConversationResult.Message);
         }
 
+        /// <summary>
+        /// API to handle create/edit for the consultation report record
+        /// </summary>
+        /// <param name="consultationReport"></param>
+        /// <returns></returns>
         // POST: api/ConsultationAPI/InsertUpdateConsultationReport
         [HttpPost]
         [Route("InsertUpdateConsultationReport")]
@@ -235,6 +382,13 @@ namespace OMCApi.Areas.Consultation.Controllers
             return Ok(ConversationResult.Message);
         }
 
+        /// <summary>
+        /// Gets the list of reports/specific report for the consultation record
+        /// OMC-146
+        /// </summary>
+        /// <param name="consultationId"></param>
+        /// <param name="consultationReportId"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetConsultationReportList
         [HttpGet]
         [Route("GetConsultationReportList")]
@@ -244,6 +398,12 @@ namespace OMCApi.Areas.Consultation.Controllers
             return ConsultationBLObj.GetConsultationReportList(consultationId, consultationReportId);
         }
 
+        /// <summary>
+        /// API to handle create/edit for the consultation surgery record
+        /// OMC-116
+        /// </summary>
+        /// <param name="consultationSurgery"></param>
+        /// <returns></returns>
         // POST: api/ConsultationAPI/InsertUpdateConsultationSurgery
         [HttpPost]
         [Route("InsertUpdateConsultationSurgery")]
@@ -259,6 +419,12 @@ namespace OMCApi.Areas.Consultation.Controllers
             return Ok(ConversationResult.Message);
         }
 
+        /// <summary>
+        /// Gets the list of surgery records/specific surgery record for the consultation record
+        /// </summary>
+        /// <param name="consultationId"></param>
+        /// <param name="consultationSurgeryId"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetConsultationSurgeryList
         [HttpGet]
         [Route("GetConsultationSurgeryList")]
@@ -268,6 +434,12 @@ namespace OMCApi.Areas.Consultation.Controllers
             return ConsultationBLObj.GetConsultationSurgeryList(consultationId, consultationSurgeryId);
         }
 
+        /// <summary>
+        /// API to handle create/edit for the consultation cancer treatment record
+        /// OMC-116
+        /// </summary>
+        /// <param name="consultationCancerTreatment"></param>
+        /// <returns></returns>
         // POST: api/ConsultationAPI/InsertUpdateConsultationCancerTreatment
         [HttpPost]
         [Route("InsertUpdateConsultationCancerTreatment")]
@@ -283,6 +455,12 @@ namespace OMCApi.Areas.Consultation.Controllers
             return Ok(consultationCancerTreatmentResult.Message);
         }
 
+        /// <summary>
+        /// Gets the list of cancer treatment records/specific cancer treatment record for the consultation record
+        /// </summary>
+        /// <param name="consultationId"></param>
+        /// <param name="consultationCancerTreatmentId"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetConsultationCancerTreatmentList
         [HttpGet]
         [Route("GetConsultationCancerTreatmentList")]
@@ -292,6 +470,12 @@ namespace OMCApi.Areas.Consultation.Controllers
             return ConsultationBLObj.GetConsultationCancerTreatmentList(consultationId, consultationCancerTreatmentId);
         }
 
+        /// <summary>
+        /// API to handle create/edit for the consultation illegal drug record
+        /// OMC-162
+        /// </summary>
+        /// <param name="consultationIllegalDrugDetails"></param>
+        /// <returns></returns>
         // POST: api/ConsultationAPI/InsertUpdateConsultationIllegalDrugDetail
         [HttpPost]
         [Route("InsertUpdateConsultationIllegalDrugDetail")]
@@ -307,6 +491,12 @@ namespace OMCApi.Areas.Consultation.Controllers
             return Ok(ConversationResult.Message);
         }
 
+        /// <summary>
+        /// Gets the list of illegal drug records/specific illegal drug record for the consultation record
+        /// </summary>
+        /// <param name="consultationId"></param>
+        /// <param name="consultationIllegalDrugDetailsId"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetConsultationIllegalDrugDetailList
         [HttpGet]
         [Route("GetConsultationIllegalDrugDetailList")]
@@ -316,6 +506,12 @@ namespace OMCApi.Areas.Consultation.Controllers
             return ConsultationBLObj.GetConsultationIllegalDrugDetailList(consultationId, consultationIllegalDrugDetailsId);
         }
 
+        /// <summary>
+        /// API to handle create/edit for the consultation smoking, drinking and drug habit record
+        /// OMC-120
+        /// </summary>
+        /// <param name="consultationSDDHabits"></param>
+        /// <returns></returns>
         // POST: api/ConsultationAPI/InsertUpdateConsultationSDDHabits
         [HttpPost]
         [Route("InsertUpdateConsultationSDDHabits")]
@@ -331,6 +527,12 @@ namespace OMCApi.Areas.Consultation.Controllers
             return Ok(ConversationResult.Message);
         }
 
+        /// <summary>
+        /// Gets the list of smoking, drinking and drug habit records/specific smoking, drinking and drug habit record for the consultation record
+        /// </summary>
+        /// <param name="consultationId"></param>
+        /// <param name="consultationSDDHabitsId"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetConsultationSDDHabitsList
         [HttpGet]
         [Route("GetConsultationSDDHabitsList")]
@@ -340,7 +542,11 @@ namespace OMCApi.Areas.Consultation.Controllers
             return ConsultationBLObj.GetConsultationSDDHabitsList(consultationId, consultationSDDHabitsId);
         }
 
-
+        /// <summary>
+        /// API to handle create/edit for the consultation allergy record
+        /// </summary>
+        /// <param name="consultationAllergy"></param>
+        /// <returns></returns>
         // POST: api/ConsultationAPI/InsertUpdateConsultationAllergy
         [HttpPost]
         [Route("InsertUpdateConsultationAllergy")]
@@ -356,6 +562,12 @@ namespace OMCApi.Areas.Consultation.Controllers
             return Ok(consultationAllergyResult.Message);
         }
 
+        /// <summary>
+        /// Gets the list of allergy records/specific allergy record for the consultation record
+        /// </summary>
+        /// <param name="consultationId"></param>
+        /// <param name="consultationAllergyId"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetConsultationAllergyList
         [HttpGet]
         [Route("GetConsultationAllergyList")]
@@ -365,6 +577,12 @@ namespace OMCApi.Areas.Consultation.Controllers
             return ConsultationBLObj.GetConsultationAllergyList(consultationId, consultationAllergyId);
         }
 
+        /// <summary>
+        /// API to handle create/edit for the consultation family history record
+        /// OMC-118, OMC-115
+        /// </summary>
+        /// <param name="consultationFamilyHistory"></param>
+        /// <returns></returns>
         // POST: api/ConsultationAPI/InsertUpdateConsultationFamilyHistory
         [HttpPost]
         [Route("InsertUpdateConsultationFamilyHistory")]
@@ -380,6 +598,14 @@ namespace OMCApi.Areas.Consultation.Controllers
             return Ok(consultationFamilyHistoryResult.Message);
         }
 
+        /// <summary>
+        /// Gets the list of family history records/specific family history record for the consultation record
+        /// </summary>
+        /// <param name="consultationId"></param>
+        /// <param name="consultationFamilyHistoryId"></param>
+        /// <param name="relationshipId"></param>
+        /// <param name="excludeSelf"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetConsultationFamilyHistoryList
         [HttpGet]
         [Route("GetConsultationFamilyHistoryList")]
@@ -390,6 +616,11 @@ namespace OMCApi.Areas.Consultation.Controllers
             return ConsultationBLObj.GetConsultationFamilyHistoryList(consultationId, consultationFamilyHistoryId, relationshipId, excludeSelf);
         }
 
+        /// <summary>
+        /// API to handle create/edit for the consultation occupation record
+        /// </summary>
+        /// <param name="consultationOccupation"></param>
+        /// <returns></returns>
         // POST: api/ConsultationAPI/InsertUpdateConsultationOccupation
         [HttpPost]
         [Route("InsertUpdateConsultationOccupation")]
@@ -405,6 +636,12 @@ namespace OMCApi.Areas.Consultation.Controllers
             return Ok(consultationOccupationResult.Message);
         }
 
+        /// <summary>
+        /// Gets the list of occupations/specific occupation record for the consultation record
+        /// </summary>
+        /// <param name="consultationId"></param>
+        /// <param name="consultationOccupationId"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetConsultationOccupationList
         [HttpGet]
         [Route("GetConsultationOccupationList")]
@@ -414,6 +651,11 @@ namespace OMCApi.Areas.Consultation.Controllers
             return ConsultationBLObj.GetConsultationOccupationList(consultationId, consultationOccupationId);
         }
 
+        /// <summary>
+        /// API to handle create/edit for the consultation blood pressure reading record
+        /// </summary>
+        /// <param name="consultationBloodPressureReading"></param>
+        /// <returns></returns>
         // POST: api/ConsultationAPI/InsertUpdateConsultationBloodPressureReading
         [HttpPost]
         [Route("InsertUpdateConsultationBloodPressureReading")]
@@ -429,6 +671,12 @@ namespace OMCApi.Areas.Consultation.Controllers
             return Ok(consultationBloodPressureReadingResult.Message);
         }
 
+        /// <summary>
+        /// Gets the list of blood pressure readings/specific blood pressure reading record for the consultation record
+        /// </summary>
+        /// <param name="consultationId"></param>
+        /// <param name="consultationBloodPressureReadingId"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetConsultationBloodPressureReadingList
         [HttpGet]
         [Route("GetConsultationBloodPressureReadingList")]
@@ -438,6 +686,12 @@ namespace OMCApi.Areas.Consultation.Controllers
             return ConsultationBLObj.GetConsultationBloodPressureReadingList(consultationId, consultationBloodPressureReadingId);
         }
 
+        /// <summary>
+        /// API to handle create/edit for the consultation medication record
+        /// OMC-113
+        /// </summary>
+        /// <param name="consultationMedication"></param>
+        /// <returns></returns>
         // POST: api/ConsultationAPI/InsertUpdateConsultationMedication
         [HttpPost]
         [Route("InsertUpdateConsultationMedication")]
@@ -453,6 +707,12 @@ namespace OMCApi.Areas.Consultation.Controllers
             return Ok(consultationMedicationResult.Message);
         }
 
+        /// <summary>
+        /// Gets the list of medications/specific medication record for the consultation record
+        /// </summary>
+        /// <param name="consultationId"></param>
+        /// <param name="consultationMedicationId"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetConsultationMedicationList
         [HttpGet]
         [Route("GetConsultationMedicationList")]

@@ -26,6 +26,337 @@
             </summary>
             <param name="kernel">The kernel.</param>
         </member>
+        <member name="T:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController">
+            <summary>
+            This controller hosts all APIs related to Consultation functionality
+            </summary>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationStatuses(System.Nullable{System.Boolean},System.String)">
+            <summary>
+            Gets the list of Consultation statuses available in the system
+            </summary>
+            <param name="isActive"></param>
+            <param name="description"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetCancerStages(System.Nullable{System.Boolean},System.String)">
+            <summary>
+            Gets the list of Cancer stages available in the system
+            OMC-116
+            </summary>
+            <param name="isActive"></param>
+            <param name="cancerStageName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetSurgeryList(System.Nullable{System.Boolean},System.String,System.String)">
+            <summary>
+            Gets the list of Surgeries available in the system
+            OMC-116
+            </summary>
+            <param name="isActive"></param>
+            <param name="surgeryName"></param>
+            <param name="searchTerm"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetAllergyList(System.Nullable{System.Boolean},System.String,System.String)">
+            <summary>
+            Gets the list of Allergies available in the system
+            </summary>
+            <param name="isActive"></param>
+            <param name="allergyName"></param>
+            <param name="searchTerm"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetHealthConditionList(System.Nullable{System.Boolean},System.String,System.String)">
+            <summary>
+            Gets the list of Health conditions available in the system
+            </summary>
+            <param name="isActive"></param>
+            <param name="healthConditionName"></param>
+            <param name="searchTerm"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDoctors(System.Nullable{System.Boolean},System.String)">
+            <summary>
+            Gets the list of Doctors available in the system
+            </summary>
+            <param name="isActive"></param>
+            <param name="userRole"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetIllegalDrugs(System.Nullable{System.Boolean},System.String)">
+            <summary>
+            Gets the list of Illegal drugs available in the system
+            </summary>
+            <param name="isActive"></param>
+            <param name="IllegalDrug"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDrugTypeList(System.Nullable{System.Boolean},System.String,System.String)">
+            <summary>
+            Gets the list of Drug types available in the system
+            </summary>
+            <param name="isActive"></param>
+            <param name="drugType"></param>
+            <param name="searchTerm"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDrugSubTypeList(System.Int32,System.Nullable{System.Boolean},System.String,System.String)">
+            <summary>
+            Gets the list of Drug sub types available for the selected drug type in the system
+            </summary>
+            <param name="drugTypeId"></param>
+            <param name="isActive"></param>
+            <param name="drugSubTypeName"></param>
+            <param name="searchTerm"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDrugBrandList(System.Nullable{System.Boolean},System.String,System.String)">
+            <summary>
+            Gets the list of Drug brands available in the system
+            </summary>
+            <param name="isActive"></param>
+            <param name="drugBrandName"></param>
+            <param name="searchTerm"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDrugChemicalList(System.Nullable{System.Boolean},System.String,System.String)">
+            <summary>
+            Gets the list of Drug chemicals available in the system
+            </summary>
+            <param name="isActive"></param>
+            <param name="drugChemicalName"></param>
+            <param name="searchTerm"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDrugFrequencyList(System.Nullable{System.Boolean},System.String,System.String)">
+            <summary>
+            Gets the list of Drug frequencies available in the system
+            </summary>
+            <param name="isActive"></param>
+            <param name="drugFrequencyName"></param>
+            <param name="searchTerm"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDrugUnitList(System.Nullable{System.Boolean},System.String,System.String)">
+            <summary>
+            Gets the list of Drug units available in the system
+            </summary>
+            <param name="isActive"></param>
+            <param name="drugUnitName"></param>
+            <param name="searchTerm"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetOccupationList(System.Nullable{System.Boolean},System.String,System.String)">
+            <summary>
+            Gets the list of Occupations available in the system
+            </summary>
+            <param name="isActive"></param>
+            <param name="occupationName"></param>
+            <param name="searchTerm"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetPackageList(System.Nullable{System.Boolean},System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of Packages available in the system
+            </summary>
+            <param name="isActive"></param>
+            <param name="packageId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetUnregisteredPatientEnquiry(OMC.Models.PatientEnquiry)">
+            <summary>
+            API to handle the unregistered patient enquiry for doctors
+            </summary>
+            <param name="enquiry"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationList(System.Int32,System.String)">
+            <summary>
+            Gets the list of consultation for the user as per the role of the logged in user (patient/doctor)
+            </summary>
+            <param name="userId"></param>
+            <param name="userRole"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConversationList(System.Int32,System.Int32,System.String)">
+            <summary>
+            Gets the list of conversations for a particularr consultation as per the role of the logged in user (patient/doctor)
+            </summary>
+            <param name="consultationId"></param>
+            <param name="userId"></param>
+            <param name="userRole"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.CreateConsultation(OMC.Models.Consultation)">
+            <summary>
+            API to create the new consultation record
+            </summary>
+            <param name="consultation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.CreateConversation(OMC.Models.Conversation)">
+            <summary>
+            API to create the new conversation record
+            </summary>
+            <param name="conversation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationReport(OMC.Models.ConsultationReports)">
+            <summary>
+            API to handle create/edit for the consultation report record
+            </summary>
+            <param name="consultationReport"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationReportList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of reports/specific report for the consultation record
+            OMC-146
+            </summary>
+            <param name="consultationId"></param>
+            <param name="consultationReportId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationSurgery(OMC.Models.ConsultationSurgeries)">
+            <summary>
+            API to handle create/edit for the consultation surgery record
+            OMC-116
+            </summary>
+            <param name="consultationSurgery"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationSurgeryList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of surgery records/specific surgery record for the consultation record
+            </summary>
+            <param name="consultationId"></param>
+            <param name="consultationSurgeryId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationCancerTreatment(OMC.Models.ConsultationCancerTreatments)">
+            <summary>
+            API to handle create/edit for the consultation cancer treatment record
+            OMC-116
+            </summary>
+            <param name="consultationCancerTreatment"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationCancerTreatmentList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of cancer treatment records/specific cancer treatment record for the consultation record
+            </summary>
+            <param name="consultationId"></param>
+            <param name="consultationCancerTreatmentId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationIllegalDrugDetail(OMC.Models.ConsultationIllegalDrugDetails)">
+            <summary>
+            API to handle create/edit for the consultation illegal drug record
+            </summary>
+            <param name="consultationIllegalDrugDetails"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationIllegalDrugDetailList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of illegal drug records/specific illegal drug record for the consultation record
+            </summary>
+            <param name="consultationId"></param>
+            <param name="consultationIllegalDrugDetailsId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationSDDHabits(OMC.Models.ConsultationSDDHabits)">
+            <summary>
+            API to handle create/edit for the consultation smoking, drinking and drug habit record
+            </summary>
+            <param name="consultationSDDHabits"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationSDDHabitsList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of smoking, drinking and drug habit records/specific smoking, drinking and drug habit record for the consultation record
+            </summary>
+            <param name="consultationId"></param>
+            <param name="consultationSDDHabitsId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationAllergy(OMC.Models.ConsultationAllergies)">
+            <summary>
+            API to handle create/edit for the consultation allergy record
+            </summary>
+            <param name="consultationAllergy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationAllergyList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of allergy records/specific allergy record for the consultation record
+            </summary>
+            <param name="consultationId"></param>
+            <param name="consultationAllergyId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationFamilyHistory(OMC.Models.ConsultationFamilyHistory)">
+            <summary>
+            API to handle create/edit for the consultation family history record
+            </summary>
+            <param name="consultationFamilyHistory"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationFamilyHistoryList(System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+            <summary>
+            Gets the list of family history records/specific family history record for the consultation record
+            </summary>
+            <param name="consultationId"></param>
+            <param name="consultationFamilyHistoryId"></param>
+            <param name="relationshipId"></param>
+            <param name="excludeSelf"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationOccupation(OMC.Models.ConsultationOccupation)">
+            <summary>
+            API to handle create/edit for the consultation occupation record
+            </summary>
+            <param name="consultationOccupation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationOccupationList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of occupations/specific occupation record for the consultation record
+            </summary>
+            <param name="consultationId"></param>
+            <param name="consultationOccupationId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationBloodPressureReading(OMC.Models.ConsultationBloodPressureReading)">
+            <summary>
+            API to handle create/edit for the consultation blood pressure reading record
+            </summary>
+            <param name="consultationBloodPressureReading"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationBloodPressureReadingList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of blood pressure readings/specific blood pressure reading record for the consultation record
+            </summary>
+            <param name="consultationId"></param>
+            <param name="consultationBloodPressureReadingId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationMedication(OMC.Models.ConsultationMedications)">
+            <summary>
+            API to handle create/edit for the consultation medication record
+            </summary>
+            <param name="consultationMedication"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationMedicationList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of medications/specific medication record for the consultation record
+            </summary>
+            <param name="consultationId"></param>
+            <param name="consultationMedicationId"></param>
+            <returns></returns>
+        </member>
         <member name="M:OMCApi.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
             <summary>
             Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
@@ -503,12 +834,101 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="T:OMCApi.Areas.Login.Controllers.LoginAPIController">
+            <summary>
+            This controller hosts all APIs related to login functionality
+            </summary>
+        </member>
         <member name="M:OMCApi.Areas.Login.Controllers.LoginAPIController.GetRoles(System.Nullable{System.Boolean},System.String)">
             <summary>
             Gets the list of Roles available in the system
             </summary>
             <param name="isActive">pass the value of isActive flag</param>
             <param name="roleDescription">pass the value of roleDescription to filter by role. Pass null/empty to bypass the filter</param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Login.Controllers.LoginAPIController.PostUserLogin(OMC.Models.UserLogin)">
+            <summary>
+            Posts the User Login data and checks for the validity
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Login.Controllers.LoginAPIController.GetAccessCode(OMC.Models.UserLogin)">
+            <summary>
+            Gets the 6 digit access code for validating the new device by email/sms
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Login.Controllers.LoginAPIController.ValidateAccessCode(OMC.Models.UserAccessCodeResponse)">
+            <summary>
+            API to validate the 6 digit access code against the new device
+            </summary>
+            <param name="userAccessCode"></param>
+            <returns></returns>
+        </member>
+        <member name="T:OMCApi.Areas.Login.Controllers.SignUpAPIController">
+            <summary>
+            This controller hosts all APIs related to user signup functionality
+            </summary>
+        </member>
+        <member name="M:OMCApi.Areas.Login.Controllers.SignUpAPIController.GetCountries(System.Nullable{System.Boolean})">
+            <summary>
+            Gets the list of countries available  in the system
+            OMC-146
+            </summary>
+            <param name="isActive"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Login.Controllers.SignUpAPIController.GetAddressTypes(System.Nullable{System.Boolean})">
+            <summary>
+            Gets the list of Address types available  in the system
+            </summary>
+            <param name="isActive"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Login.Controllers.SignUpAPIController.PostUserSignUp(OMC.Models.UserSignUp)">
+            <summary>
+            API to create a new user record
+            OMC-170
+            </summary>
+            <param name="userdetails"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Login.Controllers.SignUpAPIController.InsertUpdateProfile(OMC.Models.Profile)">
+            <summary>
+            API to create/edit the profile under the logged in user
+            OMC-169
+            </summary>
+            <param name="profile"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Login.Controllers.SignUpAPIController.GetProfiles(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of profiles available for the user or a specific profile under the user
+            </summary>
+            <param name="userId"></param>
+            <param name="profileId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Login.Controllers.SignUpAPIController.GetRelationships(System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Gets the list of Relationships available  in the system
+            OMC-169
+            </summary>
+            <param name="isActive"></param>
+            <param name="relationship"></param>
+            <param name="excludeSelf"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Login.Controllers.SignUpAPIController.GetGenders(System.Nullable{System.Boolean},System.String)">
+            <summary>
+            Gets the list of Genders available  in the system
+            OMC-169
+            </summary>
+            <param name="isActive"></param>
+            <param name="genderName"></param>
             <returns></returns>
         </member>
     </members>
