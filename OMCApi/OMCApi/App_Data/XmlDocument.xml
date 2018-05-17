@@ -94,6 +94,14 @@
             <param name="IllegalDrug"></param>
             <returns></returns>
         </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetMenstrualSymptoms(System.Nullable{System.Boolean},System.String)">
+            <summary>
+            Gets the list of Menstrual Symptoms available in the system
+            </summary>
+            <param name="isActive"></param>
+            <param name="MenstrualSymptoms"></param>
+            <returns></returns>
+        </member>
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDrugTypeList(System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Gets the list of Drug types available in the system
@@ -273,6 +281,44 @@
             </summary>
             <param name="consultationId"></param>
             <param name="consultationIllegalDrugDetailsId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationPregnancyDetail(OMC.Models.ConsultationPregnancyDetails)">
+            <summary>
+            API to handle create/edit for the consultation pregnancy detail record
+            </summary>
+            <param name="consultationPregnancyDetails"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationPregnancyDetailsList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of pregnancy detail records/specific pregnancy detail record for the consultation record
+            </summary>
+            <param name="consultationId"></param>
+            <param name="consultationPregnancyDetailsId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationPreviousPregnancyDetail(OMC.Models.ConsultationPreviousPregnancyDetails)">
+            <summary>
+            API to handle create/edit for the consultation previous pregnancy detail record
+            </summary>
+            <param name="consultationPreviousPregnancyDetails"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationPreviousPregnancyDetailsList(System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of previous pregnancy detail records/specific previous pregnancy detail record for the consultation record
+            </summary>
+            <param name="consultationId"></param>
+            <param name="consultationPreviousPregnancyDetailsId"></param>
+            <param name="CurrentPregnancyID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationSDDHabits(OMC.Models.ConsultationSDDHabits)">
+            <summary>
+            API to handle create/edit for the consultation smoking, drinking and drug habit record
+            </summary>
+            <param name="consultationSDDHabits"></param>
             <returns></returns>
         </member>
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationSDDHabitsList(System.Int32,System.Nullable{System.Int32})">
