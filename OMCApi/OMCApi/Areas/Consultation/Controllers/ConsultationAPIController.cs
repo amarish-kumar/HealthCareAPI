@@ -141,7 +141,13 @@ namespace OMCApi.Areas.Consultation.Controllers
             var masterObj = _Kernel.Get<IMaster>();
             return masterObj.GetIllegalDrugs(isActive, IllegalDrug);
         }
-        
+
+        /// <summary>
+        /// Gets the list of Menstrual Symptoms available in the system
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="MenstrualSymptoms"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetMenstrualSymptoms
         [HttpGet]
         [Route("GetMenstrualSymptoms")]
@@ -515,7 +521,11 @@ namespace OMCApi.Areas.Consultation.Controllers
             return ConsultationBLObj.GetConsultationIllegalDrugDetailList(consultationId, consultationIllegalDrugDetailsId);
         }
 
-
+        /// <summary>
+        /// API to handle create/edit for the consultation pregnancy detail record
+        /// </summary>
+        /// <param name="consultationPregnancyDetails"></param>
+        /// <returns></returns>
         // POST: api/ConsultationAPI/InsertUpdateConsultationPregnancyDetail
         [HttpPost]
         [Route("InsertUpdateConsultationPregnancyDetail")]
@@ -531,6 +541,12 @@ namespace OMCApi.Areas.Consultation.Controllers
             return Ok(ConversationResult.Message);
         }
 
+        /// <summary>
+        /// Gets the list of pregnancy detail records/specific pregnancy detail record for the consultation record
+        /// </summary>
+        /// <param name="consultationId"></param>
+        /// <param name="consultationPregnancyDetailsId"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetConsultationPregnancyDetailsList
         [HttpGet]
         [Route("GetConsultationPregnancyDetailsList")]
@@ -540,7 +556,11 @@ namespace OMCApi.Areas.Consultation.Controllers
             return ConsultationBLObj.GetConsultationPregnancyDetailsList(consultationId, consultationPregnancyDetailsId);
         }
 
-
+        /// <summary>
+        /// API to handle create/edit for the consultation previous pregnancy detail record
+        /// </summary>
+        /// <param name="consultationPreviousPregnancyDetails"></param>
+        /// <returns></returns>
         // POST: api/ConsultationAPI/InsertUpdateConsultationPreviousPregnancyDetail
         [HttpPost]
         [Route("InsertUpdateConsultationPreviousPregnancyDetail")]
@@ -556,6 +576,13 @@ namespace OMCApi.Areas.Consultation.Controllers
             return Ok(ConversationResult.Message);
         }
 
+        /// <summary>
+        /// Gets the list of previous pregnancy detail records/specific previous pregnancy detail record for the consultation record
+        /// </summary>
+        /// <param name="consultationId"></param>
+        /// <param name="consultationPreviousPregnancyDetailsId"></param>
+        /// <param name="CurrentPregnancyID"></param>
+        /// <returns></returns>
         // Get: api/ConsultationAPI/GetConsultationPreviousPregnancyDetailsList
         [HttpGet]
         [Route("GetConsultationPreviousPregnancyDetailsList")]
@@ -565,6 +592,11 @@ namespace OMCApi.Areas.Consultation.Controllers
             return ConsultationBLObj.GetConsultationPreviousPregnancyDetailsList(consultationId, consultationPreviousPregnancyDetailsId, CurrentPregnancyID);
         }
 
+        /// <summary>
+        /// API to handle create/edit for the consultation smoking, drinking and drug habit record
+        /// </summary>
+        /// <param name="consultationSDDHabits"></param>
+        /// <returns></returns>
         // POST: api/ConsultationAPI/InsertUpdateConsultationSDDHabits
         [HttpPost]
         [Route("InsertUpdateConsultationSDDHabits")]
