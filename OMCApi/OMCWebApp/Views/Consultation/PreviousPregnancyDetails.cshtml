@@ -1,0 +1,54 @@
+﻿@model  OMCWebApp.Models.PreviousPregnancyDetailsModel
+
+@using (Html.BeginForm("InsertUpdateConsultationPreviousPregnancyDetail", "Consultation", FormMethod.Post))
+{
+    <h2>Create Previous Pregnancy Detail</h2>
+    @Html.AntiForgeryToken()
+    <table class="createPreviousPregnancyDetail">
+        <tr>
+            <td>
+                How many times pregnant before?
+            </td>
+            <td>
+                @Html.HiddenFor(m => m.ConsultationPreviousPregnancyDetailsObject.AddedBy, Model.ConsultationPreviousPregnancyDetailsObject.AddedBy)
+                @Html.HiddenFor(m => m.ConsultationPreviousPregnancyDetailsObject.ConsultationId, Model.ConsultationPreviousPregnancyDetailsObject.ConsultationId)
+                @Html.HiddenFor(m => m.ConsultationPreviousPregnancyDetailsObject.CurrentPregnancyID, Model.ConsultationPreviousPregnancyDetailsObject.CurrentPregnancyID)
+                @Html.TextBoxFor(m => m.ConsultationPreviousPregnancyDetailsObject.NoofPregnancy, Model.ConsultationPreviousPregnancyDetailsObject.NoofPregnancy)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Child Number
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationPreviousPregnancyDetailsObject.ChildNo, Model.ConsultationPreviousPregnancyDetailsObject.ChildNo)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Year of Delivery:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationPreviousPregnancyDetailsObject.DeliveryYear, Model.ConsultationPreviousPregnancyDetailsObject.DeliveryYear)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Type of Delivery:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.ConsultationPreviousPregnancyDetailsObject.DeliveryType, (IEnumerable<SelectListItem>)ViewBag.DDLdeliveryitems)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Create Consultation Previous Pregnancy details</button>
+            </td>
+        </tr>
+    </table>
+}
+

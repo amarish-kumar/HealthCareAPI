@@ -231,6 +231,71 @@ namespace OMC.BL.Library
             }
         }
 
+        public ConsultationPregnancyDetailsResponse InsertUpdateConsultationPregnancyDetail(ConsultationPregnancyDetails consultationPregnancyDetails)
+        {
+            try
+            {
+                return this._consultationDA.InsertUpdateConsultationPregnancyDetail(consultationPregnancyDetails);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+
+        public ConsultationPregnancyDetailsResponse GetConsultationPregnancyDetailsList(int consultationId, int? consultationPregnancyDetailsId)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationPregnancyDetailsList(consultationId, consultationPregnancyDetailsId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationPreviousPregnancyDetailsResponse InsertUpdateConsultationPreviousPregnancyDetail(ConsultationPreviousPregnancyDetails consultationPreviousPregnancyDetails)
+        {
+            try
+            {
+                return this._consultationDA.InsertUpdateConsultationPreviousPregnancyDetail(consultationPreviousPregnancyDetails);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationPreviousPregnancyDetailsResponse GetConsultationPreviousPregnancyDetailsList(int consultationId, int? consultationPreviousPregnancyDetailsId, int? CurrentPregnancyID)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationPreviousPregnancyDetailsList(consultationId, consultationPreviousPregnancyDetailsId, CurrentPregnancyID);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
         public ConsultationSDDHabitsResponse InsertUpdateConsultationSDDHabits(ConsultationSDDHabits consultationSDDHabits)
         {
             try

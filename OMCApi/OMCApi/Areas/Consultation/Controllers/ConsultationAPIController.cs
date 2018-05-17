@@ -141,6 +141,15 @@ namespace OMCApi.Areas.Consultation.Controllers
             var masterObj = _Kernel.Get<IMaster>();
             return masterObj.GetIllegalDrugs(isActive, IllegalDrug);
         }
+        
+        // Get: api/ConsultationAPI/GetMenstrualSymptoms
+        [HttpGet]
+        [Route("GetMenstrualSymptoms")]
+        public List<MenstrualSymptomsMaster> GetMenstrualSymptoms(bool? isActive, string MenstrualSymptoms)
+        {
+            var masterObj = _Kernel.Get<IMaster>();
+            return masterObj.GetMenstrualSymptoms(isActive, MenstrualSymptoms);
+        }
 
         /// <summary>
         /// Gets the list of Drug types available in the system
@@ -506,12 +515,56 @@ namespace OMCApi.Areas.Consultation.Controllers
             return ConsultationBLObj.GetConsultationIllegalDrugDetailList(consultationId, consultationIllegalDrugDetailsId);
         }
 
-        /// <summary>
-        /// API to handle create/edit for the consultation smoking, drinking and drug habit record
-        /// OMC-120
-        /// </summary>
-        /// <param name="consultationSDDHabits"></param>
-        /// <returns></returns>
+
+        // POST: api/ConsultationAPI/InsertUpdateConsultationPregnancyDetail
+        [HttpPost]
+        [Route("InsertUpdateConsultationPregnancyDetail")]
+        public IHttpActionResult InsertUpdateConsultationPregnancyDetail([FromBody]ConsultationPregnancyDetails consultationPregnancyDetails)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            consultationPregnancyDetails.Active = true;
+            var ConversationResult = ConsultationBLObj.InsertUpdateConsultationPregnancyDetail(consultationPregnancyDetails);
+            return Ok(ConversationResult.Message);
+        }
+
+        // Get: api/ConsultationAPI/GetConsultationPregnancyDetailsList
+        [HttpGet]
+        [Route("GetConsultationPregnancyDetailsList")]
+        public ConsultationPregnancyDetailsResponse GetConsultationPregnancyDetailsList(int consultationId, int? consultationPregnancyDetailsId)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConsultationPregnancyDetailsList(consultationId, consultationPregnancyDetailsId);
+        }
+
+
+        // POST: api/ConsultationAPI/InsertUpdateConsultationPreviousPregnancyDetail
+        [HttpPost]
+        [Route("InsertUpdateConsultationPreviousPregnancyDetail")]
+        public IHttpActionResult InsertUpdateConsultationPreviousPregnancyDetail([FromBody]ConsultationPreviousPregnancyDetails consultationPreviousPregnancyDetails)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            consultationPreviousPregnancyDetails.Active = true;
+            var ConversationResult = ConsultationBLObj.InsertUpdateConsultationPreviousPregnancyDetail(consultationPreviousPregnancyDetails);
+            return Ok(ConversationResult.Message);
+        }
+
+        // Get: api/ConsultationAPI/GetConsultationPreviousPregnancyDetailsList
+        [HttpGet]
+        [Route("GetConsultationPreviousPregnancyDetailsList")]
+        public ConsultationPreviousPregnancyDetailsResponse GetConsultationPreviousPregnancyDetailsList(int consultationId, int? consultationPreviousPregnancyDetailsId, int? CurrentPregnancyID)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConsultationPreviousPregnancyDetailsList(consultationId, consultationPreviousPregnancyDetailsId, CurrentPregnancyID);
+        }
+
         // POST: api/ConsultationAPI/InsertUpdateConsultationSDDHabits
         [HttpPost]
         [Route("InsertUpdateConsultationSDDHabits")]

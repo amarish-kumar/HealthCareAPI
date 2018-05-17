@@ -70,6 +70,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetHealthConditionList(System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Gets the list of Health conditions available in the system
+            OMC-118, OMC-115
             </summary>
             <param name="isActive"></param>
             <param name="healthConditionName"></param>
@@ -87,6 +88,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetIllegalDrugs(System.Nullable{System.Boolean},System.String)">
             <summary>
             Gets the list of Illegal drugs available in the system
+            OMC-162
             </summary>
             <param name="isActive"></param>
             <param name="IllegalDrug"></param>
@@ -95,6 +97,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDrugTypeList(System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Gets the list of Drug types available in the system
+            OMC-113
             </summary>
             <param name="isActive"></param>
             <param name="drugType"></param>
@@ -104,6 +107,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDrugSubTypeList(System.Int32,System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Gets the list of Drug sub types available for the selected drug type in the system
+            OMC-113
             </summary>
             <param name="drugTypeId"></param>
             <param name="isActive"></param>
@@ -114,6 +118,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDrugBrandList(System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Gets the list of Drug brands available in the system
+            OMC-113
             </summary>
             <param name="isActive"></param>
             <param name="drugBrandName"></param>
@@ -123,6 +128,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDrugChemicalList(System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Gets the list of Drug chemicals available in the system
+            OMC-113
             </summary>
             <param name="isActive"></param>
             <param name="drugChemicalName"></param>
@@ -132,6 +138,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDrugFrequencyList(System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Gets the list of Drug frequencies available in the system
+            OMC-113
+            OMC-162
             </summary>
             <param name="isActive"></param>
             <param name="drugFrequencyName"></param>
@@ -141,6 +149,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDrugUnitList(System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Gets the list of Drug units available in the system
+            OMC-113
             </summary>
             <param name="isActive"></param>
             <param name="drugUnitName"></param>
@@ -253,6 +262,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationIllegalDrugDetail(OMC.Models.ConsultationIllegalDrugDetails)">
             <summary>
             API to handle create/edit for the consultation illegal drug record
+            OMC-162
             </summary>
             <param name="consultationIllegalDrugDetails"></param>
             <returns></returns>
@@ -263,13 +273,6 @@
             </summary>
             <param name="consultationId"></param>
             <param name="consultationIllegalDrugDetailsId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationSDDHabits(OMC.Models.ConsultationSDDHabits)">
-            <summary>
-            API to handle create/edit for the consultation smoking, drinking and drug habit record
-            </summary>
-            <param name="consultationSDDHabits"></param>
             <returns></returns>
         </member>
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationSDDHabitsList(System.Int32,System.Nullable{System.Int32})">
@@ -298,6 +301,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationFamilyHistory(OMC.Models.ConsultationFamilyHistory)">
             <summary>
             API to handle create/edit for the consultation family history record
+            OMC-118, OMC-115
             </summary>
             <param name="consultationFamilyHistory"></param>
             <returns></returns>
@@ -345,6 +349,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationMedication(OMC.Models.ConsultationMedications)">
             <summary>
             API to handle create/edit for the consultation medication record
+            OMC-113
             </summary>
             <param name="consultationMedication"></param>
             <returns></returns>
@@ -915,7 +920,7 @@
         <member name="M:OMCApi.Areas.Login.Controllers.SignUpAPIController.GetRelationships(System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean})">
             <summary>
             Gets the list of Relationships available  in the system
-            OMC-169
+            OMC-169, OMC-118, OMC-115
             </summary>
             <param name="isActive"></param>
             <param name="relationship"></param>

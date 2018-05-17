@@ -1,0 +1,162 @@
+﻿@model  OMCWebApp.Models.PregnancyDetailsModel
+
+@using (Html.BeginForm("InsertUpdateConsultationPregnancyDetail", "Consultation", FormMethod.Post))
+{
+    <h2>Update Pregnancy Detail</h2>
+    @Html.AntiForgeryToken()
+    <table class="createPregnancyDetail">
+        <tr>
+            <td>
+                Are you currently pregnant? :
+            </td>
+            <td>
+                @Html.CheckBoxFor(m => m.ConsultationPregnancyDetailsObject.CurrentlyPregnant, Model.ConsultationPregnancyDetailsObject.CurrentlyPregnant)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                How many months pregnant?
+            </td>
+            <td>
+                @Html.HiddenFor(m => m.ConsultationPregnancyDetailsObject.Id, Model.ConsultationPregnancyDetailsObject.Id)
+                @Html.HiddenFor(m => m.ConsultationPregnancyDetailsObject.AddedBy, Model.ConsultationPregnancyDetailsObject.AddedBy)
+                @Html.HiddenFor(m => m.ConsultationPregnancyDetailsObject.ConsultationId, Model.ConsultationPregnancyDetailsObject.ConsultationId)
+                @Html.TextBoxFor(m => m.ConsultationPregnancyDetailsObject.CurrentPregnancyMonths, Model.ConsultationPregnancyDetailsObject.CurrentPregnancyMonths)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Expected Date of Delivery:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationPregnancyDetailsObject.CurrentPregnancyEDD, Model.ConsultationPregnancyDetailsObject.CurrentPregnancyEDD)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Have you been pregnant before?:
+            </td>
+            <td>
+                @Html.CheckBoxFor(m => m.ConsultationPregnancyDetailsObject.PregnantBefore, Model.ConsultationPregnancyDetailsObject.PregnantBefore)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Do you have menstrual cycles?:
+            </td>
+            <td>
+                @Html.CheckBoxFor(m => m.ConsultationPregnancyDetailsObject.MenstrualCycles, Model.ConsultationPregnancyDetailsObject.MenstrualCycles)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Reason for No menstrual cycles?:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationPregnancyDetailsObject.NoMCReason, Model.ConsultationPregnancyDetailsObject.NoMCReason)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                First Date of Last menstrual cycle?:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationPregnancyDetailsObject.LastMCCycle, Model.ConsultationPregnancyDetailsObject.LastMCCycle)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Has your cycle been on regular interval?:
+            </td>
+            <td>
+                @Html.CheckBoxFor(m => m.ConsultationPregnancyDetailsObject.MCRegInterval, Model.ConsultationPregnancyDetailsObject.MCRegInterval)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Average Length of Cycle?:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationPregnancyDetailsObject.LenMCCycle, Model.ConsultationPregnancyDetailsObject.LenMCCycle)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Age when menstrual started?:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationPregnancyDetailsObject.MCStartAge, Model.ConsultationPregnancyDetailsObject.MCStartAge)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Flow of menstrual?:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.ConsultationPregnancyDetailsObject.MCFlow, (IEnumerable<SelectListItem>)ViewBag.DDLMCFlowItems)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Type of Product used in menstrual cycle:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.ConsultationPregnancyDetailsObject.MCProductType, (IEnumerable<SelectListItem>)ViewBag.DDLMCProductItems)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Product use per day in menstrual cycle?:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationPregnancyDetailsObject.MCProductPerDay, Model.ConsultationPregnancyDetailsObject.MCProductPerDay)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Pain during Menstrual?:
+            </td>
+            <td>
+                @Html.CheckBoxFor(m => m.ConsultationPregnancyDetailsObject.MCPain, Model.ConsultationPregnancyDetailsObject.MCPain)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Severity of Pain(1-10):
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationPregnancyDetailsObject.MCPainSeverity, Model.ConsultationPregnancyDetailsObject.MCPainSeverity)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Pre menstrual symptoms:
+            </td>
+            <td>
+                @*@Html.DropDownListFor(m => m.ConsultationPregnancyDetailsObject.MCSymptomID, new SelectList(Model.MenstrualSymptoms, "Id", "SymptomDescription"))*@
+                @Html.ListBoxFor(m => m.ConsultationPregnancyDetailsObject.MCSymptomIDArray, new MultiSelectList(Model.MenstrualSymptoms, "Id", "SymptomDescription"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Update Consultation Pregnancy details</button>
+            </td>
+        </tr>
+    </table>
+}
