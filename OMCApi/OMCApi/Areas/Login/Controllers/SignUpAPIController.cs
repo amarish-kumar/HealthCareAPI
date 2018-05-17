@@ -11,6 +11,9 @@ using System.Data;
 
 namespace OMCApi.Areas.Login.Controllers
 {
+    /// <summary>
+    /// This controller hosts all APIs related to user signup functionality
+    /// </summary>
     [RoutePrefix("api/SignUpAPI")]
     public class SignUpAPIController : ApiController
     {
@@ -30,13 +33,12 @@ namespace OMCApi.Areas.Login.Controllers
         }
 
         #endregion
-
-        // GET: api/SignUpAPI
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
+        /// <summary>
+        /// Gets the list of countries available  in the system
+        /// OMC-146
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <returns></returns>
         // Get: api/SignUpAPI/GetCountries
         [HttpGet]
         [Route("GetCountries")]
@@ -46,6 +48,11 @@ namespace OMCApi.Areas.Login.Controllers
             return masterObj.GetCountries(isActive);
         }
 
+        /// <summary>
+        /// Gets the list of Address types available  in the system
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <returns></returns>
         // Get: api/SignUpAPI/GetAddressTypes
         [HttpGet]
         [Route("GetAddressTypes")]
@@ -55,6 +62,12 @@ namespace OMCApi.Areas.Login.Controllers
             return masterObj.GetAddressTypes(isActive);
         }
 
+        /// <summary>
+        /// API to create a new user record
+        /// OMC-170
+        /// </summary>
+        /// <param name="userdetails"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("PostUserSignUp")]
         //[Authorize]
@@ -104,6 +117,12 @@ namespace OMCApi.Areas.Login.Controllers
             }
         }
 
+        /// <summary>
+        /// API to create/edit the profile under the logged in user
+        /// OMC-169
+        /// </summary>
+        /// <param name="profile"></param>
+        /// <returns></returns>
         // POST: api/SignUpAPI/InsertUpdateProfile
         [HttpPost]
         [Route("InsertUpdateProfile")]
@@ -119,6 +138,12 @@ namespace OMCApi.Areas.Login.Controllers
             return Ok(InsertUpdateProfileResult);
         }
 
+        /// <summary>
+        /// Gets the list of profiles available for the user or a specific profile under the user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="profileId"></param>
+        /// <returns></returns>
         // Get: api/SignUpAPI/GetProfiles
         [HttpGet]
         [Route("GetProfiles")]
@@ -128,6 +153,14 @@ namespace OMCApi.Areas.Login.Controllers
             return signupObj.GetProfileList(userId, profileId);
         }
 
+        /// <summary>
+        /// Gets the list of Relationships available  in the system
+        /// OMC-169, OMC-118, OMC-115
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="relationship"></param>
+        /// <param name="excludeSelf"></param>
+        /// <returns></returns>
         // Get: api/SignUpAPI/GetRelationships
         [HttpGet]
         [Route("GetRelationships")]
@@ -137,6 +170,13 @@ namespace OMCApi.Areas.Login.Controllers
             return masterObj.GetRelationships(isActive, relationship, excludeSelf);
         }
 
+        /// <summary>
+        /// Gets the list of Genders available  in the system
+        /// OMC-169
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="genderName"></param>
+        /// <returns></returns>
         // Get: api/SignUpAPI/GetGenders
         [HttpGet]
         [Route("GetGenders")]
