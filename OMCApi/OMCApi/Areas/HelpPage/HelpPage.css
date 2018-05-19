@@ -87,7 +87,15 @@
 }
 
 .help-page .api-documentation {
-    width: 60%;
+    width: 40%;
+}
+
+.help-page .api-sprint {
+    width: 8%;
+}
+
+.help-page .api-jira {
+    width: 12%;
 }
 
 .help-page .parameter-name {

@@ -46,6 +46,8 @@ namespace OMCApi.Areas.Login.Controllers
 
         /// <summary>
         /// Posts the User Login data and checks for the validity
+        /// ~Sprint-1~
+        /// OMC‌-2
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
@@ -61,6 +63,8 @@ namespace OMCApi.Areas.Login.Controllers
 
         /// <summary>
         /// Gets the 6 digit access code for validating the new device by email/sms
+        /// ~Sprint-1~
+        /// OMC‌-2
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
@@ -77,6 +81,8 @@ namespace OMCApi.Areas.Login.Controllers
 
         /// <summary>
         /// API to validate the 6 digit access code against the new device
+        /// ~Sprint-1~
+        /// OMC‌-2
         /// </summary>
         /// <param name="userAccessCode"></param>
         /// <returns></returns>

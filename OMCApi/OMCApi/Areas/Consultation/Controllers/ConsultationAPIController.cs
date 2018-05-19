@@ -32,6 +32,8 @@ namespace OMCApi.Areas.Consultation.Controllers
         #region Actions
         /// <summary>
         /// Gets the list of Consultation statuses available in the system
+        /// ~Sprint-1~
+        /// OMC‌-145
         /// </summary>
         /// <param name="isActive"></param>
         /// <param name="description"></param>
@@ -47,6 +49,7 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of Cancer stages available in the system
+        /// ~Sprint-2~
         /// OMC-116
         /// </summary>
         /// <param name="isActive"></param>
@@ -63,6 +66,7 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of Surgeries available in the system
+        /// ~Sprint-2~
         /// OMC-116
         /// </summary>
         /// <param name="isActive"></param>
@@ -80,6 +84,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of Allergies available in the system
+        /// ~Sprint-2~
+        /// OMC-114
         /// </summary>
         /// <param name="isActive"></param>
         /// <param name="allergyName"></param>
@@ -96,6 +102,7 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of Health conditions available in the system
+        /// ~Sprint-2~
         /// OMC-118, OMC-115
         /// </summary>
         /// <param name="isActive"></param>
@@ -113,6 +120,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of Doctors available in the system
+        /// ~Sprint-1~
+        /// OMC‌-145
         /// </summary>
         /// <param name="isActive"></param>
         /// <param name="userRole"></param>
@@ -128,6 +137,7 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of Illegal drugs available in the system
+        /// ~Sprint-2~
         /// OMC-162
         /// </summary>
         /// <param name="isActive"></param>
@@ -144,6 +154,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of Menstrual Symptoms available in the system
+        /// ~Sprint-2~
+        /// OMC-121
         /// </summary>
         /// <param name="isActive"></param>
         /// <param name="MenstrualSymptoms"></param>
@@ -159,6 +171,7 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of Drug types available in the system
+        /// ~Sprint-2~
         /// OMC-113
         /// </summary>
         /// <param name="isActive"></param>
@@ -176,6 +189,7 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of Drug sub types available for the selected drug type in the system
+        /// ~Sprint-2~
         /// OMC-113
         /// </summary>
         /// <param name="drugTypeId"></param>
@@ -194,6 +208,7 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of Drug brands available in the system
+        /// ~Sprint-2~
         /// OMC-113
         /// </summary>
         /// <param name="isActive"></param>
@@ -211,6 +226,7 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of Drug chemicals available in the system
+        /// ~Sprint-2~
         /// OMC-113
         /// </summary>
         /// <param name="isActive"></param>
@@ -228,6 +244,7 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of Drug frequencies available in the system
+        /// ~Sprint-2~
         /// OMC-113
         /// OMC-162
         /// </summary>
@@ -246,6 +263,7 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of Drug units available in the system
+        /// ~Sprint-2~
         /// OMC-113
         /// </summary>
         /// <param name="isActive"></param>
@@ -263,6 +281,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of Occupations available in the system
+        /// ~Sprint-2~
+        /// OMC-161
         /// </summary>
         /// <param name="isActive"></param>
         /// <param name="occupationName"></param>
@@ -278,7 +298,9 @@ namespace OMCApi.Areas.Consultation.Controllers
         }
 
         /// <summary>
-        /// Gets the list of Packages available in the system
+        /// Gets the list of Packages available in the system 
+        /// ~Sprint-2~
+        /// OMC-168
         /// </summary>
         /// <param name="isActive"></param>
         /// <param name="packageId"></param>
@@ -294,6 +316,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// API to handle the unregistered patient enquiry for doctors
+        /// ~Sprint-1~
+        /// OMC-4
         /// </summary>
         /// <param name="enquiry"></param>
         /// <returns></returns>
@@ -308,6 +332,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of consultation for the user as per the role of the logged in user (patient/doctor)
+        /// ~Sprint-1~
+        /// OMC‌-52
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="userRole"></param>
@@ -323,6 +349,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of conversations for a particularr consultation as per the role of the logged in user (patient/doctor)
+        /// ~Sprint-1~
+        /// OMC‌-95
         /// </summary>
         /// <param name="consultationId"></param>
         /// <param name="userId"></param>
@@ -339,6 +367,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// API to create the new consultation record
+        /// ~Sprint-1~
+        /// OMC‌-145
         /// </summary>
         /// <param name="consultation"></param>
         /// <returns></returns>
@@ -358,7 +388,9 @@ namespace OMCApi.Areas.Consultation.Controllers
         }
 
         /// <summary>
-        /// API to create the new conversation record
+        /// API to create the new conversation record 
+        /// ~Sprint-1~
+        /// OMC-54
         /// </summary>
         /// <param name="conversation"></param>
         /// <returns></returns>
@@ -379,6 +411,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// API to handle create/edit for the consultation report record
+        /// ~Sprint-2~
+        /// OMC‌-146
         /// </summary>
         /// <param name="consultationReport"></param>
         /// <returns></returns>
@@ -399,6 +433,7 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of reports/specific report for the consultation record
+        /// ~Sprint-2~
         /// OMC-146
         /// </summary>
         /// <param name="consultationId"></param>
@@ -415,6 +450,7 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// API to handle create/edit for the consultation surgery record
+        /// ~Sprint-2~
         /// OMC-116
         /// </summary>
         /// <param name="consultationSurgery"></param>
@@ -436,6 +472,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of surgery records/specific surgery record for the consultation record
+        /// ~Sprint-2~
+        /// OMC-116
         /// </summary>
         /// <param name="consultationId"></param>
         /// <param name="consultationSurgeryId"></param>
@@ -451,6 +489,7 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// API to handle create/edit for the consultation cancer treatment record
+        /// ~Sprint-2~
         /// OMC-116
         /// </summary>
         /// <param name="consultationCancerTreatment"></param>
@@ -472,6 +511,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of cancer treatment records/specific cancer treatment record for the consultation record
+        /// ~Sprint-2~
+        /// OMC-116
         /// </summary>
         /// <param name="consultationId"></param>
         /// <param name="consultationCancerTreatmentId"></param>
@@ -487,6 +528,7 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// API to handle create/edit for the consultation illegal drug record
+        /// ~Sprint-2~
         /// OMC-162
         /// </summary>
         /// <param name="consultationIllegalDrugDetails"></param>
@@ -508,6 +550,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of illegal drug records/specific illegal drug record for the consultation record
+        /// ~Sprint-2~
+        /// OMC-162
         /// </summary>
         /// <param name="consultationId"></param>
         /// <param name="consultationIllegalDrugDetailsId"></param>
@@ -523,6 +567,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// API to handle create/edit for the consultation pregnancy detail record
+        /// ~Sprint-2~
+        /// OMC-121
         /// </summary>
         /// <param name="consultationPregnancyDetails"></param>
         /// <returns></returns>
@@ -543,6 +589,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of pregnancy detail records/specific pregnancy detail record for the consultation record
+        /// ~Sprint-2~
+        /// OMC-121
         /// </summary>
         /// <param name="consultationId"></param>
         /// <param name="consultationPregnancyDetailsId"></param>
@@ -558,6 +606,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// API to handle create/edit for the consultation previous pregnancy detail record
+        /// ~Sprint-2~
+        /// OMC-121
         /// </summary>
         /// <param name="consultationPreviousPregnancyDetails"></param>
         /// <returns></returns>
@@ -578,6 +628,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of previous pregnancy detail records/specific previous pregnancy detail record for the consultation record
+        /// ~Sprint-2~
+        /// OMC-121
         /// </summary>
         /// <param name="consultationId"></param>
         /// <param name="consultationPreviousPregnancyDetailsId"></param>
@@ -594,6 +646,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// API to handle create/edit for the consultation smoking, drinking and drug habit record
+        /// ~Sprint-2~
+        /// OMC-120
         /// </summary>
         /// <param name="consultationSDDHabits"></param>
         /// <returns></returns>
@@ -614,6 +668,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of smoking, drinking and drug habit records/specific smoking, drinking and drug habit record for the consultation record
+        /// ~Sprint-2~
+        /// OMC-120
         /// </summary>
         /// <param name="consultationId"></param>
         /// <param name="consultationSDDHabitsId"></param>
@@ -629,6 +685,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// API to handle create/edit for the consultation allergy record
+        /// ~Sprint-2~
+        /// OMC-114
         /// </summary>
         /// <param name="consultationAllergy"></param>
         /// <returns></returns>
@@ -649,6 +707,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of allergy records/specific allergy record for the consultation record
+        /// ~Sprint-2~
+        /// OMC-114
         /// </summary>
         /// <param name="consultationId"></param>
         /// <param name="consultationAllergyId"></param>
@@ -664,6 +724,7 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// API to handle create/edit for the consultation family history record
+        /// ~Sprint-2~
         /// OMC-118, OMC-115
         /// </summary>
         /// <param name="consultationFamilyHistory"></param>
@@ -685,6 +746,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of family history records/specific family history record for the consultation record
+        /// ~Sprint-2~
+        /// OMC-118, OMC-115
         /// </summary>
         /// <param name="consultationId"></param>
         /// <param name="consultationFamilyHistoryId"></param>
@@ -703,6 +766,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// API to handle create/edit for the consultation occupation record
+        /// ~Sprint-2~
+        /// OMC-161
         /// </summary>
         /// <param name="consultationOccupation"></param>
         /// <returns></returns>
@@ -723,6 +788,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of occupations/specific occupation record for the consultation record
+        /// ~Sprint-2~
+        /// OMC-161
         /// </summary>
         /// <param name="consultationId"></param>
         /// <param name="consultationOccupationId"></param>
@@ -738,6 +805,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// API to handle create/edit for the consultation blood pressure reading record
+        /// ~Sprint-2~
+        /// OMC-158
         /// </summary>
         /// <param name="consultationBloodPressureReading"></param>
         /// <returns></returns>
@@ -758,6 +827,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of blood pressure readings/specific blood pressure reading record for the consultation record
+        /// ~Sprint-2~
+        /// OMC-158
         /// </summary>
         /// <param name="consultationId"></param>
         /// <param name="consultationBloodPressureReadingId"></param>
@@ -773,6 +844,7 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// API to handle create/edit for the consultation medication record
+        /// ~Sprint-2~
         /// OMC-113
         /// </summary>
         /// <param name="consultationMedication"></param>
@@ -794,6 +866,8 @@ namespace OMCApi.Areas.Consultation.Controllers
 
         /// <summary>
         /// Gets the list of medications/specific medication record for the consultation record
+        /// ~Sprint-2~
+        /// OMC-113
         /// </summary>
         /// <param name="consultationId"></param>
         /// <param name="consultationMedicationId"></param>
