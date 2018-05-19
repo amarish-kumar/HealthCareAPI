@@ -18,7 +18,7 @@
 }
 <table class="help-page-table">
     <thead>
-        <tr><th>API</th><th>Description</th></tr>
+        <tr><th>API</th><th>Description</th><th>Sprint</th><th>JIRA Id</th></tr>
     </thead>
     <tbody>
     @foreach (var api in Model)
@@ -26,14 +26,34 @@
         <tr>
             <td class="api-name"><a href="@Url.Action("Api", "Help", new { apiId = api.GetFriendlyId() })">@api.HttpMethod.Method @api.RelativePath</a></td>
             <td class="api-documentation">
-            @if (api.Documentation != null)
-            {
-                <p>@api.Documentation</p>
-            }
-            else
-            {
-                <p>No documentation available.</p>
-            }
+                @if (api.Documentation != null)
+                {
+                    <p>@api.Documentation.Split('~')[0]</p>
+                }
+                else
+                {
+                    <p>No documentation available.</p>
+                }
+            </td>
+            <td class="api-sprint">
+                @if (api.Documentation != null && api.Documentation.IndexOf("~") != -1)
+                {
+                    <p>@api.Documentation.Split('~')[1]</p>
+                }
+                else
+                {
+                    <p>No sprint specified.</p>
+                }
+            </td>
+            <td class="api-jira">
+                @if (api.Documentation != null && api.Documentation.IndexOf("~") != -1)
+                {
+                    <p>@api.Documentation.Split('~')[2]</p>
+                }
+                else
+                {
+                    <p>No JIRA specified.</p>
+                }
             </td>
         </tr>
     }

@@ -34,8 +34,9 @@ namespace OMCApi.Areas.Login.Controllers
 
         #endregion
         /// <summary>
-        /// Gets the list of countries available  in the system
-        /// OMC-146
+        /// Gets the list of countries available in the system
+        /// ~Sprint-1, Sprint-2~
+        /// OMC-127, OMC-146
         /// </summary>
         /// <param name="isActive"></param>
         /// <returns></returns>
@@ -49,7 +50,9 @@ namespace OMCApi.Areas.Login.Controllers
         }
 
         /// <summary>
-        /// Gets the list of Address types available  in the system
+        /// Gets the list of Address types available in the system
+        /// ~Sprint-1~
+        /// OMC-127
         /// </summary>
         /// <param name="isActive"></param>
         /// <returns></returns>
@@ -64,7 +67,8 @@ namespace OMCApi.Areas.Login.Controllers
 
         /// <summary>
         /// API to create a new user record
-        /// OMC-170
+        /// ~Sprint-1, Sprint-2~
+        /// OMC-1, OMC-20, OMC-127, OMC-21, OMC-170
         /// </summary>
         /// <param name="userdetails"></param>
         /// <returns></returns>
@@ -119,6 +123,7 @@ namespace OMCApi.Areas.Login.Controllers
 
         /// <summary>
         /// API to create/edit the profile under the logged in user
+        /// ~Sprint-2~
         /// OMC-169
         /// </summary>
         /// <param name="profile"></param>
@@ -140,6 +145,8 @@ namespace OMCApi.Areas.Login.Controllers
 
         /// <summary>
         /// Gets the list of profiles available for the user or a specific profile under the user
+        /// ~Sprint-1~
+        /// OMC‌-145
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="profileId"></param>
@@ -155,6 +162,7 @@ namespace OMCApi.Areas.Login.Controllers
 
         /// <summary>
         /// Gets the list of Relationships available  in the system
+        /// ~Sprint-2~
         /// OMC-169, OMC-118, OMC-115
         /// </summary>
         /// <param name="isActive"></param>
@@ -172,6 +180,7 @@ namespace OMCApi.Areas.Login.Controllers
 
         /// <summary>
         /// Gets the list of Genders available  in the system
+        /// ~Sprint-2~
         /// OMC-169
         /// </summary>
         /// <param name="isActive"></param>

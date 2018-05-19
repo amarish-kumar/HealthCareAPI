@@ -34,6 +34,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationStatuses(System.Nullable{System.Boolean},System.String)">
             <summary>
             Gets the list of Consultation statuses available in the system
+            ~Sprint-1~
+            OMC‌-145
             </summary>
             <param name="isActive"></param>
             <param name="description"></param>
@@ -42,6 +44,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetCancerStages(System.Nullable{System.Boolean},System.String)">
             <summary>
             Gets the list of Cancer stages available in the system
+            ~Sprint-2~
             OMC-116
             </summary>
             <param name="isActive"></param>
@@ -51,6 +54,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetSurgeryList(System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Gets the list of Surgeries available in the system
+            ~Sprint-2~
             OMC-116
             </summary>
             <param name="isActive"></param>
@@ -61,6 +65,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetAllergyList(System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Gets the list of Allergies available in the system
+            ~Sprint-2~
+            OMC-114
             </summary>
             <param name="isActive"></param>
             <param name="allergyName"></param>
@@ -70,6 +76,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetHealthConditionList(System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Gets the list of Health conditions available in the system
+            ~Sprint-2~
             OMC-118, OMC-115
             </summary>
             <param name="isActive"></param>
@@ -80,6 +87,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDoctors(System.Nullable{System.Boolean},System.String)">
             <summary>
             Gets the list of Doctors available in the system
+            ~Sprint-1~
+            OMC‌-145
             </summary>
             <param name="isActive"></param>
             <param name="userRole"></param>
@@ -88,6 +97,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetIllegalDrugs(System.Nullable{System.Boolean},System.String)">
             <summary>
             Gets the list of Illegal drugs available in the system
+            ~Sprint-2~
             OMC-162
             </summary>
             <param name="isActive"></param>
@@ -97,6 +107,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetMenstrualSymptoms(System.Nullable{System.Boolean},System.String)">
             <summary>
             Gets the list of Menstrual Symptoms available in the system
+            ~Sprint-2~
+            OMC-121
             </summary>
             <param name="isActive"></param>
             <param name="MenstrualSymptoms"></param>
@@ -105,6 +117,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDrugTypeList(System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Gets the list of Drug types available in the system
+            ~Sprint-2~
             OMC-113
             </summary>
             <param name="isActive"></param>
@@ -115,6 +128,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDrugSubTypeList(System.Int32,System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Gets the list of Drug sub types available for the selected drug type in the system
+            ~Sprint-2~
             OMC-113
             </summary>
             <param name="drugTypeId"></param>
@@ -126,6 +140,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDrugBrandList(System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Gets the list of Drug brands available in the system
+            ~Sprint-2~
             OMC-113
             </summary>
             <param name="isActive"></param>
@@ -136,6 +151,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDrugChemicalList(System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Gets the list of Drug chemicals available in the system
+            ~Sprint-2~
             OMC-113
             </summary>
             <param name="isActive"></param>
@@ -146,6 +162,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDrugFrequencyList(System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Gets the list of Drug frequencies available in the system
+            ~Sprint-2~
             OMC-113
             OMC-162
             </summary>
@@ -157,6 +174,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetDrugUnitList(System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Gets the list of Drug units available in the system
+            ~Sprint-2~
             OMC-113
             </summary>
             <param name="isActive"></param>
@@ -167,6 +185,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetOccupationList(System.Nullable{System.Boolean},System.String,System.String)">
             <summary>
             Gets the list of Occupations available in the system
+            ~Sprint-2~
+            OMC-161
             </summary>
             <param name="isActive"></param>
             <param name="occupationName"></param>
@@ -175,7 +195,9 @@
         </member>
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetPackageList(System.Nullable{System.Boolean},System.Nullable{System.Int32})">
             <summary>
-            Gets the list of Packages available in the system
+            Gets the list of Packages available in the system 
+            ~Sprint-2~
+            OMC-168
             </summary>
             <param name="isActive"></param>
             <param name="packageId"></param>
@@ -184,6 +206,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetUnregisteredPatientEnquiry(OMC.Models.PatientEnquiry)">
             <summary>
             API to handle the unregistered patient enquiry for doctors
+            ~Sprint-1~
+            OMC-4
             </summary>
             <param name="enquiry"></param>
             <returns></returns>
@@ -191,6 +215,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationList(System.Int32,System.String)">
             <summary>
             Gets the list of consultation for the user as per the role of the logged in user (patient/doctor)
+            ~Sprint-1~
+            OMC‌-52
             </summary>
             <param name="userId"></param>
             <param name="userRole"></param>
@@ -199,6 +225,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConversationList(System.Int32,System.Int32,System.String)">
             <summary>
             Gets the list of conversations for a particularr consultation as per the role of the logged in user (patient/doctor)
+            ~Sprint-1~
+            OMC‌-95
             </summary>
             <param name="consultationId"></param>
             <param name="userId"></param>
@@ -208,13 +236,17 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.CreateConsultation(OMC.Models.Consultation)">
             <summary>
             API to create the new consultation record
+            ~Sprint-1~
+            OMC‌-145
             </summary>
             <param name="consultation"></param>
             <returns></returns>
         </member>
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.CreateConversation(OMC.Models.Conversation)">
             <summary>
-            API to create the new conversation record
+            API to create the new conversation record 
+            ~Sprint-1~
+            OMC-54
             </summary>
             <param name="conversation"></param>
             <returns></returns>
@@ -222,6 +254,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationReport(OMC.Models.ConsultationReports)">
             <summary>
             API to handle create/edit for the consultation report record
+            ~Sprint-2~
+            OMC‌-146
             </summary>
             <param name="consultationReport"></param>
             <returns></returns>
@@ -229,6 +263,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationReportList(System.Int32,System.Nullable{System.Int32})">
             <summary>
             Gets the list of reports/specific report for the consultation record
+            ~Sprint-2~
             OMC-146
             </summary>
             <param name="consultationId"></param>
@@ -238,6 +273,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationSurgery(OMC.Models.ConsultationSurgeries)">
             <summary>
             API to handle create/edit for the consultation surgery record
+            ~Sprint-2~
             OMC-116
             </summary>
             <param name="consultationSurgery"></param>
@@ -246,6 +282,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationSurgeryList(System.Int32,System.Nullable{System.Int32})">
             <summary>
             Gets the list of surgery records/specific surgery record for the consultation record
+            ~Sprint-2~
+            OMC-116
             </summary>
             <param name="consultationId"></param>
             <param name="consultationSurgeryId"></param>
@@ -254,6 +292,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationCancerTreatment(OMC.Models.ConsultationCancerTreatments)">
             <summary>
             API to handle create/edit for the consultation cancer treatment record
+            ~Sprint-2~
             OMC-116
             </summary>
             <param name="consultationCancerTreatment"></param>
@@ -262,6 +301,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationCancerTreatmentList(System.Int32,System.Nullable{System.Int32})">
             <summary>
             Gets the list of cancer treatment records/specific cancer treatment record for the consultation record
+            ~Sprint-2~
+            OMC-116
             </summary>
             <param name="consultationId"></param>
             <param name="consultationCancerTreatmentId"></param>
@@ -270,6 +311,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationIllegalDrugDetail(OMC.Models.ConsultationIllegalDrugDetails)">
             <summary>
             API to handle create/edit for the consultation illegal drug record
+            ~Sprint-2~
             OMC-162
             </summary>
             <param name="consultationIllegalDrugDetails"></param>
@@ -278,6 +320,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationIllegalDrugDetailList(System.Int32,System.Nullable{System.Int32})">
             <summary>
             Gets the list of illegal drug records/specific illegal drug record for the consultation record
+            ~Sprint-2~
+            OMC-162
             </summary>
             <param name="consultationId"></param>
             <param name="consultationIllegalDrugDetailsId"></param>
@@ -286,6 +330,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationPregnancyDetail(OMC.Models.ConsultationPregnancyDetails)">
             <summary>
             API to handle create/edit for the consultation pregnancy detail record
+            ~Sprint-2~
+            OMC-121
             </summary>
             <param name="consultationPregnancyDetails"></param>
             <returns></returns>
@@ -293,6 +339,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationPregnancyDetailsList(System.Int32,System.Nullable{System.Int32})">
             <summary>
             Gets the list of pregnancy detail records/specific pregnancy detail record for the consultation record
+            ~Sprint-2~
+            OMC-121
             </summary>
             <param name="consultationId"></param>
             <param name="consultationPregnancyDetailsId"></param>
@@ -301,6 +349,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationPreviousPregnancyDetail(OMC.Models.ConsultationPreviousPregnancyDetails)">
             <summary>
             API to handle create/edit for the consultation previous pregnancy detail record
+            ~Sprint-2~
+            OMC-121
             </summary>
             <param name="consultationPreviousPregnancyDetails"></param>
             <returns></returns>
@@ -308,6 +358,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationPreviousPregnancyDetailsList(System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             Gets the list of previous pregnancy detail records/specific previous pregnancy detail record for the consultation record
+            ~Sprint-2~
+            OMC-121
             </summary>
             <param name="consultationId"></param>
             <param name="consultationPreviousPregnancyDetailsId"></param>
@@ -317,6 +369,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationSDDHabits(OMC.Models.ConsultationSDDHabits)">
             <summary>
             API to handle create/edit for the consultation smoking, drinking and drug habit record
+            ~Sprint-2~
+            OMC-120
             </summary>
             <param name="consultationSDDHabits"></param>
             <returns></returns>
@@ -324,6 +378,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationSDDHabitsList(System.Int32,System.Nullable{System.Int32})">
             <summary>
             Gets the list of smoking, drinking and drug habit records/specific smoking, drinking and drug habit record for the consultation record
+            ~Sprint-2~
+            OMC-120
             </summary>
             <param name="consultationId"></param>
             <param name="consultationSDDHabitsId"></param>
@@ -332,6 +388,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationAllergy(OMC.Models.ConsultationAllergies)">
             <summary>
             API to handle create/edit for the consultation allergy record
+            ~Sprint-2~
+            OMC-114
             </summary>
             <param name="consultationAllergy"></param>
             <returns></returns>
@@ -339,6 +397,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationAllergyList(System.Int32,System.Nullable{System.Int32})">
             <summary>
             Gets the list of allergy records/specific allergy record for the consultation record
+            ~Sprint-2~
+            OMC-114
             </summary>
             <param name="consultationId"></param>
             <param name="consultationAllergyId"></param>
@@ -347,6 +407,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationFamilyHistory(OMC.Models.ConsultationFamilyHistory)">
             <summary>
             API to handle create/edit for the consultation family history record
+            ~Sprint-2~
             OMC-118, OMC-115
             </summary>
             <param name="consultationFamilyHistory"></param>
@@ -355,6 +416,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationFamilyHistoryList(System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Gets the list of family history records/specific family history record for the consultation record
+            ~Sprint-2~
+            OMC-118, OMC-115
             </summary>
             <param name="consultationId"></param>
             <param name="consultationFamilyHistoryId"></param>
@@ -365,6 +428,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationOccupation(OMC.Models.ConsultationOccupation)">
             <summary>
             API to handle create/edit for the consultation occupation record
+            ~Sprint-2~
+            OMC-161
             </summary>
             <param name="consultationOccupation"></param>
             <returns></returns>
@@ -372,6 +437,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationOccupationList(System.Int32,System.Nullable{System.Int32})">
             <summary>
             Gets the list of occupations/specific occupation record for the consultation record
+            ~Sprint-2~
+            OMC-161
             </summary>
             <param name="consultationId"></param>
             <param name="consultationOccupationId"></param>
@@ -380,6 +447,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationBloodPressureReading(OMC.Models.ConsultationBloodPressureReading)">
             <summary>
             API to handle create/edit for the consultation blood pressure reading record
+            ~Sprint-2~
+            OMC-158
             </summary>
             <param name="consultationBloodPressureReading"></param>
             <returns></returns>
@@ -387,6 +456,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationBloodPressureReadingList(System.Int32,System.Nullable{System.Int32})">
             <summary>
             Gets the list of blood pressure readings/specific blood pressure reading record for the consultation record
+            ~Sprint-2~
+            OMC-158
             </summary>
             <param name="consultationId"></param>
             <param name="consultationBloodPressureReadingId"></param>
@@ -395,6 +466,7 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationMedication(OMC.Models.ConsultationMedications)">
             <summary>
             API to handle create/edit for the consultation medication record
+            ~Sprint-2~
             OMC-113
             </summary>
             <param name="consultationMedication"></param>
@@ -403,6 +475,8 @@
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationMedicationList(System.Int32,System.Nullable{System.Int32})">
             <summary>
             Gets the list of medications/specific medication record for the consultation record
+            ~Sprint-2~
+            OMC-113
             </summary>
             <param name="consultationId"></param>
             <param name="consultationMedicationId"></param>
@@ -901,6 +975,8 @@
         <member name="M:OMCApi.Areas.Login.Controllers.LoginAPIController.PostUserLogin(OMC.Models.UserLogin)">
             <summary>
             Posts the User Login data and checks for the validity
+            ~Sprint-1~
+            OMC‌-2
             </summary>
             <param name="user"></param>
             <returns></returns>
@@ -908,6 +984,8 @@
         <member name="M:OMCApi.Areas.Login.Controllers.LoginAPIController.GetAccessCode(OMC.Models.UserLogin)">
             <summary>
             Gets the 6 digit access code for validating the new device by email/sms
+            ~Sprint-1~
+            OMC‌-2
             </summary>
             <param name="user"></param>
             <returns></returns>
@@ -915,6 +993,8 @@
         <member name="M:OMCApi.Areas.Login.Controllers.LoginAPIController.ValidateAccessCode(OMC.Models.UserAccessCodeResponse)">
             <summary>
             API to validate the 6 digit access code against the new device
+            ~Sprint-1~
+            OMC‌-2
             </summary>
             <param name="userAccessCode"></param>
             <returns></returns>
@@ -926,15 +1006,18 @@
         </member>
         <member name="M:OMCApi.Areas.Login.Controllers.SignUpAPIController.GetCountries(System.Nullable{System.Boolean})">
             <summary>
-            Gets the list of countries available  in the system
-            OMC-146
+            Gets the list of countries available in the system
+            ~Sprint-1, Sprint-2~
+            OMC-127, OMC-146
             </summary>
             <param name="isActive"></param>
             <returns></returns>
         </member>
         <member name="M:OMCApi.Areas.Login.Controllers.SignUpAPIController.GetAddressTypes(System.Nullable{System.Boolean})">
             <summary>
-            Gets the list of Address types available  in the system
+            Gets the list of Address types available in the system
+            ~Sprint-1~
+            OMC-127
             </summary>
             <param name="isActive"></param>
             <returns></returns>
@@ -942,7 +1025,8 @@
         <member name="M:OMCApi.Areas.Login.Controllers.SignUpAPIController.PostUserSignUp(OMC.Models.UserSignUp)">
             <summary>
             API to create a new user record
-            OMC-170
+            ~Sprint-1, Sprint-2~
+            OMC-1, OMC-20, OMC-127, OMC-21, OMC-170
             </summary>
             <param name="userdetails"></param>
             <returns></returns>
@@ -950,6 +1034,7 @@
         <member name="M:OMCApi.Areas.Login.Controllers.SignUpAPIController.InsertUpdateProfile(OMC.Models.Profile)">
             <summary>
             API to create/edit the profile under the logged in user
+            ~Sprint-2~
             OMC-169
             </summary>
             <param name="profile"></param>
@@ -958,6 +1043,8 @@
         <member name="M:OMCApi.Areas.Login.Controllers.SignUpAPIController.GetProfiles(System.Int32,System.Nullable{System.Int32})">
             <summary>
             Gets the list of profiles available for the user or a specific profile under the user
+            ~Sprint-1~
+            OMC‌-145
             </summary>
             <param name="userId"></param>
             <param name="profileId"></param>
@@ -966,6 +1053,7 @@
         <member name="M:OMCApi.Areas.Login.Controllers.SignUpAPIController.GetRelationships(System.Nullable{System.Boolean},System.String,System.Nullable{System.Boolean})">
             <summary>
             Gets the list of Relationships available  in the system
+            ~Sprint-2~
             OMC-169, OMC-118, OMC-115
             </summary>
             <param name="isActive"></param>
@@ -976,6 +1064,7 @@
         <member name="M:OMCApi.Areas.Login.Controllers.SignUpAPIController.GetGenders(System.Nullable{System.Boolean},System.String)">
             <summary>
             Gets the list of Genders available  in the system
+            ~Sprint-2~
             OMC-169
             </summary>
             <param name="isActive"></param>
