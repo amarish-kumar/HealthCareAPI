@@ -6,6 +6,9 @@ using System.Web.Http;
 
 namespace OMCApi.Areas.Login.Controllers
 {
+    /// <summary>
+    /// This controller hosts all APIs related to login functionality
+    /// </summary>
     [RoutePrefix("api/LoginAPI")]
     public class LoginAPIController : ApiController
     {
@@ -27,6 +30,12 @@ namespace OMCApi.Areas.Login.Controllers
         #endregion
 
         // Get: api/LoginAPI/GetRoles
+        /// <summary>
+        /// Gets the list of Roles available in the system
+        /// </summary>
+        /// <param name="isActive">pass the value of isActive flag</param>
+        /// <param name="roleDescription">pass the value of roleDescription to filter by role. Pass null/empty to bypass the filter</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetRoles")]
         public List<Role> GetRoles(bool? isActive, string roleDescription)
@@ -35,7 +44,13 @@ namespace OMCApi.Areas.Login.Controllers
             return masterObj.GetRoles(isActive, roleDescription);
         }
 
-
+        /// <summary>
+        /// Posts the User Login data and checks for the validity
+        /// ~Sprint-1~
+        /// OMC‌-2
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         // POST: api/LoginAPI
         [HttpPost]
         [Route("PostUserLogin")]
@@ -46,7 +61,14 @@ namespace OMCApi.Areas.Login.Controllers
             return SignInResult;
         }
 
-        // POST: api/LoginAPI
+        /// <summary>
+        /// Gets the 6 digit access code for validating the new device by email/sms
+        /// ~Sprint-1~
+        /// OMC‌-2
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        // POST: api/GetAccessCode
         [HttpPost]
         [Route("GetAccessCode")]
         public UserAccessCodeResponse GetAccessCode([FromBody]UserLogin user)
@@ -57,6 +79,13 @@ namespace OMCApi.Areas.Login.Controllers
             return getUserAccessCodeResult;
         }
 
+        /// <summary>
+        /// API to validate the 6 digit access code against the new device
+        /// ~Sprint-1~
+        /// OMC‌-2
+        /// </summary>
+        /// <param name="userAccessCode"></param>
+        /// <returns></returns>
         // POST: api/LoginAPI
         [HttpPost]
         [Route("ValidateAccessCode")]
