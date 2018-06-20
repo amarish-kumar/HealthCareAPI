@@ -14,7 +14,9 @@ GO
 
 CREATE TABLE [dbo].[TimezoneMaster](
 	[ID] [bigint] IDENTITY(1,1) NOT NULL,
-	[Timezone] [nvarchar](50) NOT NULL,
+	[ShortForm] [nvarchar](50) NOT NULL,
+	[Timezone] [nvarchar](100) NOT NULL,
+	[Time] [nvarchar](50) NOT NULL,
 	[Active] [bit] NULL,
 	[AddedBy] [bigint] NULL,
 	[AddedDate] [datetime] NULL,
