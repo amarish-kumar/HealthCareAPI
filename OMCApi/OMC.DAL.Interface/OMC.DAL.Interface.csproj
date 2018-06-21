@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OMC.Models">
-      <HintPath>..\OMC.Models\bin\Debug\OMC.Models.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,10 +41,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IConsultationDataAccess.cs" />
+    <Compile Include="IDoctorDataAccess.cs" />
     <Compile Include="IMasterDataAccess.cs" />
     <Compile Include="ISignInDataAccess.cs" />
     <Compile Include="ISignUpDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OMC.Models\OMC.Models.csproj">
+      <Project>{a685aa6b-9dc5-400e-bb08-042bf56c1db6}</Project>
+      <Name>OMC.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

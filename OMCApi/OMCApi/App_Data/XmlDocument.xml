@@ -26,6 +26,36 @@
             </summary>
             <param name="kernel">The kernel.</param>
         </member>
+        <member name="T:OMCApi.Areas.Doctor.Controllers.DoctorAPIController">
+            <summary>
+            This controller hosts all APIs related to Consultation functionality
+            </summary>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.#ctor">
+            <summary>
+            Constructor for DoctorAPIController
+            </summary>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.GetTimezones(System.Nullable{System.Boolean},System.String)">
+            <summary>
+            Gets the list of Timezones available in the system
+            ~Sprint-3~
+            OMC‌-130
+            </summary>
+            <param name="isActive"></param>
+            <param name="searchTerm"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.InsertUpdateDoctorProfile(OMC.Models.DoctorProfile)">
+            <summary>
+            API to handle create/edit for the doctor profile record
+            ~Sprint-3~
+            OMC-130
+            </summary>
+            <param name="doctorProfile"></param>
+            <param name="operation"></param>
+            <returns></returns>
+        </member>
         <member name="T:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController">
             <summary>
             This controller hosts all APIs related to Consultation functionality

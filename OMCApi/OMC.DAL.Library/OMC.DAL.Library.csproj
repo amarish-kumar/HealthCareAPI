@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="DataAccessBase.cs" />
     <Compile Include="ConsultationDataAccess.cs" />
+    <Compile Include="DoctorDataAccess.cs" />
     <Compile Include="MasterDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignInDataAccess.cs" />

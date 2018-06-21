@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsultationMedications.cs" />
+    <Compile Include="DoctorProfile.cs" />
+    <Compile Include="TimezoneMaster.cs" />
     <Compile Include="UnitMaster.cs" />
     <Compile Include="ConsultationPregnancyDetails.cs" />
     <Compile Include="ConsultationPreviousPregnancyDetails.cs" />

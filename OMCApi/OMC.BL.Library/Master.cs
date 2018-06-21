@@ -359,6 +359,21 @@ namespace OMC.BL.Library
             }
         }
 
+        public List<TimezoneMaster> GetTimezones(bool? isActive, string searchTerm)
+        {
+            try
+            {
+                return this._masterDA.GetTimezones(isActive, searchTerm);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
         #endregion
 
         #region IDisposable

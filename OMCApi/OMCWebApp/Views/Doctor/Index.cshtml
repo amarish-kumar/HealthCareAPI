@@ -1,0 +1,145 @@
+﻿@model  OMCWebApp.Models.DoctorModel
+
+<h2>Doctor Profile Entry</h2>
+
+@using (Html.BeginForm("Create", "Doctor"))
+{
+    @Html.AntiForgeryToken()
+    <table>
+        <tr>
+            <td>
+                Select Timezone:
+            </td>
+            <td>
+                @Html.HiddenFor(m => m.DoctorProfileObject.Id, Model.DoctorProfileObject.Id)
+                @Html.HiddenFor(m=>m.DoctorProfileObject.DoctorId, Model.DoctorProfileObject.DoctorId)
+                @Html.DropDownListFor(m => m.DoctorProfileObject.TimezoneId
+                    , new SelectList(Model.Timezones, "Id", "TimezoneDescription"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Email Address1:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.DoctorProfileObject.EmailAddress1, Model.DoctorProfileObject.EmailAddress1)
+            </td>
+
+            <td>
+                Is Default:
+            </td>
+            <td>
+                @Html.CheckBoxFor(m => m.DoctorProfileObject.IsEmailAddress1Default, Model.DoctorProfileObject.IsEmailAddress1Default)
+            </td>
+        </tr>    
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Email Address2:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.DoctorProfileObject.EmailAddress2, Model.DoctorProfileObject.EmailAddress2)
+            </td>
+
+            <td>
+                Is Default:
+            </td>
+            <td>
+                @Html.CheckBoxFor(m => m.DoctorProfileObject.IsEmailAddress2Default, Model.DoctorProfileObject.IsEmailAddress2Default)
+            </td>
+        </tr>      
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Email Address3:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.DoctorProfileObject.EmailAddress3, Model.DoctorProfileObject.EmailAddress3)
+            </td>
+
+            <td>
+                Is Default:
+            </td>
+            <td>
+                @Html.CheckBoxFor(m => m.DoctorProfileObject.IsEmailAddress3Default, Model.DoctorProfileObject.IsEmailAddress3Default)
+            </td>
+        </tr>     
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Phone number 1:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.DoctorProfileObject.PhoneNumber1, Model.DoctorProfileObject.PhoneNumber1)
+            </td>
+
+            <td>
+                Is Default:
+            </td>
+            <td>
+                @Html.CheckBoxFor(m => m.DoctorProfileObject.IsPhoneNumber1Default, Model.DoctorProfileObject.IsPhoneNumber1Default)
+            </td>
+        </tr>      
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Phone number 2:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.DoctorProfileObject.PhoneNumber2, Model.DoctorProfileObject.PhoneNumber2)
+            </td>
+
+            <td>
+                Is Default:
+            </td>
+            <td>
+                @Html.CheckBoxFor(m => m.DoctorProfileObject.IsPhoneNumber2Default, Model.DoctorProfileObject.IsPhoneNumber2Default)
+            </td>
+        </tr>  
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Phone number 3:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.DoctorProfileObject.PhoneNumber3, Model.DoctorProfileObject.PhoneNumber3)
+            </td>
+
+            <td>
+                Is Default:
+            </td>
+            <td>
+                @Html.CheckBoxFor(m => m.DoctorProfileObject.IsPhoneNumber3Default, Model.DoctorProfileObject.IsPhoneNumber3Default)
+            </td>
+        </tr>      
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Website Address:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.DoctorProfileObject.WebsiteAddress, Model.DoctorProfileObject.WebsiteAddress)
+            </td>
+        </tr>      
+        <tr style="height:20px;"></tr>
+        <tr>            
+            <td>
+                Is Published:
+            </td>
+            <td>
+                @Html.CheckBoxFor(m => m.DoctorProfileObject.IsPublished, Model.DoctorProfileObject.IsPublished)
+            </td>
+        </tr>
+
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Create</button>
+            </td>
+        </tr>
+
+    </table>
+}
+
+
