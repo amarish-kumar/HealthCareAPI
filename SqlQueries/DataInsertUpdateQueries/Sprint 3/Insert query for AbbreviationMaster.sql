@@ -1,0 +1,20 @@
+USE [HealthCare]
+GO
+
+INSERT INTO [dbo].[AbbreviationMaster] ([Abbreviation] ,[Description] ,[Active] ,[AddedBy] ,[AddedDate]) VALUES ('AuD','Doctor of Audiology', 1,1,GETDATE())
+INSERT INTO [dbo].[AbbreviationMaster] ([Abbreviation] ,[Description] ,[Active] ,[AddedBy] ,[AddedDate]) VALUES ('DC','Doctor of Chiropractic', 1,1,GETDATE())
+INSERT INTO [dbo].[AbbreviationMaster] ([Abbreviation] ,[Description] ,[Active] ,[AddedBy] ,[AddedDate]) VALUES ('DDS','Doctor of Dental Surgery, Doctor of Dental Science', 1,1,GETDATE())
+INSERT INTO [dbo].[AbbreviationMaster] ([Abbreviation] ,[Description] ,[Active] ,[AddedBy] ,[AddedDate]) VALUES ('DMD','Doctor of Dental Medicine, Doctor of Medical Dentistry', 1,1,GETDATE())
+INSERT INTO [dbo].[AbbreviationMaster] ([Abbreviation] ,[Description] ,[Active] ,[AddedBy] ,[AddedDate]) VALUES ('DO','Doctor of Optometry', 1,1,GETDATE())
+INSERT INTO [dbo].[AbbreviationMaster] ([Abbreviation] ,[Description] ,[Active] ,[AddedBy] ,[AddedDate]) VALUES ('DPM','Doctor of Podiatric Medicine', 1,1,GETDATE())
+INSERT INTO [dbo].[AbbreviationMaster] ([Abbreviation] ,[Description] ,[Active] ,[AddedBy] ,[AddedDate]) VALUES ('DPT','Doctor of Physical Therapy', 1,1,GETDATE())
+INSERT INTO [dbo].[AbbreviationMaster] ([Abbreviation] ,[Description] ,[Active] ,[AddedBy] ,[AddedDate]) VALUES ('DScPT','Doctor of Science in Physical Therapy', 1,1,GETDATE())
+INSERT INTO [dbo].[AbbreviationMaster] ([Abbreviation] ,[Description] ,[Active] ,[AddedBy] ,[AddedDate]) VALUES ('DSN','Doctor of Science in Nursing', 1,1,GETDATE())
+INSERT INTO [dbo].[AbbreviationMaster] ([Abbreviation] ,[Description] ,[Active] ,[AddedBy] ,[AddedDate]) VALUES ('DVM','Doctor of Veterinary Medicine', 1,1,GETDATE())
+INSERT INTO [dbo].[AbbreviationMaster] ([Abbreviation] ,[Description] ,[Active] ,[AddedBy] ,[AddedDate]) VALUES ('ENT','Ear, nose and throat specialist', 1,1,GETDATE())
+INSERT INTO [dbo].[AbbreviationMaster] ([Abbreviation] ,[Description] ,[Active] ,[AddedBy] ,[AddedDate]) VALUES ('GP','General Practitioner', 1,1,GETDATE())
+INSERT INTO [dbo].[AbbreviationMaster] ([Abbreviation] ,[Description] ,[Active] ,[AddedBy] ,[AddedDate]) VALUES ('GYN','Gynecologist', 1,1,GETDATE())
+INSERT INTO [dbo].[AbbreviationMaster] ([Abbreviation] ,[Description] ,[Active] ,[AddedBy] ,[AddedDate]) VALUES ('MD','Doctor of Medicine', 1,1,GETDATE())
+INSERT INTO [dbo].[AbbreviationMaster] ([Abbreviation] ,[Description] ,[Active] ,[AddedBy] ,[AddedDate]) VALUES ('MS','Master of Surgery', 1,1,GETDATE())
+INSERT INTO [dbo].[AbbreviationMaster] ([Abbreviation] ,[Description] ,[Active] ,[AddedBy] ,[AddedDate]) VALUES ('OB/GYN','Obstetrician and Gynecologist', 1,1,GETDATE())
+INSERT INTO [dbo].[AbbreviationMaster] ([Abbreviation] ,[Description] ,[Active] ,[AddedBy] ,[AddedDate]) VALUES ('PharmD','Doctor of Pharmacy', 1,1,GETDATE())
