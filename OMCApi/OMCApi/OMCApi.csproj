@@ -178,6 +178,8 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Doctor\DoctorAreaRegistration.cs" />
+    <Compile Include="Areas\Doctor\Controllers\DoctorAPIController.cs" />
     <Compile Include="Areas\Consultation\ConsultationAreaRegistration.cs" />
     <Compile Include="Areas\Consultation\Controllers\ConsultationAPIController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />

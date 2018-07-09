@@ -48,6 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsultationMedications.cs" />
+    <Compile Include="DoctorProfile.cs" />
+    <Compile Include="StateMaster.cs" />
+    <Compile Include="TimezoneMaster.cs" />
     <Compile Include="UnitMaster.cs" />
     <Compile Include="ConsultationPregnancyDetails.cs" />
     <Compile Include="ConsultationPreviousPregnancyDetails.cs" />
@@ -86,6 +89,7 @@
     <Compile Include="RelationshipMaster.cs" />
     <Compile Include="RequiredIfAttribute.cs" />
     <Compile Include="Role.cs" />
+    <Compile Include="UserAddress.cs" />
     <Compile Include="UserDetail.cs" />
     <Compile Include="UserLogin.cs" />
     <Compile Include="UserSignUp.cs" />

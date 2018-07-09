@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsultationBL.cs" />
+    <Compile Include="DoctorBL.cs" />
     <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\SMSHelper.cs" />
     <Compile Include="Master.cs" />

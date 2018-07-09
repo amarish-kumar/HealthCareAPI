@@ -26,6 +26,86 @@
             </summary>
             <param name="kernel">The kernel.</param>
         </member>
+        <member name="T:OMCApi.Areas.Doctor.Controllers.DoctorAPIController">
+            <summary>
+            This controller hosts all APIs related to Consultation functionality
+            </summary>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.#ctor">
+            <summary>
+            Constructor for DoctorAPIController
+            </summary>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.GetTimezones(System.Nullable{System.Boolean},System.String)">
+            <summary>
+            Gets the list of Timezones available in the system
+            ~Sprint-3~
+            OMC‌-130
+            </summary>
+            <param name="isActive"></param>
+            <param name="searchTerm"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.GetStates(System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of states available in the system for the country
+            ~Sprint-3~
+            OMC‌-130
+            </summary>
+            <param name="isActive"></param>
+            <param name="countryId"></param>
+            <param name="stateId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.InsertUpdateDoctorProfile(OMC.Models.DoctorProfile)">
+            <summary>
+            API to handle create/edit for the doctor profile record
+            ~Sprint-3~
+            OMC-130
+            </summary>
+            <param name="doctorProfile"></param>
+            <param name="operation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.DeleteDoctorProfile(System.Int32,System.Int32)">
+            <summary>
+            API to soft delete the doctor profile
+            ~Sprint-3~
+            OMC‌-130
+            </summary>
+            <param name="doctorProfileId"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.GetDoctorProfileList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            API to get the list of doctor profiles
+            ~Sprint-3~
+            OMC-130
+            </summary>
+            <param name="userId"></param>
+            <param name="doctorId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.InsertUpdateUserAddress(OMC.Models.UserAddress)">
+            <summary>
+            API to handle create/edit for the doctor profile address record
+            ~Sprint-3~
+            OMC-130
+            </summary>
+            <param name="userAddress"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.GetUserAddressList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of user address records/specific user address record for the doctor profile record
+            ~Sprint-3~
+            OMC-130
+            </summary>
+            <param name="userId"></param>
+            <param name="addressId"></param>
+            <returns></returns>
+        </member>
         <member name="T:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController">
             <summary>
             This controller hosts all APIs related to Consultation functionality

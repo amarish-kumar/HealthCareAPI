@@ -1001,6 +1001,104 @@ namespace OMC.DAL.Library
                 Connection.Close();
             }
         }
+
+        public List<TimezoneMaster> GetTimezones(bool? isActive, string searchTerm)
+        {
+            try
+            {
+                Log.Info("Started call to GetTimezones");
+                Log.Info("parameter values =" + JsonConvert.SerializeObject(new { isActive = isActive, searchTerm = searchTerm }));
+                Command.CommandText = "SP_GET_TIMEZONES";
+                Command.CommandType = CommandType.StoredProcedure;
+
+                Command.Parameters.Clear();                
+                if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    Command.Parameters.AddWithValue("@SEARCH_TERM", searchTerm);
+                }
+                Command.Parameters.AddWithValue("@ACTIVE", isActive);
+
+                Connection.Open();
+
+                SqlDataReader reader = Command.ExecuteReader();
+                List<TimezoneMaster> result = new List<TimezoneMaster>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new TimezoneMaster
+                        {
+                            ShortForm = reader["ShortForm"] != DBNull.Value ? reader["ShortForm"].ToString() : null,
+                            Time = reader["Time"] != DBNull.Value ? reader["Time"].ToString() : null,
+                            Timezone = reader["Timezone"] != DBNull.Value ? reader["Timezone"].ToString() : null,
+                            Id = Convert.ToInt32(reader["Id"].ToString())
+                        });
+                    }
+                }
+                Log.Info("End call to GetTimezones result " + JsonConvert.SerializeObject(result));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public List<StateMaster> GetStates(bool? isActive, int? countryId, int? stateId)
+        {
+            try
+            {
+                Log.Info("Started call to GetStates");
+                Log.Info("parameter values =" + JsonConvert.SerializeObject(new { isActive = isActive, countryId = countryId, stateId = stateId }));
+                Command.CommandText = "SP_GET_STATES";
+                Command.CommandType = CommandType.StoredProcedure;
+
+                Command.Parameters.Clear();
+                if (countryId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@COUNTRY_ID", countryId);
+                }
+                if (stateId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@STATE_ID", stateId);
+                }
+                Command.Parameters.AddWithValue("@ACTIVE", isActive);
+
+                Connection.Open();
+
+                SqlDataReader reader = Command.ExecuteReader();
+                List<StateMaster> result = new List<StateMaster>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new StateMaster
+                        {
+                            CountryId = int.Parse(reader["CountryId"].ToString()),
+                            CountryName = reader["CountryName"] != DBNull.Value ? reader["CountryName"].ToString() : null,
+                            State = reader["State"] != DBNull.Value ? reader["State"].ToString() : null,
+                            Id = Convert.ToInt32(reader["Id"].ToString())
+                        });
+                    }
+                }
+                Log.Info("End call to GetStates result " + JsonConvert.SerializeObject(result));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            finally
+            {
+                Connection.Close();
+            }
+        }
         #endregion
     }
 }
