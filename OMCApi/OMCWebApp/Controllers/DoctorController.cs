@@ -99,6 +99,21 @@ namespace OMCApi.Areas.Login.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<ActionResult> GetStateList(int countryId)
+        {
+            List<StateMaster> result = new List<StateMaster>();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/DoctorAPI/GetStates?isActive=true&countryId=" + countryId.ToString() + "&stateId=");
+                result = JsonConvert.DeserializeObject<List<StateMaster>>(Res.Content.ReadAsStringAsync().Result);
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public async Task<ActionResult> Delete(int doctorProfileId, int userId)
         {
