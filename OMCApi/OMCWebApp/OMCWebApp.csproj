@@ -163,6 +163,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserAddressModel.cs" />
     <Compile Include="Models\DoctorModel.cs" />
     <Compile Include="Models\MedicationModel.cs" />
     <Compile Include="Models\OccupationModel.cs" />
@@ -287,6 +288,8 @@
     <Content Include="Views\Consultation\EditPreviousPregnancyDetails.cshtml" />
     <Content Include="Views\Doctor\Index.cshtml" />
     <Content Include="Views\Doctor\DoctorProfileResponse.cshtml" />
+    <Content Include="Views\Doctor\UserAddress.cshtml" />
+    <Content Include="Views\Doctor\UserAddressResponse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

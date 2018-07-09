@@ -1,8 +1,54 @@
 ﻿@model  OMCWebApp.Models.DoctorModel
 
+<style>
+    table.addresses td,
+    table.addresses th {
+        border: 1px solid black;
+    }
+
+    table.createConv {
+        border: 1px solid black;
+    }
+
+    .collapsible {
+        background-color: #777;
+        color: white;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+    }
+
+        .active, .collapsible:hover {
+            background-color: #555;
+        }
+
+        .collapsible:after {
+            content: '\002B';
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+    .active:after {
+        content: "\2212";
+    }
+
+    .content {
+        padding: 0 18px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        background-color: #f1f1f1;
+    }
+</style>
 <h2>Doctor Profile Entry</h2>
 
-@using (Html.BeginForm("Create", "Doctor"))
+@using (Html.BeginForm("InsertUpdate", "Doctor"))
 {
     @Html.AntiForgeryToken()
     <table>
@@ -30,7 +76,7 @@
                 Is Default:
             </td>
             <td>
-                @Html.CheckBoxFor(m => m.DoctorProfileObject.IsEmailAddress1Default, Model.DoctorProfileObject.IsEmailAddress1Default)
+                @Html.CheckBoxFor(m => m.DoctorProfileObject.IsEmailAddress1Default, new { @class = "chkEmail" })
             </td>
         </tr>    
         <tr style="height:20px;"></tr>
@@ -46,7 +92,7 @@
                 Is Default:
             </td>
             <td>
-                @Html.CheckBoxFor(m => m.DoctorProfileObject.IsEmailAddress2Default, Model.DoctorProfileObject.IsEmailAddress2Default)
+                @Html.CheckBoxFor(m => m.DoctorProfileObject.IsEmailAddress2Default, new { @class = "chkEmail" })
             </td>
         </tr>      
         <tr style="height:20px;"></tr>
@@ -62,7 +108,7 @@
                 Is Default:
             </td>
             <td>
-                @Html.CheckBoxFor(m => m.DoctorProfileObject.IsEmailAddress3Default, Model.DoctorProfileObject.IsEmailAddress3Default)
+                @Html.CheckBoxFor(m => m.DoctorProfileObject.IsEmailAddress3Default, new { @class = "chkEmail" })
             </td>
         </tr>     
         <tr style="height:20px;"></tr>
@@ -78,7 +124,7 @@
                 Is Default:
             </td>
             <td>
-                @Html.CheckBoxFor(m => m.DoctorProfileObject.IsPhoneNumber1Default, Model.DoctorProfileObject.IsPhoneNumber1Default)
+                @Html.CheckBoxFor(m => m.DoctorProfileObject.IsPhoneNumber1Default, new { @class = "chkPhone" })
             </td>
         </tr>      
         <tr style="height:20px;"></tr>
@@ -94,7 +140,7 @@
                 Is Default:
             </td>
             <td>
-                @Html.CheckBoxFor(m => m.DoctorProfileObject.IsPhoneNumber2Default, Model.DoctorProfileObject.IsPhoneNumber2Default)
+                @Html.CheckBoxFor(m => m.DoctorProfileObject.IsPhoneNumber2Default, new { @class = "chkPhone" })
             </td>
         </tr>  
         <tr style="height:20px;"></tr>
@@ -110,7 +156,7 @@
                 Is Default:
             </td>
             <td>
-                @Html.CheckBoxFor(m => m.DoctorProfileObject.IsPhoneNumber3Default, Model.DoctorProfileObject.IsPhoneNumber3Default)
+                @Html.CheckBoxFor(m => m.DoctorProfileObject.IsPhoneNumber3Default, new { @class = "chkPhone" })
             </td>
         </tr>      
         <tr style="height:20px;"></tr>
@@ -121,8 +167,9 @@
             <td>
                 @Html.TextBoxFor(m => m.DoctorProfileObject.WebsiteAddress, Model.DoctorProfileObject.WebsiteAddress)
             </td>
-        </tr>      
+        </tr>          
         <tr style="height:20px;"></tr>
+        
         <tr>            
             <td>
                 Is Published:
@@ -131,15 +178,120 @@
                 @Html.CheckBoxFor(m => m.DoctorProfileObject.IsPublished, Model.DoctorProfileObject.IsPublished)
             </td>
         </tr>
-
         <tr style="height:20px;"></tr>
         <tr>
             <td colspan="2">
-                <button type="submit">Create</button>
+                <button type="submit">@(Model.DoctorProfileObject.Id > 0 ? "Update" : "Create")</button>
+                @if (Model.DoctorProfileObject.Id > 0)
+                {
+                    <button type="button" onclick="deleteProfile(@(Model.DoctorProfileObject.Id), @(Model.UserId))">Delete</button>
+                }
             </td>
         </tr>
 
     </table>
+    <br />
+    <table>
+        <tr>
+            <td>
+                @Html.ActionLink("Create New Address", "UserAddress", "Doctor"
+               , new { doctorId = Model.DoctorProfileObject.DoctorId, userId = Model.UserId }, null)
+                <button type="button" class="collapsible">Addresses</button>                
+                <div class="content">
+                    @if (Model.UserAddressResponseObject != null
+                        && Model.UserAddressResponseObject.UserAddressList != null
+                        && Model.UserAddressResponseObject.UserAddressList.Count() != 0)
+                    {
+                        <table class="addresses">
+                            <thead>
+                                <th>Address Type</th>
+                                <th>Address 1</th>
+                                <th>Address 2</th>
+                                <th>City</th>
+                                <th>Zipcode</th>
+                                <th>State</th>
+                                <th>Country</th>
+                                <th>Action</th>
+                            </thead>
+                            @foreach (var address in Model.UserAddressResponseObject.UserAddressList)
+                            {
+                                <tr>
+                                    <td>@address.AddressType</td>
+                                    <td>@address.Address1</td>
+                                    <td>@address.Address2</td>
+                                    <td>@address.City</td>
+                                    <td>@address.ZipCode</td>
+                                    <td>@address.StateName</td>
+                                    <td>@address.CountryName</td>
+                                    <td>
+                                        @Html.ActionLink("Edit Address", "UserAddress", "Doctor"
+                                        , new { doctorId = Model.DoctorProfileObject.DoctorId
+                                                , userAddressId = address.Id
+                                                , userId = Model.UserId }, null)
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No addresses recorded</p>
+                    }
+                </div>
+            </td>
+        </tr>  
+        <tr style="height:20px;"></tr>
+    </table>
 }
 
+@section scripts{
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.chkEmail').change(function (event) {
+                resetOtherCheckboxes('chkEmail', $(event.target))
+            });
+            $('.chkPhone').change(function (event) {
+                resetOtherCheckboxes('chkPhone', $(event.target))
+            });
+
+            var coll = document.getElementsByClassName("collapsible");
+            var i;
+
+            for (i = 0; i < coll.length; i++) {
+                coll[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var content = this.nextElementSibling;
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            }
+        });
+
+        function resetOtherCheckboxes(className, element) {
+            if (element.prop("checked")) {
+                $('.' + className).each(function (i, obj) {
+                    $(this).prop("checked", false);
+                });
+                element.prop("checked", true);
+            }
+        }
+
+        function deleteProfile(doctorProfileId, deletedBy) {
+            $.ajax({
+                type: 'POST',
+                url: '/deleteDoctorProfile?doctorProfileId=' + doctorProfileId + '&userId='+deletedBy,
+                dataType: "json",
+                success: function (result) {
+                    if (result.IsSuccess) {
+                        window.location = '/deleteDoctorProfileResponse?message=' + result.Message + '&isSuccess=true';
+                    }
+                }
+            });
+        }
+    </script>
+
+}

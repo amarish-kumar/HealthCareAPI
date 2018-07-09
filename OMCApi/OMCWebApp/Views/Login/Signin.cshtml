@@ -49,6 +49,8 @@
                     else if (userRole.RoleName.ToLower() == "doctor")
                     {
                         @Html.ActionLink("View Consultations", "List", "Consultation", new { userId = userRole.UserId, userRole = "doctor"  }, null)
+                        <br />
+                        @Html.ActionLink("My Profile", "Index", "Doctor", new { doctorId = userRole.UserId, userId = userRole.UserId }, null)
                     }
                 </td>
             </tr>

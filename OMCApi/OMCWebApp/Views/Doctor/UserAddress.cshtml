@@ -1,0 +1,82 @@
+﻿@model  OMCWebApp.Models.UserAddressModel
+
+@using (Html.BeginForm("InsertUpdateUserAddress", "Doctor", FormMethod.Post))
+{
+    <h2>Manage User Address</h2>
+    @Html.AntiForgeryToken()
+    <table class="createConsAllergy">
+        <tr>
+            <td>
+                Address Type:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.UserAddressObject.AddressTypeId, new SelectList(Model.AddressTypes, "Id", "AddressDesc"))
+            </td>
+        </tr>    
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Address 1:
+            </td>
+            <td> 
+                @Html.HiddenFor(m => m.UserAddressObject.Id, Model.UserAddressObject.Id)
+                @Html.HiddenFor(m => m.UserAddressObject.AddedBy, Model.UserAddressObject.AddedBy)
+                @Html.HiddenFor(m => m.UserAddressObject.ModifiedBy, Model.UserAddressObject.ModifiedBy)
+                @Html.HiddenFor(m => m.UserAddressObject.UserId, Model.UserAddressObject.UserId)
+                @Html.TextBoxFor(m => m.UserAddressObject.Address1, Model.UserAddressObject.Address1)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Address 2:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.UserAddressObject.Address2, Model.UserAddressObject.Address2)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Country:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.UserAddressObject.CountryId, new SelectList(Model.CountryList, "Id", "CountryDesc"))
+            </td>
+        </tr>    
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                State:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.UserAddressObject.StateId, new SelectList(Model.StateList, "Id", "State"))
+            </td>
+        </tr>     
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                City:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.UserAddressObject.City, Model.UserAddressObject.City)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Zip Code:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.UserAddressObject.ZipCode, Model.UserAddressObject.ZipCode)
+            </td>
+        </tr>        
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Create User Address</button>
+            </td>
+        </tr>
+    </table>
+}
+

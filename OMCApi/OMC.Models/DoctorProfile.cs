@@ -10,20 +10,27 @@ namespace OMC.Models
         public int DoctorId { get; set; }
         public bool IsPublished { get; set; }
         [Required(ErrorMessage = "Email Address 1 is required.")]
+        [EmailAddress(ErrorMessage = "Email address not of valid format")]
         public string EmailAddress1 { get; set; }
         public bool IsEmailAddress1Default { get; set; }
+        [EmailAddress(ErrorMessage = "Email address not of valid format")]
         public string EmailAddress2 { get; set; }
         public bool IsEmailAddress2Default { get; set; }
+        [EmailAddress(ErrorMessage = "Email address not of valid format")]
         public string EmailAddress3 { get; set; }
         public bool IsEmailAddress3Default { get; set; }
         [Required(ErrorMessage = "Phone Number 1 is required.")]
+        [RegularExpression(@"^\+(?:[0-9] ?){6,14}[0-9]$", ErrorMessage = "PhoneNumber is of wrong format")]
         public string PhoneNumber1 { get; set; }
         public bool IsPhoneNumber1Default { get; set; }
+        [RegularExpression(@"^\+(?:[0-9] ?){6,14}[0-9]$", ErrorMessage = "PhoneNumber is of wrong format")]
         public string PhoneNumber2 { get; set; }
         public bool IsPhoneNumber2Default { get; set; }
+        [RegularExpression(@"^\+(?:[0-9] ?){6,14}[0-9]$", ErrorMessage = "PhoneNumber is of wrong format")]
         public string PhoneNumber3 { get; set; }
         public bool IsPhoneNumber3Default { get; set; }
         public int? DefaultAddressId { get; set; }
+        [RegularExpression(@"(http(s)?://)?([\w-]+\.)+[\w-]+[\w-]+[\.]+[\.com]+([./?%&=]*)?", ErrorMessage = "Website Address is of wrong format")]
         public string WebsiteAddress { get; set; }
         [Required(ErrorMessage = "Timezone is required.")]
         [Range(1, int.MaxValue, ErrorMessage = "Timezone is required.")]
@@ -68,26 +75,9 @@ namespace OMC.Models
         public bool IsSuccess { get; set; }
     }
 
-    public class DoctorProfileDisplay : BaseEntity
+    public class DoctorProfileDisplay : DoctorProfile
     {
-        public int DoctorId { get; set; }
         public string DoctorName { get; set; }
-        public bool IsPublished { get; set; }
-        public string EmailAddress1 { get; set; }
-        public bool IsEmailAddress1Default { get; set; }
-        public string EmailAddress2 { get; set; }
-        public bool IsEmailAddress2Default { get; set; }
-        public string EmailAddress3 { get; set; }
-        public bool IsEmailAddress3Default { get; set; }
-        public string PhoneNumber1 { get; set; }
-        public bool IsPhoneNumber1Default { get; set; }
-        public string PhoneNumber2 { get; set; }
-        public bool IsPhoneNumber2Default { get; set; }
-        public string PhoneNumber3 { get; set; }
-        public bool IsPhoneNumber3Default { get; set; }
-        public int? DefaultAddressId { get; set; }
-        public string WebsiteAddress { get; set; }
-        public int? TimezoneId { get; set; }
         public string TimezoneDescription { get; set; }
     }
 }

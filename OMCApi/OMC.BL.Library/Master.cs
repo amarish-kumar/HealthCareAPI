@@ -374,6 +374,22 @@ namespace OMC.BL.Library
                 //Log
             }
         }
+
+        public List<StateMaster> GetStates(bool? isActive, int? countryId, int? stateId)
+        {
+            try
+            {
+                return this._masterDA.GetStates(isActive, countryId, stateId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
         #endregion
 
         #region IDisposable

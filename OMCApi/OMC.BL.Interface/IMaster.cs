@@ -28,5 +28,6 @@ namespace OMC.BL.Interface
         List<UnitMaster> GetDrugUnitList(bool? isActive, string drugUnitName, string searchTerm);
         List<MenstrualSymptomsMaster> GetMenstrualSymptoms(bool? isActive, string MenstrualSymptoms);
         List<TimezoneMaster> GetTimezones(bool? isActive, string searchTerm);
+        List<StateMaster> GetStates(bool? isActive, int? countryId, int? stateId);
     }
 }

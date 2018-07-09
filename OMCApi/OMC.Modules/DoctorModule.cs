@@ -12,7 +12,7 @@ namespace OMC.Modules
         {
             try
             {
-                Bind<IDoctor>().To<Doctor>();
+                Bind<IDoctorBL>().To<DoctorBL>();
                 Bind<IDoctorDataAccess>().To<DoctorDataAccess>();
                 Bind<IMaster>().To<Master>();
                 Bind<IMasterDataAccess>().To<MasterDataAccess>();

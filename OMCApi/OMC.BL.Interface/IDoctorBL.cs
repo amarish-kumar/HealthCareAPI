@@ -1,9 +1,9 @@
 ﻿using OMC.Models;
 using System.Collections.Generic;
 
-namespace OMC.DAL.Interface
+namespace OMC.BL.Interface
 {
-    public interface IDoctorDataAccess
+    public interface IDoctorBL
     {
         DoctorProfileResponse InsertUpdateDoctorProfile(DoctorProfile doctorProfile, string operation);
         List<DoctorProfileDisplay> GetDoctorProfileList(int userId, int? doctorId);
