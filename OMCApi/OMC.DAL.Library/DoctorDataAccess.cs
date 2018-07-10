@@ -278,6 +278,625 @@ namespace OMC.DAL.Library
                 Connection.Close();
             }
         }
+
+        public DoctorAwardsResponse InsertUpdateDoctorAward(DoctorAwards doctorAward, string operation)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateDoctorAward");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { doctorAward = doctorAward, operation = operation }));
+                Command.CommandText = "SP_DOCTOR_AWARD_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@DOCTOR_AWARD_XML", GetXMLFromObject(doctorAward));
+                if (doctorAward.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", doctorAward.AddedBy.Value);
+                }
+                if (doctorAward.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", doctorAward.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                DoctorAwardsResponse result = new DoctorAwardsResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new DoctorAwardsResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateDoctorAward");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public DoctorAwardsResponse GetDoctorAwardList(int doctorId, int? doctorAwardId)
+        {
+            try
+            {
+                Log.Info("Started call to GetDoctorAwardList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { doctorId = doctorId, doctorAwardId = doctorAwardId }));
+                Command.CommandText = "SP_GET_DOCTOR_AWARD_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@DOCTOR_ID", doctorId);
+                if (doctorAwardId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@DOCTOR_AWARD_ID", doctorAwardId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                DoctorAwardsResponse result = new DoctorAwardsResponse();
+                result.DoctorAwardsList = new List<DoctorAwardsDisplay>();
+                foreach (DataRow drDoctorAward in ds.Tables[0].Rows)
+                {
+                    result.DoctorAwardsList.Add(new DoctorAwardsDisplay
+                    {
+                        Id = Convert.ToInt32(drDoctorAward["Id"].ToString()),
+                        DoctorId = Convert.ToInt32(drDoctorAward["DoctorId"].ToString()),
+                        DoctorName = drDoctorAward["DoctorName"] != DBNull.Value ? drDoctorAward["DoctorName"].ToString() : null,
+                        YearReceived = Convert.ToInt32(drDoctorAward["YearReceived"].ToString()),
+                        InstitutionName = drDoctorAward["InstitutionName"] != DBNull.Value ? drDoctorAward["InstitutionName"].ToString() : null,
+                        AwardName = drDoctorAward["AwardName"] != DBNull.Value ? drDoctorAward["AwardName"].ToString() : null,
+                        AddedBy = drDoctorAward["AddedBy"] != DBNull.Value ? Convert.ToInt32(drDoctorAward["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drDoctorAward["AddedDate"] != DBNull.Value ? DateTime.Parse(drDoctorAward["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drDoctorAward["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drDoctorAward["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drDoctorAward["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drDoctorAward["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetDoctorAwardList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public DoctorBoardResponse InsertUpdateDoctorBoard(DoctorBoard doctorBoard, string operation)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateDoctorBoard");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { doctorBoard = doctorBoard, operation = operation }));
+                Command.CommandText = "SP_DOCTOR_BOARD_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@DOCTOR_BOARD_XML", GetXMLFromObject(doctorBoard));
+                if (doctorBoard.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", doctorBoard.AddedBy.Value);
+                }
+                if (doctorBoard.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", doctorBoard.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                DoctorBoardResponse result = new DoctorBoardResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new DoctorBoardResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateDoctorBoard");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public DoctorBoardResponse GetDoctorBoardList(int doctorId, int? doctorBoardId)
+        {
+            try
+            {
+                Log.Info("Started call to GetDoctorBoardList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { doctorId = doctorId, doctorBoardId = doctorBoardId }));
+                Command.CommandText = "SP_GET_DOCTOR_BOARD_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@DOCTOR_ID", doctorId);
+                if (doctorBoardId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@DOCTOR_BOARD_ID", doctorBoardId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                DoctorBoardResponse result = new DoctorBoardResponse();
+                result.DoctorBoardList = new List<DoctorBoardDisplay>();
+                foreach (DataRow drDoctorBoard in ds.Tables[0].Rows)
+                {
+                    result.DoctorBoardList.Add(new DoctorBoardDisplay
+                    {
+                        Id = Convert.ToInt32(drDoctorBoard["Id"].ToString()),
+                        DoctorId = Convert.ToInt32(drDoctorBoard["DoctorId"].ToString()),
+                        DoctorName = drDoctorBoard["DoctorName"] != DBNull.Value ? drDoctorBoard["DoctorName"].ToString() : null,
+                        BoardId = Convert.ToInt32(drDoctorBoard["BoardId"].ToString()),
+                        BoardName = drDoctorBoard["BoardName"] != DBNull.Value ? drDoctorBoard["BoardName"].ToString() : null,
+                        OtherDescription = drDoctorBoard["OtherDescription"] != DBNull.Value ? drDoctorBoard["OtherDescription"].ToString() : null,
+                        AddedBy = drDoctorBoard["AddedBy"] != DBNull.Value ? Convert.ToInt32(drDoctorBoard["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drDoctorBoard["AddedDate"] != DBNull.Value ? DateTime.Parse(drDoctorBoard["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drDoctorBoard["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drDoctorBoard["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drDoctorBoard["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drDoctorBoard["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetDoctorBoardList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public DoctorEducationResponse InsertUpdateDoctorEducation(DoctorEducation doctorEducation, string operation)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateDoctorEducation");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { doctorEducation = doctorEducation, operation = operation }));
+                Command.CommandText = "SP_DOCTOR_EDUCATION_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@DOCTOR_EDUCATION_XML", GetXMLFromObject(doctorEducation));
+                if (doctorEducation.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", doctorEducation.AddedBy.Value);
+                }
+                if (doctorEducation.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", doctorEducation.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                DoctorEducationResponse result = new DoctorEducationResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new DoctorEducationResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateDoctorEducation");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public DoctorEducationResponse GetDoctorEducationList(int doctorId, int? doctorEducationId)
+        {
+            try
+            {
+                Log.Info("Started call to GetDoctorEducationList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { doctorId = doctorId, doctorEducationId = doctorEducationId }));
+                Command.CommandText = "SP_GET_DOCTOR_EDUCATION_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@DOCTOR_ID", doctorId);
+                if (doctorEducationId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@DOCTOR_EDUCATION_ID", doctorEducationId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                DoctorEducationResponse result = new DoctorEducationResponse();
+                result.DoctorEducationList = new List<DoctorEducationDisplay>();
+                foreach (DataRow drDoctorEducation in ds.Tables[0].Rows)
+                {
+                    result.DoctorEducationList.Add(new DoctorEducationDisplay
+                    {
+                        Id = Convert.ToInt32(drDoctorEducation["Id"].ToString()),
+                        DoctorId = Convert.ToInt32(drDoctorEducation["DoctorId"].ToString()),
+                        DoctorName = drDoctorEducation["DoctorName"] != DBNull.Value ? drDoctorEducation["DoctorName"].ToString() : null,
+                        BeginingYear = Convert.ToInt32(drDoctorEducation["BeginingYear"].ToString()),
+                        EndingYear = Convert.ToInt32(drDoctorEducation["EndingYear"].ToString()),
+                        CollegeName = drDoctorEducation["CollegeName"] != DBNull.Value ? drDoctorEducation["CollegeName"].ToString() : null,
+                        City = drDoctorEducation["City"] != DBNull.Value ? drDoctorEducation["City"].ToString() : null,
+                        StateId = Convert.ToInt32(drDoctorEducation["StateId"].ToString()),
+                        StateName = drDoctorEducation["StateName"] != DBNull.Value ? drDoctorEducation["StateName"].ToString() : null,
+                        CountryId = Convert.ToInt32(drDoctorEducation["CountryId"].ToString()),
+                        CountryName = drDoctorEducation["CountryName"] != DBNull.Value ? drDoctorEducation["CountryName"].ToString() : null,
+                        AddedBy = drDoctorEducation["AddedBy"] != DBNull.Value ? Convert.ToInt32(drDoctorEducation["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drDoctorEducation["AddedDate"] != DBNull.Value ? DateTime.Parse(drDoctorEducation["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drDoctorEducation["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drDoctorEducation["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drDoctorEducation["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drDoctorEducation["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetDoctorEducationList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public DoctorFellowshipResponse InsertUpdateDoctorFellowship(DoctorFellowship doctorFellowship, string operation)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateDoctorFellowship");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { doctorFellowship = doctorFellowship, operation = operation }));
+                Command.CommandText = "SP_DOCTOR_FELLOWSHIP_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@DOCTOR_FELLOWSHIP_XML", GetXMLFromObject(doctorFellowship));
+                if (doctorFellowship.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", doctorFellowship.AddedBy.Value);
+                }
+                if (doctorFellowship.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", doctorFellowship.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                DoctorFellowshipResponse result = new DoctorFellowshipResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new DoctorFellowshipResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateDoctorFellowship");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public DoctorFellowshipResponse GetDoctorFellowshipList(int doctorId, int? doctorFellowshipId)
+        {
+            try
+            {
+                Log.Info("Started call to GetDoctorFellowshipList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { doctorId = doctorId, doctorFellowshipId = doctorFellowshipId }));
+                Command.CommandText = "SP_GET_DOCTOR_FELLOWSHIP_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@DOCTOR_ID", doctorId);
+                if (doctorFellowshipId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@DOCTOR_FELLOWSHIP_ID", doctorFellowshipId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                DoctorFellowshipResponse result = new DoctorFellowshipResponse();
+                result.DoctorFellowshipList = new List<DoctorFellowshipDisplay>();
+                foreach (DataRow drDoctorFellowship in ds.Tables[0].Rows)
+                {
+                    result.DoctorFellowshipList.Add(new DoctorFellowshipDisplay
+                    {
+                        Id = Convert.ToInt32(drDoctorFellowship["Id"].ToString()),
+                        DoctorId = Convert.ToInt32(drDoctorFellowship["DoctorId"].ToString()),
+                        DoctorName = drDoctorFellowship["DoctorName"] != DBNull.Value ? drDoctorFellowship["DoctorName"].ToString() : null,
+                        BeginingYear = Convert.ToInt32(drDoctorFellowship["BeginingYear"].ToString()),
+                        EndingYear = Convert.ToInt32(drDoctorFellowship["EndingYear"].ToString()),
+                        HospitalName = drDoctorFellowship["HospitalName"] != DBNull.Value ? drDoctorFellowship["HospitalName"].ToString() : null,
+                        City = drDoctorFellowship["City"] != DBNull.Value ? drDoctorFellowship["City"].ToString() : null,
+                        StateId = Convert.ToInt32(drDoctorFellowship["StateId"].ToString()),
+                        StateName = drDoctorFellowship["StateName"] != DBNull.Value ? drDoctorFellowship["StateName"].ToString() : null,
+                        CountryId = Convert.ToInt32(drDoctorFellowship["CountryId"].ToString()),
+                        CountryName = drDoctorFellowship["CountryName"] != DBNull.Value ? drDoctorFellowship["CountryName"].ToString() : null,
+                        AddedBy = drDoctorFellowship["AddedBy"] != DBNull.Value ? Convert.ToInt32(drDoctorFellowship["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drDoctorFellowship["AddedDate"] != DBNull.Value ? DateTime.Parse(drDoctorFellowship["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drDoctorFellowship["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drDoctorFellowship["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drDoctorFellowship["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drDoctorFellowship["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetDoctorFellowshipList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public DoctorImagesResponse InsertUpdateDoctorImage(DoctorImages doctorImage, string operation)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateDoctorImage");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { doctorImage = doctorImage, operation = operation }));
+                Command.CommandText = "SP_DOCTOR_IMAGE_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@DOCTOR_IMAGE_XML", GetXMLFromObject(doctorImage));
+                if (doctorImage.FileData != null)
+                {
+                    Command.Parameters.AddWithValue("@FILE_DATA", doctorImage.FileData);
+                }
+                if (doctorImage.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", doctorImage.AddedBy.Value);
+                }
+                if (doctorImage.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", doctorImage.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                DoctorImagesResponse result = new DoctorImagesResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new DoctorImagesResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateDoctorImage");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public DoctorImagesResponse GetDoctorImageList(int doctorId, int? doctorImageId)
+        {
+            try
+            {
+                Log.Info("Started call to GetDoctorImageList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { doctorId = doctorId, doctorImageId = doctorImageId }));
+                Command.CommandText = "SP_GET_DOCTOR_IMAGE_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@DOCTOR_ID", doctorId);
+                if (doctorImageId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@DOCTOR_IMAGE_ID", doctorImageId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                DoctorImagesResponse result = new DoctorImagesResponse();
+                result.DoctorImagesList = new List<DoctorImageDisplay>();
+                foreach (DataRow drDoctorImage in ds.Tables[0].Rows)
+                {
+                    result.DoctorImagesList.Add(new DoctorImageDisplay
+                    {
+                        Id = Convert.ToInt32(drDoctorImage["Id"].ToString()),
+                        DoctorId = Convert.ToInt32(drDoctorImage["DoctorId"].ToString()),
+                        DoctorName = drDoctorImage["DoctorName"] != DBNull.Value ? drDoctorImage["DoctorName"].ToString() : null,
+                        IsPrimary = Convert.ToBoolean(drDoctorImage["IsPrimary"].ToString()),
+                        FileName = drDoctorImage["FileName"] != DBNull.Value ? drDoctorImage["FileName"].ToString() : null,
+                        FileData = drDoctorImage["FileData"] != DBNull.Value ? (byte[])drDoctorImage["FileData"] : null,
+                        AddedBy = drDoctorImage["AddedBy"] != DBNull.Value ? Convert.ToInt32(drDoctorImage["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drDoctorImage["AddedDate"] != DBNull.Value ? DateTime.Parse(drDoctorImage["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drDoctorImage["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drDoctorImage["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drDoctorImage["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drDoctorImage["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetDoctorImageList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public DoctorResidencyResponse InsertUpdateDoctorResidency(DoctorResidency doctorResidency, string operation)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateDoctorResidency");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { doctorResidency = doctorResidency, operation = operation }));
+                Command.CommandText = "SP_DOCTOR_RESIDENCY_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@DOCTOR_RESIDENCY_XML", GetXMLFromObject(doctorResidency));
+                if (doctorResidency.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", doctorResidency.AddedBy.Value);
+                }
+                if (doctorResidency.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", doctorResidency.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                DoctorResidencyResponse result = new DoctorResidencyResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new DoctorResidencyResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateDoctorResidency");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public DoctorResidencyResponse GetDoctorResidencyList(int doctorId, int? doctorResidencyId)
+        {
+            try
+            {
+                Log.Info("Started call to GetDoctorResidencyList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { doctorId = doctorId, doctorResidencyId = doctorResidencyId }));
+                Command.CommandText = "SP_GET_DOCTOR_RESIDENCY_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@DOCTOR_ID", doctorId);
+                if (doctorResidencyId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@DOCTOR_RESIDENCY_ID", doctorResidencyId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                DoctorResidencyResponse result = new DoctorResidencyResponse();
+                result.DoctorResidencyList = new List<DoctorResidencyDisplay>();
+                foreach (DataRow drDoctorResidency in ds.Tables[0].Rows)
+                {
+                    result.DoctorResidencyList.Add(new DoctorResidencyDisplay
+                    {
+                        Id = Convert.ToInt32(drDoctorResidency["Id"].ToString()),
+                        DoctorId = Convert.ToInt32(drDoctorResidency["DoctorId"].ToString()),
+                        DoctorName = drDoctorResidency["DoctorName"] != DBNull.Value ? drDoctorResidency["DoctorName"].ToString() : null,
+                        BeginingYear = Convert.ToInt32(drDoctorResidency["BeginingYear"].ToString()),
+                        EndingYear = Convert.ToInt32(drDoctorResidency["EndingYear"].ToString()),
+                        HospitalName = drDoctorResidency["HospitalName"] != DBNull.Value ? drDoctorResidency["HospitalName"].ToString() : null,
+                        City = drDoctorResidency["City"] != DBNull.Value ? drDoctorResidency["City"].ToString() : null,
+                        StateId = Convert.ToInt32(drDoctorResidency["StateId"].ToString()),
+                        StateName = drDoctorResidency["StateName"] != DBNull.Value ? drDoctorResidency["StateName"].ToString() : null,
+                        CountryId = Convert.ToInt32(drDoctorResidency["CountryId"].ToString()),
+                        CountryName = drDoctorResidency["CountryName"] != DBNull.Value ? drDoctorResidency["CountryName"].ToString() : null,
+                        AddedBy = drDoctorResidency["AddedBy"] != DBNull.Value ? Convert.ToInt32(drDoctorResidency["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drDoctorResidency["AddedDate"] != DBNull.Value ? DateTime.Parse(drDoctorResidency["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drDoctorResidency["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drDoctorResidency["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drDoctorResidency["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drDoctorResidency["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetDoctorResidencyList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
         #endregion
     }
 }

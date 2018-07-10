@@ -1,16 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_DOCTOR_FELLOWSHIP_LIST]    Script Date: 7/10/2018 10:50:00 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_DOCTOR_FELLOWSHIP_LIST]    Script Date: 7/10/2018 11:29:55 AM ******/
 DROP PROCEDURE [dbo].[SP_GET_DOCTOR_FELLOWSHIP_LIST]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_DOCTOR_FELLOWSHIP_LIST]    Script Date: 7/10/2018 10:50:00 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_DOCTOR_FELLOWSHIP_LIST]    Script Date: 7/10/2018 11:29:55 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 CREATE PROCEDURE [dbo].[SP_GET_DOCTOR_FELLOWSHIP_LIST]
 (	
@@ -34,7 +35,6 @@ SELECT DF.Id
 	, S.[State] AS [StateName]
 	, DF.CountryId
 	, C.Country AS [CountryName]
-	, DF.BeginingYear
 	, DF.AddedBy
 	, DF.AddedDate
 	, DF.ModifiedBy
@@ -48,6 +48,7 @@ SELECT DF.Id
 	AND DF.Active = 1
 	ORDER BY DF.AddedDate DESC
 END
+
 
 
 

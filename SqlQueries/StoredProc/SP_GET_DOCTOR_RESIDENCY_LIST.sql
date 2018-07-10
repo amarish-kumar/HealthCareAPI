@@ -1,16 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_DOCTOR_RESIDENCY_LIST]    Script Date: 7/10/2018 10:50:32 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_DOCTOR_RESIDENCY_LIST]    Script Date: 7/10/2018 11:32:38 AM ******/
 DROP PROCEDURE [dbo].[SP_GET_DOCTOR_RESIDENCY_LIST]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_DOCTOR_RESIDENCY_LIST]    Script Date: 7/10/2018 10:50:32 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_DOCTOR_RESIDENCY_LIST]    Script Date: 7/10/2018 11:32:38 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 CREATE PROCEDURE [dbo].[SP_GET_DOCTOR_RESIDENCY_LIST]
 (	
@@ -34,7 +35,6 @@ SELECT DR.Id
 	, S.[State] AS [StateName]
 	, DR.CountryId
 	, C.Country AS [CountryName]
-	, DR.BeginingYear
 	, DR.AddedBy
 	, DR.AddedDate
 	, DR.ModifiedBy
@@ -48,6 +48,7 @@ SELECT DR.Id
 	AND DR.Active = 1
 	ORDER BY DR.AddedDate DESC
 END
+
 
 
 
