@@ -29,5 +29,6 @@ namespace OMC.BL.Interface
         List<MenstrualSymptomsMaster> GetMenstrualSymptoms(bool? isActive, string MenstrualSymptoms);
         List<TimezoneMaster> GetTimezones(bool? isActive, string searchTerm);
         List<StateMaster> GetStates(bool? isActive, int? countryId, int? stateId);
+        List<BoardMaster> GetBoards(bool? isActive, int? boardId, string board);
     }
 }

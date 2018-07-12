@@ -242,6 +242,64 @@
         </tr>  
         <tr style="height:20px;"></tr>
     </table>
+
+    <br />
+    <table>
+        <tr>
+            <td>
+                @Html.ActionLink("Create New Award", "DoctorAward", "Doctor"
+               , new { doctorId = Model.DoctorProfileObject.DoctorId, userId = Model.UserId }, null)
+                <button type="button" class="collapsible">Awards</button>
+                @*<div class="content">
+                    @if (Model.UserAddressResponseObject != null
+                    && Model.UserAddressResponseObject.UserAddressList != null
+                    && Model.UserAddressResponseObject.UserAddressList.Count() != 0)
+                    {
+                        <table class="addresses">
+                            <thead>
+                            <th>Address Type</th>
+                            <th>Address 1</th>
+                            <th>Address 2</th>
+                            <th>City</th>
+                            <th>Zipcode</th>
+                            <th>State</th>
+                            <th>Country</th>
+                            <th>Action</th>
+                            </thead>
+                            @foreach (var address in Model.UserAddressResponseObject.UserAddressList)
+                            {
+                                <tr>
+                                    <td>@address.AddressType</td>
+                                    <td>@address.Address1</td>
+                                    <td>@address.Address2</td>
+                                    <td>@address.City</td>
+                                    <td>@address.ZipCode</td>
+                                    <td>@address.StateName</td>
+                                    <td>@address.CountryName</td>
+                                    <td>
+                                        @Html.ActionLink("Edit Address", "UserAddress", "Doctor"
+                                        , new
+                                        {
+                                            doctorId = Model.DoctorProfileObject.DoctorId
+                                                ,
+                                            userAddressId = address.Id
+                                                ,
+                                            userId = Model.UserId
+                                        }, null)
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No addresses recorded</p>
+                    }
+                </div>*@
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+    </table>
 }
 
 @section scripts{

@@ -50,6 +50,66 @@ namespace OMCApi.Areas.Login.Controllers
                 }
             };
 
+            //set data for the doctor award record insert
+            model.DoctorAwardModelObject = new DoctorAwardModel
+            {
+                UserId = userId,
+                DoctorAwardObject = new DoctorAwards
+                {
+                    AddedBy = userId
+                }
+            };
+
+            //set data for the doctor Board record insert
+            model.DoctorBoardModelObject = new DoctorBoardModel
+            {
+                UserId = userId,
+                DoctorBoardObject = new DoctorBoard
+                {
+                    AddedBy = userId
+                }
+            };
+
+            //set data for the doctor award record insert
+            model.DoctorEducationModelObject = new DoctorEducationModel
+            {
+                UserId = userId,
+                DoctorEducationObject = new DoctorEducation
+                {
+                    AddedBy = userId
+                }
+            };
+
+            //set data for the doctor fellwoship record insert
+            model.DoctorFellowshipModelObject = new DoctorFellowshipModel
+            {
+                UserId = userId,
+                DoctorFellowshipObject = new DoctorFellowship
+                {
+                    AddedBy = userId
+                }
+            };
+
+            //set data for the doctor image record insert
+            model.DoctorImageModelObject = new DoctorImageModel
+            {
+                UserId = userId,
+                DoctorImageObject = new DoctorImages
+                {
+                    AddedBy = userId
+                }
+            };
+
+            //set data for the doctor award record insert
+            model.DoctorResidencyModelObject = new DoctorResidencyModel
+            {
+                UserId = userId,
+                DoctorResidencyObject = new DoctorResidency
+                {
+                    AddedBy = userId
+                }
+            };
+
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
@@ -59,13 +119,17 @@ namespace OMCApi.Areas.Login.Controllers
                 model.Timezones = JsonConvert.DeserializeObject<List<TimezoneMaster>>(Res.Content.ReadAsStringAsync().Result);
                 Res = await client.GetAsync("api/SignUpAPI/GetCountries?isActive=true");
                 model.UserAddressModelObject.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
+                model.DoctorEducationModelObject.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
+                model.DoctorFellowshipModelObject.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
+                model.DoctorResidencyModelObject.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/DoctorAPI/GetBoards?isActive=true&boardId=&board=");
+                model.DoctorBoardModelObject.BoardList = JsonConvert.DeserializeObject<List<BoardMaster>>(Res.Content.ReadAsStringAsync().Result);
                 Res = await client.GetAsync("api/DoctorAPI/GetDoctorProfileList?userId=" + userId.ToString() + "&doctorId=" + doctorId.ToString());
                 var doctorProfileList = JsonConvert.DeserializeObject<List<DoctorProfileDisplay>>(Res.Content.ReadAsStringAsync().Result);
                 model.DoctorProfileObject = doctorProfileList.Count > 0 ? doctorProfileList.First() : model.DoctorProfileObject;
                 Res = await client.GetAsync("api/DoctorAPI/GetUserAddressList?userId=" + doctorId.ToString()
                        + "&addressId=");
                 model.UserAddressResponseObject = JsonConvert.DeserializeObject<UserAddressResponse>(Res.Content.ReadAsStringAsync().Result);
-
             }
             return View(model);
         }
@@ -203,6 +267,70 @@ namespace OMCApi.Areas.Login.Controllers
                 var json = JsonConvert.SerializeObject(userAddress.UserAddressObject);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage Res = await client.PostAsync("api/DoctorAPI/InsertUpdateUserAddress", content);
+                UserAddressResponse result = new UserAddressResponse();
+                if (Res.IsSuccessStatusCode)
+                {
+                    result.IsSuccess = true;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    result.IsSuccess = false;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+
+                }
+                return View("UserAddressResponse", result);
+
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DoctorAward(int doctorId, int? doctorAwardId, int userId)
+        {
+            var model = new DoctorAwardModel
+            {
+                UserId = userId
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/SignUpAPI/GetCountries?isActive=true");
+                if (doctorAwardId.HasValue)
+                {
+                    //Res = await client.GetAsync("api/DoctorAPI/GetUserAddressList?userId=" + doctorId.ToString()
+                    //   + "&addressId=" + (userAddressId.HasValue ? userAddressId.Value.ToString() : string.Empty));
+                    //var userAddressResponse = JsonConvert.DeserializeObject<UserAddressResponse>(Res.Content.ReadAsStringAsync().Result);
+                    //if (userAddressResponse.UserAddressList != null
+                    //    && userAddressResponse.UserAddressList.Count() != 0)
+                    //{
+                    //    model.UserAddressObject = userAddressResponse.UserAddressList.First();
+                    //}
+                }
+                else
+                {
+                    model.DoctorAwardObject = new DoctorAwards
+                    {
+                        DoctorId = doctorId
+                    };
+                }
+            }
+            return View("DoctorAward", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InsertUpdateDoctorAward(DoctorAwardModel doctorAward)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var json = JsonConvert.SerializeObject(doctorAward.DoctorAwardObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/DoctorAPI/InsertUpdateDoctorAward", content);
                 UserAddressResponse result = new UserAddressResponse();
                 if (Res.IsSuccessStatusCode)
                 {

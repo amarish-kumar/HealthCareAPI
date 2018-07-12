@@ -390,6 +390,22 @@ namespace OMC.BL.Library
                 //Log
             }
         }
+
+        public List<BoardMaster> GetBoards(bool? isActive, int? boardId, string board)
+        {
+            try
+            {
+                return this._masterDA.GetBoards(isActive, boardId, board);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
         #endregion
 
         #region IDisposable

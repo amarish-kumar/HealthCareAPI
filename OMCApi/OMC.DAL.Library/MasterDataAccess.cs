@@ -1099,6 +1099,56 @@ namespace OMC.DAL.Library
                 Connection.Close();
             }
         }
+
+        public List<BoardMaster> GetBoards(bool? isActive, int? boardId, string board)
+        {
+            try
+            {
+                Log.Info("Started call to GetBoards");
+                Log.Info("parameter values =" + JsonConvert.SerializeObject(new { isActive = isActive, boardId = boardId, board = board }));
+                Command.CommandText = "SP_GET_BOARDS";
+                Command.CommandType = CommandType.StoredProcedure;
+
+                Command.Parameters.Clear();
+                if (boardId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@BOARD_ID", boardId);
+                }
+                if (!string.IsNullOrEmpty(board))
+                {
+                    Command.Parameters.AddWithValue("@BOARD", board);
+                }
+                Command.Parameters.AddWithValue("@ACTIVE", isActive);
+
+                Connection.Open();
+
+                SqlDataReader reader = Command.ExecuteReader();
+                List<BoardMaster> result = new List<BoardMaster>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new BoardMaster
+                        {
+                            Board = reader["Board"] != DBNull.Value ? reader["Board"].ToString() : null,
+                            Description = reader["Description"] != DBNull.Value ? reader["Description"].ToString() : null,
+                            Id = Convert.ToInt32(reader["Id"].ToString())
+                        });
+                    }
+                }
+                Log.Info("End call to GetBoards result " + JsonConvert.SerializeObject(result));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            finally
+            {
+                Connection.Close();
+            }
+        }
         #endregion
     }
 }
