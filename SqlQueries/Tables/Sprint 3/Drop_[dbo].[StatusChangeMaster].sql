@@ -1,0 +1,1 @@
+drop table [HealthCare].[dbo].[StatusChangeMaster]
