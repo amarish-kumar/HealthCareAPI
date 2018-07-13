@@ -221,6 +221,16 @@
             <param name="doctorResidency"></param>
             <returns></returns>
         </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.GetDoctorResidencyList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of doctor residency records/specific residency record for the doctor profile record
+            ~Sprint-3~
+            OMC-130
+            </summary>
+            <param name="doctorId"></param>
+            <param name="doctorResidencyId"></param>
+            <returns></returns>
+        </member>
         <member name="T:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController">
             <summary>
             This controller hosts all APIs related to Consultation functionality

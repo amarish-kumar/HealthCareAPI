@@ -117,19 +117,34 @@ namespace OMCApi.Areas.Login.Controllers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage Res = await client.GetAsync("api/DoctorAPI/GetTimezones?isActive=true&searchTerm=");
                 model.Timezones = JsonConvert.DeserializeObject<List<TimezoneMaster>>(Res.Content.ReadAsStringAsync().Result);
-                Res = await client.GetAsync("api/SignUpAPI/GetCountries?isActive=true");
-                model.UserAddressModelObject.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
-                model.DoctorEducationModelObject.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
-                model.DoctorFellowshipModelObject.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
-                model.DoctorResidencyModelObject.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
-                Res = await client.GetAsync("api/DoctorAPI/GetBoards?isActive=true&boardId=&board=");
-                model.DoctorBoardModelObject.BoardList = JsonConvert.DeserializeObject<List<BoardMaster>>(Res.Content.ReadAsStringAsync().Result);
+                //Res = await client.GetAsync("api/SignUpAPI/GetCountries?isActive=true");
+                //model.UserAddressModelObject.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
+                //model.DoctorEducationModelObject.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
+                //model.DoctorFellowshipModelObject.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
+                //model.DoctorResidencyModelObject.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
+                //Res = await client.GetAsync("api/DoctorAPI/GetBoards?isActive=true&boardId=&board=");
+                //model.DoctorBoardModelObject.BoardList = JsonConvert.DeserializeObject<List<BoardMaster>>(Res.Content.ReadAsStringAsync().Result);
                 Res = await client.GetAsync("api/DoctorAPI/GetDoctorProfileList?userId=" + userId.ToString() + "&doctorId=" + doctorId.ToString());
                 var doctorProfileList = JsonConvert.DeserializeObject<List<DoctorProfileDisplay>>(Res.Content.ReadAsStringAsync().Result);
                 model.DoctorProfileObject = doctorProfileList.Count > 0 ? doctorProfileList.First() : model.DoctorProfileObject;
                 Res = await client.GetAsync("api/DoctorAPI/GetUserAddressList?userId=" + doctorId.ToString()
                        + "&addressId=");
                 model.UserAddressResponseObject = JsonConvert.DeserializeObject<UserAddressResponse>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/DoctorAPI/GetDoctorAwardList?doctorId=" + doctorId.ToString()
+                           + "&doctorAwardId=");
+                model.DoctorAwardsResponseObject = JsonConvert.DeserializeObject<DoctorAwardsResponse>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/DoctorAPI/GetDoctorBoardList?doctorId=" + doctorId.ToString()
+                               + "&doctorBoardId=");
+                model.DoctorEducationResponseObject = JsonConvert.DeserializeObject<DoctorEducationResponse>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/DoctorAPI/GetDoctorEducationList?doctorId=" + doctorId.ToString()
+                   + "&doctorEducationId=");
+                model.DoctorEducationResponseObject = JsonConvert.DeserializeObject<DoctorEducationResponse>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/DoctorAPI/GetDoctorFellowshipList?doctorId=" + doctorId.ToString()
+                   + "&doctorFellowshipId=");
+                model.DoctorFellowshipResponseObject = JsonConvert.DeserializeObject<DoctorFellowshipResponse>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/DoctorAPI/GetDoctorResidencyList?doctorId=" + doctorId.ToString()
+                   + "&doctorResidencyId=");
+                model.DoctorResidencyResponseObject = JsonConvert.DeserializeObject<DoctorResidencyResponse>(Res.Content.ReadAsStringAsync().Result);
             }
             return View(model);
         }
@@ -226,26 +241,29 @@ namespace OMCApi.Areas.Login.Controllers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage Res = await client.GetAsync("api/SignUpAPI/GetCountries?isActive=true");
                 model.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
-                if (model.CountryList != null && model.CountryList.Count() != 0)
-                {
-                    Res = await client.GetAsync("api/DoctorAPI/GetStates?isActive=true&countryId=" + model.CountryList.First().Id + "&stateId=");
-                    model.StateList = JsonConvert.DeserializeObject<List<StateMaster>>(Res.Content.ReadAsStringAsync().Result);
-                }
+                
                 Res = await client.GetAsync("api/SignUpAPI/GetAddressTypes?isActive=true");
                 model.AddressTypes = JsonConvert.DeserializeObject<List<AddressType>>(Res.Content.ReadAsStringAsync().Result);
                 if (userAddressId.HasValue)
                 {
                     Res = await client.GetAsync("api/DoctorAPI/GetUserAddressList?userId=" + doctorId.ToString()
-                       + "&addressId=" + (userAddressId.HasValue ? userAddressId.Value.ToString() : string.Empty));
+                       + "&addressId=" + userAddressId.Value.ToString());
                     var userAddressResponse = JsonConvert.DeserializeObject<UserAddressResponse>(Res.Content.ReadAsStringAsync().Result);
                     if (userAddressResponse.UserAddressList != null
                         && userAddressResponse.UserAddressList.Count() != 0)
                     {
                         model.UserAddressObject = userAddressResponse.UserAddressList.First();
+                        Res = await client.GetAsync("api/DoctorAPI/GetStates?isActive=true&countryId=" + model.UserAddressObject.CountryId + "&stateId=");
+                        model.StateList = JsonConvert.DeserializeObject<List<StateMaster>>(Res.Content.ReadAsStringAsync().Result);
                     }
                 }
                 else
                 {
+                    if (model.CountryList != null && model.CountryList.Count() != 0)
+                    {
+                        Res = await client.GetAsync("api/DoctorAPI/GetStates?isActive=true&countryId=" + model.CountryList.First().Id + "&stateId=");
+                        model.StateList = JsonConvert.DeserializeObject<List<StateMaster>>(Res.Content.ReadAsStringAsync().Result);
+                    }
                     model.UserAddressObject = new UserAddress
                     {
                         UserId = doctorId
@@ -296,17 +314,16 @@ namespace OMCApi.Areas.Login.Controllers
                 client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = await client.GetAsync("api/SignUpAPI/GetCountries?isActive=true");
                 if (doctorAwardId.HasValue)
                 {
-                    //Res = await client.GetAsync("api/DoctorAPI/GetUserAddressList?userId=" + doctorId.ToString()
-                    //   + "&addressId=" + (userAddressId.HasValue ? userAddressId.Value.ToString() : string.Empty));
-                    //var userAddressResponse = JsonConvert.DeserializeObject<UserAddressResponse>(Res.Content.ReadAsStringAsync().Result);
-                    //if (userAddressResponse.UserAddressList != null
-                    //    && userAddressResponse.UserAddressList.Count() != 0)
-                    //{
-                    //    model.UserAddressObject = userAddressResponse.UserAddressList.First();
-                    //}
+                    HttpResponseMessage Res = await client.GetAsync("api/DoctorAPI/GetDoctorAwardList?doctorId=" + doctorId.ToString()
+                           + "&doctorAwardId=" + doctorAwardId.Value.ToString());
+                    var doctorAwardsResponse = JsonConvert.DeserializeObject<DoctorAwardsResponse>(Res.Content.ReadAsStringAsync().Result);
+                    if (doctorAwardsResponse.DoctorAwardsList != null
+                        && doctorAwardsResponse.DoctorAwardsList.Count() != 0)
+                    {
+                        model.DoctorAwardObject = doctorAwardsResponse.DoctorAwardsList.First();
+                    }
                 }
                 else
                 {
@@ -331,7 +348,70 @@ namespace OMCApi.Areas.Login.Controllers
                 var json = JsonConvert.SerializeObject(doctorAward.DoctorAwardObject);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage Res = await client.PostAsync("api/DoctorAPI/InsertUpdateDoctorAward", content);
-                UserAddressResponse result = new UserAddressResponse();
+                DoctorAwardsResponse result = new DoctorAwardsResponse();
+                if (Res.IsSuccessStatusCode)
+                {
+                    result.IsSuccess = true;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    result.IsSuccess = false;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                return View("DoctorAwardResponse", result);
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DoctorBoard(int doctorId, int? doctorBoardId, int userId)
+        {
+            var model = new DoctorBoardModel
+            {
+                UserId = userId
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/DoctorAPI/GetBoards?isActive=true&boardId=&board=");
+                model.BoardList = JsonConvert.DeserializeObject<List<BoardMaster>>(Res.Content.ReadAsStringAsync().Result);
+                if (doctorBoardId.HasValue)
+                {
+                    Res = await client.GetAsync("api/DoctorAPI/GetDoctorBoardList?doctorId=" + doctorId.ToString()
+                           + "&doctorBoardId=" + doctorBoardId.Value.ToString());
+                    var doctorBoardResponse = JsonConvert.DeserializeObject<DoctorBoardResponse>(Res.Content.ReadAsStringAsync().Result);
+                    if (doctorBoardResponse.DoctorBoardList != null
+                        && doctorBoardResponse.DoctorBoardList.Count() != 0)
+                    {
+                        model.DoctorBoardObject = doctorBoardResponse.DoctorBoardList.First();
+                    }
+                }
+                else
+                {
+                    model.DoctorBoardObject = new DoctorBoard
+                    {
+                        DoctorId = doctorId
+                    };
+                }
+            }
+            return View("DoctorBoard", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InsertUpdateDoctorBoard(DoctorBoardModel doctorBoard)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var json = JsonConvert.SerializeObject(doctorBoard.DoctorBoardObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/DoctorAPI/InsertUpdateDoctorBoard", content);
+                DoctorBoardResponse result = new DoctorBoardResponse();
                 if (Res.IsSuccessStatusCode)
                 {
                     result.IsSuccess = true;
@@ -343,7 +423,225 @@ namespace OMCApi.Areas.Login.Controllers
                     result.Message = Res.Content.ReadAsStringAsync().Result;
 
                 }
-                return View("UserAddressResponse", result);
+                return View("DoctorBoardResponse", result);
+
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DoctorEducation(int doctorId, int? doctorEducationId, int userId)
+        {
+            var model = new DoctorEducationModel
+            {
+                UserId = userId
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/SignUpAPI/GetCountries?isActive=true");
+                model.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);                
+                if (doctorEducationId.HasValue)
+                {
+                    Res = await client.GetAsync("api/DoctorAPI/GetDoctorEducationList?doctorId=" + doctorId.ToString()
+                           + "&doctorEducationId=" + doctorEducationId.Value.ToString());
+                    var doctorEducationResponse = JsonConvert.DeserializeObject<DoctorEducationResponse>(Res.Content.ReadAsStringAsync().Result);
+                    if (doctorEducationResponse.DoctorEducationList != null
+                        && doctorEducationResponse.DoctorEducationList.Count() != 0)
+                    {
+                        model.DoctorEducationObject = doctorEducationResponse.DoctorEducationList.First();
+                        Res = await client.GetAsync("api/DoctorAPI/GetStates?isActive=true&countryId=" + model.DoctorEducationObject.CountryId + "&stateId=");
+                        model.StateList = JsonConvert.DeserializeObject<List<StateMaster>>(Res.Content.ReadAsStringAsync().Result);
+                    }
+                }
+                else
+                {
+                    if (model.CountryList != null && model.CountryList.Count() != 0)
+                    {
+                        Res = await client.GetAsync("api/DoctorAPI/GetStates?isActive=true&countryId=" + model.CountryList.First().Id + "&stateId=");
+                        model.StateList = JsonConvert.DeserializeObject<List<StateMaster>>(Res.Content.ReadAsStringAsync().Result);
+                    }
+                    model.DoctorEducationObject = new DoctorEducation
+                    {
+                        DoctorId = doctorId
+                    };
+                }
+            }
+            return View("DoctorEducation", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InsertUpdateDoctorEducation(DoctorEducationModel doctorEducation)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var json = JsonConvert.SerializeObject(doctorEducation.DoctorEducationObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/DoctorAPI/InsertUpdateDoctorEducation", content);
+                DoctorEducationResponse result = new DoctorEducationResponse();
+                if (Res.IsSuccessStatusCode)
+                {
+                    result.IsSuccess = true;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    result.IsSuccess = false;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+
+                }
+                return View("DoctorEducationResponse", result);
+
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DoctorFellowship(int doctorId, int? doctorFellowshipId, int userId)
+        {
+            var model = new DoctorFellowshipModel
+            {
+                UserId = userId
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/SignUpAPI/GetCountries?isActive=true");
+                model.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
+                
+                if (doctorFellowshipId.HasValue)
+                {
+                    Res = await client.GetAsync("api/DoctorAPI/GetDoctorFellowshipList?doctorId=" + doctorId.ToString()
+                           + "&doctorFellowshipId=" + doctorFellowshipId.Value.ToString());
+                    var doctorFellowshipResponse = JsonConvert.DeserializeObject<DoctorFellowshipResponse>(Res.Content.ReadAsStringAsync().Result);
+                    if (doctorFellowshipResponse.DoctorFellowshipList != null
+                        && doctorFellowshipResponse.DoctorFellowshipList.Count() != 0)
+                    {
+                        model.DoctorFellowshipObject = doctorFellowshipResponse.DoctorFellowshipList.First();
+                        Res = await client.GetAsync("api/DoctorAPI/GetStates?isActive=true&countryId=" + model.DoctorFellowshipObject.CountryId + "&stateId=");
+                        model.StateList = JsonConvert.DeserializeObject<List<StateMaster>>(Res.Content.ReadAsStringAsync().Result);
+                    }
+                }
+                else
+                {
+                    if (model.CountryList != null && model.CountryList.Count() != 0)
+                    {
+                        Res = await client.GetAsync("api/DoctorAPI/GetStates?isActive=true&countryId=" + model.CountryList.First().Id + "&stateId=");
+                        model.StateList = JsonConvert.DeserializeObject<List<StateMaster>>(Res.Content.ReadAsStringAsync().Result);
+                    }
+                    model.DoctorFellowshipObject = new DoctorFellowship
+                    {
+                        DoctorId = doctorId
+                    };
+                }
+            }
+            return View("DoctorFellowship", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InsertUpdateDoctorFellowship(DoctorFellowshipModel doctorFellowship)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var json = JsonConvert.SerializeObject(doctorFellowship.DoctorFellowshipObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/DoctorAPI/InsertUpdateDoctorFellowship", content);
+                DoctorFellowshipResponse result = new DoctorFellowshipResponse();
+                if (Res.IsSuccessStatusCode)
+                {
+                    result.IsSuccess = true;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    result.IsSuccess = false;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+
+                }
+                return View("DoctorFellowshipResponse", result);
+
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DoctorResidency(int doctorId, int? doctorResidencyId, int userId)
+        {
+            var model = new DoctorResidencyModel
+            {
+                UserId = userId
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/SignUpAPI/GetCountries?isActive=true");
+                model.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
+                
+                if (doctorResidencyId.HasValue)
+                {
+                    Res = await client.GetAsync("api/DoctorAPI/GetDoctorResidencyList?doctorId=" + doctorId.ToString()
+                           + "&doctorResidencyId=" + doctorResidencyId.Value.ToString());
+                    var doctorResidencyResponse = JsonConvert.DeserializeObject<DoctorResidencyResponse>(Res.Content.ReadAsStringAsync().Result);
+                    if (doctorResidencyResponse.DoctorResidencyList != null
+                        && doctorResidencyResponse.DoctorResidencyList.Count() != 0)
+                    {
+                        model.DoctorResidencyObject = doctorResidencyResponse.DoctorResidencyList.First();
+                        Res = await client.GetAsync("api/DoctorAPI/GetStates?isActive=true&countryId=" + model.DoctorResidencyObject.CountryId + "&stateId=");
+                        model.StateList = JsonConvert.DeserializeObject<List<StateMaster>>(Res.Content.ReadAsStringAsync().Result);
+                    }
+                }
+                else
+                {
+                    if (model.CountryList != null && model.CountryList.Count() != 0)
+                    {
+                        Res = await client.GetAsync("api/DoctorAPI/GetStates?isActive=true&countryId=" + model.CountryList.First().Id + "&stateId=");
+                        model.StateList = JsonConvert.DeserializeObject<List<StateMaster>>(Res.Content.ReadAsStringAsync().Result);
+                    }
+                    model.DoctorResidencyObject = new DoctorResidency
+                    {
+                        DoctorId = doctorId
+                    };
+                }
+            }
+            return View("DoctorResidency", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InsertUpdateDoctorResidency(DoctorResidencyModel doctorResidency)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var json = JsonConvert.SerializeObject(doctorResidency.DoctorResidencyObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/DoctorAPI/InsertUpdateDoctorResidency", content);
+                DoctorResidencyResponse result = new DoctorResidencyResponse();
+                if (Res.IsSuccessStatusCode)
+                {
+                    result.IsSuccess = true;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    result.IsSuccess = false;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+
+                }
+                return View("DoctorResidencyResponse", result);
 
             }
         }

@@ -39,35 +39,9 @@
         <tr>
             <td colspan="2">
                 <button type="submit">
-                    @(Model.DoctorAwardObject.Id>0 ? "Create Doctor Award" : "Update Doctor Award")
+                    @(Model.DoctorAwardObject.Id == 0 ? "Create Doctor Award" : "Update Doctor Award")
                 </button>
             </td>
         </tr>
     </table>
-}
-
-@section scripts{
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.ddCountry').change(function (event) {
-                var countryId = $(event.target).val();
-                $.ajax({
-                    url: '/Doctor/GetStateList?countryId=' + countryId,
-                    type: 'GET',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    success: function (data) {
-                        $('#UserAddressObject_StateId').find('option').remove();
-                        $.each(data, function (i, record) {
-                            $('#UserAddressObject_StateId').append(
-                                $('<option></option>').val(record.Id).html(record.State));
-                        });
-                    },
-                    error: function (a, b, c) {
-                    }
-                });
-            });
-        });
-    </script>
 }

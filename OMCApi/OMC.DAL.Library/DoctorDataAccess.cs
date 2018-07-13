@@ -34,7 +34,7 @@ namespace OMC.DAL.Library
                 {
                     Command.Parameters.AddWithValue("@USER_ID", doctorProfile.AddedBy.Value);
                 }
-                if (doctorProfile.ModifiedBy.HasValue)
+                else if (doctorProfile.ModifiedBy.HasValue)
                 {
                     Command.Parameters.AddWithValue("@USER_ID", doctorProfile.ModifiedBy.Value);
                 }
@@ -187,7 +187,7 @@ namespace OMC.DAL.Library
                 {
                     Command.Parameters.AddWithValue("@USER_ID", userAddress.AddedBy.Value);
                 }
-                if (userAddress.ModifiedBy.HasValue)
+                else if (userAddress.ModifiedBy.HasValue)
                 {
                     Command.Parameters.AddWithValue("@USER_ID", userAddress.ModifiedBy.Value);
                 }
@@ -294,7 +294,7 @@ namespace OMC.DAL.Library
                 {
                     Command.Parameters.AddWithValue("@USER_ID", doctorAward.AddedBy.Value);
                 }
-                if (doctorAward.ModifiedBy.HasValue)
+                else if (doctorAward.ModifiedBy.HasValue)
                 {
                     Command.Parameters.AddWithValue("@USER_ID", doctorAward.ModifiedBy.Value);
                 }
@@ -394,7 +394,7 @@ namespace OMC.DAL.Library
                 {
                     Command.Parameters.AddWithValue("@USER_ID", doctorBoard.AddedBy.Value);
                 }
-                if (doctorBoard.ModifiedBy.HasValue)
+                else if (doctorBoard.ModifiedBy.HasValue)
                 {
                     Command.Parameters.AddWithValue("@USER_ID", doctorBoard.ModifiedBy.Value);
                 }
@@ -494,7 +494,7 @@ namespace OMC.DAL.Library
                 {
                     Command.Parameters.AddWithValue("@USER_ID", doctorEducation.AddedBy.Value);
                 }
-                if (doctorEducation.ModifiedBy.HasValue)
+                else if (doctorEducation.ModifiedBy.HasValue)
                 {
                     Command.Parameters.AddWithValue("@USER_ID", doctorEducation.ModifiedBy.Value);
                 }
@@ -599,7 +599,7 @@ namespace OMC.DAL.Library
                 {
                     Command.Parameters.AddWithValue("@USER_ID", doctorFellowship.AddedBy.Value);
                 }
-                if (doctorFellowship.ModifiedBy.HasValue)
+                else if (doctorFellowship.ModifiedBy.HasValue)
                 {
                     Command.Parameters.AddWithValue("@USER_ID", doctorFellowship.ModifiedBy.Value);
                 }
@@ -708,7 +708,7 @@ namespace OMC.DAL.Library
                 {
                     Command.Parameters.AddWithValue("@USER_ID", doctorImage.AddedBy.Value);
                 }
-                if (doctorImage.ModifiedBy.HasValue)
+                else if (doctorImage.ModifiedBy.HasValue)
                 {
                     Command.Parameters.AddWithValue("@USER_ID", doctorImage.ModifiedBy.Value);
                 }
@@ -808,7 +808,7 @@ namespace OMC.DAL.Library
                 {
                     Command.Parameters.AddWithValue("@USER_ID", doctorResidency.AddedBy.Value);
                 }
-                if (doctorResidency.ModifiedBy.HasValue)
+                else if (doctorResidency.ModifiedBy.HasValue)
                 {
                     Command.Parameters.AddWithValue("@USER_ID", doctorResidency.ModifiedBy.Value);
                 }

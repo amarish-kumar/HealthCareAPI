@@ -298,6 +298,14 @@
     <Content Include="Views\Doctor\UserAddressResponse.cshtml" />
     <Content Include="Views\Doctor\DoctorAward.cshtml" />
     <Content Include="Views\Doctor\DoctorAwardResponse.cshtml" />
+    <Content Include="Views\Doctor\DoctorBoard.cshtml" />
+    <Content Include="Views\Doctor\DoctorBoardResponse.cshtml" />
+    <Content Include="Views\Doctor\DoctorEducation.cshtml" />
+    <Content Include="Views\Doctor\DoctorEducationResponse.cshtml" />
+    <Content Include="Views\Doctor\DoctorFellowship.cshtml" />
+    <Content Include="Views\Doctor\DoctorFellowshipResponse.cshtml" />
+    <Content Include="Views\Doctor\DoctorResidency.cshtml" />
+    <Content Include="Views\Doctor\DoctorResidencyResponse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

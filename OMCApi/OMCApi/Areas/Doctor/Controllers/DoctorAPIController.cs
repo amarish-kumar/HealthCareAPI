@@ -313,7 +313,7 @@ namespace OMCApi.Areas.Doctor.Controllers
         /// <returns></returns>
         // POST: api/DoctorAPI/InsertUpdateDoctorFellowship
         [HttpPost]
-        [Route("InsertUpdateDoctorEducation")]
+        [Route("InsertUpdateDoctorFellowship")]
         public IHttpActionResult InsertUpdateDoctorFellowship([FromBody]DoctorFellowship doctorFellowship)
         {
             if (!ModelState.IsValid)
@@ -402,6 +402,23 @@ namespace OMCApi.Areas.Doctor.Controllers
             doctorResidency.Active = true;
             var doctorResidencyResult = DoctorBLObj.InsertUpdateDoctorResidency(doctorResidency, null);
             return Ok(doctorResidencyResult.Message);
+        }
+
+        /// <summary>
+        /// Gets the list of doctor residency records/specific residency record for the doctor profile record
+        /// ~Sprint-3~
+        /// OMC-130
+        /// </summary>
+        /// <param name="doctorId"></param>
+        /// <param name="doctorResidencyId"></param>
+        /// <returns></returns>
+        // Get: api/DoctorAPI/GetDoctorResidencyList
+        [HttpGet]
+        [Route("GetDoctorResidencyList")]
+        public DoctorResidencyResponse GetDoctorResidencyList(int doctorId, int? doctorResidencyId)
+        {
+            var DoctorBLObj = _Kernel.Get<IDoctorBL>();
+            return DoctorBLObj.GetDoctorResidencyList(doctorId, doctorResidencyId);
         }
         #endregion
     }
