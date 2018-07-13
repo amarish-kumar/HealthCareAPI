@@ -168,8 +168,7 @@
                 @Html.TextBoxFor(m => m.DoctorProfileObject.WebsiteAddress, Model.DoctorProfileObject.WebsiteAddress)
             </td>
         </tr>          
-        <tr style="height:20px;"></tr>
-        
+        <tr style="height:20px;"></tr>        
         <tr>            
             <td>
                 Is Published:
@@ -240,6 +239,262 @@
                 </div>
             </td>
         </tr>  
+        <tr style="height:20px;"></tr>
+    </table>
+
+    <br />
+    <table>
+        <tr>
+            <td>
+                @Html.ActionLink("Create New Award", "DoctorAward", "Doctor"
+               , new { doctorId = Model.DoctorProfileObject.DoctorId, userId = Model.UserId }, null)
+                <button type="button" class="collapsible">Awards</button>
+                <div class="content">
+                    @if (Model.DoctorAwardsResponseObject != null
+                    && Model.DoctorAwardsResponseObject.DoctorAwardsList != null
+                    && Model.DoctorAwardsResponseObject.DoctorAwardsList.Count() != 0)
+                    {
+                        <table class="addresses">
+                            <thead>
+                                <th>Year Received</th>
+                                <th>Institution Name</th>
+                                <th>Award Name</th>
+                                <th>Action</th>
+                            </thead>
+                            @foreach (var doctorAward in Model.DoctorAwardsResponseObject.DoctorAwardsList)
+                            {
+                                <tr>
+                                    <td>@doctorAward.YearReceived</td>
+                                    <td>@doctorAward.InstitutionName</td>
+                                    <td>@doctorAward.AwardName</td>
+                                    <td>
+                                        @Html.ActionLink("Edit Award", "DoctorAward", "Doctor"
+                                        , new
+                                        {
+                                            doctorId = Model.DoctorProfileObject.DoctorId,
+                                            doctorAwardId = doctorAward.Id,
+                                            userId = Model.UserId
+                                        }, null)
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No awards recorded</p>
+                    }
+                </div>
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+    </table>
+
+    <br />
+    <table>
+        <tr>
+            <td>
+                @Html.ActionLink("Create New Board", "DoctorBoard", "Doctor"
+               , new { doctorId = Model.DoctorProfileObject.DoctorId, userId = Model.UserId }, null)
+                <button type="button" class="collapsible">Boards</button>
+                <div class="content">
+                    @if (Model.DoctorBoardResponseObject != null
+                        && Model.DoctorBoardResponseObject.DoctorBoardList != null
+                        && Model.DoctorBoardResponseObject.DoctorBoardList.Count() != 0)
+                    {
+                        <table class="addresses">
+                            <thead>
+                                <th>Licensed In</th>
+                                <th>Other Description</th>
+                                <th>Action</th>
+                            </thead>
+                            @foreach (var doctorBoard in Model.DoctorBoardResponseObject.DoctorBoardList)
+                            {
+                                <tr>
+                                    <td>@doctorBoard.BoardName</td>
+                                    <td>@doctorBoard.OtherDescription</td>
+                                    <td>
+                                        @Html.ActionLink("Edit Board", "DoctorBoard", "Doctor"
+                                        , new
+                                        {
+                                            doctorId = Model.DoctorProfileObject.DoctorId,
+                                            doctorBoardId = doctorBoard.Id,
+                                            userId = Model.UserId
+                                        }, null)
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No boards recorded</p>
+                    }
+                </div>
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+    </table>
+
+    <br />
+    <table>
+        <tr>
+            <td>
+                @Html.ActionLink("Create New Education", "DoctorEducation", "Doctor"
+               , new { doctorId = Model.DoctorProfileObject.DoctorId, userId = Model.UserId }, null)
+                <button type="button" class="collapsible">Educations</button>
+                <div class="content">
+                    @if (Model.DoctorEducationResponseObject != null
+                        && Model.DoctorEducationResponseObject.DoctorEducationList != null
+                        && Model.DoctorEducationResponseObject.DoctorEducationList.Count() != 0)
+                    {
+                        <table class="addresses">
+                            <thead>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>College Name</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>Country</th>
+                                <th>Action</th>
+                            </thead>
+                            @foreach (var doctorEducation in Model.DoctorEducationResponseObject.DoctorEducationList)
+                            {
+                                <tr>
+                                    <td>@doctorEducation.BeginingYear</td>
+                                    <td>@doctorEducation.EndingYear</td>
+                                    <td>@doctorEducation.CollegeName</td>
+                                    <td>@doctorEducation.City</td>
+                                    <td>@doctorEducation.StateName</td>
+                                    <td>@doctorEducation.CountryName</td>
+                                    <td>
+                                        @Html.ActionLink("Edit Education", "DoctorEducation", "Doctor"
+                                        , new
+                                        {
+                                            doctorId = Model.DoctorProfileObject.DoctorId,
+                                            doctorEducationId = doctorEducation.Id,
+                                            userId = Model.UserId
+                                        }, null)
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No educations recorded</p>
+                    }
+                </div>
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+    </table>
+
+    <br />
+    <table>
+        <tr>
+            <td>
+                @Html.ActionLink("Create New Fellowship", "DoctorFellowship", "Doctor"
+               , new { doctorId = Model.DoctorProfileObject.DoctorId, userId = Model.UserId }, null)
+                <button type="button" class="collapsible">Fellowships</button>
+                <div class="content">
+                    @if (Model.DoctorFellowshipResponseObject != null
+                    && Model.DoctorFellowshipResponseObject.DoctorFellowshipList != null
+                    && Model.DoctorFellowshipResponseObject.DoctorFellowshipList.Count() != 0)
+                    {
+                        <table class="addresses">
+                            <thead>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Hospital Name</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>Country</th>
+                                <th>Action</th>
+                            </thead>
+                            @foreach (var doctorFellowship in Model.DoctorFellowshipResponseObject.DoctorFellowshipList)
+                            {
+                                <tr>
+                                    <td>@doctorFellowship.BeginingYear</td>
+                                    <td>@doctorFellowship.EndingYear</td>
+                                    <td>@doctorFellowship.HospitalName</td>
+                                    <td>@doctorFellowship.City</td>
+                                    <td>@doctorFellowship.StateName</td>
+                                    <td>@doctorFellowship.CountryName</td>
+                                    <td>
+                                        @Html.ActionLink("Edit Fellowship", "DoctorFellowship", "Doctor"
+                                        , new
+                                        {
+                                            doctorId = Model.DoctorProfileObject.DoctorId,
+                                            doctorFellowshipId = doctorFellowship.Id,
+                                            userId = Model.UserId
+                                        }, null)
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No Fellowships recorded</p>
+                    }
+                </div>
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+    </table>
+
+    <br />
+    <table>
+        <tr>
+            <td>
+                @Html.ActionLink("Create New Residency", "DoctorResidency", "Doctor"
+               , new { doctorId = Model.DoctorProfileObject.DoctorId, userId = Model.UserId }, null)
+                <button type="button" class="collapsible">Residencys</button>
+                <div class="content">
+                    @if (Model.DoctorResidencyResponseObject != null
+                        && Model.DoctorResidencyResponseObject.DoctorResidencyList != null
+                        && Model.DoctorResidencyResponseObject.DoctorResidencyList.Count() != 0)
+                    {
+                        <table class="addresses">
+                            <thead>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Hospital Name</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>Country</th>
+                                <th>Action</th>
+                            </thead>
+                            @foreach (var doctorResidency in Model.DoctorResidencyResponseObject.DoctorResidencyList)
+                            {
+                                <tr>
+                                    <td>@doctorResidency.BeginingYear</td>
+                                    <td>@doctorResidency.EndingYear</td>
+                                    <td>@doctorResidency.HospitalName</td>
+                                    <td>@doctorResidency.City</td>
+                                    <td>@doctorResidency.StateName</td>
+                                    <td>@doctorResidency.CountryName</td>
+                                    <td>
+                                        @Html.ActionLink("Edit Residency", "DoctorResidency", "Doctor"
+                                        , new
+                                        {
+                                            doctorId = Model.DoctorProfileObject.DoctorId,
+                                            doctorResidencyId = doctorResidency.Id,
+                                            userId = Model.UserId
+                                        }, null)
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No Residencys recorded</p>
+                    }
+                </div>
+            </td>
+        </tr>
         <tr style="height:20px;"></tr>
     </table>
 }

@@ -36,6 +36,17 @@
             Constructor for DoctorAPIController
             </summary>
         </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.GetBoards(System.Nullable{System.Boolean},System.Nullable{System.Int32},System.String)">
+            <summary>
+            Gets the list of Boards available in the system
+            ~Sprint-3~
+            OMC‌-130
+            </summary>
+            <param name="isActive"></param>
+            <param name="boardId"></param>
+            <param name="board"></param>
+            <returns></returns>
+        </member>
         <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.GetTimezones(System.Nullable{System.Boolean},System.String)">
             <summary>
             Gets the list of Timezones available in the system
@@ -104,6 +115,120 @@
             </summary>
             <param name="userId"></param>
             <param name="addressId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.InsertUpdateDoctorAward(OMC.Models.DoctorAwards)">
+            <summary>
+            API to handle create/edit for the doctor profile award record
+            ~Sprint-3~
+            OMC-130
+            </summary>
+            <param name="doctorAward"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.GetDoctorAwardList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of doctor award records/specific user award record for the doctor profile record
+            ~Sprint-3~
+            OMC-130
+            </summary>
+            <param name="doctorId"></param>
+            <param name="doctorAwardId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.InsertUpdateDoctorBoard(OMC.Models.DoctorBoard)">
+            <summary>
+            API to handle create/edit for the doctor profile board record
+            ~Sprint-3~
+            OMC-130
+            </summary>
+            <param name="doctorBoard"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.GetDoctorBoardList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of doctor board records/specific board record for the doctor profile record
+            ~Sprint-3~
+            OMC-130
+            </summary>
+            <param name="doctorId"></param>
+            <param name="doctorBoardId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.InsertUpdateDoctorEducation(OMC.Models.DoctorEducation)">
+            <summary>
+            API to handle create/edit for the doctor profile education record
+            ~Sprint-3~
+            OMC-130
+            </summary>
+            <param name="doctorEducation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.GetDoctorEducationList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of doctor education records/specific education record for the doctor profile record
+            ~Sprint-3~
+            OMC-130
+            </summary>
+            <param name="doctorId"></param>
+            <param name="doctorEducationId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.InsertUpdateDoctorFellowship(OMC.Models.DoctorFellowship)">
+            <summary>
+            API to handle create/edit for the doctor profile fellowship record
+            ~Sprint-3~
+            OMC-130
+            </summary>
+            <param name="doctorFellowship"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.GetDoctorFellowshipList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of doctor fellowship records/specific fellowship record for the doctor profile record
+            ~Sprint-3~
+            OMC-130
+            </summary>
+            <param name="doctorId"></param>
+            <param name="doctorFellowshipId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.InsertUpdateDoctorImage(OMC.Models.DoctorImages)">
+            <summary>
+            API to handle create/edit for the doctor profile image record
+            ~Sprint-3~
+            OMC-130
+            </summary>
+            <param name="doctorImage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.GetDoctorImageList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of doctor image records/specific image record for the doctor profile record
+            ~Sprint-3~
+            OMC-130
+            </summary>
+            <param name="doctorId"></param>
+            <param name="doctorImageId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.InsertUpdateDoctorResidency(OMC.Models.DoctorResidency)">
+            <summary>
+            API to handle create/edit for the doctor profile residency record
+            ~Sprint-3~
+            OMC-130
+            </summary>
+            <param name="doctorResidency"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Doctor.Controllers.DoctorAPIController.GetDoctorResidencyList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of doctor residency records/specific residency record for the doctor profile record
+            ~Sprint-3~
+            OMC-130
+            </summary>
+            <param name="doctorId"></param>
+            <param name="doctorResidencyId"></param>
             <returns></returns>
         </member>
         <member name="T:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController">

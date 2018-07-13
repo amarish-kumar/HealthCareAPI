@@ -163,6 +163,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DoctorResidencyModel.cs" />
+    <Compile Include="Models\DoctorImageModel.cs" />
+    <Compile Include="Models\DoctorFellowshipModel.cs" />
+    <Compile Include="Models\DoctorEducationModel.cs" />
+    <Compile Include="Models\DoctorBoardModel.cs" />
+    <Compile Include="Models\DoctorAwardModel.cs" />
     <Compile Include="Models\UserAddressModel.cs" />
     <Compile Include="Models\DoctorModel.cs" />
     <Compile Include="Models\MedicationModel.cs" />
@@ -290,6 +296,16 @@
     <Content Include="Views\Doctor\DoctorProfileResponse.cshtml" />
     <Content Include="Views\Doctor\UserAddress.cshtml" />
     <Content Include="Views\Doctor\UserAddressResponse.cshtml" />
+    <Content Include="Views\Doctor\DoctorAward.cshtml" />
+    <Content Include="Views\Doctor\DoctorAwardResponse.cshtml" />
+    <Content Include="Views\Doctor\DoctorBoard.cshtml" />
+    <Content Include="Views\Doctor\DoctorBoardResponse.cshtml" />
+    <Content Include="Views\Doctor\DoctorEducation.cshtml" />
+    <Content Include="Views\Doctor\DoctorEducationResponse.cshtml" />
+    <Content Include="Views\Doctor\DoctorFellowship.cshtml" />
+    <Content Include="Views\Doctor\DoctorFellowshipResponse.cshtml" />
+    <Content Include="Views\Doctor\DoctorResidency.cshtml" />
+    <Content Include="Views\Doctor\DoctorResidencyResponse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

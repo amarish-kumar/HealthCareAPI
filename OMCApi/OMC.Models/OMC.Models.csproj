@@ -47,7 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoardMaster.cs" />
     <Compile Include="ConsultationMedications.cs" />
+    <Compile Include="DoctorResidency.cs" />
+    <Compile Include="DoctorImages.cs" />
+    <Compile Include="DoctorFellowship.cs" />
+    <Compile Include="DoctorEducation.cs" />
+    <Compile Include="DoctorBoard.cs" />
+    <Compile Include="DoctorAwards.cs" />
     <Compile Include="DoctorProfile.cs" />
     <Compile Include="StateMaster.cs" />
     <Compile Include="TimezoneMaster.cs" />

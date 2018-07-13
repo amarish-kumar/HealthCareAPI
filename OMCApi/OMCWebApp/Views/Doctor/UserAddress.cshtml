@@ -41,7 +41,8 @@
                 Country:
             </td>
             <td>
-                @Html.DropDownListFor(m => m.UserAddressObject.CountryId, new SelectList(Model.CountryList, "Id", "CountryDesc"))
+                @Html.DropDownListFor(m => m.UserAddressObject.CountryId, new SelectList(Model.CountryList, "Id", "CountryDesc")
+               , new { @class = "ddCountry"})
             </td>
         </tr>    
         <tr style="height:20px;"></tr>
@@ -80,3 +81,28 @@
     </table>
 }
 
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.ddCountry').change(function (event) {
+                var countryId = $(event.target).val();
+                $.ajax({
+                    url: '/Doctor/GetStateList?countryId=' + countryId,
+                    type: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        $('#UserAddressObject_StateId').find('option').remove();
+                        $.each(data, function (i, record) {
+                            $('#UserAddressObject_StateId').append(
+                                $('<option></option>').val(record.Id).html(record.State));
+                        });
+                    },
+                    error: function (a, b, c) {
+                    }
+                });
+            });
+        });
+    </script>
+}

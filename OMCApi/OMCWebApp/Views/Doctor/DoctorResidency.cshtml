@@ -1,0 +1,103 @@
+﻿@model  OMCWebApp.Models.DoctorResidencyModel
+
+@using (Html.BeginForm("InsertUpdateDoctorResidency", "Doctor", FormMethod.Post))
+{
+    <h2>Manage Doctor Residency</h2>
+    @Html.AntiForgeryToken()
+    <table class="createConsAllergy">
+        <tr>
+            <td>
+                Begining Year:
+            </td>
+            <td>
+                @Html.HiddenFor(m => m.DoctorResidencyObject.Id, Model.DoctorResidencyObject.Id)
+                @Html.HiddenFor(m => m.DoctorResidencyObject.AddedBy, Model.DoctorResidencyObject.AddedBy)
+                @Html.HiddenFor(m => m.DoctorResidencyObject.ModifiedBy, Model.DoctorResidencyObject.ModifiedBy)
+                @Html.HiddenFor(m => m.DoctorResidencyObject.DoctorId, Model.DoctorResidencyObject.DoctorId)
+                @Html.TextBoxFor(m => m.DoctorResidencyObject.BeginingYear, Model.DoctorResidencyObject.BeginingYear)        
+            </td>
+        </tr>    
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Ending Year:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.DoctorResidencyObject.EndingYear, Model.DoctorResidencyObject.EndingYear)
+            </td>
+        </tr>    
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Hospital Name:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.DoctorResidencyObject.HospitalName, Model.DoctorResidencyObject.HospitalName)
+            </td>
+        </tr>    
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                City:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.DoctorResidencyObject.City, Model.DoctorResidencyObject.City)
+            </td>
+        </tr>    
+        <tr style="height:20px;"></tr>  
+        <tr>
+            <td>
+                Country:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.DoctorResidencyObject.CountryId
+                , new SelectList(Model.CountryList, "Id", "CountryDesc")
+               , new { @class = "ddCountry" })
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                State:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.DoctorResidencyObject.StateId
+                , new SelectList(Model.StateList, "Id", "State"))
+            </td>
+        </tr>     
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">
+                    @(Model.DoctorResidencyObject.Id == 0 ? "Create Doctor Residency" : "Update Doctor Residency")
+                </button>
+            </td>
+        </tr>
+    </table>
+}
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.ddCountry').change(function (event) {
+                var countryId = $(event.target).val();
+                $.ajax({
+                    url: '/Doctor/GetStateList?countryId=' + countryId,
+                    type: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        $('#DoctorResidencyObject_StateId').find('option').remove();
+                        $.each(data, function (i, record) {
+                            $('#DoctorResidencyObject_StateId').append(
+                                $('<option></option>').val(record.Id).html(record.State));
+                        });
+                    },
+                    error: function (a, b, c) {
+                    }
+                });
+            });
+        });
+    </script>
+}
