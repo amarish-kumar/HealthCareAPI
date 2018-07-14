@@ -20,3 +20,4 @@ INSERT INTO [dbo].[BoardMaster] ([Board], [Description],[Active],[AddedBy],[Adde
 INSERT INTO [dbo].[BoardMaster] ([Board], [Description],[Active],[AddedBy],[AddedDate]) VALUES ('ScD','Doctor of Science',1,1,GETDATE())
 INSERT INTO [dbo].[BoardMaster] ([Board], [Description],[Active],[AddedBy],[AddedDate]) VALUES ('SScD','Doctor of Social Science',1,1,GETDATE())
 INSERT INTO [dbo].[BoardMaster] ([Board], [Description],[Active],[AddedBy],[AddedDate]) VALUES ('ThD','Doctor of Theology',1,1,GETDATE())
+INSERT INTO [dbo].[BoardMaster] ([Board], [Description],[Active],[AddedBy],[AddedDate]) VALUES ('Other','Other',1,1,GETDATE())
