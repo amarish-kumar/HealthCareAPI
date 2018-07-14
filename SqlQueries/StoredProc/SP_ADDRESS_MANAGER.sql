@@ -1,16 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_ADDRESS_MANAGER]    Script Date: 6/29/2018 9:59:32 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_ADDRESS_MANAGER]    Script Date: 7/14/2018 11:23:04 AM ******/
 DROP PROCEDURE [dbo].[SP_ADDRESS_MANAGER]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_ADDRESS_MANAGER]    Script Date: 6/29/2018 9:59:32 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_ADDRESS_MANAGER]    Script Date: 7/14/2018 11:23:04 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 CREATE PROCEDURE [dbo].[SP_ADDRESS_MANAGER]
 (
@@ -34,7 +35,7 @@ SELECT	 @Id = UserAddressMappingList.Columns.value('Id[1]', 'BIGINT')
 	   , @UserId = UserAddressMappingList.Columns.value('UserId[1]', 'BIGINT')
 	   , @AddressTypeId = UserAddressMappingList.Columns.value('AddressTypeId[1]', 'BIGINT')   
 	   , @CountryId = UserAddressMappingList.Columns.value('CountryId[1]', 'BIGINT')
-	   , @StateId = UserAddressMappingList.Columns.value('State[1]', 'BIGINT')
+	   , @StateId = UserAddressMappingList.Columns.value('StateId[1]', 'BIGINT')
 	   , @City = UserAddressMappingList.Columns.value('City[1]', 'NVARCHAR(MAX)')
 	   , @Address1 = UserAddressMappingList.Columns.value('Address1[1]', 'NVARCHAR(MAX)')
 	   , @Address2 = UserAddressMappingList.Columns.value('Address2[1]', 'NVARCHAR(MAX)')
@@ -100,6 +101,7 @@ END
 
 SELECT @Result AS Result, @ReturnMessage AS ReturnMessage
 END
+
 
 
 
