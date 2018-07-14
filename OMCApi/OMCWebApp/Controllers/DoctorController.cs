@@ -129,7 +129,7 @@ namespace OMCApi.Areas.Login.Controllers
                 model.DoctorAwardsResponseObject = JsonConvert.DeserializeObject<DoctorAwardsResponse>(Res.Content.ReadAsStringAsync().Result);
                 Res = await client.GetAsync("api/DoctorAPI/GetDoctorBoardList?doctorId=" + doctorId.ToString()
                                + "&doctorBoardId=");
-                model.DoctorEducationResponseObject = JsonConvert.DeserializeObject<DoctorEducationResponse>(Res.Content.ReadAsStringAsync().Result);
+                model.DoctorBoardResponseObject = JsonConvert.DeserializeObject<DoctorBoardResponse>(Res.Content.ReadAsStringAsync().Result);
                 Res = await client.GetAsync("api/DoctorAPI/GetDoctorEducationList?doctorId=" + doctorId.ToString()
                    + "&doctorEducationId=");
                 model.DoctorEducationResponseObject = JsonConvert.DeserializeObject<DoctorEducationResponse>(Res.Content.ReadAsStringAsync().Result);
