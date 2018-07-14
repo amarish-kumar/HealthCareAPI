@@ -448,6 +448,58 @@
     <table>
         <tr>
             <td>
+                @Html.ActionLink("Create New Image", "DoctorImage", "Doctor"
+               , new { doctorId = Model.DoctorProfileObject.DoctorId, userId = Model.UserId }, null)
+                <button type="button" class="collapsible">Images</button>
+                <div class="content">
+                    @if (Model.DoctorImagesResponseObject != null
+                    && Model.DoctorImagesResponseObject.DoctorImagesList != null
+                    && Model.DoctorImagesResponseObject.DoctorImagesList.Count() != 0)
+                    {
+                        <table class="addresses">
+                            <thead>
+                                <th>File Name</th>
+                                <th>Is Primary</th>
+                                <th>Action</th>
+                            </thead>
+                            @foreach (var doctorImage in Model.DoctorImagesResponseObject.DoctorImagesList)
+                            {
+                                <tr>
+                                    <td>@doctorImage.FileName</td>
+                                    <td>@(doctorImage.IsPrimary ? "Yes" : "No")</td>
+                                    <td>
+                                        @Html.ActionLink("Edit Image", "DoctorImage", "Doctor"
+                                        , new
+                                        {
+                                            doctorId = Model.DoctorProfileObject.DoctorId,
+                                            doctorImageId = doctorImage.Id,
+                                            userId = Model.UserId
+                                        }, null)
+                                        &nbsp;
+                                        @Html.ActionLink("View Image", "DownLoadFile", "Doctor"
+                                        , new
+                                        {
+                                            doctorImageId = doctorImage.Id
+                                        }, null)
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No Images recorded</p>
+                    }
+                </div>
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+    </table>
+
+    <br />
+    <table>
+        <tr>
+            <td>
                 @Html.ActionLink("Create New Residency", "DoctorResidency", "Doctor"
                , new { doctorId = Model.DoctorProfileObject.DoctorId, userId = Model.UserId }, null)
                 <button type="button" class="collapsible">Residencys</button>

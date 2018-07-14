@@ -1,11 +1,11 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_DOCTOR_IMAGE_MANAGER]    Script Date: 7/10/2018 10:11:08 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_DOCTOR_IMAGE_MANAGER]    Script Date: 7/14/2018 9:04:14 AM ******/
 DROP PROCEDURE [dbo].[SP_DOCTOR_IMAGE_MANAGER]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_DOCTOR_IMAGE_MANAGER]    Script Date: 7/10/2018 10:11:08 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_DOCTOR_IMAGE_MANAGER]    Script Date: 7/14/2018 9:04:14 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -61,9 +61,9 @@ BEGIN
            ,@Active
 		   ,@USER_ID
 		   ,GETUTCDATE())
-
-			SET @Result = 1;
-			SET @ReturnMessage = 'Record created successfully.'
+	SET @Id = SCOPE_IDENTITY()
+	SET @Result = 1;
+	SET @ReturnMessage = 'Record created successfully.'
 	END
 
 	ELSE
@@ -79,6 +79,15 @@ BEGIN
 		SET @Result = 1;
 		SET @ReturnMessage = 'Record updated successfully.'
 	END
+
+	IF @IsPrimary = 1
+	BEGIN
+		UPDATE [dbo].[DoctorImages]
+		   SET [IsPrimary] = 0
+			  ,[ModifiedBy] = @USER_ID
+			  ,[ModifiedDate] = GETUTCDATE()
+		WHERE [DoctorId] = @DoctorId AND Id <> @Id
+	END 
 END
 
 SELECT @Result AS Result, @ReturnMessage AS ReturnMessage

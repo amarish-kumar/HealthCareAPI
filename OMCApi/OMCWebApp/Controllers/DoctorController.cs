@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Linq;
+using System.IO;
 
 namespace OMCApi.Areas.Login.Controllers
 {
@@ -117,13 +118,6 @@ namespace OMCApi.Areas.Login.Controllers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage Res = await client.GetAsync("api/DoctorAPI/GetTimezones?isActive=true&searchTerm=");
                 model.Timezones = JsonConvert.DeserializeObject<List<TimezoneMaster>>(Res.Content.ReadAsStringAsync().Result);
-                //Res = await client.GetAsync("api/SignUpAPI/GetCountries?isActive=true");
-                //model.UserAddressModelObject.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
-                //model.DoctorEducationModelObject.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
-                //model.DoctorFellowshipModelObject.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
-                //model.DoctorResidencyModelObject.CountryList = JsonConvert.DeserializeObject<List<Country>>(Res.Content.ReadAsStringAsync().Result);
-                //Res = await client.GetAsync("api/DoctorAPI/GetBoards?isActive=true&boardId=&board=");
-                //model.DoctorBoardModelObject.BoardList = JsonConvert.DeserializeObject<List<BoardMaster>>(Res.Content.ReadAsStringAsync().Result);
                 Res = await client.GetAsync("api/DoctorAPI/GetDoctorProfileList?userId=" + userId.ToString() + "&doctorId=" + doctorId.ToString());
                 var doctorProfileList = JsonConvert.DeserializeObject<List<DoctorProfileDisplay>>(Res.Content.ReadAsStringAsync().Result);
                 model.DoctorProfileObject = doctorProfileList.Count > 0 ? doctorProfileList.First() : model.DoctorProfileObject;
@@ -142,6 +136,10 @@ namespace OMCApi.Areas.Login.Controllers
                 Res = await client.GetAsync("api/DoctorAPI/GetDoctorFellowshipList?doctorId=" + doctorId.ToString()
                    + "&doctorFellowshipId=");
                 model.DoctorFellowshipResponseObject = JsonConvert.DeserializeObject<DoctorFellowshipResponse>(Res.Content.ReadAsStringAsync().Result);
+                Res = await client.GetAsync("api/DoctorAPI/GetDoctorImageList?doctorId=" + doctorId.ToString()
+                   + "&doctorImageId=");
+                model.DoctorImagesResponseObject = JsonConvert.DeserializeObject<DoctorImagesResponse>(Res.Content.ReadAsStringAsync().Result);
+                Session["DoctorImages"] = model.DoctorImagesResponseObject.DoctorImagesList;
                 Res = await client.GetAsync("api/DoctorAPI/GetDoctorResidencyList?doctorId=" + doctorId.ToString()
                    + "&doctorResidencyId=");
                 model.DoctorResidencyResponseObject = JsonConvert.DeserializeObject<DoctorResidencyResponse>(Res.Content.ReadAsStringAsync().Result);
@@ -253,8 +251,10 @@ namespace OMCApi.Areas.Login.Controllers
                         && userAddressResponse.UserAddressList.Count() != 0)
                     {
                         model.UserAddressObject = userAddressResponse.UserAddressList.First();
+                        model.UserAddressObject.ModifiedBy = userId;
                         Res = await client.GetAsync("api/DoctorAPI/GetStates?isActive=true&countryId=" + model.UserAddressObject.CountryId + "&stateId=");
                         model.StateList = JsonConvert.DeserializeObject<List<StateMaster>>(Res.Content.ReadAsStringAsync().Result);
+
                     }
                 }
                 else
@@ -266,7 +266,8 @@ namespace OMCApi.Areas.Login.Controllers
                     }
                     model.UserAddressObject = new UserAddress
                     {
-                        UserId = doctorId
+                        UserId = doctorId,
+                        AddedBy = userId
                     };
                 }
             }
@@ -323,13 +324,15 @@ namespace OMCApi.Areas.Login.Controllers
                         && doctorAwardsResponse.DoctorAwardsList.Count() != 0)
                     {
                         model.DoctorAwardObject = doctorAwardsResponse.DoctorAwardsList.First();
+                        model.DoctorAwardObject.ModifiedBy = userId;
                     }
                 }
                 else
                 {
                     model.DoctorAwardObject = new DoctorAwards
                     {
-                        DoctorId = doctorId
+                        DoctorId = doctorId,
+                        AddedBy = userId
                     };
                 }
             }
@@ -386,13 +389,15 @@ namespace OMCApi.Areas.Login.Controllers
                         && doctorBoardResponse.DoctorBoardList.Count() != 0)
                     {
                         model.DoctorBoardObject = doctorBoardResponse.DoctorBoardList.First();
+                        model.DoctorBoardObject.ModifiedBy = userId;
                     }
                 }
                 else
                 {
                     model.DoctorBoardObject = new DoctorBoard
                     {
-                        DoctorId = doctorId
+                        DoctorId = doctorId,
+                        AddedBy = userId
                     };
                 }
             }
@@ -451,6 +456,7 @@ namespace OMCApi.Areas.Login.Controllers
                         && doctorEducationResponse.DoctorEducationList.Count() != 0)
                     {
                         model.DoctorEducationObject = doctorEducationResponse.DoctorEducationList.First();
+                        model.DoctorEducationObject.ModifiedBy = userId;
                         Res = await client.GetAsync("api/DoctorAPI/GetStates?isActive=true&countryId=" + model.DoctorEducationObject.CountryId + "&stateId=");
                         model.StateList = JsonConvert.DeserializeObject<List<StateMaster>>(Res.Content.ReadAsStringAsync().Result);
                     }
@@ -464,7 +470,8 @@ namespace OMCApi.Areas.Login.Controllers
                     }
                     model.DoctorEducationObject = new DoctorEducation
                     {
-                        DoctorId = doctorId
+                        DoctorId = doctorId,
+                        AddedBy = userId
                     };
                 }
             }
@@ -524,6 +531,7 @@ namespace OMCApi.Areas.Login.Controllers
                         && doctorFellowshipResponse.DoctorFellowshipList.Count() != 0)
                     {
                         model.DoctorFellowshipObject = doctorFellowshipResponse.DoctorFellowshipList.First();
+                        model.DoctorFellowshipObject.ModifiedBy = userId;
                         Res = await client.GetAsync("api/DoctorAPI/GetStates?isActive=true&countryId=" + model.DoctorFellowshipObject.CountryId + "&stateId=");
                         model.StateList = JsonConvert.DeserializeObject<List<StateMaster>>(Res.Content.ReadAsStringAsync().Result);
                     }
@@ -537,7 +545,8 @@ namespace OMCApi.Areas.Login.Controllers
                     }
                     model.DoctorFellowshipObject = new DoctorFellowship
                     {
-                        DoctorId = doctorId
+                        DoctorId = doctorId,
+                        AddedBy = userId
                     };
                 }
             }
@@ -574,6 +583,91 @@ namespace OMCApi.Areas.Login.Controllers
         }
 
         [HttpGet]
+        public async Task<ActionResult> DoctorImage(int doctorId, int? doctorImageId, int userId)
+        {
+            var model = new DoctorImageModel
+            {
+                UserId = userId
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                
+                if (doctorImageId.HasValue)
+                {
+                    HttpResponseMessage Res = await client.GetAsync("api/DoctorAPI/GetDoctorImageList?doctorId=" + doctorId.ToString()
+                           + "&doctorImageId=" + doctorImageId.Value.ToString());
+                    var doctorImageResponse = JsonConvert.DeserializeObject<DoctorImagesResponse>(Res.Content.ReadAsStringAsync().Result);
+                    if (doctorImageResponse.DoctorImagesList != null
+                        && doctorImageResponse.DoctorImagesList.Count() != 0)
+                    {
+                        model.DoctorImageObject = doctorImageResponse.DoctorImagesList.First();
+                        model.DoctorImageObject.ModifiedBy = userId;
+                    }
+                }
+                else
+                {                    
+                    model.DoctorImageObject = new DoctorImages
+                    {
+                        DoctorId = doctorId,
+                        AddedBy = userId
+                    };
+                }
+            }
+            return View("DoctorImage", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InsertUpdateDoctorImage(DoctorImageModel doctorImage)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                if (doctorImage.ImageFile != null)
+                {
+                    MemoryStream target = new MemoryStream();
+                    doctorImage.ImageFile.InputStream.CopyTo(target);
+                    doctorImage.DoctorImageObject.FileData = target.ToArray();
+                    doctorImage.DoctorImageObject.FileName = doctorImage.ImageFile.FileName;
+                }
+                var json = JsonConvert.SerializeObject(doctorImage.DoctorImageObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/DoctorAPI/InsertUpdateDoctorImage", content);
+                DoctorImagesResponse result = new DoctorImagesResponse();
+                if (Res.IsSuccessStatusCode)
+                {
+                    result.IsSuccess = true;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    result.IsSuccess = false;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+
+                }
+                return View("DoctorImageResponse", result);
+
+            }
+        }
+
+        [HttpGet]
+        public FileResult DownLoadFile(int doctorImageId)
+        {
+            var reports = Session["DoctorImages"] as List<DoctorImageDisplay>;
+            var currentImage = reports.Where(di => di.Id == doctorImageId).FirstOrDefault();
+            if (currentImage != null && currentImage.FileData != null)
+            {
+                return File(currentImage.FileData, "application/image", currentImage.FileName);
+            }
+            return null;
+        }
+
+        [HttpGet]
         public async Task<ActionResult> DoctorResidency(int doctorId, int? doctorResidencyId, int userId)
         {
             var model = new DoctorResidencyModel
@@ -597,6 +691,7 @@ namespace OMCApi.Areas.Login.Controllers
                         && doctorResidencyResponse.DoctorResidencyList.Count() != 0)
                     {
                         model.DoctorResidencyObject = doctorResidencyResponse.DoctorResidencyList.First();
+                        model.DoctorResidencyObject.ModifiedBy = userId;
                         Res = await client.GetAsync("api/DoctorAPI/GetStates?isActive=true&countryId=" + model.DoctorResidencyObject.CountryId + "&stateId=");
                         model.StateList = JsonConvert.DeserializeObject<List<StateMaster>>(Res.Content.ReadAsStringAsync().Result);
                     }
@@ -610,7 +705,8 @@ namespace OMCApi.Areas.Login.Controllers
                     }
                     model.DoctorResidencyObject = new DoctorResidency
                     {
-                        DoctorId = doctorId
+                        DoctorId = doctorId,
+                        AddedBy = userId
                     };
                 }
             }

@@ -306,6 +306,8 @@
     <Content Include="Views\Doctor\DoctorFellowshipResponse.cshtml" />
     <Content Include="Views\Doctor\DoctorResidency.cshtml" />
     <Content Include="Views\Doctor\DoctorResidencyResponse.cshtml" />
+    <Content Include="Views\Doctor\DoctorImage.cshtml" />
+    <Content Include="Views\Doctor\DoctorImageResponse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
