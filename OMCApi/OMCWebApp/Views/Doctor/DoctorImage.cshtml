@@ -1,0 +1,47 @@
+﻿@model  OMCWebApp.Models.DoctorImageModel
+
+@using (Html.BeginForm("InsertUpdateDoctorImage", "Doctor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <h2>Manage Doctor Image</h2>
+    @Html.AntiForgeryToken()
+    <table class="createConsAllergy">
+        <tr>
+            <td>
+                Select image:
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.ImageFile, new { type = "file" })            
+            </td>
+        </tr>    
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                File Name:
+            </td>
+            <td>
+                @Html.LabelFor(m => m.DoctorImageObject.FileName, Model.DoctorImageObject.FileName)
+            </td>
+        </tr>    
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Is Primary:
+            </td>
+            <td> 
+                @Html.HiddenFor(m => m.DoctorImageObject.Id, Model.DoctorImageObject.Id)
+                @Html.HiddenFor(m => m.DoctorImageObject.AddedBy, Model.DoctorImageObject.AddedBy)
+                @Html.HiddenFor(m => m.DoctorImageObject.ModifiedBy, Model.DoctorImageObject.ModifiedBy)
+                @Html.HiddenFor(m => m.DoctorImageObject.DoctorId, Model.DoctorImageObject.DoctorId)
+                @Html.CheckBoxFor(m => m.DoctorImageObject.IsPrimary)
+            </td>
+        </tr>        
+        <tr style="height:20px;"></tr>       
+        <tr>
+            <td colspan="2">
+                <button type="submit">
+                    @(Model.DoctorImageObject.Id == 0 ? "Create Doctor Image" : "Update Doctor Image")
+                </button>
+            </td>
+        </tr>
+    </table>
+}
