@@ -48,7 +48,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoardMaster.cs" />
+    <Compile Include="ConsultationAssesments.cs" />
     <Compile Include="ConsultationMedications.cs" />
+    <Compile Include="ConsultationObjectiveNotes.cs" />
+    <Compile Include="ConsultationObjectives.cs" />
+    <Compile Include="ConsultationPlans.cs" />
+    <Compile Include="ConsultationSubjectiveNotes.cs" />
+    <Compile Include="ConsultationSubjectives.cs" />
     <Compile Include="DoctorResidency.cs" />
     <Compile Include="DoctorImages.cs" />
     <Compile Include="DoctorFellowship.cs" />
