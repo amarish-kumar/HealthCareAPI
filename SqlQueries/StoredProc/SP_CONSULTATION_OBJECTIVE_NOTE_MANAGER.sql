@@ -1,16 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_OBJECTIVE_NOTE_MANAGER]    Script Date: 7/17/2018 10:25:03 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_OBJECTIVE_NOTE_MANAGER]    Script Date: 7/17/2018 11:07:37 AM ******/
 DROP PROCEDURE [dbo].[SP_CONSULTATION_OBJECTIVE_NOTE_MANAGER]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_OBJECTIVE_NOTE_MANAGER]    Script Date: 7/17/2018 10:25:03 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_OBJECTIVE_NOTE_MANAGER]    Script Date: 7/17/2018 11:07:37 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 CREATE PROCEDURE [dbo].[SP_CONSULTATION_OBJECTIVE_NOTE_MANAGER]
 (
@@ -85,6 +86,7 @@ END
 
 SELECT @Result AS Result, @ReturnMessage AS ReturnMessage
 END
+
 
 
 
