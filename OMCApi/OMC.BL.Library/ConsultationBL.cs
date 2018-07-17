@@ -489,6 +489,201 @@ namespace OMC.BL.Library
                 //Log
             }
         }
+
+        #region Consultation SOAP   
+        
+        public ConsultationSubjectiveResponse InsertUpdateConsultationSubjectives(ConsultationSubjectives consultationSubjectives)
+        {
+            try
+            {
+                return this._consultationDA.InsertUpdateConsultationSubjectives(consultationSubjectives);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationSubjectiveResponse GetConsultationSubjectiveList(int consultationId, int? consultationSubjectiveId)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationSubjectiveList(consultationId, consultationSubjectiveId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationObjectiveResponse InsertUpdateConsultationObjectives(ConsultationObjectives consultationObjectives)
+        {
+            try
+            {
+                return this._consultationDA.InsertUpdateConsultationObjectives(consultationObjectives);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationObjectiveResponse GetConsultationObjectiveList(int consultationId, int? consultationObjectiveId)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationObjectiveList(consultationId, consultationObjectiveId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationAssesmentResponse InsertUpdateConsultationAssesments(ConsultationAssesments consultationAssesments)
+        {
+            try
+            {
+                return this._consultationDA.InsertUpdateConsultationAssesments(consultationAssesments);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationAssesmentResponse GetConsultationAssesmentList(int consultationId, int? consultationAssesmentId)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationAssesmentList(consultationId, consultationAssesmentId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationPlanResponse InsertUpdateConsultationPlans(ConsultationPlans consultationPlans)
+        {
+            try
+            {
+                return this._consultationDA.InsertUpdateConsultationPlans(consultationPlans);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationPlanResponse GetConsultationPlanList(int consultationId, int? consultationPlanId)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationPlanList(consultationId, consultationPlanId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationSubjectiveNoteResponse InsertUpdateConsultationSubjectiveNotes(ConsultationSubjectiveNotes consultationSubjectiveNotes)
+        {
+            try
+            {
+                return this._consultationDA.InsertUpdateConsultationSubjectiveNotes(consultationSubjectiveNotes);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationSubjectiveNoteResponse GetConsultationSubjectiveNoteList(int consultationSubjectiveId, int? consultationSubjectiveNoteId)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationSubjectiveNoteList(consultationSubjectiveId, consultationSubjectiveNoteId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationObjectiveNoteResponse InsertUpdateConsultationObjectiveNotes(ConsultationObjectiveNotes consultationObjectiveNotes)
+        {
+            try
+            {
+                return this._consultationDA.InsertUpdateConsultationObjectiveNotes(consultationObjectiveNotes);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+
+        public ConsultationObjectiveNoteResponse GetConsultationObjectiveNoteList(int consultationSubjectiveId, int? consultationObjectiveNoteId)
+        {
+            try
+            {
+                return this._consultationDA.GetConsultationObjectiveNoteList(consultationSubjectiveId, consultationObjectiveNoteId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //Log
+            }
+        }
+        #endregion
         #endregion
 
         #region IDisposable

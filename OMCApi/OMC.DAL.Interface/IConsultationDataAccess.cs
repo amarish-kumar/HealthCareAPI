@@ -35,5 +35,20 @@ namespace OMC.DAL.Interface
         ConsultationBloodPressureReadingResponse GetConsultationBloodPressureReadingList(int consultationId, int? consultationBloodPressureReadingId);
         ConsultationMedicationResponse InsertUpdateConsultationMedication(ConsultationMedications consultationMedication);
         ConsultationMedicationResponse GetConsultationMedicationList(int consultationId, int? consultationMedicationId);
+
+        #region Consultation SOAP        
+        ConsultationSubjectiveResponse InsertUpdateConsultationSubjectives(ConsultationSubjectives consultationSubjectives);
+        ConsultationSubjectiveResponse GetConsultationSubjectiveList(int consultationId, int? consultationSubjectiveId);
+        ConsultationObjectiveResponse InsertUpdateConsultationObjectives(ConsultationObjectives consultationObjectives);
+        ConsultationObjectiveResponse GetConsultationObjectiveList(int consultationId, int? consultationObjectiveId);
+        ConsultationAssesmentResponse InsertUpdateConsultationAssesments(ConsultationAssesments consultationAssesments);
+        ConsultationAssesmentResponse GetConsultationAssesmentList(int consultationId, int? consultationAssesmentId);
+        ConsultationPlanResponse InsertUpdateConsultationPlans(ConsultationPlans consultationPlans);
+        ConsultationPlanResponse GetConsultationPlanList(int consultationId, int? consultationPlanId);
+        ConsultationSubjectiveNoteResponse InsertUpdateConsultationSubjectiveNotes(ConsultationSubjectiveNotes consultationSubjectiveNotes);
+        ConsultationSubjectiveNoteResponse GetConsultationSubjectiveNoteList(int consultationSubjectiveId, int? consultationSubjectiveNoteId);
+        ConsultationObjectiveNoteResponse InsertUpdateConsultationObjectiveNotes(ConsultationObjectiveNotes consultationObjectiveNotes);
+        ConsultationObjectiveNoteResponse GetConsultationObjectiveNoteList(int consultationSubjectiveId, int? consultationObjectiveNoteId);
+        #endregion
     }
 }

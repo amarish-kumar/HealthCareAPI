@@ -1,0 +1,48 @@
+USE [HealthCare]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_OBJECTIVE_NOTE_LIST]    Script Date: 7/17/2018 11:09:23 AM ******/
+DROP PROCEDURE [dbo].[SP_GET_CONSULTATION_OBJECTIVE_NOTE_LIST]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_OBJECTIVE_NOTE_LIST]    Script Date: 7/17/2018 11:09:23 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[SP_GET_CONSULTATION_OBJECTIVE_NOTE_LIST]
+(	
+	@CONSULTATION_OBJECTIVE_ID BIGINT,
+	@CONSULTATION_OBJECTIVE_NOTE_ID BIGINT = NULL
+)
+AS
+
+BEGIN
+
+--EXEC [SP_GET_CONSULTATION_OBJECTIVE_NOTE_LIST] 1
+
+SELECT CON.Id
+	, CON.ConsultationObjectiveId
+	, CON.Notes	
+	, CON.[Timestamp]
+	, CON.DoctorId
+	, UD.FirstName + ', ' + UD.LastName AS [DoctorName]
+	, CON.AddedBy
+	, CON.AddedDate
+	, CON.ModifiedBy
+	, CON.ModifiedDate	
+	FROM [ConsultationObjectiveNotes] CON
+	INNER JOIN ConsultationObjectives CS ON CON.ConsultationObjectiveId = CS.Id
+	LEFT OUTER JOIN UserDetail UD ON UD.Id = CON.DoctorId
+	WHERE CS.Id = @CONSULTATION_OBJECTIVE_ID
+	AND (@CONSULTATION_OBJECTIVE_NOTE_ID IS NULL OR CON.Id = @CONSULTATION_OBJECTIVE_NOTE_ID)
+	AND CON.Active = 1
+	ORDER BY CON.AddedDate DESC
+END
+
+
+GO
+
+
