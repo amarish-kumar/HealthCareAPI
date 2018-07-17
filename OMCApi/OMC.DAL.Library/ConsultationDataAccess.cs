@@ -1560,6 +1560,640 @@ namespace OMC.DAL.Library
             }
         }
 
+        #region Consultation SOAP        
+
+        public ConsultationSubjectiveResponse InsertUpdateConsultationSubjectives(ConsultationSubjectives consultationSubjectives)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateConsultationSubjectives");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(consultationSubjectives));
+                Command.CommandText = "SP_CONSULTATION_SUBJECTIVE_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_SUBJECTIVE_XML", GetXMLFromObject(consultationSubjectives));
+                if (consultationSubjectives.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationSubjectives.AddedBy.Value);
+                }
+                else if (consultationSubjectives.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationSubjectives.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                ConsultationSubjectiveResponse result = new ConsultationSubjectiveResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new ConsultationSubjectiveResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateConsultationSubjectives");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationSubjectiveResponse GetConsultationSubjectiveList(int consultationId, int? consultationSubjectiveId)
+        {
+            try
+            {
+                Log.Info("Started call to GetConsultationSubjectiveList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { consultationId = consultationId, consultationSubjectiveId = consultationSubjectiveId }));
+                Command.CommandText = "SP_GET_CONSULTATION_SUBJECTIVE_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_ID", consultationId);
+                if (consultationSubjectiveId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@CONSULTATION_SUBJECTIVE_ID", consultationSubjectiveId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                ConsultationSubjectiveResponse result = new ConsultationSubjectiveResponse();
+                result.ConsultationSubjectiveList = new List<ConsultationSubjectives>();
+                foreach (DataRow drConsultationSubjective in ds.Tables[0].Rows)
+                {
+                    result.ConsultationSubjectiveList.Add( new ConsultationSubjectives
+                    {
+                        Id = Convert.ToInt32(drConsultationSubjective["Id"].ToString()),
+                        ConsultationId = Convert.ToInt32(drConsultationSubjective["ConsultationId"].ToString()),
+                        Onset = drConsultationSubjective["Onset"] != DBNull.Value ? drConsultationSubjective["Onset"].ToString() : string.Empty,
+                        Duration = drConsultationSubjective["Duration"] != DBNull.Value ? drConsultationSubjective["Duration"].ToString() : string.Empty,
+                        Location = drConsultationSubjective["Location"] != DBNull.Value ? drConsultationSubjective["Location"].ToString() : string.Empty,
+                        Character = drConsultationSubjective["Character"] != DBNull.Value ? drConsultationSubjective["Character"].ToString() : string.Empty,
+                        AlleviatingFactors = drConsultationSubjective["AlleviatingFactors"] != DBNull.Value ? drConsultationSubjective["AlleviatingFactors"].ToString() : string.Empty,
+                        AggravatingFactors = drConsultationSubjective["AggravatingFactors"] != DBNull.Value ? drConsultationSubjective["AggravatingFactors"].ToString() : string.Empty,
+                        Radiation = drConsultationSubjective["Radiation"] != DBNull.Value ? drConsultationSubjective["Radiation"].ToString() : string.Empty,
+                        TemporalPattern = drConsultationSubjective["TemporalPattern"] != DBNull.Value ? drConsultationSubjective["TemporalPattern"].ToString() : string.Empty,
+                        Severity = drConsultationSubjective["Severity"] != DBNull.Value ? drConsultationSubjective["Severity"].ToString() : string.Empty,
+                        Chronology = drConsultationSubjective["Chronology"] != DBNull.Value ? drConsultationSubjective["Chronology"].ToString() : string.Empty,
+                        AdditionalSymptoms = drConsultationSubjective["AdditionalSymptoms"] != DBNull.Value ? drConsultationSubjective["AdditionalSymptoms"].ToString() : string.Empty,
+                        Allergies = drConsultationSubjective["Allergies"] != DBNull.Value ? drConsultationSubjective["Allergies"].ToString() : string.Empty,
+                        AddedBy = drConsultationSubjective["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationSubjective["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drConsultationSubjective["AddedDate"] != DBNull.Value ? DateTime.Parse(drConsultationSubjective["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drConsultationSubjective["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationSubjective["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drConsultationSubjective["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drConsultationSubjective["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetConsultationSubjectiveList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationObjectiveResponse InsertUpdateConsultationObjectives(ConsultationObjectives consultationObjectives)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateConsultationObjectives");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(consultationObjectives));
+                Command.CommandText = "SP_CONSULTATION_OBJECTIVE_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_OBJECTIVE_XML", GetXMLFromObject(consultationObjectives));
+                if (consultationObjectives.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationObjectives.AddedBy.Value);
+                }
+                else if (consultationObjectives.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationObjectives.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                ConsultationObjectiveResponse result = new ConsultationObjectiveResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new ConsultationObjectiveResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateConsultationObjectives");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationObjectiveResponse GetConsultationObjectiveList(int consultationId, int? consultationObjectiveId)
+        {
+            try
+            {
+                Log.Info("Started call to GetConsultationObjectiveList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new { consultationId = consultationId
+                    ,consultationObjectiveId = consultationObjectiveId
+                }));
+                Command.CommandText = "SP_GET_CONSULTATION_OBJECTIVE_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_ID", consultationId);
+                if (consultationObjectiveId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@CONSULTATION_OBJECTIVE_ID", consultationObjectiveId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                ConsultationObjectiveResponse result = new ConsultationObjectiveResponse();
+                result.ConsultationObjectiveList = new List<ConsultationObjectives>();
+                foreach (DataRow drConsultationObjective in ds.Tables[0].Rows)
+                {
+                    result.ConsultationObjectiveList.Add(new ConsultationObjectives
+                    {
+                        Id = Convert.ToInt32(drConsultationObjective["Id"].ToString()),
+                        ConsultationId = Convert.ToInt32(drConsultationObjective["ConsultationId"].ToString()),
+                        Vitals = drConsultationObjective["Vitals"] != DBNull.Value ? drConsultationObjective["Vitals"].ToString() : string.Empty,
+                        LabResults = drConsultationObjective["LabResults"] != DBNull.Value ? drConsultationObjective["LabResults"].ToString() : string.Empty,
+                        RadioGraphicResults = drConsultationObjective["RadioGraphicResults"] != DBNull.Value ? drConsultationObjective["RadioGraphicResults"].ToString() : string.Empty,
+                        AddedBy = drConsultationObjective["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationObjective["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drConsultationObjective["AddedDate"] != DBNull.Value ? DateTime.Parse(drConsultationObjective["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drConsultationObjective["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationObjective["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drConsultationObjective["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drConsultationObjective["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetConsultationObjectiveList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationAssesmentResponse InsertUpdateConsultationAssesments(ConsultationAssesments consultationAssesments)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateConsultationAssesments");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(consultationAssesments));
+                Command.CommandText = "SP_CONSULTATION_ASSESMENT_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_ASSESMENT_XML", GetXMLFromObject(consultationAssesments));
+                if (consultationAssesments.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationAssesments.AddedBy.Value);
+                }
+                else if (consultationAssesments.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationAssesments.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                ConsultationAssesmentResponse result = new ConsultationAssesmentResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new ConsultationAssesmentResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateConsultationAssesments");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationAssesmentResponse GetConsultationAssesmentList(int consultationId, int? consultationAssesmentId)
+        {
+            try
+            {
+                Log.Info("Started call to GetConsultationAssesmentList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new
+                {
+                    consultationId = consultationId
+                    ,consultationAssesmentId = consultationAssesmentId
+                }));
+                Command.CommandText = "SP_GET_CONSULTATION_ASSESMENT_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_ID", consultationId);
+                if (consultationAssesmentId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@CONSULTATION_ASSESMENT_ID", consultationAssesmentId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                ConsultationAssesmentResponse result = new ConsultationAssesmentResponse();
+                result.ConsultationAssesmentsList = new List<ConsultationAssesmentsDisplay>();
+                foreach (DataRow drConsultationAssesment in ds.Tables[0].Rows)
+                {
+                    result.ConsultationAssesmentsList.Add(new ConsultationAssesmentsDisplay
+                    {
+                        Id = Convert.ToInt32(drConsultationAssesment["Id"].ToString()),
+                        ConsultationId = Convert.ToInt32(drConsultationAssesment["ConsultationId"].ToString()),
+                        Notes = drConsultationAssesment["Notes"] != DBNull.Value ? drConsultationAssesment["Notes"].ToString() : string.Empty,
+                        DiagnosisNotes = drConsultationAssesment["DiagnosisNotes"] != DBNull.Value ? drConsultationAssesment["DiagnosisNotes"].ToString() : string.Empty,
+                        DiagnosisDoctorId = Convert.ToInt32(drConsultationAssesment["DiagnosisDoctorId"].ToString()),
+                        DiagnosisDoctorName = drConsultationAssesment["DiagnosisDoctorName"] != DBNull.Value ? drConsultationAssesment["DiagnosisDoctorName"].ToString() : string.Empty,
+                        DiagnosisTimestamp = drConsultationAssesment["DiagnosisTimestamp"] != DBNull.Value ? Convert.ToDateTime(drConsultationAssesment["DiagnosisDoctorName"].ToString()) : (DateTime?) null,
+                        DiffDiagnosisNotes = drConsultationAssesment["DiffDiagnosisNotes"] != DBNull.Value ? drConsultationAssesment["DiffDiagnosisNotes"].ToString() : string.Empty,
+                        DiffDiagnosisDoctorId = Convert.ToInt32(drConsultationAssesment["DiffDiagnosisDoctorId"].ToString()),
+                        DiffDiagnosisDoctorName = drConsultationAssesment["DiffDiagnosisDoctorName"] != DBNull.Value ? drConsultationAssesment["DiffDiagnosisDoctorName"].ToString() : string.Empty,
+                        DiffDiagnosisTimestamp = drConsultationAssesment["DiffDiagnosisTimestamp"] != DBNull.Value ? Convert.ToDateTime(drConsultationAssesment["DiffDiagnosisTimestamp"].ToString()) : (DateTime?)null,
+                        AddedBy = drConsultationAssesment["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationAssesment["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drConsultationAssesment["AddedDate"] != DBNull.Value ? DateTime.Parse(drConsultationAssesment["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drConsultationAssesment["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationAssesment["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drConsultationAssesment["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drConsultationAssesment["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetConsultationAssesmentList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationPlanResponse InsertUpdateConsultationPlans(ConsultationPlans consultationPlans)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateConsultationPlans");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(consultationPlans));
+                Command.CommandText = "SP_CONSULTATION_PLAN_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_PLAN_XML", GetXMLFromObject(consultationPlans));
+                if (consultationPlans.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationPlans.AddedBy.Value);
+                }
+                else if (consultationPlans.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationPlans.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                ConsultationPlanResponse result = new ConsultationPlanResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new ConsultationPlanResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateConsultationPlans");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationPlanResponse GetConsultationPlanList(int consultationId, int? consultationPlanId)
+        {
+            try
+            {
+                Log.Info("Started call to GetConsultationPlanList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new
+                {
+                    consultationId = consultationId
+                    ,consultationPlanId = consultationPlanId
+                }));
+                Command.CommandText = "SP_GET_CONSULTATION_PLAN_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_ID", consultationId);
+                if (consultationPlanId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@CONSULTATION_PLAN_ID", consultationPlanId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                ConsultationPlanResponse result = new ConsultationPlanResponse();
+                result.ConsultationPlanList = new List<ConsultationPlansDisplay>();
+                foreach (DataRow drConsultationPlan in ds.Tables[0].Rows)
+                {
+                    result.ConsultationPlanList.Add(new ConsultationPlansDisplay
+                    {
+                        Id = Convert.ToInt32(drConsultationPlan["Id"].ToString()),
+                        ConsultationId = Convert.ToInt32(drConsultationPlan["ConsultationId"].ToString()),
+                        Notes = drConsultationPlan["Notes"] != DBNull.Value ? drConsultationPlan["Notes"].ToString() : string.Empty,
+                        Timestamp = drConsultationPlan["Timestamp"] != DBNull.Value ? DateTime.Parse(drConsultationPlan["Timestamp"].ToString()) : (DateTime?)null,
+                        DoctorId = Convert.ToInt32(drConsultationPlan["DoctorId"].ToString()),
+                        DoctorName = drConsultationPlan["DoctorName"] != DBNull.Value ? drConsultationPlan["DoctorName"].ToString() : string.Empty,
+                        AddedBy = drConsultationPlan["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationPlan["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drConsultationPlan["AddedDate"] != DBNull.Value ? DateTime.Parse(drConsultationPlan["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drConsultationPlan["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationPlan["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drConsultationPlan["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drConsultationPlan["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetConsultationPlanList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationSubjectiveNoteResponse InsertUpdateConsultationSubjectiveNotes
+            (ConsultationSubjectiveNotes consultationSubjectiveNotes)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateConsultationSubjectiveNotes");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(consultationSubjectiveNotes));
+                Command.CommandText = "SP_CONSULTATION_SUBJECTIVE_NOTE_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_SUBJECTIVE_NOTE_XML", GetXMLFromObject(consultationSubjectiveNotes));
+                if (consultationSubjectiveNotes.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationSubjectiveNotes.AddedBy.Value);
+                }
+                else if (consultationSubjectiveNotes.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationSubjectiveNotes.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                ConsultationSubjectiveNoteResponse result = new ConsultationSubjectiveNoteResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new ConsultationSubjectiveNoteResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateConsultationSubjectiveNotes");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationSubjectiveNoteResponse GetConsultationSubjectiveNoteList(int consultationSubjectiveId, int? consultationSubjectiveNoteId)
+        {
+            try
+            {
+                Log.Info("Started call to GetConsultationSubjectiveNoteList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new
+                {
+                    consultationSubjectiveId = consultationSubjectiveId
+                    ,consultationSubjectiveNoteId = consultationSubjectiveNoteId
+                }));
+                Command.CommandText = "SP_GET_CONSULTATION_SUBJECTIVE_NOTE_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_SUBJECTIVE_ID", consultationSubjectiveId);
+                if (consultationSubjectiveNoteId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@CONSULTATION_SUBJECTIVE_NOTE_ID", consultationSubjectiveNoteId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                ConsultationSubjectiveNoteResponse result = new ConsultationSubjectiveNoteResponse();
+                result.ConsultationSubjectiveNoteList = new List<ConsultationSubjectiveNotesDisplay>();
+                foreach (DataRow drConsultationSubjectiveNote in ds.Tables[0].Rows)
+                {
+                    result.ConsultationSubjectiveNoteList.Add(new ConsultationSubjectiveNotesDisplay
+                    {
+                        Id = Convert.ToInt32(drConsultationSubjectiveNote["Id"].ToString()),
+                        ConsultationSubjectiveId = Convert.ToInt32(drConsultationSubjectiveNote["ConsultationSubjectiveId"].ToString()),
+                        Notes = drConsultationSubjectiveNote["Notes"] != DBNull.Value ? drConsultationSubjectiveNote["Notes"].ToString() : string.Empty,
+                        Timestamp = drConsultationSubjectiveNote["Timestamp"] != DBNull.Value ? DateTime.Parse(drConsultationSubjectiveNote["Timestamp"].ToString()) : (DateTime?)null,
+                        DoctorId = Convert.ToInt32(drConsultationSubjectiveNote["DoctorId"].ToString()),
+                        DoctorName = drConsultationSubjectiveNote["DoctorName"] != DBNull.Value ? drConsultationSubjectiveNote["DoctorName"].ToString() : string.Empty,
+                        AddedBy = drConsultationSubjectiveNote["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationSubjectiveNote["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drConsultationSubjectiveNote["AddedDate"] != DBNull.Value ? DateTime.Parse(drConsultationSubjectiveNote["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drConsultationSubjectiveNote["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationSubjectiveNote["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drConsultationSubjectiveNote["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drConsultationSubjectiveNote["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetConsultationSubjectiveNoteList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationObjectiveNoteResponse InsertUpdateConsultationObjectiveNotes
+            (ConsultationObjectiveNotes consultationObjectiveNotes)
+        {
+            try
+            {
+                Log.Info("Started call to InsertUpdateConsultationObjectiveNotes");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(consultationObjectiveNotes));
+                Command.CommandText = "SP_CONSULTATION_OBJECTIVE_NOTE_MANAGER";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_OBJECTIVE_NOTE_XML", GetXMLFromObject(consultationObjectiveNotes));
+                if (consultationObjectiveNotes.AddedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationObjectiveNotes.AddedBy.Value);
+                }
+                else if (consultationObjectiveNotes.ModifiedBy.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@USER_ID", consultationObjectiveNotes.ModifiedBy.Value);
+                }
+                Connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                ConsultationObjectiveNoteResponse result = new ConsultationObjectiveNoteResponse();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        result = new ConsultationObjectiveNoteResponse
+                        {
+                            Message = reader["ReturnMessage"] != DBNull.Value ? reader["ReturnMessage"].ToString() : null,
+                            IsSuccess = Convert.ToBoolean(reader["Result"].ToString())
+                        };
+                    }
+                }
+                Log.Info("End call to InsertUpdateConsultationObjectiveNotes");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public ConsultationObjectiveNoteResponse GetConsultationObjectiveNoteList(int consultationObjectiveId, int? consultationObjectiveNoteId)
+        {
+            try
+            {
+                Log.Info("Started call to GetConsultationObjectiveNoteList");
+                Log.Info("parameter values" + JsonConvert.SerializeObject(new
+                {
+                    consultationObjectiveId = consultationObjectiveId
+                    ,consultationObjectiveNoteId = consultationObjectiveNoteId
+                }));
+                Command.CommandText = "SP_GET_CONSULTATION_OBJECTIVE_NOTE_LIST";
+                Command.CommandType = CommandType.StoredProcedure;
+                Command.Parameters.Clear();
+
+                Command.Parameters.AddWithValue("@CONSULTATION_Objective_ID", consultationObjectiveId);
+                if (consultationObjectiveNoteId.HasValue)
+                {
+                    Command.Parameters.AddWithValue("@CONSULTATION_Objective_NOTE_ID", consultationObjectiveNoteId);
+                }
+                Connection.Open();
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(Command);
+                DataSet ds = new DataSet();
+                dataAdapter.Fill(ds);
+                ConsultationObjectiveNoteResponse result = new ConsultationObjectiveNoteResponse();
+                result.ConsultationObjectiveNoteList = new List<ConsultationObjectiveNotesDisplay>();
+                foreach (DataRow drConsultationObjectiveNote in ds.Tables[0].Rows)
+                {
+                    result.ConsultationObjectiveNoteList.Add(new ConsultationObjectiveNotesDisplay
+                    {
+                        Id = Convert.ToInt32(drConsultationObjectiveNote["Id"].ToString()),
+                        ConsultationObjectiveId = Convert.ToInt32(drConsultationObjectiveNote["ConsultationObjectiveId"].ToString()),
+                        Notes = drConsultationObjectiveNote["Notes"] != DBNull.Value ? drConsultationObjectiveNote["Notes"].ToString() : string.Empty,
+                        Timestamp = drConsultationObjectiveNote["Timestamp"] != DBNull.Value ? DateTime.Parse(drConsultationObjectiveNote["Timestamp"].ToString()) : (DateTime?)null,
+                        DoctorId = Convert.ToInt32(drConsultationObjectiveNote["DoctorId"].ToString()),
+                        DoctorName = drConsultationObjectiveNote["DoctorName"] != DBNull.Value ? drConsultationObjectiveNote["DoctorName"].ToString() : string.Empty,
+                        AddedBy = drConsultationObjectiveNote["AddedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationObjectiveNote["AddedBy"].ToString()) : (int?)null,
+                        AddedDate = drConsultationObjectiveNote["AddedDate"] != DBNull.Value ? DateTime.Parse(drConsultationObjectiveNote["AddedDate"].ToString()) : (DateTime?)null,
+                        ModifiedBy = drConsultationObjectiveNote["ModifiedBy"] != DBNull.Value ? Convert.ToInt32(drConsultationObjectiveNote["ModifiedBy"].ToString()) : (int?)null,
+                        ModifiedDate = drConsultationObjectiveNote["ModifiedDate"] != DBNull.Value ? DateTime.Parse(drConsultationObjectiveNote["ModifiedDate"].ToString()) : (DateTime?)null,
+                    });
+                }
+                Log.Info("End call to GetConsultationObjectiveNoteList result " + JsonConvert.SerializeObject(result));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+        #endregion
         #endregion
     }
 }

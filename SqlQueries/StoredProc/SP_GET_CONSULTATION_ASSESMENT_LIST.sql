@@ -1,16 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_ASSESMENT_LIST]    Script Date: 7/17/2018 10:39:04 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_ASSESMENT_LIST]    Script Date: 7/17/2018 11:52:05 PM ******/
 DROP PROCEDURE [dbo].[SP_GET_CONSULTATION_ASSESMENT_LIST]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_ASSESMENT_LIST]    Script Date: 7/17/2018 10:39:04 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_GET_CONSULTATION_ASSESMENT_LIST]    Script Date: 7/17/2018 11:52:05 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 CREATE PROCEDURE [dbo].[SP_GET_CONSULTATION_ASSESMENT_LIST]
 (	
@@ -29,7 +30,7 @@ SELECT CA.Id
 	, CA.DiagnosisNotes
 	, CA.DiagnosisDoctorId
 	, UD.FirstName + ', ' + UD.LastName AS [DiagnosisDoctorName]
-	, CA.DiffDiagnosisTimestamp	
+	, CA.DiagnosisTimestamp	
 	, CA.DiffDiagnosisTimestamp
 	, CA.DiffDiagnosisNotes
 	, CA.DiffDiagnosisDoctorId
@@ -47,6 +48,7 @@ SELECT CA.Id
 	AND CA.Active = 1
 	ORDER BY CA.AddedDate DESC
 END
+
 
 
 GO

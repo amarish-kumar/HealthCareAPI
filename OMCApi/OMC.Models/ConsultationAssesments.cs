@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OMC.Models
@@ -25,6 +26,7 @@ namespace OMC.Models
     {
         public string Message { get; set; }
         public bool IsSuccess { get; set; }
+        public List<ConsultationAssesmentsDisplay> ConsultationAssesmentsList { get; set; }
     }
 
     public class ConsultationAssesmentsDisplay : ConsultationAssesments
