@@ -4,11 +4,11 @@ GO
 ALTER TABLE [dbo].[ConsultationSubjectives] DROP CONSTRAINT [FK_ConsultationSubjectives_Consultation_Id]
 GO
 
-/****** Object:  Table [dbo].[ConsultationSubjectives]    Script Date: 6/9/2018 9:36:53 AM ******/
+/****** Object:  Table [dbo].[ConsultationSubjectives]    Script Date: 7/18/2018 10:46:23 PM ******/
 DROP TABLE [dbo].[ConsultationSubjectives]
 GO
 
-/****** Object:  Table [dbo].[ConsultationSubjectives]    Script Date: 6/9/2018 9:36:53 AM ******/
+/****** Object:  Table [dbo].[ConsultationSubjectives]    Script Date: 7/18/2018 10:46:23 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -29,7 +29,7 @@ CREATE TABLE [dbo].[ConsultationSubjectives](
 	[Severity] [nvarchar](500) NULL,
 	[Chronology] [nvarchar](max) NULL,
 	[AdditionalSymptoms] [nvarchar](max) NULL,
-	[allergies] [nvarchar](max) NULL,
+	[Allergies] [nvarchar](max) NULL,
 	[Active] [bit] NOT NULL,
 	[AddedBy] [bigint] NULL,
 	[AddedDate] [datetime] NULL,

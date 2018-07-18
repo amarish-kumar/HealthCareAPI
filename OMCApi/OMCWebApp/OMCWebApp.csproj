@@ -163,6 +163,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ConsultationSOAPModel.cs" />
+    <Compile Include="Models\ConsultationObjectiveModel.cs" />
+    <Compile Include="Models\ConsultationAssesmentModel.cs" />
+    <Compile Include="Models\ConsultationPlanModel.cs" />
+    <Compile Include="Models\ConsultationSubjectiveModel.cs" />
     <Compile Include="Models\DoctorResidencyModel.cs" />
     <Compile Include="Models\DoctorImageModel.cs" />
     <Compile Include="Models\DoctorFellowshipModel.cs" />
@@ -308,6 +313,8 @@
     <Content Include="Views\Doctor\DoctorResidencyResponse.cshtml" />
     <Content Include="Views\Doctor\DoctorImage.cshtml" />
     <Content Include="Views\Doctor\DoctorImageResponse.cshtml" />
+    <Content Include="Views\Consultation\ConsultationSubjective.cshtml" />
+    <Content Include="Views\Consultation\ConsultationSubjectiveResponse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

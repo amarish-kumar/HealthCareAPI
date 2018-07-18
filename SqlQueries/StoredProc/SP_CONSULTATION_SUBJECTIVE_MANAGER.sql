@@ -1,16 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_SUBJECTIVE_MANAGER]    Script Date: 7/17/2018 10:02:22 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_SUBJECTIVE_MANAGER]    Script Date: 7/18/2018 10:42:36 PM ******/
 DROP PROCEDURE [dbo].[SP_CONSULTATION_SUBJECTIVE_MANAGER]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_SUBJECTIVE_MANAGER]    Script Date: 7/17/2018 10:02:22 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_SUBJECTIVE_MANAGER]    Script Date: 7/18/2018 10:42:36 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 CREATE PROCEDURE [dbo].[SP_CONSULTATION_SUBJECTIVE_MANAGER]
 (
@@ -107,10 +108,10 @@ BEGIN
 			  ,[Character] = @Character
 			  ,[AlleviatingFactors] = @AlleviatingFactors
 			  ,[AggravatingFactors] = @AggravatingFactors
-			  ,[Radiation] = @AggravatingFactors
-			  ,[TemporalPattern] = @Radiation
-			  ,[Severity] = @TemporalPattern
-			  ,[Chronology] = @Severity
+			  ,[Radiation] = @Radiation
+			  ,[TemporalPattern] = @TemporalPattern
+			  ,[Severity] = @Severity
+			  ,[Chronology] = @Chronology
 			  ,[AdditionalSymptoms] = @AdditionalSymptoms
 			  ,[allergies] = @Allergies
 			  ,[ModifiedBy] = @USER_ID
@@ -123,6 +124,7 @@ END
 
 SELECT @Result AS Result, @ReturnMessage AS ReturnMessage
 END
+
 
 
 
