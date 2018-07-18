@@ -1416,7 +1416,58 @@ namespace OMCWebApp.Controllers
 
             return View(PreviousPregnancyDetailsModelObject);
         }
-        
+
+        // GET: Consultation/Index
+        public async Task<ActionResult> ConsultationSubjective(int consultationId, int? consultationSubjectiveId)
+        {
+            var model = new ConsultationSubjectiveModel();
+            model.ConsultationSubjectivesObject.ConsultationId = consultationId;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConsultationSubjectiveList?consultationId="+ consultationId.ToString() + "&consultationSubjectiveId=");
+                var response = JsonConvert.DeserializeObject<ConsultationSubjectiveResponse>
+                    (Res.Content.ReadAsStringAsync().Result);
+                if (response.ConsultationSubjectiveList != null
+                    && response.ConsultationSubjectiveList.Count > 0)
+                {
+                    model.ConsultationSubjectivesObject = response.ConsultationSubjectiveList.First();
+                }
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InsertUpdateConsultationSubjectives
+            (ConsultationSubjectiveModel model)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var json = JsonConvert.SerializeObject(model.ConsultationSubjectivesObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/ConsultationAPI/InsertUpdateConsultationSubjectives", content);
+                ConsultationSubjectiveResponse result = new ConsultationSubjectiveResponse();
+                if (Res.IsSuccessStatusCode)
+                {
+                    result.IsSuccess = true;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    result.IsSuccess = false;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                return View("ConsultationSubjectiveResponse", result);
+            }
+        }
+
         #endregion
     }
 }

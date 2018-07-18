@@ -1,0 +1,140 @@
+﻿@model  OMCWebApp.Models.ConsultationSubjectiveModel
+
+@using (Html.BeginForm("InsertUpdateConsultationSubjectives", "Consultation", FormMethod.Post))
+{
+    <h2>Manage Consultation Subjective</h2>
+    @Html.AntiForgeryToken()
+    <table class="createConsAllergy">
+        <tr>
+            <td>
+                Onset:
+            </td>
+            <td>
+                @Html.HiddenFor(m => m.ConsultationSubjectivesObject.Id, Model.ConsultationSubjectivesObject.Id)
+                @Html.HiddenFor(m => m.ConsultationSubjectivesObject.AddedBy, Model.ConsultationSubjectivesObject.AddedBy)
+                @Html.HiddenFor(m => m.ConsultationSubjectivesObject.ModifiedBy, Model.ConsultationSubjectivesObject.ModifiedBy)
+                @Html.HiddenFor(m => m.ConsultationSubjectivesObject.ConsultationId, Model.ConsultationSubjectivesObject.ConsultationId)
+                @Html.TextBoxFor(m => m.ConsultationSubjectivesObject.Onset
+                , Model.ConsultationSubjectivesObject.Onset)            
+            </td>
+        </tr>    
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Duration:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationSubjectivesObject.Duration
+                , Model.ConsultationSubjectivesObject.Duration)                
+            </td>
+        </tr>  
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Location:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationSubjectivesObject.Location
+                , Model.ConsultationSubjectivesObject.Location)
+            </td>
+        </tr>  
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Character:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationSubjectivesObject.Character
+                , Model.ConsultationSubjectivesObject.Character)
+            </td>
+        </tr> 
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Alleviating Factors:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationSubjectivesObject.AlleviatingFactors
+                , Model.ConsultationSubjectivesObject.AlleviatingFactors)
+            </td>
+        </tr> 
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Aggravating Factors:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationSubjectivesObject.AggravatingFactors
+                , Model.ConsultationSubjectivesObject.AggravatingFactors)
+            </td>
+        </tr> 
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Radiation:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationSubjectivesObject.Radiation
+                , Model.ConsultationSubjectivesObject.Radiation)
+            </td>
+        </tr> 
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Temporal Pattern:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationSubjectivesObject.TemporalPattern
+                , Model.ConsultationSubjectivesObject.TemporalPattern)
+            </td>
+        </tr> 
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Severity:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationSubjectivesObject.Severity
+                , Model.ConsultationSubjectivesObject.Severity)
+            </td>
+        </tr> 
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Chronology:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationSubjectivesObject.Chronology
+                , Model.ConsultationSubjectivesObject.Chronology)
+            </td>
+        </tr> 
+        <tr style="height:20px;"></tr> 
+        <tr>
+            <td>
+                Additional Symptoms:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationSubjectivesObject.AdditionalSymptoms
+                , Model.ConsultationSubjectivesObject.AdditionalSymptoms)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>   
+        <tr>
+            <td>
+                Allergies:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationSubjectivesObject.Allergies
+                , Model.ConsultationSubjectivesObject.Allergies)
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>   
+        <tr>
+            <td colspan="2">
+                <button type="submit">
+                    @(Model.ConsultationSubjectivesObject.Id == 0 ? "Create Consultation Subjective" : "Update Consultation Subjective")
+                </button>
+            </td>
+        </tr>
+    </table>
+}
