@@ -19,10 +19,11 @@ namespace OMCApi.Areas.Consultation.Controllers
         #endregion
 
         #region Constructor
-
+        /// <summary>
+        /// Controller for the Consultation related APIs
+        /// </summary>
         public ConsultationAPIController()
         {
-            //_Kernel = new StandardKernel(new OMC.Modules.SignInModule());
             _Kernel = new StandardKernel();
             _Kernel.Load(new OMC.Modules.ConsultationModule());
         }
@@ -879,6 +880,236 @@ namespace OMCApi.Areas.Consultation.Controllers
         {
             var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
             return ConsultationBLObj.GetConsultationMedicationList(consultationId, consultationMedicationId);
+        }
+
+        /// <summary>
+        /// Gets the list of Consultation Subjective records/specific Consultation Subjective record for the consultation record
+        /// ~Sprint-3~
+        /// OMC-144
+        /// </summary>
+        /// <param name="consultationId"></param>
+        /// <param name="consultationSubjectiveId"></param>
+        /// <returns></returns>
+        // Get: api/ConsultationAPI/GetConsultationSubjectiveList
+        [HttpGet]
+        [Route("GetConsultationSubjectiveList")]
+        public ConsultationSubjectiveResponse GetConsultationSubjectiveList(int consultationId
+        , int? consultationSubjectiveId)     
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConsultationSubjectiveList(consultationId, consultationSubjectiveId);
+        }
+
+        /// <summary>
+        /// API to handle create/edit for the consultation Subjective record
+        /// ~Sprint-3~
+        /// OMC-144
+        /// </summary>
+        /// <param name="consultationSubjectives"></param>
+        /// <returns></returns>
+        // POST: api/ConsultationAPI/InsertUpdateConsultationSubjectives
+        [HttpPost]
+        [Route("InsertUpdateConsultationSubjectives")]
+        public IHttpActionResult InsertUpdateConsultationSubjectives(ConsultationSubjectives consultationSubjectives)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            consultationSubjectives.Active = true;
+            var consultationSubjectiveResult = ConsultationBLObj.InsertUpdateConsultationSubjectives(consultationSubjectives);
+            return Ok(consultationSubjectiveResult.Message);
+        }
+
+        /// <summary>
+        /// Gets the list of Consultation Objective records/specific Consultation Objective record for the consultation record
+        /// ~Sprint-3~
+        /// OMC-144
+        /// </summary>
+        /// <param name="consultationId"></param>
+        /// <param name="consultationObjectiveId"></param>
+        /// <returns></returns>
+        // Get: api/ConsultationAPI/GetConsultationObjectiveList
+        [HttpGet]
+        [Route("GetConsultationObjectiveList")]
+        public ConsultationObjectiveResponse GetConsultationObjectiveList(int consultationId
+        , int? consultationObjectiveId)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConsultationObjectiveList(consultationId, consultationObjectiveId);
+        }
+
+        /// <summary>
+        /// API to handle create/edit for the consultation Objective record
+        /// ~Sprint-3~
+        /// OMC-144
+        /// </summary>
+        /// <param name="consultationObjectives"></param>
+        /// <returns></returns>
+        // POST: api/ConsultationAPI/InsertUpdateConsultationObjectives
+        [HttpPost]
+        [Route("InsertUpdateConsultationObjectives")]
+        public IHttpActionResult InsertUpdateConsultationObjectives(ConsultationObjectives consultationObjectives)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            consultationObjectives.Active = true;
+            var consultationObjectiveResult = ConsultationBLObj.InsertUpdateConsultationObjectives(consultationObjectives);
+            return Ok(consultationObjectiveResult.Message);
+        }
+
+        /// <summary>
+        /// Gets the list of Consultation Assesment records/specific Consultation Assesment record for the consultation record
+        /// ~Sprint-3~
+        /// OMC-144
+        /// </summary>
+        /// <param name="consultationId"></param>
+        /// <param name="consultationAssesmentId"></param>
+        /// <returns></returns>
+        // Get: api/ConsultationAPI/GetConsultationAssesmentList
+        [HttpGet]
+        [Route("GetConsultationAssesmentList")]
+        public ConsultationAssesmentResponse GetConsultationAssesmentList(int consultationId
+        , int? consultationAssesmentId)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConsultationAssesmentList(consultationId, consultationAssesmentId);
+        }
+
+        /// <summary>
+        /// API to handle create/edit for the consultation Assesment record
+        /// ~Sprint-3~
+        /// OMC-144
+        /// </summary>
+        /// <param name="consultationAssesments"></param>
+        /// <returns></returns>
+        // POST: api/ConsultationAPI/InsertUpdateConsultationAssesments
+        [HttpPost]
+        [Route("InsertUpdateConsultationAssesments")]
+        public IHttpActionResult InsertUpdateConsultationAssesments(ConsultationAssesments consultationAssesments)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            consultationAssesments.Active = true;
+            var consultationAssesmentResult = ConsultationBLObj.InsertUpdateConsultationAssesments(consultationAssesments);
+            return Ok(consultationAssesmentResult.Message);
+        }
+
+        /// <summary>
+        /// Gets the list of Consultation Plan records/specific Consultation Plan record for the consultation record
+        /// ~Sprint-3~
+        /// OMC-144
+        /// </summary>
+        /// <param name="consultationId"></param>
+        /// <param name="consultationPlanId"></param>
+        /// <returns></returns>
+        // Get: api/ConsultationAPI/GetConsultationPlanList
+        [HttpGet]
+        [Route("GetConsultationPlanList")]
+        public ConsultationPlanResponse GetConsultationPlanList(int consultationId
+        , int? consultationPlanId)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConsultationPlanList(consultationId, consultationPlanId);
+        }
+
+        /// <summary>
+        /// API to handle create/edit for the consultation Plan record
+        /// ~Sprint-3~
+        /// OMC-144
+        /// </summary>
+        /// <param name="consultationPlans"></param>
+        /// <returns></returns>
+        // POST: api/ConsultationAPI/InsertUpdateConsultationPlans
+        [HttpPost]
+        [Route("InsertUpdateConsultationPlans")]
+        public IHttpActionResult InsertUpdateConsultationPlans(ConsultationPlans consultationPlans)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            consultationPlans.Active = true;
+            var consultationPlanResult = ConsultationBLObj.InsertUpdateConsultationPlans(consultationPlans);
+            return Ok(consultationPlanResult.Message);
+        }
+
+        /// <summary>
+        /// Gets the list of Consultation Subjective Note records/specific Consultation Subjective Note record for the consultation record
+        /// ~Sprint-3~
+        /// OMC-144
+        /// </summary>
+        /// <param name="consultationSubjectiveId"></param>
+        /// <param name="consultationSubjectiveNoteId"></param>
+        /// <returns></returns>
+        // Get: api/ConsultationAPI/GetConsultationSubjectiveNoteList
+        [HttpGet]
+        [Route("GetConsultationSubjectiveNoteList")]
+        public ConsultationSubjectiveNoteResponse GetConsultationSubjectiveNoteList(int consultationSubjectiveId
+            , int? consultationSubjectiveNoteId)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConsultationSubjectiveNoteList(consultationSubjectiveId, consultationSubjectiveNoteId);
+        }
+
+        /// <summary>
+        /// Gets the list of Consultation Subjective Note records/specific Consultation Subjective Note record for the consultation record
+        /// ~Sprint-3~
+        /// OMC-144
+        /// </summary>
+        /// <param name="consultationSubjectiveNotes"></param>
+        /// <returns></returns>
+        // Get: api/ConsultationAPI/InsertUpdateConsultationSubjectiveNotes
+        [HttpGet]
+        [Route("InsertUpdateConsultationSubjectiveNotes")]
+        public ConsultationSubjectiveNoteResponse InsertUpdateConsultationSubjectiveNotes
+            (ConsultationSubjectiveNotes consultationSubjectiveNotes)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.InsertUpdateConsultationSubjectiveNotes(consultationSubjectiveNotes);
+        }
+
+        /// <summary>
+        /// Gets the list of Consultation Objective Note records/specific Consultation Objective Note record for the consultation record
+        /// ~Sprint-3~
+        /// OMC-144
+        /// </summary>
+        /// <param name="consultationObjectiveId"></param>
+        /// <param name="consultationObjectiveNoteId"></param>
+        /// <returns></returns>
+        // Get: api/ConsultationAPI/GetConsultationObjectiveNoteList
+        [HttpGet]
+        [Route("GetConsultationObjectiveNoteList")]
+        public ConsultationObjectiveNoteResponse GetConsultationObjectiveNoteList(int consultationObjectiveId
+            , int? consultationObjectiveNoteId)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.GetConsultationObjectiveNoteList(consultationObjectiveId, consultationObjectiveNoteId);
+        }
+
+        /// <summary>
+        /// Gets the list of Consultation Objective Note records/specific Consultation Objective Note record for the consultation record
+        /// ~Sprint-3~
+        /// OMC-144
+        /// </summary>
+        /// <param name="consultationObjectiveNotes"></param>
+        /// <returns></returns>
+        // Get: api/ConsultationAPI/InsertUpdateConsultationObjectiveNotes
+        [HttpGet]
+        [Route("InsertUpdateConsultationObjectiveNotes")]
+        public ConsultationObjectiveNoteResponse InsertUpdateConsultationObjectiveNotes
+            (ConsultationObjectiveNotes consultationObjectiveNotes)
+        {
+            var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            return ConsultationBLObj.InsertUpdateConsultationObjectiveNotes(consultationObjectiveNotes);
         }
         #endregion
     }

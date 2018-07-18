@@ -236,6 +236,11 @@
             This controller hosts all APIs related to Consultation functionality
             </summary>
         </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.#ctor">
+            <summary>
+            Controller for the Consultation related APIs
+            </summary>
+        </member>
         <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationStatuses(System.Nullable{System.Boolean},System.String)">
             <summary>
             Gets the list of Consultation statuses available in the system
@@ -685,6 +690,120 @@
             </summary>
             <param name="consultationId"></param>
             <param name="consultationMedicationId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationSubjectiveList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of Consultation Subjective records/specific Consultation Subjective record for the consultation record
+            ~Sprint-3~
+            OMC-144
+            </summary>
+            <param name="consultationId"></param>
+            <param name="consultationSubjectiveId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationSubjectives(OMC.Models.ConsultationSubjectives)">
+            <summary>
+            API to handle create/edit for the consultation Subjective record
+            ~Sprint-3~
+            OMC-144
+            </summary>
+            <param name="consultationSubjectives"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationObjectiveList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of Consultation Objective records/specific Consultation Objective record for the consultation record
+            ~Sprint-3~
+            OMC-144
+            </summary>
+            <param name="consultationId"></param>
+            <param name="consultationObjectiveId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationObjectives(OMC.Models.ConsultationObjectives)">
+            <summary>
+            API to handle create/edit for the consultation Objective record
+            ~Sprint-3~
+            OMC-144
+            </summary>
+            <param name="consultationObjectives"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationAssesmentList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of Consultation Assesment records/specific Consultation Assesment record for the consultation record
+            ~Sprint-3~
+            OMC-144
+            </summary>
+            <param name="consultationId"></param>
+            <param name="consultationAssesmentId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationAssesments(OMC.Models.ConsultationAssesments)">
+            <summary>
+            API to handle create/edit for the consultation Assesment record
+            ~Sprint-3~
+            OMC-144
+            </summary>
+            <param name="consultationAssesments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationPlanList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of Consultation Plan records/specific Consultation Plan record for the consultation record
+            ~Sprint-3~
+            OMC-144
+            </summary>
+            <param name="consultationId"></param>
+            <param name="consultationPlanId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationPlans(OMC.Models.ConsultationPlans)">
+            <summary>
+            API to handle create/edit for the consultation Plan record
+            ~Sprint-3~
+            OMC-144
+            </summary>
+            <param name="consultationPlans"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationSubjectiveNoteList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of Consultation Subjective Note records/specific Consultation Subjective Note record for the consultation record
+            ~Sprint-3~
+            OMC-144
+            </summary>
+            <param name="consultationSubjectiveId"></param>
+            <param name="consultationSubjectiveNoteId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationSubjectiveNotes(OMC.Models.ConsultationSubjectiveNotes)">
+            <summary>
+            Gets the list of Consultation Subjective Note records/specific Consultation Subjective Note record for the consultation record
+            ~Sprint-3~
+            OMC-144
+            </summary>
+            <param name="consultationSubjectiveNotes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.GetConsultationObjectiveNoteList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the list of Consultation Objective Note records/specific Consultation Objective Note record for the consultation record
+            ~Sprint-3~
+            OMC-144
+            </summary>
+            <param name="consultationObjectiveId"></param>
+            <param name="consultationObjectiveNoteId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OMCApi.Areas.Consultation.Controllers.ConsultationAPIController.InsertUpdateConsultationObjectiveNotes(OMC.Models.ConsultationObjectiveNotes)">
+            <summary>
+            Gets the list of Consultation Objective Note records/specific Consultation Objective Note record for the consultation record
+            ~Sprint-3~
+            OMC-144
+            </summary>
+            <param name="consultationObjectiveNotes"></param>
             <returns></returns>
         </member>
         <member name="M:OMCApi.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
