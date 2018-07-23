@@ -168,6 +168,7 @@
     <Compile Include="Models\ConsultationAssesmentModel.cs" />
     <Compile Include="Models\ConsultationPlanModel.cs" />
     <Compile Include="Models\ConsultationSubjectiveModel.cs" />
+    <Compile Include="Models\ConsultationSubjectiveNoteModel.cs" />
     <Compile Include="Models\DoctorResidencyModel.cs" />
     <Compile Include="Models\DoctorImageModel.cs" />
     <Compile Include="Models\DoctorFellowshipModel.cs" />
@@ -315,6 +316,16 @@
     <Content Include="Views\Doctor\DoctorImageResponse.cshtml" />
     <Content Include="Views\Consultation\ConsultationSubjective.cshtml" />
     <Content Include="Views\Consultation\ConsultationSubjectiveResponse.cshtml" />
+    <Content Include="Views\Consultation\ConsultationObjectiveResponse.cshtml" />
+    <Content Include="Views\Consultation\ConsultationObjective.cshtml" />
+    <Content Include="Views\Consultation\ConsultationPlanResponse.cshtml" />
+    <Content Include="Views\Consultation\ConsultationAssesmentResponse.cshtml" />
+    <Content Include="Views\Consultation\ConsultationAssesment.cshtml" />
+    <Content Include="Views\Consultation\ConsultationPlan.cshtml" />
+    <Content Include="Views\Consultation\ConsultationObjectiveNote.cshtml" />
+    <Content Include="Views\Consultation\ConsultationObjectiveNoteResponse.cshtml" />
+    <Content Include="Views\Consultation\ConsultationSubjectiveNote.cshtml" />
+    <Content Include="Views\Consultation\ConsultationSubjectiveNoteResponse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

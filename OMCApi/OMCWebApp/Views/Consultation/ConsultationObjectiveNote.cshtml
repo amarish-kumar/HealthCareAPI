@@ -1,0 +1,51 @@
+﻿@model  OMCWebApp.Models.ConsultationPlanModel
+
+@using (Html.BeginForm("InsertUpdateConsultationPlans", "Consultation", FormMethod.Post))
+{
+    <h2>Manage Consultation Plan</h2>
+    @Html.AntiForgeryToken()
+    <table class="createConsAllergy">
+        <tr>
+            <td>
+                Notes:
+            </td>
+            <td>
+                @Html.HiddenFor(m => m.ConsultationPlansObject.Id, Model.ConsultationPlansObject.Id)
+                @Html.HiddenFor(m => m.ConsultationPlansObject.AddedBy, Model.ConsultationPlansObject.AddedBy)
+                @Html.HiddenFor(m => m.ConsultationPlansObject.ModifiedBy, Model.ConsultationPlansObject.ModifiedBy)
+                @Html.HiddenFor(m => m.ConsultationPlansObject.ConsultationId, Model.ConsultationPlansObject.ConsultationId)
+                @Html.TextBoxFor(m => m.ConsultationPlansObject.Notes
+                , Model.ConsultationPlansObject.Notes)            
+            </td>
+        </tr>    
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Timestamp:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationPlansObject.Timestamp, "{0:yyyy-MM-ddThh:mm:ss}"
+               , new { @class = "form-control", type = "datetime-local" })
+              
+            </td>
+        </tr>  
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Doctor:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.ConsultationPlansObject.DoctorId
+                , new SelectList(Model.Doctors, "Id", "FirstName"))
+            </td>
+        </tr>       
+        <tr style="height:20px;"></tr>   
+        <tr>
+            <td colspan="2">
+                <button type="submit">
+                    @(Model.ConsultationPlansObject.Id == 0 ? "Create Consultation Plan" : "Update Consultation Plan")
+                </button>
+            </td>
+        </tr>
+    </table>
+}

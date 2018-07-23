@@ -1,0 +1,92 @@
+﻿@model  OMCWebApp.Models.ConsultationAssesmentModel
+
+@using (Html.BeginForm("InsertUpdateConsultationAssesments", "Consultation", FormMethod.Post))
+{
+    <h2>Manage Consultation Assesment</h2>
+    @Html.AntiForgeryToken()
+    <table class="createConsAllergy">
+        <tr>
+            <td>
+                Notes:
+            </td>
+            <td>
+                @Html.HiddenFor(m => m.ConsultationAssesmentsObject.Id, Model.ConsultationAssesmentsObject.Id)
+                @Html.HiddenFor(m => m.ConsultationAssesmentsObject.AddedBy, Model.ConsultationAssesmentsObject.AddedBy)
+                @Html.HiddenFor(m => m.ConsultationAssesmentsObject.ModifiedBy, Model.ConsultationAssesmentsObject.ModifiedBy)
+                @Html.HiddenFor(m => m.ConsultationAssesmentsObject.ConsultationId, Model.ConsultationAssesmentsObject.ConsultationId)
+                @Html.TextBoxFor(m => m.ConsultationAssesmentsObject.Notes
+                , Model.ConsultationAssesmentsObject.Notes)            
+            </td>
+        </tr>    
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Diagnosis Notes:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationAssesmentsObject.DiagnosisNotes
+                , Model.ConsultationAssesmentsObject.DiagnosisNotes)
+            </td>
+        </tr>  
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Diagnosis Timestamp:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationAssesmentsObject.DiagnosisTimestamp, "{0:yyyy-MM-ddThh:mm:ss}"
+               , new { @class = "form-control", type = "datetime-local" })
+              
+            </td>
+        </tr>  
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Diagnosis by Doctor:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.ConsultationAssesmentsObject.DiagnosisDoctorId
+                , new SelectList(Model.Doctors, "Id", "FirstName"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Diff Diagnosis Notes:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationAssesmentsObject.DiffDiagnosisNotes
+                , Model.ConsultationAssesmentsObject.DiffDiagnosisNotes)
+            </td>
+        </tr>    
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Diff Diagnosis Timestamp:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationAssesmentsObject.DiffDiagnosisTimestamp, "{0:yyyy-MM-ddThh:mm:ss}"
+               , new { @class = "form-control", type = "datetime-local" })
+
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Diff Diagnosis by Doctor:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.ConsultationAssesmentsObject.DiffDiagnosisDoctorId
+                , new SelectList(Model.Doctors, "Id", "FirstName"))
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>   
+        <tr>
+            <td colspan="2">
+                <button type="submit">
+                    @(Model.ConsultationAssesmentsObject.Id == 0 ? "Create Consultation Assesment" : "Update Consultation Assesment")
+                </button>
+            </td>
+        </tr>
+    </table>
+}

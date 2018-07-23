@@ -1,0 +1,50 @@
+﻿@model  OMCWebApp.Models.ConsultationObjectiveModel
+
+@using (Html.BeginForm("InsertUpdateConsultationObjectives", "Consultation", FormMethod.Post))
+{
+    <h2>Manage Consultation Objective</h2>
+    @Html.AntiForgeryToken()
+    <table class="createConsAllergy">
+        <tr>
+            <td>
+                Vitals:
+            </td>
+            <td>
+                @Html.HiddenFor(m => m.ConsultationObjectivesObject.Id, Model.ConsultationObjectivesObject.Id)
+                @Html.HiddenFor(m => m.ConsultationObjectivesObject.AddedBy, Model.ConsultationObjectivesObject.AddedBy)
+                @Html.HiddenFor(m => m.ConsultationObjectivesObject.ModifiedBy, Model.ConsultationObjectivesObject.ModifiedBy)
+                @Html.HiddenFor(m => m.ConsultationObjectivesObject.ConsultationId, Model.ConsultationObjectivesObject.ConsultationId)
+                @Html.TextBoxFor(m => m.ConsultationObjectivesObject.Vitals
+                , Model.ConsultationObjectivesObject.Vitals)            
+            </td>
+        </tr>    
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Lab Results:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationObjectivesObject.LabResults
+                , Model.ConsultationObjectivesObject.LabResults)                
+            </td>
+        </tr>  
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Radio-Graphic Results:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationObjectivesObject.RadioGraphicResults
+                , Model.ConsultationObjectivesObject.RadioGraphicResults)
+            </td>
+        </tr>         
+        <tr style="height:20px;"></tr>   
+        <tr>
+            <td colspan="2">
+                <button type="submit">
+                    @(Model.ConsultationObjectivesObject.Id == 0 ? "Create Consultation Objective" : "Update Consultation Objective")
+                </button>
+            </td>
+        </tr>
+    </table>
+}

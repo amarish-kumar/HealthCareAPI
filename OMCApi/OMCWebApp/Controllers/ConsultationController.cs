@@ -1417,11 +1417,12 @@ namespace OMCWebApp.Controllers
             return View(PreviousPregnancyDetailsModelObject);
         }
 
-        // GET: Consultation/Index
-        public async Task<ActionResult> ConsultationSubjective(int consultationId, int? consultationSubjectiveId)
+        // GET: Consultation/ConsultationSubjective
+        public async Task<ActionResult> ConsultationSubjective(int userId, int consultationId, int? consultationSubjectiveId)
         {
             var model = new ConsultationSubjectiveModel();
             model.ConsultationSubjectivesObject.ConsultationId = consultationId;
+            model.ConsultationSubjectivesObject.AddedBy = userId;
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
@@ -1434,6 +1435,12 @@ namespace OMCWebApp.Controllers
                     && response.ConsultationSubjectiveList.Count > 0)
                 {
                     model.ConsultationSubjectivesObject = response.ConsultationSubjectiveList.First();
+                    model.ConsultationSubjectivesObject.ModifiedBy = userId;
+
+                    Res = await client.GetAsync("api/ConsultationAPI/GetConsultationSubjectiveNoteList?consultationSubjectiveId=" + model.ConsultationSubjectivesObject.Id.ToString() + "&consultationSubjectiveNoteId=");
+                    var notesResponse = JsonConvert.DeserializeObject<ConsultationSubjectiveNoteResponse>
+                        (Res.Content.ReadAsStringAsync().Result);
+                    model.ConsultationSubjectiveNotes = notesResponse.ConsultationSubjectiveNoteList;
                 }
             }
             return View(model);
@@ -1468,6 +1475,226 @@ namespace OMCWebApp.Controllers
             }
         }
 
+        // GET: Consultation/ConsultationSubjectiveNote
+        public async Task<ActionResult> ConsultationSubjectiveNote(int userId
+            , int consultationSubjectiveId, int? consultationSubjectiveNoteId)
+        {
+            var model = new ConsultationSubjectiveNoteModel();
+            model.ConsultationSubjectiveNotesObject.ConsultationSubjectiveId = consultationSubjectiveId;
+            model.ConsultationSubjectiveNotesObject.AddedBy = userId;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConsultationSubjectiveNoteList?consultationSubjectiveId=" + consultationSubjectiveId.ToString() + "&consultationSubjectiveNoteId=" + (consultationSubjectiveNoteId.HasValue ? consultationSubjectiveNoteId.Value.ToString() : string.Empty));
+                var response = JsonConvert.DeserializeObject<ConsultationSubjectiveNoteResponse>
+                    (Res.Content.ReadAsStringAsync().Result);
+                if (response.ConsultationSubjectiveNoteList != null
+                    && response.ConsultationSubjectiveNoteList.Count > 0)
+                {
+                    model.ConsultationSubjectiveNotesObject = response.ConsultationSubjectiveNoteList.First();
+                    model.ConsultationSubjectiveNotesObject.ModifiedBy = userId;
+                }
+                Res = await client.GetAsync("api/ConsultationAPI/GetDoctors?isActive=true&userRole=Doctor");
+                model.Doctors = JsonConvert.DeserializeObject<List<UserDetail>>(Res.Content.ReadAsStringAsync().Result);
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InsertUpdateConsultationSubjectiveNotes
+            (ConsultationSubjectiveNoteModel model)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var json = JsonConvert.SerializeObject(model.ConsultationSubjectiveNotesObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/ConsultationAPI/InsertUpdateConsultationSubjectiveNotes", content);
+                ConsultationSubjectiveNoteResponse result = new ConsultationSubjectiveNoteResponse();
+                if (Res.IsSuccessStatusCode)
+                {
+                    result.IsSuccess = true;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    result.IsSuccess = false;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                return View("ConsultationSubjectiveNoteResponse", result);
+            }
+        }
+
+        // GET: Consultation/ConsultationObjective
+        public async Task<ActionResult> ConsultationObjective(int userId, int consultationId, int? consultationObjectiveId)
+        {
+            var model = new ConsultationObjectiveModel();
+            model.ConsultationObjectivesObject.ConsultationId = consultationId;
+            model.ConsultationObjectivesObject.AddedBy = userId;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConsultationObjectiveList?consultationId=" + consultationId.ToString() + "&consultationObjectiveId=");
+                var response = JsonConvert.DeserializeObject<ConsultationObjectiveResponse>
+                    (Res.Content.ReadAsStringAsync().Result);
+                if (response.ConsultationObjectiveList != null
+                    && response.ConsultationObjectiveList.Count > 0)
+                {
+                    model.ConsultationObjectivesObject = response.ConsultationObjectiveList.First();
+                    model.ConsultationObjectivesObject.ModifiedBy = userId;
+                }
+
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InsertUpdateConsultationObjectives
+            (ConsultationObjectiveModel model)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var json = JsonConvert.SerializeObject(model.ConsultationObjectivesObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/ConsultationAPI/InsertUpdateConsultationObjectives", content);
+                ConsultationObjectiveResponse result = new ConsultationObjectiveResponse();
+                if (Res.IsSuccessStatusCode)
+                {
+                    result.IsSuccess = true;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    result.IsSuccess = false;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                return View("ConsultationObjectiveResponse", result);
+            }
+        }
+
+        // GET: Consultation/ConsultationAssesment
+        public async Task<ActionResult> ConsultationAssesment(int userId, int consultationId, int? consultationAssesmentId)
+        {
+            var model = new ConsultationAssesmentModel();
+            model.ConsultationAssesmentsObject.ConsultationId = consultationId;
+            model.ConsultationAssesmentsObject.AddedBy = userId;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConsultationAssesmentList?consultationId=" + consultationId.ToString() + "&consultationAssesmentId=");
+                var response = JsonConvert.DeserializeObject<ConsultationAssesmentResponse>
+                    (Res.Content.ReadAsStringAsync().Result);
+                if (response.ConsultationAssesmentsList != null
+                    && response.ConsultationAssesmentsList.Count > 0)
+                {
+                    model.ConsultationAssesmentsObject = response.ConsultationAssesmentsList.First();
+                    model.ConsultationAssesmentsObject.ModifiedBy = userId;
+                }
+                Res = await client.GetAsync("api/ConsultationAPI/GetDoctors?isActive=true&userRole=Doctor");
+                model.Doctors = JsonConvert.DeserializeObject<List<UserDetail>>(Res.Content.ReadAsStringAsync().Result);
+
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InsertUpdateConsultationAssesments
+            (ConsultationAssesmentModel model)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var json = JsonConvert.SerializeObject(model.ConsultationAssesmentsObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/ConsultationAPI/InsertUpdateConsultationAssesments", content);
+                ConsultationAssesmentResponse result = new ConsultationAssesmentResponse();
+                if (Res.IsSuccessStatusCode)
+                {
+                    result.IsSuccess = true;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    result.IsSuccess = false;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                return View("ConsultationAssesmentResponse", result);
+            }
+        }
+
+        // GET: Consultation/ConsultationPlan
+        public async Task<ActionResult> ConsultationPlan(int userId, int consultationId, int? consultationPlanId)
+        {
+            var model = new ConsultationPlanModel();
+            model.ConsultationPlansObject.ConsultationId = consultationId;
+            model.ConsultationPlansObject.AddedBy = userId;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConsultationPlanList?consultationId=" + consultationId.ToString() + "&consultationPlanId=");
+                var response = JsonConvert.DeserializeObject<ConsultationPlanResponse>
+                    (Res.Content.ReadAsStringAsync().Result);
+                if (response.ConsultationPlanList != null
+                    && response.ConsultationPlanList.Count > 0)
+                {
+                    model.ConsultationPlansObject = response.ConsultationPlanList.First();
+                    model.ConsultationPlansObject.ModifiedBy = userId;
+                }
+                Res = await client.GetAsync("api/ConsultationAPI/GetDoctors?isActive=true&userRole=Doctor");
+                model.Doctors = JsonConvert.DeserializeObject<List<UserDetail>>(Res.Content.ReadAsStringAsync().Result);
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InsertUpdateConsultationPlans
+            (ConsultationPlanModel model)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var json = JsonConvert.SerializeObject(model.ConsultationPlansObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/ConsultationAPI/InsertUpdateConsultationPlans", content);
+                ConsultationPlanResponse result = new ConsultationPlanResponse();
+                if (Res.IsSuccessStatusCode)
+                {
+                    result.IsSuccess = true;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    result.IsSuccess = false;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                return View("ConsultationPlanResponse", result);
+            }
+        }
         #endregion
     }
 }

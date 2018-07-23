@@ -1855,7 +1855,7 @@ namespace OMC.DAL.Library
                         DiagnosisNotes = drConsultationAssesment["DiagnosisNotes"] != DBNull.Value ? drConsultationAssesment["DiagnosisNotes"].ToString() : string.Empty,
                         DiagnosisDoctorId = Convert.ToInt32(drConsultationAssesment["DiagnosisDoctorId"].ToString()),
                         DiagnosisDoctorName = drConsultationAssesment["DiagnosisDoctorName"] != DBNull.Value ? drConsultationAssesment["DiagnosisDoctorName"].ToString() : string.Empty,
-                        DiagnosisTimestamp = drConsultationAssesment["DiagnosisTimestamp"] != DBNull.Value ? Convert.ToDateTime(drConsultationAssesment["DiagnosisDoctorName"].ToString()) : (DateTime?) null,
+                        DiagnosisTimestamp = drConsultationAssesment["DiagnosisTimestamp"] != DBNull.Value ? Convert.ToDateTime(drConsultationAssesment["DiagnosisTimestamp"].ToString()) : (DateTime?) null,
                         DiffDiagnosisNotes = drConsultationAssesment["DiffDiagnosisNotes"] != DBNull.Value ? drConsultationAssesment["DiffDiagnosisNotes"].ToString() : string.Empty,
                         DiffDiagnosisDoctorId = Convert.ToInt32(drConsultationAssesment["DiffDiagnosisDoctorId"].ToString()),
                         DiffDiagnosisDoctorName = drConsultationAssesment["DiffDiagnosisDoctorName"] != DBNull.Value ? drConsultationAssesment["DiffDiagnosisDoctorName"].ToString() : string.Empty,
