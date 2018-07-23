@@ -1,16 +1,17 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_OBJECTIVE_NOTE_MANAGER]    Script Date: 7/17/2018 11:07:37 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_OBJECTIVE_NOTE_MANAGER]    Script Date: 7/23/2018 10:19:15 AM ******/
 DROP PROCEDURE [dbo].[SP_CONSULTATION_OBJECTIVE_NOTE_MANAGER]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_OBJECTIVE_NOTE_MANAGER]    Script Date: 7/17/2018 11:07:37 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_OBJECTIVE_NOTE_MANAGER]    Script Date: 7/23/2018 10:19:15 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 CREATE PROCEDURE [dbo].[SP_CONSULTATION_OBJECTIVE_NOTE_MANAGER]
@@ -37,7 +38,7 @@ SELECT	 @Id = ConsultationPlanList.Columns.value('Id[1]', 'BIGINT')
 	   , @Notes = ConsultationPlanList.Columns.value('Notes[1]', 'NVARCHAR(MAX)')
 	   , @Timestamp = ConsultationPlanList.Columns.value('Timestamp[1]', 'DATETIME')   
 	   , @Active = ConsultationPlanList.Columns.value('Active[1]', 'bit')
-FROM   @CONSULTATION_OBJECTIVE_NOTE_XML.nodes('ConsultationPlans') AS ConsultationPlanList(Columns)
+FROM   @CONSULTATION_OBJECTIVE_NOTE_XML.nodes('ConsultationObjectiveNotes') AS ConsultationPlanList(Columns)
 
 /*BLOCK TO READ THE VARIABLES ENDS HERE*/
 IF @OPERATION IS NULL
@@ -72,7 +73,7 @@ BEGIN
 	ELSE
 	BEGIN
 
-		UPDATE [dbo].[ConsultationPlans]
+		UPDATE [dbo].[ConsultationObjectiveNotes]
 		   SET [Notes] = @Notes
 			  ,[Timestamp] = @Timestamp
 			  ,[DoctorId] = @DoctorId
@@ -86,6 +87,7 @@ END
 
 SELECT @Result AS Result, @ReturnMessage AS ReturnMessage
 END
+
 
 
 
