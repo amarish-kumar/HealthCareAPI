@@ -168,6 +168,7 @@
     <Compile Include="Models\ConsultationAssesmentModel.cs" />
     <Compile Include="Models\ConsultationPlanModel.cs" />
     <Compile Include="Models\ConsultationSubjectiveModel.cs" />
+    <Compile Include="Models\ConsultationObjectiveNoteModel.cs" />
     <Compile Include="Models\ConsultationSubjectiveNoteModel.cs" />
     <Compile Include="Models\DoctorResidencyModel.cs" />
     <Compile Include="Models\DoctorImageModel.cs" />

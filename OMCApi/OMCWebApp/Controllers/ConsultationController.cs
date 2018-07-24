@@ -1487,17 +1487,22 @@ namespace OMCWebApp.Controllers
                 client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetConsultationSubjectiveNoteList?consultationSubjectiveId=" + consultationSubjectiveId.ToString() + "&consultationSubjectiveNoteId=" + (consultationSubjectiveNoteId.HasValue ? consultationSubjectiveNoteId.Value.ToString() : string.Empty));
-                var response = JsonConvert.DeserializeObject<ConsultationSubjectiveNoteResponse>
-                    (Res.Content.ReadAsStringAsync().Result);
-                if (response.ConsultationSubjectiveNoteList != null
-                    && response.ConsultationSubjectiveNoteList.Count > 0)
-                {
-                    model.ConsultationSubjectiveNotesObject = response.ConsultationSubjectiveNoteList.First();
-                    model.ConsultationSubjectiveNotesObject.ModifiedBy = userId;
-                }
-                Res = await client.GetAsync("api/ConsultationAPI/GetDoctors?isActive=true&userRole=Doctor");
+                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetDoctors?isActive=true&userRole=Doctor");
                 model.Doctors = JsonConvert.DeserializeObject<List<UserDetail>>(Res.Content.ReadAsStringAsync().Result);
+                if (consultationSubjectiveNoteId.HasValue)
+                {
+                    Res = await client.GetAsync("api/ConsultationAPI/GetConsultationSubjectiveNoteList"
+                        +"?consultationSubjectiveId=" + consultationSubjectiveId.ToString() 
+                        + "&consultationSubjectiveNoteId=" + consultationSubjectiveNoteId.Value.ToString());
+                    var response = JsonConvert.DeserializeObject<ConsultationSubjectiveNoteResponse>
+                        (Res.Content.ReadAsStringAsync().Result);
+                    if (response.ConsultationSubjectiveNoteList != null
+                        && response.ConsultationSubjectiveNoteList.Count > 0)
+                    {
+                        model.ConsultationSubjectiveNotesObject = response.ConsultationSubjectiveNoteList.First();
+                        model.ConsultationSubjectiveNotesObject.ModifiedBy = userId;
+                    }
+                }
             }
             return View(model);
         }
@@ -1550,6 +1555,11 @@ namespace OMCWebApp.Controllers
                 {
                     model.ConsultationObjectivesObject = response.ConsultationObjectiveList.First();
                     model.ConsultationObjectivesObject.ModifiedBy = userId;
+
+                    Res = await client.GetAsync("api/ConsultationAPI/GetConsultationObjectiveNoteList?consultationObjectiveId=" + model.ConsultationObjectivesObject.Id.ToString() + "&consultationObjectiveNoteId=");
+                    var notesResponse = JsonConvert.DeserializeObject<ConsultationObjectiveNoteResponse>
+                        (Res.Content.ReadAsStringAsync().Result);
+                    model.ConsultationObjectiveNotes = notesResponse.ConsultationObjectiveNoteList;
                 }
 
             }
@@ -1582,6 +1592,67 @@ namespace OMCWebApp.Controllers
                     result.Message = Res.Content.ReadAsStringAsync().Result;
                 }
                 return View("ConsultationObjectiveResponse", result);
+            }
+        }
+
+        // GET: Consultation/ConsultationObjectiveNote
+        public async Task<ActionResult> ConsultationObjectiveNote(int userId
+            , int consultationObjectiveId, int? consultationObjectiveNoteId)
+        {
+            var model = new ConsultationObjectiveNoteModel();
+            model.ConsultationObjectiveNotesObject.ConsultationObjectiveId = consultationObjectiveId;
+            model.ConsultationObjectiveNotesObject.AddedBy = userId;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/ConsultationAPI/GetDoctors?isActive=true&userRole=Doctor");
+                model.Doctors = JsonConvert.DeserializeObject<List<UserDetail>>(Res.Content.ReadAsStringAsync().Result);
+                if (consultationObjectiveNoteId.HasValue)
+                {
+                    Res = await client.GetAsync("api/ConsultationAPI/GetConsultationObjectiveNoteList"
+                        +"?consultationObjectiveId=" + consultationObjectiveId.ToString() 
+                        + "&consultationObjectiveNoteId=" + consultationObjectiveNoteId.Value.ToString());
+                    var response = JsonConvert.DeserializeObject<ConsultationObjectiveNoteResponse>
+                        (Res.Content.ReadAsStringAsync().Result);
+                    if (response.ConsultationObjectiveNoteList != null
+                        && response.ConsultationObjectiveNoteList.Count > 0)
+                    {
+                        model.ConsultationObjectiveNotesObject = response.ConsultationObjectiveNoteList.First();
+                        model.ConsultationObjectiveNotesObject.ModifiedBy = userId;
+                    }
+                }
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InsertUpdateConsultationObjectiveNotes
+            (ConsultationObjectiveNoteModel model)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["BaseUrl"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var json = JsonConvert.SerializeObject(model.ConsultationObjectiveNotesObject);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage Res = await client.PostAsync("api/ConsultationAPI/InsertUpdateConsultationObjectiveNotes", content);
+                ConsultationObjectiveNoteResponse result = new ConsultationObjectiveNoteResponse();
+                if (Res.IsSuccessStatusCode)
+                {
+                    result.IsSuccess = true;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    result.IsSuccess = false;
+                    result.Message = Res.Content.ReadAsStringAsync().Result;
+                }
+                return View("ConsultationObjectiveNoteResponse", result);
             }
         }
 
