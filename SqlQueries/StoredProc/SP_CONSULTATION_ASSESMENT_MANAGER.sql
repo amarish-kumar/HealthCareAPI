@@ -1,11 +1,11 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_ASSESMENT_MANAGER]    Script Date: 7/17/2018 10:17:12 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_ASSESMENT_MANAGER]    Script Date: 7/20/2018 9:34:41 PM ******/
 DROP PROCEDURE [dbo].[SP_CONSULTATION_ASSESMENT_MANAGER]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_ASSESMENT_MANAGER]    Script Date: 7/17/2018 10:17:12 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_ASSESMENT_MANAGER]    Script Date: 7/20/2018 9:34:41 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -41,7 +41,7 @@ SELECT	 @Id = ConsultationObjectiveList.Columns.value('Id[1]', 'BIGINT')
 	   , @DiagnosisTimestamp = ConsultationObjectiveList.Columns.value('DiagnosisTimestamp[1]', 'DATETIME')
 	   , @DiffDiagnosisTimestamp = ConsultationObjectiveList.Columns.value('DiffDiagnosisTimestamp[1]', 'DATETIME')   
 	   , @Active = ConsultationObjectiveList.Columns.value('Active[1]', 'bit')
-FROM   @CONSULTATION_ASSESMENT_XML.nodes('ConsultationObjectives') AS ConsultationObjectiveList(Columns)
+FROM   @CONSULTATION_ASSESMENT_XML.nodes('ConsultationAssesments') AS ConsultationObjectiveList(Columns)
 
 /*BLOCK TO READ THE VARIABLES ENDS HERE*/
 IF @OPERATION IS NULL

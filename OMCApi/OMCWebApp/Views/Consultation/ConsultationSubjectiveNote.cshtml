@@ -1,0 +1,51 @@
+﻿@model  OMCWebApp.Models.ConsultationSubjectiveNoteModel
+
+@using (Html.BeginForm("InsertUpdateConsultationSubjectiveNotes", "Consultation", FormMethod.Post))
+{
+    <h2>Manage Consultation Subjective Note</h2>
+    @Html.AntiForgeryToken()
+    <table class="createConsAllergy">
+        <tr>
+            <td>
+                Notes:
+            </td>
+            <td>
+                @Html.HiddenFor(m => m.ConsultationSubjectiveNotesObject.Id, Model.ConsultationSubjectiveNotesObject.Id)
+                @Html.HiddenFor(m => m.ConsultationSubjectiveNotesObject.AddedBy, Model.ConsultationSubjectiveNotesObject.AddedBy)
+                @Html.HiddenFor(m => m.ConsultationSubjectiveNotesObject.ModifiedBy, Model.ConsultationSubjectiveNotesObject.ModifiedBy)
+                @Html.HiddenFor(m => m.ConsultationSubjectiveNotesObject.ConsultationSubjectiveId, Model.ConsultationSubjectiveNotesObject.ConsultationSubjectiveId)
+                @Html.TextBoxFor(m => m.ConsultationSubjectiveNotesObject.Notes
+                , Model.ConsultationSubjectiveNotesObject.Notes)            
+            </td>
+        </tr>    
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Timestamp:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationSubjectiveNotesObject.Timestamp, "{0:yyyy-MM-ddThh:mm:ss}"
+               , new { @class = "form-control", type = "datetime-local" })
+              
+            </td>
+        </tr>  
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Doctor:
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.ConsultationSubjectiveNotesObject.DoctorId
+                , new SelectList(Model.Doctors, "Id", "FirstName"))
+            </td>
+        </tr>       
+        <tr style="height:20px;"></tr>   
+        <tr>
+            <td colspan="2">
+                <button type="submit">
+                    @(Model.ConsultationSubjectiveNotesObject.Id == 0 ? "Create Consultation Subjective Note" : "Update Consultation Subjective Note")
+                </button>
+            </td>
+        </tr>
+    </table>
+}

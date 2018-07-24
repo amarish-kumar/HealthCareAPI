@@ -1067,13 +1067,14 @@ namespace OMCApi.Areas.Consultation.Controllers
         /// </summary>
         /// <param name="consultationSubjectiveNotes"></param>
         /// <returns></returns>
-        // Get: api/ConsultationAPI/InsertUpdateConsultationSubjectiveNotes
-        [HttpGet]
+        // POST: api/ConsultationAPI/InsertUpdateConsultationSubjectiveNotes
+        [HttpPost]
         [Route("InsertUpdateConsultationSubjectiveNotes")]
         public ConsultationSubjectiveNoteResponse InsertUpdateConsultationSubjectiveNotes
             (ConsultationSubjectiveNotes consultationSubjectiveNotes)
         {
             var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            consultationSubjectiveNotes.Active = true;
             return ConsultationBLObj.InsertUpdateConsultationSubjectiveNotes(consultationSubjectiveNotes);
         }
 
@@ -1102,13 +1103,14 @@ namespace OMCApi.Areas.Consultation.Controllers
         /// </summary>
         /// <param name="consultationObjectiveNotes"></param>
         /// <returns></returns>
-        // Get: api/ConsultationAPI/InsertUpdateConsultationObjectiveNotes
-        [HttpGet]
+        // POST: api/ConsultationAPI/InsertUpdateConsultationObjectiveNotes
+        [HttpPost]
         [Route("InsertUpdateConsultationObjectiveNotes")]
         public ConsultationObjectiveNoteResponse InsertUpdateConsultationObjectiveNotes
             (ConsultationObjectiveNotes consultationObjectiveNotes)
         {
             var ConsultationBLObj = _Kernel.Get<IConsultationBL>();
+            consultationObjectiveNotes.Active = true;
             return ConsultationBLObj.InsertUpdateConsultationObjectiveNotes(consultationObjectiveNotes);
         }
         #endregion

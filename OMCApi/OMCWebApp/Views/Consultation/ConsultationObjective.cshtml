@@ -1,0 +1,171 @@
+﻿@model  OMCWebApp.Models.ConsultationObjectiveModel
+<style>
+    table.addresses td,
+    table.addresses th {
+        border: 1px solid black;
+    }
+
+    table.createConv {
+        border: 1px solid black;
+    }
+
+    .collapsible {
+        background-color: #777;
+        color: white;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+    }
+
+        .active, .collapsible:hover {
+            background-color: #555;
+        }
+
+        .collapsible:after {
+            content: '\002B';
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+    .active:after {
+        content: "\2212";
+    }
+
+    .content {
+        padding: 0 18px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        background-color: #f1f1f1;
+    }
+</style>
+<h2>Manage Consultation Objective</h2>
+@using (Html.BeginForm("InsertUpdateConsultationObjectives", "Consultation", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <table class="createConsAllergy">
+        <tr>
+            <td>
+                Vitals:
+            </td>
+            <td>
+                @Html.HiddenFor(m => m.ConsultationObjectivesObject.Id, Model.ConsultationObjectivesObject.Id)
+                @Html.HiddenFor(m => m.ConsultationObjectivesObject.AddedBy, Model.ConsultationObjectivesObject.AddedBy)
+                @Html.HiddenFor(m => m.ConsultationObjectivesObject.ModifiedBy, Model.ConsultationObjectivesObject.ModifiedBy)
+                @Html.HiddenFor(m => m.ConsultationObjectivesObject.ConsultationId, Model.ConsultationObjectivesObject.ConsultationId)
+                @Html.TextBoxFor(m => m.ConsultationObjectivesObject.Vitals
+                , Model.ConsultationObjectivesObject.Vitals)            
+            </td>
+        </tr>    
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Lab Results:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationObjectivesObject.LabResults
+                , Model.ConsultationObjectivesObject.LabResults)                
+            </td>
+        </tr>  
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td>
+                Radio-Graphic Results:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ConsultationObjectivesObject.RadioGraphicResults
+                , Model.ConsultationObjectivesObject.RadioGraphicResults)
+            </td>
+        </tr>         
+        <tr style="height:20px;"></tr>   
+        <tr>
+            <td colspan="2">
+                <button type="submit">
+                    @(Model.ConsultationObjectivesObject.Id == 0 ? "Create Consultation Objective" : "Update Consultation Objective")
+                </button>
+            </td>
+        </tr>
+    </table>
+
+    <br />
+    <table>
+        <tr>
+            <td>
+                @Html.ActionLink("Create New Objective Note", "ConsultationObjectiveNote", "Consultation"
+               , new
+               {
+                   consultationObjectiveId = Model.ConsultationObjectivesObject.Id
+               ,
+                   userId = 1,
+                   consultationObjectiveNoteId = ""
+               }, null)
+                <button type="button" class="collapsible">Objective Notes</button>
+                <div class="content">
+                    @if (Model.ConsultationObjectiveNotes != null
+                    && Model.ConsultationObjectiveNotes.Count() != 0)
+                    {
+                        <table class="addresses">
+                            <thead>
+                                <th>Notes</th>
+                                <th>Doctor Name</th>
+                                <th>Timestamp</th>
+                                <th>Action</th>
+                            </thead>
+                            @foreach (var ObjectiveNotes in Model.ConsultationObjectiveNotes)
+                            {
+                                <tr>
+                                    <td>@ObjectiveNotes.Notes</td>
+                                    <td>@ObjectiveNotes.DoctorName</td>
+                                    <td>@ObjectiveNotes.Timestamp</td>
+                                    <td>
+                                        @Html.ActionLink("Edit Objective Notes", "ConsultationObjectiveNote", "Consultation"
+                                        , new
+                                        {
+                                            consultationObjectiveId = ObjectiveNotes.ConsultationObjectiveId,
+                                            consultationObjectiveNoteId = ObjectiveNotes.Id,
+                                            userId = 1
+                                        }, null)
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No awards recorded</p>
+                    }
+                </div>
+            </td>
+        </tr>
+        <tr style="height:20px;"></tr>
+    </table>
+}
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var coll = document.getElementsByClassName("collapsible");
+            var i;
+
+            for (i = 0; i < coll.length; i++) {
+                coll[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var content = this.nextElementSibling;
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            }
+        });
+    </script>
+
+}

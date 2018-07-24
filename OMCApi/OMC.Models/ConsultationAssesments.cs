@@ -10,11 +10,17 @@ namespace OMC.Models
         [Range(1, int.MaxValue, ErrorMessage = "Consultation Id is required.")]
         public int ConsultationId { get; set; }
         public string Notes { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime? DiagnosisTimestamp { get; set; }
+
         public string DiagnosisNotes { get; set; }
         [Required(ErrorMessage = "Doctor Id is required.")]
         [Range(1, int.MaxValue, ErrorMessage = "Diagnosis doctor Id is required.")]
         public int DiagnosisDoctorId { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime? DiffDiagnosisTimestamp { get; set; }
         public string DiffDiagnosisNotes { get; set; }
         [Required(ErrorMessage = "Doctor Id is required.")]

@@ -1,11 +1,11 @@
 USE [HealthCare]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_SUBJECTIVE_NOTE_MANAGER]    Script Date: 7/17/2018 10:23:49 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_SUBJECTIVE_NOTE_MANAGER]    Script Date: 7/23/2018 10:10:07 AM ******/
 DROP PROCEDURE [dbo].[SP_CONSULTATION_SUBJECTIVE_NOTE_MANAGER]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_SUBJECTIVE_NOTE_MANAGER]    Script Date: 7/17/2018 10:23:49 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CONSULTATION_SUBJECTIVE_NOTE_MANAGER]    Script Date: 7/23/2018 10:10:07 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -36,7 +36,7 @@ SELECT	 @Id = ConsultationPlanList.Columns.value('Id[1]', 'BIGINT')
 	   , @Notes = ConsultationPlanList.Columns.value('Notes[1]', 'NVARCHAR(MAX)')
 	   , @Timestamp = ConsultationPlanList.Columns.value('Timestamp[1]', 'DATETIME')   
 	   , @Active = ConsultationPlanList.Columns.value('Active[1]', 'bit')
-FROM   @CONSULTATION_SUBJECTIVE_NOTE_XML.nodes('ConsultationPlans') AS ConsultationPlanList(Columns)
+FROM   @CONSULTATION_SUBJECTIVE_NOTE_XML.nodes('ConsultationSubjectiveNotes') AS ConsultationPlanList(Columns)
 
 /*BLOCK TO READ THE VARIABLES ENDS HERE*/
 IF @OPERATION IS NULL
@@ -71,7 +71,7 @@ BEGIN
 	ELSE
 	BEGIN
 
-		UPDATE [dbo].[ConsultationPlans]
+		UPDATE [dbo].[ConsultationSubjectiveNotes]
 		   SET [Notes] = @Notes
 			  ,[Timestamp] = @Timestamp
 			  ,[DoctorId] = @DoctorId

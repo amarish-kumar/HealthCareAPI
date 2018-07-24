@@ -36,6 +36,18 @@
             <td>
                 @Html.ActionLink("View Consultation", "View", "Consultation"
                     , new { userId = Model.UserId, consultationId = consultation.ConsultationId, userRole = Model.UserRole }, null)
+
+                @Html.ActionLink("Subjective", "ConsultationSubjective", "Consultation"
+                    , new { userId = Model.UserId, consultationId = consultation.ConsultationId, consultationSubjectiveId = "" }, null)
+                
+                @Html.ActionLink("Objective", "ConsultationObjective", "Consultation"
+                    , new { userId = Model.UserId, consultationId = consultation.ConsultationId, consultationObjectiveId = "" }, null)
+                
+                @Html.ActionLink("Assesment", "ConsultationAssesment", "Consultation"
+                    , new { userId = Model.UserId, consultationId = consultation.ConsultationId, consultationAssesmentId = "" }, null)
+                
+                @Html.ActionLink("Plan", "ConsultationPlan", "Consultation"
+                    , new { userId = Model.UserId, consultationId = consultation.ConsultationId, consultationPlanId = "" }, null)
             </td>
         </tr>
     }
